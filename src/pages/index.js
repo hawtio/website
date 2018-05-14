@@ -5,9 +5,9 @@ const IndexPage = ({ data }) => (
   <div>
     <h1>{data.site.siteMetadata.description}</h1>
     <div style={{ textAlign: 'center' }}>
-      <a href="/articles/">View Demos</a>
+      <Link to="/docs/articles/">View Demos</Link>
       &nbsp;&nbsp;&nbsp;
-      <a href="/get-started/">Get Started Now</a>
+      <Link to="/docs/get-started/">Get Started Now</Link>
     </div>
   </div>
 )

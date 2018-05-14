@@ -19,10 +19,10 @@ const Header = ({ siteTitle }) => (
         <img src="/images/hawtio_logo.svg" style={{ height: 60, margin: 0 }} />
       </Link>
       <ul style={{ listStyle: `none`, float: `right` }}>
-        <HeaderList><Link to="/get-started/" style={{ color: 'white' }}>Get Started</Link></HeaderList>
+        <HeaderList><Link to="/docs/get-started/" style={{ color: 'white' }}>Get Started</Link></HeaderList>
         <HeaderList><Link to="/docs/" style={{ color: 'white' }}>Docs</Link></HeaderList>
         <HeaderList><Link to="/community/" style={{ color: 'white' }}>Community</Link></HeaderList>
-        <HeaderList><Link to="/articles/" style={{ color: 'white' }}>Demos</Link></HeaderList>
+        <HeaderList><Link to="/docs/articles/" style={{ color: 'white' }}>Demos</Link></HeaderList>
         <HeaderList><a href="https://github.com/hawtio/hawtio" style={{ color: 'white' }}>GitHub</a></HeaderList>
       </ul>
     </header>

@@ -1,3 +1,6 @@
+---
+title: "Configuration"
+---
 
 ## Environment Variables
 

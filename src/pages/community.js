@@ -13,8 +13,8 @@ const CommunityPage = ({ data }) => {
     <div>
       <h1>Community</h1>
 
-      <p>Welcome to the <b>Hawtio</b> community!  We <a href="../Contributing.md">love contributions</a>!</p>
-      <p><a href="../Contributing.md">How To Contribute</a></p>
+      <p>Welcome to the <b>Hawtio</b> community!  We <Link to="/contributing/">love contributions</Link>!</p>
+      <p><Link to="/contributing/">How to Contribute</Link></p>
       <p>Please dive in wherever takes your fancy!  It's <i>hawt</i> but stay cool!</p>
 
       <h2>

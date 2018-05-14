@@ -1,14 +1,16 @@
-## Documentation
+---
+title: "Documentation"
+---
 
-### Using Hawtio
+## Using Hawtio
 
-* [Get Started](GetStarted.md)
-* [Configuration](Configuration.md)
-* [Plugins](Plugins.md)
-* [Maven Plugins](MavenPlugins.md)
-* [Articles](Articles.md)
+* [Get Started](/docs/get-started/)
+* [Configuration](/docs/configuration/)
+* [Plugins](/docs/plugins/)
+* [Maven Plugins](/docs/maven-plugins/)
+* [Articles](/docs/articles/)
 
-### General Docs
+## General Docs
 
 * [FAQ](../FAQ.md)
 * [Change Log](../CHANGES.md)
