@@ -13,8 +13,8 @@ const DocsTemplate = ({ data }) => {
 export default DocsTemplate
 
 export const query = graphql`
-  query DocsTemplateQuery($path: String!) {
-    markdownRemark(fields: { path: { eq: $path } }) {
+  query DocsTemplateQuery($slug: String!) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       frontmatter {
         title
