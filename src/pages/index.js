@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'gatsby-link'
-import { Jumbotron } from 'react-bootstrap'
-import { Button } from 'patternfly-react'
+import { Jumbotron, Button } from 'react-bootstrap'
 
 const IndexPage = ({ data }) => (
   <div>

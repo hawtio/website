@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'gatsby-link'
-import { Button } from 'patternfly-react'
+import { Button } from 'react-bootstrap'
 
 const TitleImage = props =>
   <img style={{ verticalAlign: 'middle', maxWidth: 48, maxHeight: 48 }} src={props.src} />
@@ -53,14 +53,14 @@ const CommunityPage = ({ data }) => {
         We also keep an eye out on Stack Overflow for questions which makes it really easy to find answers to questions
         and commonly found problems. Though if you're running into an issue please use our <a href="${project_issue_url}">issue tracker</a> instead.
       </p>
-      <p><Button bsStyle="primary"  href="http://stackoverflow.com/questions/tagged/hawtio">Stack Overflow</Button></p>
+      <p><Button bsStyle="primary" href="http://stackoverflow.com/questions/tagged/hawtio">Stack Overflow</Button></p>
 
       <h2><TitleImage src="/images/octocat_social.png" /> Source Repository</h2>
       <p>
         All the Hawtio source code is managed using the distributed version system <a href="http://git-scm.com">git</a> and
         hosted on <a href="http://github.com/">GitHub</a>.
       </p>
-      <p><Button bsStyle="primary"  href={repositoryUrl}>Hawtio @ GitHub</Button></p>
+      <p><Button bsStyle="primary" href={repositoryUrl}>Hawtio @ GitHub</Button></p>
       <p>
         Both git and GitHub are awesome for collaboration!  To make improvements or bug fixes to the Hawtio project,
         simply fork the project, commit your changes, and send a pull request.
