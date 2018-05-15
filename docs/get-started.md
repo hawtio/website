@@ -17,7 +17,7 @@ The out of the box defaults try to do the right thing for most folks but if you 
 
 You can startup hawtio on your machine using the hawtio-app executable jar.
 
-<a class="btn btn-large  btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-app/1.5.9/hawtio-app-1.5.9.jar">Download the executable hawtio-app-1.5.9.jar</a>
+<a class="btn btn-large btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-app/1.5.9/hawtio-app-1.5.9.jar">Download the executable hawtio-app-1.5.9.jar</a>
 
 Once you have downloaded it, just run this from the command line:
 

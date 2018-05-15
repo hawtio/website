@@ -5,7 +5,8 @@ import Helmet from 'react-helmet'
 import Header from '../components/header'
 import Footer from '../components/footer'
 
-import './index.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'patternfly-react/dist/css/patternfly-react.css'
 
 const Layout = ({ children, data }) => (
   <div>
