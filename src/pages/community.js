@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'gatsby-link'
-import { Button } from 'react-bootstrap'
+import { Button, PageHeader } from 'react-bootstrap'
 
 const TitleImage = props =>
   <img style={{ verticalAlign: 'middle', maxWidth: 48, maxHeight: 48 }} src={props.src} />
@@ -11,8 +11,10 @@ const CommunityPage = ({ data }) => {
   const forumUrl = siteMetadata.forumUrl
   const repositoryUrl = siteMetadata.repositoryUrl
   return (
-    <div>
-      <h1>Community</h1>
+    <div className="container">
+      <PageHeader>
+        <h1>Community</h1>
+      </PageHeader>
 
       <p>Welcome to the <b>Hawtio</b> community!  We <Link to="/contributing/">love contributions</Link>!</p>
       <p><Button bsStyle="primary" href="/contributing/">How to Contribute</Button></p>

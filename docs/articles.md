@@ -1,4 +1,8 @@
-# Demos (2.x)
+---
+title: "Articles"
+---
+
+## Demos (2.x)
 
 <table class="table table-striped">
 <tr>
@@ -21,21 +25,21 @@
 </tr>
 </table>
 
-# Videos (2.x)
+## Videos (2.x)
 
 The following videos are in the [hawtio video album](https://vimeo.com/album/3324251):
 
 * [create a hawtio plugin in 3 minutes](https://vimeo.com/123423650)
 * [add hawtio forms to your plugin](https://vimeo.com/123441243) using [hawtio-forms](https://github.com/hawtio/hawtio-forms)
 
-# Demos (1.x)
+## Demos (1.x)
 
 * <a href="https://vimeo.com/album/2635012" title="a library of demo videos using hawtio with JBoss Fuse">various demos of using hawtio, ActiveMQ and Camel inside JBoss Fuse</a> by [James Strachan](http://macstrac.blogspot.co.uk/). JBoss Fuse 6.1 or later uses hawtio for its management console; so all these demos are really hawtio demos (in terms of the console).
 * <a href="http://vimeo.com/80625940" title="Demo of Fuse 6.1 with Apache Camel and hawtio on OpenShift">Demo of Fuse 6.1 with Apache Camel and hawtio on OpenShift</a> by [James Strachan](http://macstrac.blogspot.co.uk/) showing how to get started using <a href="http://www.jboss.org/products/fuse">JBoss Fuse</a> 6.1 Early Access release on OpenShift for creating integration solutions based on Apache Camel in the hybrid cloud (via <a href="https://www.openshift.com/products/online">OpenShift Online</a> for the public cloud or <a href="https://www.openshift.com/products/enterprise">OpenShift Enterprise</a> for on premise, or a combination of both).
 * <a href="https://vimeo.com/68442425" title="see a demo of provisioning Fuse containers, viewing, editing, debugging and provisioning Camel routes using Fuse Fabric with the hawtio console">CamelOne keynote 2013</a> by [James Strachan](http://macstrac.blogspot.co.uk/) showing the create, view, edit debug and provision of Camel routes using Fuse Fabric with the hawtio
 * <a href="https://www.youtube.com/watch?v=sL6tlEv-mxQ">demo of FMC and hawtio with Fuse Fabric</a>
 
-## Videos on hawtio
+### Videos on hawtio
 
 The following videos has been found on the web about hawtio.  If you find any others please [let us know](http://hawt.io/community/index.html) or [raise an issue](https://github.com/hawtio/hawtio/issues?state=open) and we'll add it to the list.
 
@@ -43,7 +47,7 @@ The following videos has been found on the web about hawtio.  If you find any ot
 * [hawtio - the Extensive console](https://www.youtube.com/watch?v=Bxgk9--_WzE) by Stan Lewis, at [DevNation 2014](http://www.devnation.org/) presenting how you can extend and build your own plugins to hawtio. Highly recommended if you want to build custom plugins.
 * Hawtio on Talend ESB part [1](https://www.youtube.com/watch?v=lzdgxcHwfcY), [2](https://www.youtube.com/watch?v=_vjp8rg1DNQ), [3](https://www.youtube.com/watch?v=uJqG2JbXfkM) by [Robin Huiser](http://nl.linkedin.com/in/robinhuiser)
 
-## Articles on using hawtio
+### Articles on using hawtio
 
 The following articles have been found on the web about hawtio. If you find any others please [let us know](http://hawt.io/community/index.html) or [raise an issue](https://github.com/hawtio/hawtio/issues?state=open) and we'll add it to the list.
 
@@ -61,7 +65,7 @@ The following articles have been found on the web about hawtio. If you find any 
 * [HawtIO on OpenShift](http://jimmidyson.github.io/hawtio-on-OpenShift/) by Jimmi Dyson, how to run Apache Tomcat on OpenShift Online and install hawtio into the Tomcat.
 * [Hawtio on JBoss EAP 6](http://jcordes73.blogspot.de/2014/12/deploying-hawtio-on-jboss-eap-6.html) by Jochen Cordes how to deploy Hawtio on JBoss EAP 6
 
-## Developer articles
+### Developer articles
 
 * [Creating a directive in hawtio](http://www.wayofquality.de/open%20source/hawtio/creating-a-hwatio-directive/) by [Andreas Gies](http://www.wayofquality.de/index.php/blog)
 * [Using a data factory to encapsulate backend data in hawtio](http://www.wayofquality.de/open%20source/hawtio/using-a-datafactory-in-hawtio/) by [Andreas Gies](http://www.wayofquality.de/index.php/blog)
