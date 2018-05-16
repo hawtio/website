@@ -49,7 +49,7 @@ const CommunityPage = ({ data }) => {
       </p>
 
       <h2>
-        <TitleImage src="/images/stackoverflow.png" /> Stack Overflow
+        <TitleImage src="/images/social/stackoverflow.png" /> Stack Overflow
       </h2>
       <p>
         We also keep an eye out on Stack Overflow for questions which makes it really easy to find answers to questions
@@ -57,7 +57,7 @@ const CommunityPage = ({ data }) => {
       </p>
       <p><Button bsStyle="primary" href="http://stackoverflow.com/questions/tagged/hawtio">Stack Overflow</Button></p>
 
-      <h2><TitleImage src="/images/octocat_social.png" /> Source Repository</h2>
+      <h2><TitleImage src="/images/social/octocat.jpg" /> Source Repository</h2>
       <p>
         All the Hawtio source code is managed using the distributed version system <a href="http://git-scm.com">git</a> and
         hosted on <a href="http://github.com/">GitHub</a>.
