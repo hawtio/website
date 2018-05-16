@@ -2,6 +2,7 @@ module.exports = {
   siteMetadata: {
     title: 'Hawtio',
     description: 'A modular web console for managing your JVM stuff and stay cool!',
+    keywords: 'hawtio, jvm, jmx, java, monitoring, management',
     siteUrl: 'http://hawt.io',
     issueUrl: 'https://github.com/hawtio/hawtio/issues',
     forumUrl: 'https://groups.google.com/forum/#!forum/hawtio',

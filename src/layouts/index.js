@@ -7,19 +7,22 @@ import Footer from '../components/footer'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const Layout = ({ children, data }) => (
-  <div>
-    <Helmet
-      title={data.site.siteMetadata.title}
-      meta={[
-        { name: 'description', content: data.site.siteMetadata.description },
-        { name: 'keywords', content: 'hawtio, jvm, jmx, java, monitoring, management' },
-      ]} />
-    <Header siteTitle={data.site.siteMetadata.title} />
-    {children()}
-    <Footer />
-  </div>
-)
+const Layout = ({ children, data }) => {
+  const { title, description, keywords } = data.site.siteMetadata
+  return (
+    <div>
+      <Helmet
+        title={`${title} - ${description}`}
+        meta={[
+          { name: 'description', content: description },
+          { name: 'keywords', content: keywords },
+        ]} />
+      <Header siteTitle={data.site.siteMetadata.title} />
+      {children()}
+      <Footer />
+    </div>
+  )
+}
 
 Layout.propTypes = {
   children: PropTypes.func,
@@ -32,6 +35,8 @@ export const query = graphql`
     site {
       siteMetadata {
         title
+        description
+        keywords
       }
     }
   }
