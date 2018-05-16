@@ -16,7 +16,7 @@ const LinkItem = props =>
 const ImageItem = props =>
   <HeaderList>
     <a href={props.href}>
-      <img src={props.src} style={{ height: 20, marginLeft: '0.5rem' }} />
+      <img src={props.src} style={{ height: 20 }} />
     </a>
   </HeaderList>
 
