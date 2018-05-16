@@ -28,6 +28,7 @@ const Header = ({ siteTitle }) => (
         <NavItem eventKey={2} href="/docs/get-started/">Get Started</NavItem>
         <NavItem eventKey={3} href="/docs/">Docs</NavItem>
         <NavItem eventKey={4} href="/docs/articles/">Demos</NavItem>
+        <NavItem eventKey={4} href="https://github.com/hawtio/hawtio/releases">Download</NavItem>
         <NavItem eventKey={5} href="/community/">Community</NavItem>
       </Nav>
       <Nav pullRight style={{ paddingTop: '0.5rem' }}>
