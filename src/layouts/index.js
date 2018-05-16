@@ -18,7 +18,9 @@ const Layout = ({ children, data }) => {
           { name: 'keywords', content: keywords },
         ]} />
       <Header siteTitle={title} />
-      {children()}
+      <div style={{ marginTop: 50 }}>
+        {children()}
+      </div>
       <Footer />
     </div>
   )

@@ -1,55 +1,49 @@
 import React from 'react'
 import Link from 'gatsby-link'
+import {
+  Navbar,
+  Nav,
+  NavItem
+} from 'react-bootstrap';
 
-const HeaderList = props =>
-  <li style={{ display: 'inline-block', marginRight: '2rem' }}>
-    {props.children}
-  </li>
-
-const LinkItem = props =>
-  <HeaderList>
-    <Link to={props.to} style={{ color: 'white' }}>
-      {props.children}
-    </Link>
-  </HeaderList>
-
-const ImageItem = props =>
-  <HeaderList>
-    <a href={props.href}>
-      <img src={props.src} style={{ height: 20 }} />
-    </a>
-  </HeaderList>
+const ItemImage = props =>
+  <img src={props.src} alt={props.alt} style={{ height: 20 }} />
 
 const Header = ({ siteTitle }) => (
-  <div style={{
+  <Navbar inverse fixedTop fluid collapseOnSelect style={{
     background: 'black'
     //background: 'url(/images/banner.png)',
     //backgroundPosition: 'center',
     //backgroundSize: 'cover'
   }}>
-    <header style={{ height: 50, margin: '0 auto', padding: '1rem 5rem' }}>
-      <ul style={{ listStyle: 'none', float: 'left' }}>
-        <LinkItem to="/">
-          <img src="/images/logo.png" style={{ height: 30, marginRight: '1rem' }} /> Home
-        </LinkItem>
-        <LinkItem to="/docs/get-started/">Get Started</LinkItem>
-        <LinkItem to="/docs/">Docs</LinkItem>
-        <LinkItem to="/docs/articles/">Demos</LinkItem>
-        <LinkItem to="/community/">Community</LinkItem>
-      </ul>
-      <ul style={{ listStyle: 'none', float: 'right' }}>
-        <ImageItem
-          href="https://github.com/hawtio/hawtio"
-          src="/images/social/github-light-32.png" />
-        <ImageItem
-          href="https://twitter.com/hawtio"
-          src="/images/social/twitter-white.png" />
-        <ImageItem
-          href="http://stackoverflow.com/questions/tagged/hawtio"
-          src="/images/social/stackoverflow.png" />
-      </ul>
-    </header>
-  </div>
+    <Navbar.Header>
+      <Navbar.Brand>
+        <Link to="/"><img src="/images/logo.png" alt="Hawtio" style={{ height: 30 }} /></Link>
+      </Navbar.Brand>
+      <Navbar.Toggle />
+    </Navbar.Header>
+    <Navbar.Collapse>
+      <Nav style={{ paddingTop: '0.5rem' }}>
+        <NavItem eventKey={1} href="/" >Home</NavItem>
+        <NavItem eventKey={2} href="/docs/get-started/">Get Started</NavItem>
+        <NavItem eventKey={3} href="/docs/">Docs</NavItem>
+        <NavItem eventKey={4} href="/docs/articles/">Demos</NavItem>
+        <NavItem eventKey={5} href="/community/">Community</NavItem>
+      </Nav>
+      <Nav pullRight style={{ paddingTop: '0.5rem' }}>
+        <NavItem eventKey={1} href="https://github.com/hawtio/hawtio">
+          <ItemImage src="/images/social/github-light-32.png" alt="GitHub" />
+        </NavItem>
+        <NavItem eventKey={2} href="https://twitter.com/hawtio">
+          <ItemImage src="/images/social/twitter-white.png" alt="Twitter" />
+        </NavItem>
+        <NavItem eventKey={3}
+          href="http://stackoverflow.com/questions/tagged/hawtio">
+          <ItemImage src="/images/social/stackoverflow.png" alt="StackOverflow" />
+        </NavItem>
+      </Nav>
+    </Navbar.Collapse>
+  </Navbar>
 )
 
 export default Header
