@@ -29,7 +29,7 @@ const IndexPage = ({ data }) => {
                 </div>
               </Col>
               <Col xsHidden smHidden md={6}>
-                <Carousel interval={10000} indicators={true} controls={true} style={{ marginLeft: 50 }}>
+                <Carousel interval={10000} indicators={false} controls={false} style={{ marginLeft: 50 }}>
                   <Carousel.Item>
                     <img alt="JMX MBeans" src="/images/screenshots/jmx.png" />
                     <Carousel.Caption>
