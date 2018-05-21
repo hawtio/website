@@ -7,7 +7,8 @@ import {
   Jumbotron,
   Carousel,
   Button,
-  PageHeader
+  PageHeader,
+  Glyphicon
 } from 'react-bootstrap'
 
 const IndexPage = ({ data }) => {
@@ -57,42 +58,81 @@ const IndexPage = ({ data }) => {
       <div className="container">
         <Grid>
           <Row>
-            <Col md={6} style={{ padding: '3rem' }}>
-              <h3>Modular by nature</h3>
+            <Col md={4} style={{ padding: '3rem' }}>
+              <h3>
+                <Glyphicon glyph="wrench" style={{
+                  verticalAlign: 'top', marginRight: '0.5rem'
+                }} /> Modular architecture
+              </h3>
               <p>
-                Hawtio has lots of plugins such as: a git-based Dashboard and Wiki, logs, health,
-                JMX, OSGi, Apache ActiveMQ, Apache Camel, Apache OpenEJB, Apache Tomcat, Jetty, JBoss and Fuse Fabric
+                Hawtio is made up of a collection of plugins at its <a href="https://github.com/hawtio/hawtio-core">core</a>,{' '}
+                each of which is an <a href="https://angularjs.org">AngularJS</a> module.
               </p>
               <p>
-                You can dynamically extend hawtio with your own plugins or automatically discover plugins inside the JVM.
+                It is highly extensible: you can dynamically extend Hawtio with your own plugins or automatically discover plugins inside the JVM.
               </p>
             </Col>
-            <Col md={6} style={{ padding: '3rem' }}>
-              <h3>Jolokia included</h3>
+            <Col md={4} style={{ padding: '3rem' }}>
+              <h3>
+                <Glyphicon glyph="equalizer" style={{
+                  verticalAlign: 'top', marginRight: '0.5rem'
+                }} /> Built-in plugins
+              </h3>
               <p>
-                The only server side dependency (other than the static HTML/CSS/JS/images) is the excellent Jolokia
-                library which has small footprint (around 300Kb) and is available as a JVM agent, or comes embedded
-                as a servlet inside the hawtio-default.war or can be deployed as an OSGi bundle.
+                Hawtio has lots of built-in plugins such as:{' '}
+                <a href="https://github.com/hawtio/hawtio-jmx/tree/master/plugins/jmx">JMX</a>,{' '}
+                <a href="https://github.com/hawtio/hawtio-jmx/tree/master/plugins/jvm">JVM</a>,{' '}
+                <a href="https://github.com/hawtio/hawtio-integration/tree/master/plugins/osgi">OSGi</a>,{' '}
+                <a href="https://github.com/hawtio/hawtio-integration/tree/master/plugins/activemq">Apache ActiveMQ</a>,{' '}
+                <a href="https://github.com/hawtio/hawtio-integration/tree/master/plugins/camel">Apache Camel</a>, and{' '}
+                <a href="https://github.com/hawtio/hawtio-integration/tree/master/plugins/spring-boot">Spring Boot</a>.
+              </p>
+              <p>
+                You can get to work right away with Hawtio out of the box.
+              </p>
+            </Col>
+            <Col md={4} style={{ padding: '3rem' }}>
+              <h3>
+                <Glyphicon glyph="fire" style={{
+                  verticalAlign: 'top', marginRight: '0.5rem'
+                }} /> Small footprint
+              </h3>
+              <p>
+                The only server side dependency (other than the static HTML/CSS/JS/images) is the
+                excellent <a href="https://jolokia.org">Jolokia</a> library which has small footprint (around 300 KB)
+                and is available as a JVM agent, or comes embedded as a servlet inside the <code>hawtio-default.war</code> or
+                can be deployed as an OSGi bundle.
               </p>
             </Col>
           </Row>
           <Row>
-            <Col md={6} style={{ padding: '3rem' }}>
-              <h3>Baked with PatternFly</h3>
+            <Col md={4} style={{ padding: '3rem' }}>
+              <h3>
+                <Glyphicon glyph="eye-open" style={{
+                  verticalAlign: 'top', marginRight: '0.5rem'
+                }} /> Look & feel for enterprise
+              </h3>
               <p>
-                hawtio has lots of plugins such as: a git-based Dashboard and Wiki, logs, health,
-                JMX, OSGi, Apache ActiveMQ, Apache Camel, Apache OpenEJB, Apache Tomcat, Jetty, JBoss and Fuse Fabric
+                Hawtio skin is baked with <a href="https://getbootstrap.com">Bootstrap</a> and{' '}
+                <a href="http://www.patternfly.org">PatternFly</a>, a UI framework for enterprise web applications.
+                The stylish UI won't let you get bored!
               </p>
             </Col>
-            <Col md={6} style={{ padding: '3rem' }}>
-              <h3>Ready for cloud</h3>
+            <Col md={4} style={{ padding: '3rem' }}>
+              <h3>
+                <Glyphicon glyph="cloud-upload" style={{
+                  verticalAlign: 'top', marginRight: '0.5rem'
+                }} /> Ready for cloud
+              </h3>
               <p>
-                hawtio has lots of plugins such as: a git-based Dashboard and Wiki, logs, health,
-                JMX, OSGi, Apache ActiveMQ, Apache Camel, Apache OpenEJB, Apache Tomcat, Jetty, JBoss and Fuse Fabric
+                Hawtio console can be{' '}
+                <a href="https://github.com/hawtio/hawtio/tree/2.x/examples/springboot">attached to a Spring Boot application in a snap</a>.
               </p>
               <p>
-                You can dynamically extend hawtio with your own plugins or automatically discover plugins inside the JVM.
+                Hawtio is also <a href="https://github.com/hawtio/hawtio-online">ready to run on Kubernetes and OpenShift</a>.
               </p>
+            </Col>
+            <Col xsHidden md={4} style={{ padding: '3rem' }}>
             </Col>
           </Row>
         </Grid>
