@@ -11,14 +11,15 @@ const ItemImage = props =>
 
 const Header = ({ siteTitle }) => (
   <Navbar inverse fixedTop fluid collapseOnSelect style={{
-    background: 'black'
+    background: 'black',
+    minHeight: 60
     //background: 'url(/images/banner.png)',
     //backgroundPosition: 'center',
     //backgroundSize: 'cover'
   }}>
     <Navbar.Header>
       <Navbar.Brand>
-        <Link to="/"><img src="/images/logo.png" alt="Hawtio" style={{ height: 30 }} /></Link>
+        <Link to="/"><img src="/images/logo.png" alt="Hawtio" style={{ margin: 0, height: 30 }} /></Link>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>

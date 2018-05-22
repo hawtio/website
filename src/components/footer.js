@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'gatsby-link'
 
 const Footer = () => (
-  <div style={{ marginTop: '1.5rem' }}>
+  <div style={{ marginTop: '5rem' }}>
     <footer style={{ margin: '0 auto', maxWidth: 750, padding: '1.25rem 1rem' }}>
       <div style={{ textAlign: 'center', fontSize: 'small' }}>
         <p>
