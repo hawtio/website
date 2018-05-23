@@ -24,6 +24,7 @@
     "gatsby-transformer-remark": "^1.7.40",
     "react-bootstrap": "^0.32.1",
     "react-helmet": "^5.2.0",
+    "react-twitter-widgets": "^1.7.1",
     "typography-theme-bootstrap": "^0.16.7"
   },
   "devDependencies": {

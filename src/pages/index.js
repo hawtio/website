@@ -10,6 +10,7 @@ import {
   PageHeader,
   Glyphicon
 } from 'react-bootstrap'
+import { Timeline } from 'react-twitter-widgets'
 
 const IndexPage = ({ data }) => {
   const { description } = data.site.siteMetadata
@@ -56,7 +57,7 @@ const IndexPage = ({ data }) => {
       <Grid>
         <Row>
           <Col md={4} style={{ padding: '2rem' }}>
-            <h3>
+            <h3 className="text-info">
               <Glyphicon glyph="wrench" style={{
                 verticalAlign: 'top', marginRight: '0.5rem'
               }} /> Modular architecture
@@ -70,7 +71,7 @@ const IndexPage = ({ data }) => {
             </p>
           </Col>
           <Col md={4} style={{ padding: '2rem' }}>
-            <h3>
+            <h3 className="text-info">
               <Glyphicon glyph="equalizer" style={{
                 verticalAlign: 'top', marginRight: '0.5rem'
               }} /> Built-in plugins
@@ -90,7 +91,7 @@ const IndexPage = ({ data }) => {
             </p>
           </Col>
           <Col md={4} style={{ padding: '2rem' }}>
-            <h3>
+            <h3 className="text-info">
               <Glyphicon glyph="fire" style={{
                 verticalAlign: 'top', marginRight: '0.5rem'
               }} /> Small footprint
@@ -105,7 +106,7 @@ const IndexPage = ({ data }) => {
         </Row>
         <Row>
           <Col md={4} style={{ padding: '2rem' }}>
-            <h3>
+            <h3 className="text-info">
               <Glyphicon glyph="eye-open" style={{
                 verticalAlign: 'top', marginRight: '0.5rem'
               }} /> Look &amp; feel for enterprise
@@ -117,7 +118,7 @@ const IndexPage = ({ data }) => {
             </p>
           </Col>
           <Col md={4} style={{ padding: '2rem' }}>
-            <h3>
+            <h3 className="text-info">
               <Glyphicon glyph="cloud-upload" style={{
                 verticalAlign: 'top', marginRight: '0.5rem'
               }} /> Ready for cloud
@@ -142,9 +143,28 @@ const IndexPage = ({ data }) => {
       </Grid>
       <div className="container">
         <PageHeader>
-          <h2>What's new?</h2>
+          <h3>What's New?</h3>
         </PageHeader>
-        TBD
+        <Row>
+          <Col md={12}>
+            <Timeline
+              dataSource={{
+                sourceType: 'profile',
+                screenName: 'hawtio'
+              }}
+              options={{
+                username: 'hawtio',
+                dnt: true,
+                chrome: 'noheader nofooter noborders transparent noscrollbar',
+                height: 1100,
+                width: 800,
+                tweetLimit: 5,
+                borderColor: '#ffffff'
+              }}
+              style={{ fontSize: 'tiny' }}
+              onLoad={() => console.log('Timeline is loaded!')} />
+          </Col>
+        </Row>
       </div>
     </div>
   )
