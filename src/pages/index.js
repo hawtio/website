@@ -159,7 +159,6 @@ const IndexPage = ({ data }) => {
                 width: 700,
                 tweetLimit: 5
               }}
-              style={{ marginTop: '3rem' }}
               onLoad={() => console.log('Timeline is loaded!')} />
           </Col>
         </Row>
