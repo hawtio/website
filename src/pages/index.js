@@ -57,7 +57,7 @@ const IndexPage = ({ data }) => {
       <Grid>
         <Row>
           <Col md={4} style={{ padding: '2rem' }}>
-            <h3 className="text-info">
+            <h3>
               <Glyphicon glyph="wrench" style={{
                 verticalAlign: 'top', marginRight: '0.5rem'
               }} /> Modular architecture
@@ -71,7 +71,7 @@ const IndexPage = ({ data }) => {
             </p>
           </Col>
           <Col md={4} style={{ padding: '2rem' }}>
-            <h3 className="text-info">
+            <h3>
               <Glyphicon glyph="equalizer" style={{
                 verticalAlign: 'top', marginRight: '0.5rem'
               }} /> Built-in plugins
@@ -91,7 +91,7 @@ const IndexPage = ({ data }) => {
             </p>
           </Col>
           <Col md={4} style={{ padding: '2rem' }}>
-            <h3 className="text-info">
+            <h3>
               <Glyphicon glyph="fire" style={{
                 verticalAlign: 'top', marginRight: '0.5rem'
               }} /> Small footprint
@@ -106,7 +106,7 @@ const IndexPage = ({ data }) => {
         </Row>
         <Row>
           <Col md={4} style={{ padding: '2rem' }}>
-            <h3 className="text-info">
+            <h3>
               <Glyphicon glyph="eye-open" style={{
                 verticalAlign: 'top', marginRight: '0.5rem'
               }} /> Look &amp; feel for enterprise
@@ -118,7 +118,7 @@ const IndexPage = ({ data }) => {
             </p>
           </Col>
           <Col md={4} style={{ padding: '2rem' }}>
-            <h3 className="text-info">
+            <h3>
               <Glyphicon glyph="cloud-upload" style={{
                 verticalAlign: 'top', marginRight: '0.5rem'
               }} /> Ready for cloud
@@ -141,12 +141,12 @@ const IndexPage = ({ data }) => {
           </Col>
         </Row>
       </Grid>
-      <div className="container">
-        <PageHeader>
-          <h3>What's New?</h3>
-        </PageHeader>
+      <Grid style={{ marginTop: 50 }}>
         <Row>
-          <Col md={12}>
+          <Col md={12} style={{ textAlign: 'center' }}>
+            <PageHeader>
+              <h3>What's New?</h3>
+            </PageHeader>
             <Timeline
               dataSource={{
                 sourceType: 'profile',
@@ -156,16 +156,14 @@ const IndexPage = ({ data }) => {
                 username: 'hawtio',
                 dnt: true,
                 chrome: 'noheader nofooter noborders transparent noscrollbar',
-                height: 1100,
-                width: 800,
-                tweetLimit: 5,
-                borderColor: '#ffffff'
+                width: 700,
+                tweetLimit: 5
               }}
-              style={{ fontSize: 'tiny' }}
+              style={{ marginTop: '3rem' }}
               onLoad={() => console.log('Timeline is loaded!')} />
           </Col>
         </Row>
-      </div>
+      </Grid>
     </div>
   )
 }
