@@ -14,7 +14,7 @@ const DocsTemplate = ({ data }) => {
   return (
     <Grid>
       <Row>
-        <Col md={2}>
+        <Col xsHidden smHidden md={2} style={{ position: 'fixed' }}>
           <h5 style={{ marginTop: 50, marginBottom: 30 }}>
             <Link to="/docs/">Index</Link>
           </h5>
@@ -49,7 +49,7 @@ const DocsTemplate = ({ data }) => {
             </NavItem>
           </Nav>
         </Col>
-        <Col md={10}>
+        <Col md={10} mdOffset={2}>
           <PageHeader>
             <h1>{frontmatter.title}</h1>
           </PageHeader>
