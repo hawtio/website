@@ -1,4 +1,6 @@
-## Change Log
+---
+title: "Change Log"
+---
 
 #### 2.0 Beta3 (To be released)
 

@@ -1,5 +1,5 @@
 ---
-title: "Articles"
+title: "Demos & Articles"
 ---
 
 ## Demos (2.x)

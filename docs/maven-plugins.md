@@ -1,10 +1,12 @@
-# hawtio Maven Plugins
+---
+title: "Maven Plugins"
+---
 
-**hawtio** offers a number of Maven Plugins, so that users can bootup Maven projects and have **hawtio** embedded in the running JVM.
+Hawtio offers a number of Maven plugins, so that users can bootup Maven projects and have Hawtio embedded in the running JVM.
 
 ## Maven Goals
 
-**hawtio** offers the following Maven Goals, and each goal is further documented below:
+Hawtio offers the following Maven Goals, and each goal is further documented below:
 
 <table class="table">
   <tr>
@@ -44,7 +46,7 @@
 
 ### Common Maven Goal configuration
 
-All of the **hawtio** Maven Plugins provides the following common options:
+All of the Hawtio Maven Plugins provides the following common options:
 
 <table class="table">
   <tr>
@@ -73,7 +75,7 @@ All of the **hawtio** Maven Plugins provides the following common options:
 
 ### run Maven Goal configuration
 
-Currently all of the **hawtio** Maven Plugins provides the following common options:
+Currently all of the Hawtio Maven Plugins provides the following common options:
 
 <table class="table">
   <tr>
@@ -209,7 +211,7 @@ The camel-cdi goal has no additional options.
 
 ### test Maven Goal configuration
 
-The test **hawtio** Maven Plugins provides the following common options:
+The test Hawtio Maven Plugins provides the following common options:
 
 <table class="table">
   <tr>
@@ -229,16 +231,16 @@ The test **hawtio** Maven Plugins provides the following common options:
   </tr>  
 </table>
 
-If no **className** has been specified then **hawtio** is started up included the projects test classpath, and the <a href="hawt.io/plugins/junit">junit plugin</a> can be used to select tests to run from within **hawtio** console itself.
+If no **className** has been specified then Hawtio is started up included the projects test classpath, and the <a href="hawt.io/plugins/junit">junit plugin</a> can be used to select tests to run from within Hawtio console itself.
 
-If a **className** has been specified then unit testing of the selected class happens when **hawtio** has been started, **but** the unit test will not tear down until the user press enter in the shell. This is on purpose allowing using **hawtio** to inspect the state of the JVM during and after testing. For example to look at the Camel plugin to see route diagrams and profiles with metrics from the completed unit tests. 
+If a **className** has been specified then unit testing of the selected class happens when Hawtio has been started, **but** the unit test will not tear down until the user press enter in the shell. This is on purpose allowing using Hawtio to inspect the state of the JVM during and after testing. For example to look at the Camel plugin to see route diagrams and profiles with metrics from the completed unit tests. 
 
 Pressing enter in the shell runs the tear down of the unit tests, which for example could unregister Camel from JMX and therefore remove the CamelContext used during testing. When using the <a href="hawt.io/plugins/junit">junit plugin</a> to run unit tests, then these tests will tear down immediately when they complete, and therefore remove any CamelContexts during testing. This may change in the future, allows to keep the CamelContexts alive after testing, giving end users time to inspect the data; and then tear down by pressing a button.
 
 
 ## Configuring hawtio Maven Plugin in pom.xml
 
-In the Maven pom.xml file, the **hawtio** plugin is configured by adding the following in the &lt;build&gt;&lt;plugin&gt;section:
+In the Maven pom.xml file, the Hawtio plugin is configured by adding the following in the &lt;build&gt;&lt;plugin&gt;section:
 
     <plugin>
       <groupId>io.hawt</groupId>
@@ -285,14 +287,14 @@ For example to try the Camel console from a shell type:
     mvn compile
     mvn camel:run
 
-To run the same example with **hawtio** embedded as a web console, you simply do
+To run the same example with Hawtio embedded as a web console, you simply do
 
     cd examples
     cd camel-example-console
     mvn compile
     mvn io.hawt:hawtio-maven-plugin:1.5.9:camel
 
-Where 1.5.9 is the **hawtio** version to use.
+Where 1.5.9 is the Hawtio version to use.
 
 ### Adding hawtio plugin to the Apache Camel examples
 
@@ -310,7 +312,7 @@ And you can run the console example simply by typing
 
     mvn hawtio:camel
 
-And the example is started together with the embedded **hawtio** web console, such as the screenshot below illustrates:
+And the example is started together with the embedded Hawtio web console, such as the screenshot below illustrates:
 
 <img src="https://raw.github.com/hawtio/hawtio/master/docs/images/camel-example-console.png" alt="screenshot">
 

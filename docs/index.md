@@ -12,7 +12,7 @@ title: "Documentation"
 
 ## General Docs
 
-* [FAQ](../FAQ.md)
-* [Change Log](../CHANGES.md)
-* [Contributing](../CONTRIBUTING.md)
+* [FAQ](/docs/faq/)
+* [Change Log](/docs/changes/)
+* [Contributing](/docs/contributing/)
 
