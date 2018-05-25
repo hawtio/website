@@ -7,6 +7,8 @@ import Footer from '../components/footer'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+import favicon from '../../static/images/logo-128px.png'
+
 const Layout = ({ children, data }) => {
   const { title, description, keywords } = data.site.siteMetadata
   return (
@@ -16,7 +18,11 @@ const Layout = ({ children, data }) => {
         meta={[
           { name: 'description', content: description },
           { name: 'keywords', content: keywords },
-        ]} />
+        ]}
+        link={[
+          { rel: 'shortcut icon', type: 'image/png', href: `${favicon}` }
+        ]}
+      />
       <Header siteTitle={title} />
       <div style={{ marginTop: 60 }}>
         {children()}
