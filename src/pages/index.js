@@ -114,14 +114,21 @@ const IndexPage = ({ data }) => {
           </Col>
           <Col md={4} style={{ padding: '2rem' }}>
             <h3>
-              <Glyphicon glyph="cloud-upload" style={{
+              <Glyphicon glyph="leaf" style={{
                 verticalAlign: 'top', marginRight: '0.5rem'
-              }} /> Cloud ready
+              }} /> For microservices
             </h3>
             <p>
               Hawtio can be{' '}
               <a href="https://github.com/hawtio/hawtio/tree/2.x/examples/springboot">attached to a Spring Boot application in a snap</a>.
             </p>
+          </Col>
+          <Col md={4} style={{ padding: '2rem' }}>
+            <h3>
+              <Glyphicon glyph="cloud-upload" style={{
+                verticalAlign: 'top', marginRight: '0.5rem'
+              }} /> Cloud ready
+            </h3>
             <p>
               Hawtio is also <a href="https://github.com/hawtio/hawtio-online">ready to run</a> on <a href="https://kubernetes.io/">Kubernetes</a> and <a href="https://www.openshift.com/">OpenShift</a>.
             </p>
