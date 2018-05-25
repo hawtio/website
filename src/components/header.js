@@ -34,7 +34,7 @@ const Header = ({ siteTitle }) => (
         <NavItem eventKey={7} href="/community/">Community</NavItem>
       </Nav>
       <Nav pullRight style={{ paddingTop: '0.5rem' }}>
-        <NavItem eventKey={1} href="https://github.com/hawtio/hawtio">
+        <NavItem eventKey={1} href="https://github.com/hawtio">
           <ItemImage src="/images/social/github-light-32.png" alt="GitHub" />
         </NavItem>
         <NavItem eventKey={2} href="https://twitter.com/hawtio">
