@@ -63,18 +63,17 @@ const IndexPage = ({ data }) => {
               }} /> Modular architecture
             </h3>
             <p>
-              Hawtio is made up of a collection of plugins <a href="https://github.com/hawtio/hawtio-core">from the bottom up</a>,{' '}
-              each of which is an <a href="https://angularjs.org">AngularJS</a> module.
+              Hawtio is composed of a collection of <Link to="/docs/plugins/">plugins</Link>, each of which is an <a href="https://angularjs.org">AngularJS</a> module.
             </p>
             <p>
-              It is highly extensible: you can dynamically extend Hawtio with your own plugins or automatically discover plugins inside the JVM.
+              This pluggable architecture is highly extensible, you can dynamically extend Hawtio with your own plugins or automatically discover plugins inside the JVM.
             </p>
           </Col>
           <Col md={4} style={{ padding: '2rem' }}>
             <h3>
               <Glyphicon glyph="equalizer" style={{
                 verticalAlign: 'top', marginRight: '0.5rem'
-              }} /> Built-in plugins
+              }} /> Plugins
             </h3>
             <p>
               Hawtio has <Link to="/docs/plugins/">lots of built-in plugins</Link> such as:{' '}
@@ -86,9 +85,6 @@ const IndexPage = ({ data }) => {
               <a href="https://github.com/hawtio/hawtio-integration/tree/master/plugins/camel">Apache Camel</a>, and{' '}
               <a href="https://github.com/hawtio/hawtio-integration/tree/master/plugins/spring-boot">Spring Boot</a>.
             </p>
-            <p>
-              You can get to work right away with Hawtio out of the box.
-            </p>
           </Col>
           <Col md={4} style={{ padding: '2rem' }}>
             <h3>
@@ -98,9 +94,8 @@ const IndexPage = ({ data }) => {
             </h3>
             <p>
               The only server side dependency (other than the static HTML/CSS/JS/images) is the
-              excellent <a href="https://jolokia.org">Jolokia library</a> which has small footprint (around 300 KB)
-              and is available as a JVM agent, or comes embedded as a servlet inside the <code>hawtio-default.war</code> or
-              can be deployed as an OSGi bundle.
+              excellent <a href="https://jolokia.org">Jolokia library</a> which is available as a JVM agent, embedded as a Servlet
+              inside <code>hawtio-default.war</code> or can be deployed as an OSGi bundle.
             </p>
           </Col>
         </Row>
@@ -109,10 +104,10 @@ const IndexPage = ({ data }) => {
             <h3>
               <Glyphicon glyph="eye-open" style={{
                 verticalAlign: 'top', marginRight: '0.5rem'
-              }} /> Look &amp; feel for enterprise
+              }} /> Slick user experience
             </h3>
             <p>
-              Hawtio skin is baked with <a href="https://getbootstrap.com">Bootstrap</a> and{' '}
+              Hawtio is baked with <a href="https://getbootstrap.com">Bootstrap</a> and{' '}
               <a href="http://www.patternfly.org">PatternFly</a>, a UI framework for enterprise web applications.
               The stylish UI won't let you get bored!
             </p>
@@ -121,14 +116,14 @@ const IndexPage = ({ data }) => {
             <h3>
               <Glyphicon glyph="cloud-upload" style={{
                 verticalAlign: 'top', marginRight: '0.5rem'
-              }} /> Ready for cloud
+              }} /> Cloud ready
             </h3>
             <p>
-              Hawtio console can be{' '}
+              Hawtio can be{' '}
               <a href="https://github.com/hawtio/hawtio/tree/2.x/examples/springboot">attached to a Spring Boot application in a snap</a>.
             </p>
             <p>
-              Hawtio is also <a href="https://github.com/hawtio/hawtio-online">ready to run on Kubernetes and OpenShift</a>.
+              Hawtio is also <a href="https://github.com/hawtio/hawtio-online">ready to run</a> on <a href="https://kubernetes.io/">Kubernetes</a> and <a href="https://www.openshift.com/">OpenShift</a>.
             </p>
           </Col>
           <Col md={4} style={{ padding: '2rem', textAlign: 'center' }}>
