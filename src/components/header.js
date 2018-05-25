@@ -19,7 +19,7 @@ const Header = ({ siteTitle }) => (
   }}>
     <Navbar.Header>
       <Navbar.Brand>
-        <Link to="/"><img src="/images/logo.png" alt="Hawtio" style={{ margin: 0, height: 30 }} /></Link>
+        <Link to="/"><img src="/images/logo-128px.png" alt="Hawtio" style={{ margin: 0, height: 30 }} /></Link>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
