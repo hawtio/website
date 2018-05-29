@@ -6,6 +6,10 @@ import {
   NavItem
 } from 'react-bootstrap';
 
+import logo128px from '../../static/images/logo-128px.png';
+
+import { withPrefix } from 'gatsby-link'
+
 const ItemImage = props =>
   <img src={props.src} alt={props.alt} style={{ height: 20 }} />
 
@@ -19,19 +23,19 @@ const Header = ({ siteTitle }) => (
   }}>
     <Navbar.Header>
       <Navbar.Brand>
-        <Link to="/"><img src="/images/logo-128px.png" alt="Hawtio" style={{ margin: 0, height: 30 }} /></Link>
+        <Link to="/"><img src={logo128px} alt="Hawtio" style={{ margin: 0, height: 30 }} /></Link>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
     <Navbar.Collapse>
       <Nav style={{ paddingTop: '0.5rem' }}>
-        <NavItem eventKey={1} href="/">Home</NavItem>
-        <NavItem eventKey={2} href="/docs/get-started/">Get Started</NavItem>
-        <NavItem eventKey={3} href="/docs/">Docs</NavItem>
-        <NavItem eventKey={4} href="/docs/plugins/">Plugins</NavItem>
-        <NavItem eventKey={5} href="/docs/articles/">Demos</NavItem>
+        <NavItem eventKey={1} href={withPrefix('/')}>Home</NavItem>
+        <NavItem eventKey={2} href={withPrefix('/docs/get-started/')}>Get Started</NavItem>
+        <NavItem eventKey={3} href={withPrefix('/docs/')}>Docs</NavItem>
+        <NavItem eventKey={4} href={withPrefix('/docs/plugins/')}>Plugins</NavItem>
+        <NavItem eventKey={5} href={withPrefix('/docs/articles/')}>Demos</NavItem>
         <NavItem eventKey={6} href="https://github.com/hawtio/hawtio/releases">Download</NavItem>
-        <NavItem eventKey={7} href="/community/">Community</NavItem>
+        <NavItem eventKey={7} href={withPrefix('/community/')}>Community</NavItem>
       </Nav>
       <Nav pullRight style={{ paddingTop: '0.5rem' }}>
         <NavItem eventKey={1} href="https://github.com/hawtio">
