@@ -39,14 +39,14 @@ const Header = ({ siteTitle }) => (
       </Nav>
       <Nav pullRight style={{ paddingTop: '0.5rem' }}>
         <NavItem eventKey={1} href="https://github.com/hawtio">
-          <ItemImage src="/images/social/github-light-32.png" alt="GitHub" />
+          <ItemImage src={withPrefix('/images/social/github-light-32.png')} alt="GitHub" />
         </NavItem>
         <NavItem eventKey={2} href="https://twitter.com/hawtio">
-          <ItemImage src="/images/social/twitter-white.png" alt="Twitter" />
+          <ItemImage src={withPrefix('/images/social/twitter-white.png')} alt="Twitter" />
         </NavItem>
         <NavItem eventKey={3}
           href="http://stackoverflow.com/questions/tagged/hawtio">
-          <ItemImage src="/images/social/stackoverflow.png" alt="StackOverflow" />
+          <ItemImage src={withPrefix('/images/social/stackoverflow.png')} alt="StackOverflow" />
         </NavItem>
       </Nav>
     </Navbar.Collapse>
