@@ -9,6 +9,8 @@ import {
 } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
+import { withPrefix } from 'gatsby-link'
+
 import '../css/docs.css'
 
 const DocsTemplate = ({ data }) => {
@@ -22,31 +24,31 @@ const DocsTemplate = ({ data }) => {
           </h5>
           <h5>Using Hawtio</h5>
           <Nav stacked>
-            <NavItem eventKey={1} href="/docs/get-started/">
+            <NavItem eventKey={1} href={withPrefix('/docs/get-started/')}>
               Get Started
             </NavItem>
-            <NavItem eventKey={2} href="/docs/configuration/">
+            <NavItem eventKey={2} href={withPrefix('/docs/configuration/')}>
               Configuration
             </NavItem>
-            <NavItem eventKey={3} href="/docs/plugins/">
+            <NavItem eventKey={3} href={withPrefix('/docs/plugins/')}>
               Plugins
             </NavItem>
-            <NavItem eventKey={4} href="/docs/maven-plugins/">
+            <NavItem eventKey={4} href={withPrefix('/docs/maven-plugins/')}>
               Maven Plugins
             </NavItem>
-            <NavItem eventKey={5} href="/docs/articles/">
+            <NavItem eventKey={5} href={withPrefix('/docs/articles/')}>
               Articles
             </NavItem>
           </Nav>
           <h5>General Docs</h5>
           <Nav stacked>
-            <NavItem eventKey={6} href="/docs/faq/">
+            <NavItem eventKey={6} href={withPrefix('/docs/faq/')}>
               FAQ
             </NavItem>
-            <NavItem eventKey={7} href="/docs/changes/">
+            <NavItem eventKey={7} href={withPrefix('/docs/changes/')}>
               Change Log
             </NavItem>
-            <NavItem eventKey={8} href="/docs/contributing/">
+            <NavItem eventKey={8} href={withPrefix('/docs/contributing/')}>
               Contributing
             </NavItem>
           </Nav>
