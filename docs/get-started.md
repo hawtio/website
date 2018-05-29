@@ -31,7 +31,7 @@ Note: If you launch hawt.io with Java 9, add the specified modules to avoid erro
 
 The console should show you which URL to open, which by default is [http://localhost:8080/hawtio/](http://localhost:8080/hawtio/).
 
-To set a different port number, run;
+To set a different port number, run:
 
     java -jar hawtio-app-2.0.0.jar --port 8090
 
