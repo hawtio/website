@@ -6,8 +6,10 @@ import {
   Nav,
   NavItem,
   PageHeader
-} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+} from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+
+import '../css/docs.css'
 
 const DocsTemplate = ({ data }) => {
   const { frontmatter, html } = data.markdownRemark

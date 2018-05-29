@@ -2,8 +2,10 @@ import React from 'react'
 import Link from 'gatsby-link'
 import { Button, PageHeader } from 'react-bootstrap'
 
+import '../css/docs.css'
+
 const TitleImage = props =>
-  <img style={{ verticalAlign: 'middle', maxWidth: 48, maxHeight: 48 }} src={props.src} />
+  <img style={{ verticalAlign: 'middle', maxWidth: 48, maxHeight: 48, marginRight: 10 }} src={props.src} />
 
 const CommunityPage = ({ data }) => {
   const { siteMetadata } = data.site
@@ -20,7 +22,7 @@ const CommunityPage = ({ data }) => {
       <p><Button bsStyle="primary" href="/contributing/">How to Contribute</Button></p>
       <p>Please dive in wherever takes your fancy!  It's <i>hawt</i> but stay cool!</p>
 
-      <h2 style={{ marginTop: '5rem', borderBottom: '1px solid #d4d4d4' }}>
+      <h2>
         <TitleImage src="/images/social/octocat.jpg" /> Issue Tracker
       </h2>
       <p>The project tracks bugs, feature requests, and other issues through the GitHub issue tracking system.</p>
@@ -29,7 +31,7 @@ const CommunityPage = ({ data }) => {
         To file new issues or comment on existing issues you need to register for a <a href="http://github.com/">GitHub account</a> which is quick and easy!
       </p>
 
-      <h2 style={{ marginTop: '5rem', borderBottom: '1px solid #d4d4d4' }}>
+      <h2>
         <TitleImage src="/images/groups.png" /> Mailing List
       </h2>
       <p>
@@ -39,7 +41,7 @@ const CommunityPage = ({ data }) => {
       </p>
       <p><Button bsStyle="primary" href={forumUrl}>Hawtio mailing list</Button></p>
 
-      <h2 style={{ marginTop: '5rem', borderBottom: '1px solid #d4d4d4' }}>
+      <h2>
         <TitleImage src="/images/irc.png" /> Chat (IRC)
       </h2>
       <p>We invite you to join us in the <b>#hawtio</b> channel on <b>irc.freenode.net</b> to chat about Hawtio.</p>
@@ -48,7 +50,7 @@ const CommunityPage = ({ data }) => {
         The JBossBot is also present to expand issue numbers from the issue tracker.
       </p>
 
-      <h2 style={{ marginTop: '5rem', borderBottom: '1px solid #d4d4d4' }}>
+      <h2>
         <TitleImage src="/images/social/stackoverflow.png" /> Stack Overflow
       </h2>
       <p>
@@ -57,7 +59,7 @@ const CommunityPage = ({ data }) => {
       </p>
       <p><Button bsStyle="primary" href="http://stackoverflow.com/questions/tagged/hawtio">Stack Overflow</Button></p>
 
-      <h2 style={{ marginTop: '5rem', borderBottom: '1px solid #d4d4d4' }}>
+      <h2>
         <TitleImage src="/images/social/octocat.jpg" /> Source Repository
       </h2>
       <p>
