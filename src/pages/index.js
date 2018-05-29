@@ -12,6 +12,10 @@ import {
 } from 'react-bootstrap'
 import { Timeline } from 'react-twitter-widgets'
 
+import { withPrefix } from 'gatsby-link'
+import screenshot from '../../static/images/screenshots/jmx.png'
+import logo from '../../static/images/hawtio_logo.svg'
+
 const IndexPage = ({ data }) => {
   const { description } = data.site.siteMetadata
   return (
@@ -22,29 +26,29 @@ const IndexPage = ({ data }) => {
         <Grid>
           <Row>
             <Col xs={12} sm={12} md={6}>
-              <img src="/images/hawtio_logo.svg" style={{ height: 100, margin: 0 }} />
+              <img src={logo} style={{ height: 100, margin: 0 }} />
               <h2 style={{ color: 'lightgrey' }}>{description}</h2>
               <div style={{ marginTop: '4rem', marginBottom: '1rem' }}>
-                <Button href="/docs/articles/" style={{ marginRight: '2rem' }}>View Demos</Button>
-                <Button bsStyle="primary" href="/docs/get-started/">Get Started Now</Button>
+                <Button href={withPrefix('/docs/articles/')} style={{ marginRight: '2rem' }}>View Demos</Button>
+                <Button bsStyle="primary" href={withPrefix('/docs/get-started/')}>Get Started Now</Button>
               </div>
             </Col>
             <Col xsHidden smHidden md={6}>
               <Carousel interval={10000} indicators={false} controls={false} style={{ marginLeft: 50 }}>
                 <Carousel.Item>
-                  <img alt="JMX MBeans" src="/images/screenshots/jmx.png" />
+                  <img alt="JMX MBeans" src={screenshot} />
                   <Carousel.Caption>
                     <h3 style={{ color: 'black' }}>JMX MBeans</h3>
                   </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
-                  <img alt="Camel Routes" src="/images/screenshots/jmx.png" />
+                  <img alt="Camel Routes" src={screenshot} />
                   <Carousel.Caption>
                     <h3 style={{ color: 'black' }}>Camel Routes</h3>
                   </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
-                  <img alt="Spring Boot" src="/images/screenshots/jmx.png" />
+                  <img alt="Spring Boot" src={screenshot} />
                   <Carousel.Caption>
                     <h3 style={{ color: 'black' }}>Spring Boot</h3>
                   </Carousel.Caption>
@@ -138,7 +142,7 @@ const IndexPage = ({ data }) => {
             <Button
               bsStyle="primary"
               bsSize="large"
-              href="/docs/get-started/"
+              href={withPrefix('/docs/get-started/')}
               style={{ marginTop: '1.5rem' }}>Get Started Now</Button>
           </Col>
         </Row>
