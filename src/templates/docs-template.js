@@ -20,7 +20,7 @@ const DocsTemplate = ({ data }) => {
       <Row>
         <Col xsHidden smHidden md={2} style={{ position: 'fixed' }}>
           <h5 style={{ marginTop: 50, marginBottom: 30 }}>
-            <Link to="/docs/">Index</Link>
+            <Link to={withPrefix('/docs/')}>Index</Link>
           </h5>
           <h5>Using Hawtio</h5>
           <Nav stacked>
