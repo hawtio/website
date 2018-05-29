@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "gatsby build",
-    "deploy": "gatsby build && mv public docs",
+    "deploy": "gatsby build --prefix-paths && rm -r docs && mv public docs",
     "develop": "gatsby develop"
   },
   "dependencies": {

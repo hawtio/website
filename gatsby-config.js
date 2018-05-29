@@ -8,6 +8,7 @@ module.exports = {
     forumUrl: 'https://groups.google.com/forum/#!forum/hawtio',
     repositoryUrl: 'http://github.com/hawtio/hawtio'
   },
+  pathPrefix: '/website',
   plugins: [
     'gatsby-plugin-react-helmet',
     {
