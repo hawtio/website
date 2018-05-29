@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "gatsby build",
-    "deploy": "gatsby build && gh-pages -d public -b master",
+    "deploy": "gatsby build && mv public docs",
     "develop": "gatsby develop"
   },
   "dependencies": {
@@ -27,8 +27,5 @@
     "react-helmet": "^5.2.0",
     "react-twitter-widgets": "^1.7.1",
     "typography-theme-bootstrap": "^0.16.7"
-  },
-  "devDependencies": {
-    "gh-pages": "^1.1.0"
   }
 }
