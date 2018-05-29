@@ -4,6 +4,8 @@ import { Button, PageHeader } from 'react-bootstrap'
 
 import '../css/docs.css'
 
+import { withPrefix } from 'gatsby-link'
+
 const TitleImage = props =>
   <img style={{ verticalAlign: 'middle', maxWidth: 48, maxHeight: 48, marginRight: 10 }} src={props.src} />
 
@@ -18,12 +20,12 @@ const CommunityPage = ({ data }) => {
         <h1>Community</h1>
       </PageHeader>
 
-      <p>Welcome to the <b>Hawtio</b> community!  We <Link to="/contributing/">love contributions</Link>!</p>
-      <p><Button bsStyle="primary" href="/contributing/">How to Contribute</Button></p>
+      <p>Welcome to the <b>Hawtio</b> community!  We <Link to="/docs/contributing/">love contributions</Link>!</p>
+      <p><Button bsStyle="primary" href={withPrefix('/docs/contributing/')}>How to Contribute</Button></p>
       <p>Please dive in wherever takes your fancy!  It's <i>hawt</i> but stay cool!</p>
 
       <h2>
-        <TitleImage src="/images/social/octocat.jpg" /> Issue Tracker
+        <TitleImage src={withPrefix('/images/social/octocat.jpg')} /> Issue Tracker
       </h2>
       <p>The project tracks bugs, feature requests, and other issues through the GitHub issue tracking system.</p>
       <p><Button bsStyle="primary" href={issueUrl}>Hawtio issue tracker</Button></p>
@@ -32,7 +34,7 @@ const CommunityPage = ({ data }) => {
       </p>
 
       <h2>
-        <TitleImage src="/images/groups.png" /> Mailing List
+        <TitleImage src={withPrefix('/images/groups.png')} /> Mailing List
       </h2>
       <p>
         We prefer to use the <a href={issueUrl}>issue tracker</a> for dealing with ideas and issues,
@@ -42,7 +44,7 @@ const CommunityPage = ({ data }) => {
       <p><Button bsStyle="primary" href={forumUrl}>Hawtio mailing list</Button></p>
 
       <h2>
-        <TitleImage src="/images/irc.png" /> Chat (IRC)
+        <TitleImage src={withPrefix('/images/irc.png')} /> Chat (IRC)
       </h2>
       <p>We invite you to join us in the <b>#hawtio</b> channel on <b>irc.freenode.net</b> to chat about Hawtio.</p>
       <p>
@@ -51,7 +53,7 @@ const CommunityPage = ({ data }) => {
       </p>
 
       <h2>
-        <TitleImage src="/images/social/stackoverflow.png" /> Stack Overflow
+        <TitleImage src={withPrefix('/images/social/stackoverflow.png')} /> Stack Overflow
       </h2>
       <p>
         We also keep an eye out on Stack Overflow for questions which makes it really easy to find answers to questions
@@ -60,7 +62,7 @@ const CommunityPage = ({ data }) => {
       <p><Button bsStyle="primary" href="http://stackoverflow.com/questions/tagged/hawtio">Stack Overflow</Button></p>
 
       <h2>
-        <TitleImage src="/images/social/octocat.jpg" /> Source Repository
+        <TitleImage src={withPrefix('/images/social/octocat.jpg')} /> Source Repository
       </h2>
       <p>
         All the Hawtio source code is managed using the distributed version system <a href="http://git-scm.com">git</a> and
