@@ -10,7 +10,7 @@ Ways to run it:
 * deployed on an [application server](#jee)
 * deployed on an [OSGi container](#osgi)
 * embedded [in a Java application](#embedded)
- 
+
 The out of the box defaults try to do the right thing for most folks but if you want to configure things then please check out the [configuration guide](../configuration/).
 
 <a id="jar"></a>
@@ -83,38 +83,34 @@ If you don't see a Tomcat / Jetty tab for your container you may need to enable 
 
 If you don't use the WildFly application server, use one of the options from the [Servlet container](#servlet) section to download Hawtio.
 
-On the other hand, if you do use WildFly, download [hawtio-no-slf4j-2.0.0.war](https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-no-slf4j/2.0.0/hawtio-no-slf4j-2.0.0.war), which doesn't include the SLF4J dependency. See more details [here](http://totalprogus.blogspot.co.uk/2011/06/javalanglinkageerror-loader-constraint.html).
+If you do use WildFly, download [hawtio-wildfly-2.0.0.war](https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-wildfly/2.0.0/hawtio-wildfly-2.0.0.war).
 
-Additionally related to logging, you can remove the log4j.properties from the root of the classpath so that WildFly
-uses its logging mechanisms instead of trying to use the embedded log4j. From the command line, you can
-try:
-
-    zip -d hawtio.war WEB-INF/classes/log4j.properties
-    
-Since Hawtio does use some CDI beans, but does not deploy a beans.xml CDI descriptor, you can also relax
-WildFly's [implicit CDI detection](https://docs.jboss.org/author/display/WFLY8/CDI+Reference) by changing the 
-Weld config to look like this:
-
-    <system-properties>
-      <property name="hawtio.authenticationEnabled" value="false" />
-    </system-properties>
-
-To enable security, you'll need to set you configuration up like this:
+To enable security, you'll need to set up configuration like this:
 
     <extensions>
         ...
     </extensions>
-    
+
     <system-properties>
         <property name="hawtio.authenticationEnabled" value="true" />
         <property name="hawtio.realm" value="jboss-web-policy" />
         <property name="hawtio.role" value="admin" />
     </system-properties>
-    
+
 You can follow the [steps outlined in this blog](http://www.christianposta.com/blog/?p=403) for a more comprehensive
 look at enabling security in WildFly with Hawtio.
 
-If you experience problems with security, you'll need to disable security in Hawtio by adding the following configuration to your **jboss-as/server/default/deploy/properties-service.xml** file (which probably has the mbean definition already but commented out):
+If you experience problems with security, you'll need to disable security in Hawtio. For WildFly, you can set the hawtio.authenticationEnabled system property in standalone/configuration/standalone.xml:
+
+    <extensions>
+        ...
+    </extensions>
+
+    <system-properties>
+        <property name="hawtio.authenticationEnabled" value="false" />
+    </system-properties>
+
+For older JBoss AS releases (4,5 & 6) you can add the following configuration to your **jboss-as/server/default/deploy/properties-service.xml** file (which probably has the mbean definition already but commented out):
 
     <mbean code="org.jboss.varia.property.SystemPropertiesService"
      name="jboss:type=Service,name=SystemProperties">
@@ -125,16 +121,6 @@ If you experience problems with security, you'll need to disable security in Haw
     </mbean>
 
 Learn how to [inject system properties into JBoss AS](http://www.mastertheboss.com/jboss-configuration/how-to-inject-system-properties-into-jboss).
-
-In newer versions of WildFly (8+), you'll want to add this to standalone/configuration/standalone.xml:
-
-    <extensions>
-        ...
-    </extensions>
-    
-    <system-properties>
-        <property name="hawtio.authenticationEnabled" value="false" />
-    </system-properties>
 
 ## Using Apache Karaf
 
@@ -155,7 +141,7 @@ If you are using [Apache Karaf](http://karaf.apache.org/) 4.x:
     feature:repo-add hawtio 2.0.0
     feature:install hawtio
 
-**NOTE** Karaf 2.x/3.x has an issue with the `hawtio-log` which does not work. And therefore you need to install `hawtio-core` instead of `hawtio`. 
+**NOTE** Karaf 2.x/3.x has an issue with the `hawtio-log` which does not work. And therefore you need to install `hawtio-core` instead of `hawtio`.
 
 The hawtio console can then be viewed at [http://localhost:8181/hawtio/](http://localhost:8181/hawtio/).
 
