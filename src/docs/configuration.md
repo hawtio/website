@@ -4,21 +4,21 @@ title: "Configuration"
 
 ## Environment Variables
 
-Using [Docker](http://docker.io/) containers is increasingly common. We now have a [docker container for running hawtio](https://github.com/fabric8io/hawtio-docker) for example.
+Using [Docker](http://docker.io/) containers is increasingly common. We now have a [docker container for running hawtio](https://github.com/fabric8io/hawtio-docker).
 
-When using docker then environment variables are a preferred way to configure things with environmental values.
+When using docker, environment variables are a preferred way to pass configuration options to hawtio.
 
-So when using **hawtio-base** or **hawtio-default** you can use environment variables to override any of the properties on this page.
+With **hawtio-base** or **hawtio-default** you can use environment variables to override any of the hawtio properties listed below.
 
-To override property "hawtio.foo" just set an environment variable (using _ for dots).
+To override property "hawtio.foo" set an environment variable (using _ for dots).
 
     export hawtio_foo=bar
 
-and if you boot up hawtio in that shell (or you pass that variable into a docker container) then you will override the system property _hawtio.foo_
+If you boot up hawtio in that shell (or you pass that variable into a docker container) then you will override the system property _hawtio.foo_
 
 ## Configuring Security
 
-hawtio enables security out of the box depending on the container it is running within. Basically there is two types of containers:
+hawtio enables security out of the box depending on the container it is running within. There are two types of container:
 
 - Karaf based containers
 - Web containers
@@ -126,7 +126,7 @@ By default the security in hawtio uses these system properties when running in A
   </tbody>
 </table>
 
-Changing these values is often application server specific. Usually the easiest way to get hawtio working in your container is to just ensure you have a new user with the required role (by default its the 'admin' role).
+Changing these values is often application server specific. Usually the easiest way to get hawtio working in your container is to ensure you have a new user with the required role (by default its the 'admin' role).
 
 
 ##### Example: customize the allowed roles in Fabric8
@@ -149,7 +149,7 @@ To add the `my_organization_admin` role to the `admin` user in Fabric8:
 
 #### Default Security Settings for web containers
 
-By default the security in hawtio uses these system properties when running in any other container which you can override:
+For web containers, hawtio uses the following system properties:
 
 <table class="buttonTable table table-striped">
   <thead>
@@ -209,7 +209,7 @@ By default the security in hawtio uses these system properties when running in a
     <td>
     </td>
     <td>
-       Whether to return HTTP status 401 when authentication is enabled, but no credentials has been provided. Returning 401 will cause the browser popup window to prompt for credentails. By default this option is false, returning HTTP status 403 instead.
+       Whether to return HTTP status 401 when authentication is enabled, but no credentials has been provided. Returning 401 will cause the browser popup window to prompt for credentials. By default this option is false, returning HTTP status 403 instead.
     </td>
   </tr>
   <tr>
@@ -260,12 +260,12 @@ Now the user must be in the manager role to be able to login, which we can setup
     <role rolename="manager"/>
     <user username="scott" password="tiger" roles="tomcat,manager"/>
 
-Note that if you still want to use your own login modules instead of conf/tomcat-users.xml file, you can do it by remove TomcatAuthenticationContainerDiscovery from     
+Note that if you still want to use your own login modules instead of conf/tomcat-users.xml file, you can do it by remove TomcatAuthenticationContainerDiscovery from
 system properties and point to login.conf file with your login modules configuration. Something like:
 
     export CATALINA_OPTS='-Dhawtio.authenticationEnabled=true -Dhawtio.authenticationContainerDiscoveryClasses= -Dhawtio.realm=hawtio -Djava.security.auth.login.config=$CATALINA_BASE/conf/login.conf'
 
-Then you can configure jaas in file TOMCAT_HOME/conf/login.conf (Example of file below in jetty section).     
+Then you can configure jaas in file TOMCAT_HOME/conf/login.conf (Example of file below in jetty section).
 
 ##### Configuring security in Jetty
 
@@ -281,7 +281,7 @@ You have added two users. The first one named scott with the password tiger. He 
 Now create a second file in the same directory called login.conf. This is the login configuration file.
 
     hawtio {
-      org.eclipse.jetty.jaas.spi.PropertyFileLoginModule required 
+      org.eclipse.jetty.jaas.spi.PropertyFileLoginModule required
       debug="true"
       file="${jetty.base}/etc/login.properties";
     };
@@ -352,11 +352,11 @@ At last enable the jaas module in jetty. This is done by adding the following li
 
 #### Keycloak integration
 
-Hawtio can now be integrated with [Keycloak](http://www.keycloak.org) for SSO authentication. See details [here](https://github.com/hawtio/hawtio/blob/master/sample-keycloak-integration/README.md) . 
+Hawtio can now be integrated with [Keycloak](http://www.keycloak.org) for SSO authentication. See details [here](https://github.com/hawtio/hawtio/blob/master/sample-keycloak-integration/README.md).
 
 ## Configuration Properties
 
-The following table contains the various configuration settings for the various hawtio plugins.
+The following table contains configuration settings for various hawtio plugins.
 
 <table class="table table-striped">
   <thead>
@@ -422,12 +422,12 @@ If you are using a web container, the easiest way to change the web app configur
 
 #### OSGi configuration
 
-Just update the blueprint configuration values in OSGi config admim as you would any OSGi blueprint bundles. On OSGi all the hawtio Java modules use OSGi blueprint.
+Simply update the blueprint configuration values in OSGi config admim as you would any OSGi blueprint bundles. On OSGi all the hawtio Java modules use OSGi blueprint.
 
 #### Jolokia configuration
 
-Jolokia agent is deployed automatically with `io.hawt.web.JolokiaConfiguredAgentServlet` that extends Jolokia native `org.jolokia.http.AgentServlet` class, defined in `hawtio-web/WEB-INF/web.xml`.  
-To customize Jolokia Servlet configuration, according to the parameters that it supports and that are defined here:  
+The Jolokia agent is deployed automatically with `io.hawt.web.JolokiaConfiguredAgentServlet` and extends Jthe olokia native `org.jolokia.http.AgentServlet` class, defined in `hawtio-web/WEB-INF/web.xml`.
+To customize Jolokia Servlet configuration, according to the parameters that it supports and that are defined here:
 https://jolokia.org/reference/html/agents.html#agent-war-init-params
 
 You have to pass them as java system properties, prefixed with `jolokia.`.
@@ -440,4 +440,4 @@ EX.
 
 #### More information
 
-In the [articles](http://hawt.io/articles/index.html) colleciton you may find links to blog posts how to setup authentication with hawtio in various other containers. 
+In the [articles](http://hawt.io/articles/index.html) collection you may find links to blog posts how to setup authentication with hawtio in various other containers.
