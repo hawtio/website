@@ -2,13 +2,13 @@
 title: "Plugins"
 ---
 
-**hawtio** is highly modular with lots of plugins (see below), so that hawtio can discover exactly what services are inside a JVM and dynamically update the console to provide an interface to them as things come and go. So after you have deployed hawtio into a container, as you add and remove new services to your JVM the hawtio console updates in real time.
+**hawtio** is highly modular with lots of plugins (see below). After you have deployed hawtio into a container, as you add and remove new services to your JVM, the hawtio console updates in real time.
 
 For more details see the [Configuration Guide](http://hawt.io/configuration/index.html) and [How Plugins Work](http://hawt.io/plugins/howPluginsWork.html).
 
 ## Included Plugins
 
-The following plugins are all included by default in the [hawtio-web.war](https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-web/1.5.9/hawtio-web-1.5.9.war) distro. You can see the [source for the all default plugins here](https://github.com/hawtio/hawtio/tree/master/hawtio-web/src/main/webapp/app).
+The following plugins are all included by default in [hawtio-web.war](https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-web/1.5.9/hawtio-web-1.5.9.war). You can see the [source for the all default plugins here](https://github.com/hawtio/hawtio/tree/master/hawtio-web/src/main/webapp/app).
 
 
 <table class="table">
@@ -21,7 +21,7 @@ The following plugins are all included by default in the [hawtio-web.war](https:
     <td><a href="http://hawt.io/plugins/api/">api</a></td>
     <td>This plugin supports viewing the APIs of WSDL and WADL documents on <a href="http://cxf.apache.org/">Apache CXF</a> based web service endpoints</td>
     <td><a href="https://github.com/hawtio/hawtio/tree/master/hawtio-web/src/main/webapp/app/api">api</a></td>
-  </tr>  
+  </tr>
   <tr>
     <td><a href="http://hawt.io/plugins/activemq/">activemq</a></td>
     <td>Adds support for <a href="http://activemq.apache.org/">Apache ActiveMQ</a>. Lets you browse broker statistics, create queues/topcs, browse queues, send messages and visualise subscription and network information</td>
@@ -153,7 +153,7 @@ The following plugins are all included by default in the [hawtio-web.war](https:
     <td><a href="http://hawt.io/plugins/runtime/">runtime</a></td>
     <td>General overview of the Java process including command line, system properties and key metrics.</td>
     <td><a href="https://github.com/hawtio/hawtio/tree/master/hawtio-web/src/main/webapp/app/runtime">runtime</a></td>
-  </tr>  
+  </tr>
   <tr>
     <td><a href="http://hawt.io/plugins/source/">source</a></td>
     <td>Used by the <a href="http://hawt.io/plugins/logs/">log plugin</a> to view the source code of any file in a maven source artefact using the maven coordinates, class name / file name and line number.</td>
@@ -184,7 +184,7 @@ The following plugins are all included by default in the [hawtio-web.war](https:
 
 ## Developer plugins
 
-The following plugins are not intended to be used by users of hawtio, but are there for developers of hawtio plugins to use to build even _hawter_ plugins.
+The following plugins are intended for use by hawtio plugin developers.
 
 <table class="table">
   <tr>
@@ -236,9 +236,7 @@ The following plugins are not intended to be used by users of hawtio, but are th
 
 ## Server Side Plugins
 
-Each hawtio distro has these [browser based plugins](http://hawt.io/plugins/index.html) inside already. The hawtio UI updates itself in real time based on what it can find in the server side JVM it connects to. So for example if you deploy some Apache Camel then the Camel plugin will appear.
-
-In addition there are some server side Java based plugins you can deploy to add new behaviour to your hawtio console.
+Server side Java based plugins can be deployed to add new behaviour to your hawtio console.
 
 <table class="table">
   <tr>
