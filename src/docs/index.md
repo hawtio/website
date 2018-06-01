@@ -4,15 +4,15 @@ title: "Documentation"
 
 ## Using Hawtio
 
-* [Get Started](/docs/get-started/)
-* [Configuration](/docs/configuration/)
-* [Plugins](/docs/plugins/)
-* [Maven Plugins](/docs/maven-plugins/)
-* [Articles](/docs/articles/)
+* [Get Started](get-started/)
+* [Configuration](configuration/)
+* [Plugins](plugins/)
+* [Maven Plugins](maven-plugins/)
+* [Articles](articles/)
 
 ## General Docs
 
-* [FAQ](/docs/faq/)
-* [Change Log](/docs/changes/)
-* [Contributing](/docs/contributing/)
+* [FAQ](faq/)
+* [Change Log](changes/)
+* [Contributing](contributing/)
 
