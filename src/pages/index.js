@@ -27,7 +27,7 @@ const IndexPage = ({ data }) => {
           <Row>
             <Col xs={12} sm={12} md={6}>
               <img src={logo} style={{ height: 100, margin: 0 }} />
-              <h2 style={{ color: 'lightgrey' }}>{description}</h2>
+              <h2 style={{ color: 'lightgrey', borderBottom: 0 }}>{description}</h2>
               <div style={{ marginTop: '4rem', marginBottom: '1rem' }}>
                 <Button href={withPrefix('/docs/articles/')} style={{ marginRight: '2rem' }}>View Demos</Button>
                 <Button bsStyle="primary" href={withPrefix('/docs/get-started/')}>Get Started Now</Button>
