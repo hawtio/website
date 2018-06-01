@@ -19,25 +19,25 @@ The out of the box defaults try to do the right thing for most folks but if you 
 
 You can startup hawtio on your machine using the hawtio-app executable jar.
 
-<a class="btn btn-large btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-app/2.0.0/hawtio-app-2.0.0.jar">Download hawtio-app-2.0.0.jar</a>
+<a class="btn btn-large btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-app/2.0.2/hawtio-app-2.0.2.jar">Download hawtio-app-2.0.2.jar</a>
 
 Once you have downloaded it, just run this from the command line:
 
-    java -jar hawtio-app-2.0.0.jar
+    java -jar hawtio-app-2.0.2.jar
 
 Note: If you launch hawt.io with Java 9, add the specified modules to avoid errors on startup and allow attaching to other Java processes:
 
-    java --add-modules jdk.attach,java.xml.bind -jar hawtio-app-2.0.0.jar
+    java --add-modules jdk.attach,java.xml.bind -jar hawtio-app-2.0.2.jar
 
 The console should show you which URL to open, which by default is [http://localhost:8080/hawtio/](http://localhost:8080/hawtio/).
 
 To set a different port number, run:
 
-    java -jar hawtio-app-2.0.0.jar --port 8090
+    java -jar hawtio-app-2.0.2.jar --port 8090
 
 To see the full list of configuration options, run:
 
-    java -jar hawtio-app-2.0.0.jar --help
+    java -jar hawtio-app-2.0.2.jar --help
 
 <a id="servlet"></a>
 
@@ -48,7 +48,7 @@ If you use Tomcat or Jetty, you can deploy the Hawtio WAR file.
 <div class="row">
   <div class="col-md-4 text-center">
     <p>
-      <a class="btn btn-primary" ref="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default/2.0.0/hawtio-default-2.0.0.war">Download hawtio-default.war</a>
+      <a class="btn btn-primary" ref="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default/2.0.2/hawtio-default-2.0.2.war">Download hawtio-default.war</a>
     </p>
     <p>
       A bare hawtio web application with minimal dependencies (online mode connecting to the internet for the Maven and Git plugin).
@@ -56,7 +56,7 @@ If you use Tomcat or Jetty, you can deploy the Hawtio WAR file.
   </div>
   <div class="col-md-4 text-center">
     <p>
-      <a class="btn btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default-offline/2.0.0/hawtio-default-offline-2.0.0.war">Download hawtio-default-offline.war</a>
+      <a class="btn btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default-offline/2.0.2/hawtio-default-offline-2.0.2.war">Download hawtio-default-offline.war</a>
     </p>
     <p>
       A bare <b>offline</b> hawtio web application with minimal dependencies in offline mode, where Maven and Git plugins are not enabled.
@@ -64,7 +64,7 @@ If you use Tomcat or Jetty, you can deploy the Hawtio WAR file.
   </div>
   <div class="col-md-4 text-center">
     <p>
-      <a class="btn btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/sample/2.0.0/sample-2.0.0.war">Download sample.war</a>
+      <a class="btn btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/sample/2.0.2/sample-2.0.2.war">Download sample.war</a>
     </p>
     <p>
       A hawtio web application which comes with some <a href="http://activemq.apache.org/">Apache ActiveMQ</a> and
@@ -83,7 +83,7 @@ If you don't see a Tomcat / Jetty tab for your container you may need to enable 
 
 If you don't use the WildFly application server, use one of the options from the [Servlet container](#servlet) section to download Hawtio.
 
-If you do use WildFly, download [hawtio-wildfly-2.0.0.war](https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-wildfly/2.0.0/hawtio-wildfly-2.0.0.war).
+If you do use WildFly, download [hawtio-wildfly-2.0.2.war](https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-wildfly/2.0.2/hawtio-wildfly-2.0.2.war).
 
 To enable security, you'll need to set up configuration like this:
 
@@ -128,17 +128,17 @@ By default installing `hawtio` installs the Maven and Git plugin which uses onli
 
 If you are using [Apache Karaf](http://karaf.apache.org/) 2.x:
 
-    features:chooseurl hawtio 2.0.0
+    features:chooseurl hawtio 2.0.2
     features:install hawtio
 
 If you are using [Apache Karaf](http://karaf.apache.org/) 3.x:
 
-    feature:repo-add hawtio 2.0.0
+    feature:repo-add hawtio 2.0.2
     feature:install hawtio-core
 
 If you are using [Apache Karaf](http://karaf.apache.org/) 4.x:
 
-    feature:repo-add hawtio 2.0.0
+    feature:repo-add hawtio 2.0.2
     feature:install hawtio
 
 **NOTE** Karaf 2.x/3.x has an issue with the `hawtio-log` which does not work. And therefore you need to install `hawtio-core` instead of `hawtio`.
