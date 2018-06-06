@@ -9,8 +9,8 @@
       "component---src-templates-docs-template-js-dd671cd5cf057233ae67.js.map"
     ],
     "component---src-pages-index-js": [
-      "component---src-pages-index-js-a733e85903c28dc9058d.js",
-      "component---src-pages-index-js-a733e85903c28dc9058d.js.map"
+      "component---src-pages-index-js-3a56680b05e6dfdcbe58.js",
+      "component---src-pages-index-js-3a56680b05e6dfdcbe58.js.map"
     ],
     "path---docs-how-plugins-work": [
       "path---docs-how-plugins-work-ba4e190a9920dc5ddfef.js",
@@ -37,16 +37,16 @@
       "path----fb945939f2bb38cd864b.js.map"
     ],
     "path---docs-configuration": [
-      "path---docs-configuration-779e355581bb17d7284e.js",
-      "path---docs-configuration-779e355581bb17d7284e.js.map"
+      "path---docs-configuration-8385a59970b974db0233.js",
+      "path---docs-configuration-8385a59970b974db0233.js.map"
     ],
     "component---src-layouts-index-js": [
       "component---src-layouts-index-js-6812d205d44b7f0f2fb5.js",
       "component---src-layouts-index-js-6812d205d44b7f0f2fb5.js.map"
     ],
     "path---docs": [
-      "path---docs-44e35a0fadb9e2c0722b.js",
-      "path---docs-44e35a0fadb9e2c0722b.js.map"
+      "path---docs-732e981001cbf0a20030.js",
+      "path---docs-732e981001cbf0a20030.js.map"
     ],
     "path---index": [
       "path---index-2b094bc7aa56d8f5ddfc.js",
@@ -87,10 +87,14 @@
       "path---docs-maven-plugins-ee4ec5e1ecb3a6d0d7d4.js.map"
     ],
     "app": [
-      "app-954eaed1b0474eee6ba0.js",
+      "app-80c7b7fed18c36fa83ff.js",
       "build-js-styles.css",
-      "app-954eaed1b0474eee6ba0.js.map",
+      "app-80c7b7fed18c36fa83ff.js.map",
       "build-js-styles.css.map"
+    ],
+    "path---docs-keycloak-integration": [
+      "path---docs-keycloak-integration-e62acf4b7318b23e4251.js",
+      "path---docs-keycloak-integration-e62acf4b7318b23e4251.js.map"
     ],
     "path---docs-contributing": [
       "path---docs-contributing-0db3f96e7d6d7b002672.js",
