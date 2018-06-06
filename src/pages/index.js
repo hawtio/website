@@ -13,7 +13,9 @@ import {
 import { Timeline } from 'react-twitter-widgets'
 
 import { withPrefix } from 'gatsby-link'
-import screenshot from '../../static/images/screenshots/jmx.png'
+import screenshotJmx from '../../static/images/screenshots/jmx.png'
+import screenshotCamel from '../../static/images/screenshots/camel-route.png'
+import screenshotSpringBoot from '../../static/images/screenshots/spring-boot.png'
 import logo from '../../static/images/hawtio_logo.svg'
 
 const IndexPage = ({ data }) => {
@@ -25,7 +27,7 @@ const IndexPage = ({ data }) => {
       }}>
         <Grid>
           <Row>
-            <Col xs={12} sm={12} md={6}>
+            <Col xs={12} sm={12} md={5}>
               <img src={logo} style={{ height: 100, margin: 0 }} />
               <h2 style={{ color: 'lightgrey', borderBottom: 0 }}>{description}</h2>
               <div style={{ marginTop: '4rem', marginBottom: '1rem' }}>
@@ -33,22 +35,22 @@ const IndexPage = ({ data }) => {
                 <Button bsStyle="primary" href={withPrefix('/docs/get-started/')}>Get Started Now</Button>
               </div>
             </Col>
-            <Col xsHidden smHidden md={6}>
-              <Carousel interval={10000} indicators={false} controls={false} style={{ marginLeft: 50 }}>
+            <Col xsHidden smHidden md={7}>
+              <Carousel interval={5000} indicators={false} controls={false}>
                 <Carousel.Item>
-                  <img alt="JMX MBeans" src={screenshot} />
+                  <img alt="JMX MBeans" src={screenshotJmx} />
                   <Carousel.Caption>
                     <h3 style={{ color: 'black' }}>JMX MBeans</h3>
                   </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
-                  <img alt="Camel Routes" src={screenshot} />
+                  <img alt="Camel Routes" src={screenshotCamel} />
                   <Carousel.Caption>
                     <h3 style={{ color: 'black' }}>Camel Routes</h3>
                   </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
-                  <img alt="Spring Boot" src={screenshot} />
+                  <img alt="Spring Boot" src={screenshotSpringBoot} />
                   <Carousel.Caption>
                     <h3 style={{ color: 'black' }}>Spring Boot</h3>
                   </Carousel.Caption>
