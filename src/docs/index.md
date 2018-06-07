@@ -2,6 +2,8 @@
 title: "Documentation"
 ---
 
+This is the documentation for Hawtio v2. For Hawtio v1, refer to: https://hawtio.github.io/hawtio
+
 ## Using Hawtio
 
 #### [Get Started](get-started/)
