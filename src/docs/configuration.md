@@ -89,7 +89,7 @@ By default the security in Hawtio uses these system properties when running in A
       false
     </td>
     <td>
-      Whether to return HTTP status 401 when authentication is enabled, but no credentials has been provided. Returning 401 will cause the browser popup window to prompt for credentails. By default this option is <code>false</code>, returning HTTP status 403 instead.
+      Whether to return HTTP status 401 when authentication is enabled, but no credentials has been provided. Returning 401 will cause the browser popup window to prompt for credentials. By default this option is <code>false</code>, returning HTTP status 403 instead.
     </td>
   </tr>
   <tr>
@@ -213,7 +213,7 @@ For web containers, Hawtio uses the following system properties:
       false
     </td>
     <td>
-      Whether to return HTTP status 401 when authentication is enabled, but no credentials has been provided. Returning 401 will cause the browser popup window to prompt for credentails. By default this option is <code>false</code>, returning HTTP status 403 instead.
+      Whether to return HTTP status 401 when authentication is enabled, but no credentials has been provided. Returning 401 will cause the browser popup window to prompt for credentials. By default this option is <code>false</code>, returning HTTP status 403 instead.
     </td>
   </tr>
   <tr>
