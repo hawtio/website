@@ -25,6 +25,12 @@ The website will be available at http://localhost:8000/. You can also utilise Gr
 
 ## Publish
 
-This command will commit the built website under `public/` to the `master` branch:
+This command will rebuild the website under `docs/`:
 
     yarn deploy
+
+Then commit the changes to `master` branch to publish the website:
+
+    git add .
+    git commit -m 'chore: deploy website'
+    git push origin master
