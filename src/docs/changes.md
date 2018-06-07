@@ -2,6 +2,16 @@
 title: "Change Log"
 ---
 
+#### 2.1.0 (To be released)
+
+#### 2.0.2
+
+* **Official Hawtio v2 GA version!**
+
+#### 2.0.0, 2.0.1
+
+* These are old versions that were mistakenly released years ago. Please don't use these versions!
+
 #### 2.0 Beta3 (To be released)
 
 * Added hawtio BOM
@@ -38,6 +48,8 @@ title: "Change Log"
 #### 2.0 M1
 
 * Initial 2.0 milestone release
+
+-----
 
 #### 1.x
 
