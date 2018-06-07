@@ -2,6 +2,10 @@
 title: "FAQ"
 ---
 
+<div class="alert alert-danger">
+<strong>TO BE UPDATED:</strong> This document still refers to old v1 information that needs to be updated
+</div>
+
 - [General Questions](#general-questions)
 - [Problems/General Questions about using Hawtio](#problemsgeneral-questions-about-using-hawtio)
 - [Plugin Questions](#plugin-questions)

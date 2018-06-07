@@ -2,6 +2,10 @@
 title: "Maven Plugins"
 ---
 
+<div class="alert alert-danger">
+<strong>TO BE UPDATED:</strong> This document still refers to old v1 information that needs to be updated
+</div>
+
 Hawtio offers a number of Maven plugins, so that users can bootup Maven projects and have Hawtio embedded in the running JVM.
 
 ## Maven Goals

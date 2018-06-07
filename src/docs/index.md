@@ -32,7 +32,7 @@ Watch recorded screencasts and presentations about Hawtio and read articles writ
 
 Read commonly asked questions about the Hawtio project, including solutions to common problems getting started with Hawtio.
 
-#### [Change Log](changes/)
+#### [Change Log](https://github.com/hawtio/hawtio/blob/2.x/CHANGES.md)
 
 View the latest release details.
 
@@ -40,3 +40,18 @@ View the latest release details.
 
 Read how to get started building Hawtio and work with the code.
 
+## Developers
+
+#### [Developer Guide](https://github.com/hawtio/hawtio/blob/master/DEVELOPERS.md)
+
+#### [Building](https://github.com/hawtio/hawtio/blob/master/BUILDING.md)
+
+#### [How Plugins Work](how-plugins-work/)
+
+#### [How To Make UI Stuff](how-to-make-ui-stuff/)
+
+## Committers
+
+#### [Coding Conventions](coding-conventions/)
+
+#### [Release Guide](release-guide/)

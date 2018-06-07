@@ -1,3 +1,11 @@
+---
+title: "How Plugin Works"
+---
+
+<div class="alert alert-danger">
+<strong>TO BE UPDATED:</strong> This document still refers to old v1 information that needs to be updated
+</div>
+
 Currently hawtio uses JMX to discover which MBeans are present and then dynamically updates the navigation bars and tabs based on what it finds. The UI is updated whenever hawtio reloads the mbeans JSON; which it does periodically or a plugin can trigger explicitly.
 
 So you can deploy the standard [hawtio-web.war](https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-web/1.5.9/hawtio-web-1.5.9.war); then as you deploy more services to your container, hawtio will update itself to reflect the suitable plugins in the UI.

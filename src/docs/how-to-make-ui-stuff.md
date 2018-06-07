@@ -1,4 +1,10 @@
-# Hints and tips on making different UI components
+---
+title: "Hints and Tips on Making Different UI Components"
+---
+
+<div class="alert alert-danger">
+<strong>TO BE UPDATED:</strong> This document still refers to old v1 information that needs to be updated
+</div>
 
 This document tries to give some hints and tips on how to make common UI stuff
 

@@ -1,3 +1,10 @@
+---
+title: "Hawtio v2 Overview"
+---
+
+<div class="alert alert-danger">
+<strong>TO BE UPDATED:</strong> This document still refers to old information that needs to be updated
+</div>
 
 The main goals for 2.x are to update to a more recent AngularJS version as well as Bootstrap and Patternfly.  We also need to enable folks to re-use parts of the console.  Currently in 1.x there's a few options to customize the existing console:
 

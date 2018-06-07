@@ -4,7 +4,7 @@ import {
   Row,
   Col,
   Nav,
-  NavItem,
+  NavItem as RBNavItem,
   PageHeader
 } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -12,6 +12,11 @@ import { Link } from 'react-router-dom'
 import { withPrefix } from 'gatsby-link'
 
 import '../css/docs.css'
+
+const NavItem = props =>
+  <RBNavItem href={props.href} style={{ margin: -5 }}>
+    {props.children}
+  </RBNavItem>
 
 const DocsTemplate = ({ data }) => {
   const { frontmatter, html } = data.markdownRemark
@@ -24,32 +29,56 @@ const DocsTemplate = ({ data }) => {
           </h5>
           <h5>Using Hawtio</h5>
           <Nav stacked>
-            <NavItem eventKey={1} href={withPrefix('/docs/get-started/')}>
+            <NavItem href={withPrefix('/docs/get-started/')}>
               Get Started
             </NavItem>
-            <NavItem eventKey={2} href={withPrefix('/docs/configuration/')}>
+            <NavItem href={withPrefix('/docs/configuration/')}>
               Configuration
             </NavItem>
-            <NavItem eventKey={3} href={withPrefix('/docs/plugins/')}>
+            <NavItem href={withPrefix('/docs/plugins/')}>
               Plugins
             </NavItem>
-            <NavItem eventKey={4} href={withPrefix('/docs/maven-plugins/')}>
+            <NavItem href={withPrefix('/docs/maven-plugins/')}>
               Maven Plugins
             </NavItem>
-            <NavItem eventKey={5} href={withPrefix('/docs/articles/')}>
+            <NavItem href={withPrefix('/docs/articles/')}>
               Articles
             </NavItem>
           </Nav>
           <h5>General Docs</h5>
           <Nav stacked>
-            <NavItem eventKey={6} href={withPrefix('/docs/faq/')}>
+            <NavItem href={withPrefix('/docs/faq/')}>
               FAQ
             </NavItem>
-            <NavItem eventKey={7} href={withPrefix('/docs/changes/')}>
+            <NavItem href='https://github.com/hawtio/hawtio/blob/2.x/CHANGES.md'>
               Change Log
             </NavItem>
-            <NavItem eventKey={8} href={withPrefix('/docs/contributing/')}>
+            <NavItem href={withPrefix('/docs/contributing/')}>
               Contributing
+            </NavItem>
+          </Nav>
+          <h5>Developers</h5>
+          <Nav stacked>
+            <NavItem href='https://github.com/hawtio/hawtio/blob/master/DEVELOPERS.md'>
+              Developer Guide
+            </NavItem>
+            <NavItem href='https://github.com/hawtio/hawtio/blob/master/BUILDING.md'>
+              Building
+            </NavItem>
+            <NavItem href={withPrefix('/docs/how-plugins-work/')}>
+              How Plugins Work
+            </NavItem>
+            <NavItem href={withPrefix('/docs/how-to-make-ui-stuff/')}>
+              UI Stuff
+            </NavItem>
+          </Nav>
+          <h5>Committers</h5>
+          <Nav stacked>
+            <NavItem href={withPrefix('/docs/coding-conventions/')}>
+              Coding Conventions
+            </NavItem>
+            <NavItem href={withPrefix('/docs/release-guide/')}>
+              Release Guide
             </NavItem>
           </Nav>
         </Col>

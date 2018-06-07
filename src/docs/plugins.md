@@ -2,6 +2,10 @@
 title: "Plugins"
 ---
 
+<div class="alert alert-danger">
+<strong>TO BE UPDATED:</strong> This document still refers to old v1 information that needs to be updated
+</div>
+
 **hawtio** is highly modular with lots of plugins (see below). After you have deployed hawtio into a container, as you add and remove new services to your JVM, the hawtio console updates in real time.
 
 For more details see the [Configuration Guide](http://hawt.io/configuration/index.html) and [How Plugins Work](http://hawt.io/plugins/howPluginsWork.html).

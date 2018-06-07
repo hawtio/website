@@ -1,4 +1,10 @@
-## hawtio release guide
+---
+title: "Hawtio Release Guide"
+---
+
+<div class="alert alert-danger">
+<strong>TO BE UPDATED:</strong> This document still refers to old v1 information that needs to be updated
+</div>
 
 The following walks through how we make a release.
 

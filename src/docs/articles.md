@@ -2,6 +2,10 @@
 title: "Demos & Articles"
 ---
 
+<div class="alert alert-danger">
+<strong>TO BE UPDATED:</strong> This document still refers to old v1 information that needs to be updated
+</div>
+
 ## Demos (2.x)
 
 <table class="table table-striped">

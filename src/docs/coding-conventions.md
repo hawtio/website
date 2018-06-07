@@ -1,4 +1,10 @@
-# Code Conventions
+---
+title: "Code Conventions"
+---
+
+<div class="alert alert-danger">
+<strong>TO BE UPDATED:</strong> This document still refers to old v1 information that needs to be updated
+</div>
 
 While we don't want to be too anal about coding styles, we are trying to adopt conventions to help make things easier to find, name, navigate and use.
 
