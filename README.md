@@ -31,6 +31,6 @@ This command will rebuild the website under `docs/`:
 
 Then commit the changes to `master` branch to publish the website:
 
-    git add .
+    git add docs/
     git commit -m 'chore: deploy website'
     git push origin master
