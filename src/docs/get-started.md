@@ -16,7 +16,7 @@ The out of the box defaults try to do the right thing for most folks but if you 
 
 ## Running an executable JAR
 
-You can startup hawtio on your machine using the hawtio-app executable JAR.
+You can startup Hawtio on your machine using the hawtio-app executable JAR.
 
 <a class="btn btn-large btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-app/2.0.2/hawtio-app-2.0.2.jar">Download hawtio-app-2.0.2.jar</a>
 
@@ -60,7 +60,7 @@ If you use Tomcat or Jetty, you can deploy the Hawtio WAR file.
       <a class="btn btn-primary" ref="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default/2.0.2/hawtio-default-2.0.2.war">Download hawtio-default.war</a>
     </p>
     <p>
-      A bare hawtio web application with minimal dependencies (online mode connecting to the internet for the Maven and Git plugin).
+      A bare Hawtio web application with minimal dependencies (online mode connecting to the internet for the Maven and Git plugin).
     </p>
   </div>
   <div class="col-md-4 text-center">
@@ -68,7 +68,7 @@ If you use Tomcat or Jetty, you can deploy the Hawtio WAR file.
       <a class="btn btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default-offline/2.0.2/hawtio-default-offline-2.0.2.war">Download hawtio-default-offline.war</a>
     </p>
     <p>
-      A bare <b>offline</b> hawtio web application with minimal dependencies in offline mode, where Maven and Git plugins are not enabled.
+      A bare <b>offline</b> Hawtio web application with minimal dependencies in offline mode, where Maven and Git plugins are not enabled.
     </p>
   </div>
   <div class="col-md-4 text-center">
@@ -76,7 +76,7 @@ If you use Tomcat or Jetty, you can deploy the Hawtio WAR file.
       <a class="btn btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/sample/2.0.2/sample-2.0.2.war">Download sample.war</a>
     </p>
     <p>
-      A hawtio web application which comes with some <a href="http://activemq.apache.org/">Apache ActiveMQ</a> and
+      A Hawtio web application which comes with some <a href="http://activemq.apache.org/">Apache ActiveMQ</a> and
       <a href="http://camel.apache.org/">Apache Camel</a> to play with.
     </p>
   </div>
