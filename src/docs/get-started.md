@@ -14,6 +14,7 @@ Ways to run it:
 
 The out of the box defaults try to do the right thing for most folks but if you want to configure things then please check out the [configuration guide](../configuration/).
 
+
 ## Running an executable JAR
 
 You can startup Hawtio on your machine using the hawtio-app executable JAR.
@@ -24,7 +25,7 @@ Once you have downloaded it, just run this from the command line:
 
     java -jar hawtio-app-2.0.2.jar
 
-Note: If you launch hawt.io with Java 9, add the specified modules to avoid errors on startup and allow attaching to other Java processes:
+Note: If you launch Hawtio with Java 9+, add the specified modules to avoid errors on startup and allow attaching to other Java processes:
 
     java --add-modules jdk.attach,java.xml.bind -jar hawtio-app-2.0.2.jar
 
@@ -38,53 +39,44 @@ To see the full list of configuration options, run:
 
     java -jar hawtio-app-2.0.2.jar --help
 
+
 ## Running a Spring Boot app
 
-From a git clone you should be able to run Hawtio in a Spring Boot example application as follows:
+Attaching the Hawtio console to your Spring Boot app is really easy. You just need to follow the two steps:
 
-    git clone git@github.com:hawtio/hawtio.git
-    cd hawtio/examples/springboot
+1. Add `io.hawt:hawtio-springboot` to the dependencies in `pom.xml`:
+    
+        <dependency>
+          <groupId>io.hawt</groupId>
+          <artifactId>hawtio-springboot</artifactId>
+          <version>2.0.2</version>
+        </dependency>
+
+2. Unlock Jolokia endpoint on the Spring Boot app by adding the following line in `application.properties`:
+
+        endpoints.jolokia.sensitive = false
+
+Now you should be able to run Hawtio in your Spring Boot app as follows:
+
     mvn spring-boot:run
 
-Then opening [http://localhost:10001/hawtio/](http://localhost:10001/hawtio/) should show Hawtio monitoring a sample web application that exposes information about Apache Camel routes, metrics, etc.
+Then opening [http://localhost:8080/hawtio/](http://localhost:8080/hawtio/) should show the Hawtio console for your app.
+
+There is a working Spring Boot example that shows Hawtio monitoring a sample web application which exposes information about Apache Camel routes, metrics, etc.
+
+<a class="btn btn-large btn-primary" href="https://github.com/hawtio/hawtio/tree/hawtio-2.0.2/examples/springboot">Hawtio Spring Boot example</a>
 
 A good MBean for real time values and charts is `java.lang/OperatingSystem`. Try looking at Camel routes. Notice that as you change selections in the tree the list of tabs available changes dynamically based on the content.
+
 
 ## Deploying on a Servlet container
 
 If you use Tomcat or Jetty, you can deploy the Hawtio WAR file.
 
-<div class="row">
-  <div class="col-md-4 text-center">
-    <p>
-      <a class="btn btn-primary" ref="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default/2.0.2/hawtio-default-2.0.2.war">Download hawtio-default.war</a>
-    </p>
-    <p>
-      A bare Hawtio web application with minimal dependencies (online mode connecting to the internet for the Maven and Git plugin).
-    </p>
-  </div>
-  <div class="col-md-4 text-center">
-    <p>
-      <a class="btn btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default-offline/2.0.2/hawtio-default-offline-2.0.2.war">Download hawtio-default-offline.war</a>
-    </p>
-    <p>
-      A bare <b>offline</b> Hawtio web application with minimal dependencies in offline mode, where Maven and Git plugins are not enabled.
-    </p>
-  </div>
-  <div class="col-md-4 text-center">
-    <p>
-      <a class="btn btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/sample/2.0.2/sample-2.0.2.war">Download sample.war</a>
-    </p>
-    <p>
-      A Hawtio web application which comes with some <a href="http://activemq.apache.org/">Apache ActiveMQ</a> and
-      <a href="http://camel.apache.org/">Apache Camel</a> to play with.
-    </p>
-  </div>
-</div>
+<a class="btn btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default/2.0.2/hawtio-default-2.0.2.war">Download hawtio-default.war</a>
 
 Please read the [configuration guide](../configuration/) to see how to configure the console, in particular security.
 
-If you don't see a Tomcat / Jetty tab for your container you may need to enable JMX.
 
 ## Deploying on an application server
 
@@ -117,50 +109,71 @@ If you experience problems with security, you'll need to disable security in Haw
         <property name="hawtio.authenticationEnabled" value="false" />
     </system-properties>
 
-For older JBoss AS releases (4,5 & 6) you can add the following configuration to your **jboss-as/server/default/deploy/properties-service.xml** file (which probably has the mbean definition already but commented out):
-
-    <mbean code="org.jboss.varia.property.SystemPropertiesService"
-     name="jboss:type=Service,name=SystemProperties">
-
-      <attribute name="Properties">
-            hawtio.authenticationEnabled=false
-      </attribute>
-    </mbean>
-
-Learn how to [inject system properties into JBoss AS](http://www.mastertheboss.com/jboss-configuration/how-to-inject-system-properties-into-jboss).
 
 ## Deploying on Apache Karaf
 
-By default installing `hawtio` installs the Maven and Git plugin which uses online connection over the internet to work. You may want to install `hawtio-offline` instead which disables those plugins, and runs hawtio without any internet connectivity. When installing `hawtio-core` then those plugins are not installed and its also in offline mode.
+Hawtio provides the following features for Apache Karaf:
+
+<div class="table-responsive">
+<table class="table table-striped table-condensed table-hover">
+  <thead>
+  <tr>
+    <th>Feature</th>
+    <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>hawtio-core</td>
+    <td>Installs the core Hawtio war file with minimal extensions</td>
+  </tr>
+  <tr>
+    <td>hawtio-rbac</td>
+    <td>Installs the Hawtio RBAC enabler bundles</td>
+  </tr>
+  <tr>
+    <td>hawtio-log</td>
+    <td>Installs the Hawtio logging backend MBeans</td>
+  </tr>
+  <tr>
+    <td>hawtio</td>
+    <td>Installs the main Hawtio web console</td>
+  </tr>
+</table>
+</div>
 
 If you are using [Apache Karaf](http://karaf.apache.org/) 4.x:
 
     feature:repo-add hawtio 2.0.2
     feature:install hawtio
 
-The hawtio console can then be viewed at [http://localhost:8181/hawtio/](http://localhost:8181/hawtio/).
+This will install all the features listed above. The Hawtio console can then be viewed at [http://localhost:8181/hawtio/](http://localhost:8181/hawtio/). 
 
-### If you use a HTTP proxy
+Karaf versions prior to 4.x are not supported.
 
-If you are behind a HTTP proxy, you'll need to enable HTTP proxy support in WildFly / Karaf to be able to download hawtio from the central maven repository.
+
+### If you use an HTTP proxy
+
+If you are behind an HTTP proxy, you'll need to enable HTTP proxy support in WildFly / Karaf to be able to download Hawtio from the central maven repository.
 
 There are a few [articles about](http://mpashworth.wordpress.com/2012/09/27/installing-apache-karaf-features-behind-a-firewall/) [this](http://stackoverflow.com/questions/9922467/how-to-setup-a-proxy-for-apache-karaf) which may help. Here are the steps:
 
-Edit the **etc/org.ops4j.pax.url.mvn.cfg** file and make sure the following line is uncommented:
+Edit the `etc/org.ops4j.pax.url.mvn.cfg` file and make sure the following line is uncommented:
 
     org.ops4j.pax.url.mvn.proxySupport=true
 
-You may also want **org.ops4j.pax.url.mvn.settings** to point to your Maven settings.xml file. **NOTE** use / in the path, not \.
+You may also want **org.ops4j.pax.url.mvn.settings** to point to your Maven `settings.xml` file. **NOTE** use / in the path, not \.
 
     org.ops4j.pax.url.mvn.settings=C:/Program Files/MyStuff/apache-maven-3.0.5/conf/settings.xml
 
-WildFly / Karaf will then use your [maven HTTP proxy settings](http://maven.apache.org/guides/mini/guide-proxies.html) from your **~/.m2/settings.xml** to connect to the maven repositories listed in **etc/org.ops4j.pax.url.mvn.cfg** to download artifacts.
+WildFly / Karaf will then use your [Maven HTTP proxy settings](http://maven.apache.org/guides/mini/guide-proxies.html) from your `~/.m2/settings.xml` to connect to the maven repositories listed in `etc/org.ops4j.pax.url.mvn.cfg` to download artifacts.
+
 
 ## Using Hawtio embedded in a Java application
 
 If you do not use a servlet container or application server and wish to embed Hawtio inside your Java application, try the following:
 
-Add the following to your pom.xml
+Add the following to your `pom.xml`:
 
     <dependency>
       <groupId>io.hawt</groupId>
@@ -177,7 +190,7 @@ Then in your application run the following code:
     main.setWar("somePathOrDirectoryContainingHawtioWar");
     main.run();
 
-If you wish to do anything fancy it should be easy to override the Main class to find the hawtio-web.war in whatever place you wish to locate it (such as your local maven repo or download it from some server etc).
+If you wish to do anything fancy it should be easy to override the Main class to find the `hawtio-war.war` in whatever place you wish to locate it (such as your local maven repo or download it from some server etc).
 
 Depending on the war you are loading, you may also need to turn off authentication before running the embedded hawtio so that it can be accessible in an unauthenticated environment:
 
