@@ -17,8 +17,8 @@
       "path---docs-how-plugins-work-3129b364469b288139d0.js.map"
     ],
     "path---docs-get-started": [
-      "path---docs-get-started-a7e149df13400ee372dd.js",
-      "path---docs-get-started-a7e149df13400ee372dd.js.map"
+      "path---docs-get-started-e663a0e4886e16e75e1b.js",
+      "path---docs-get-started-e663a0e4886e16e75e1b.js.map"
     ],
     "path---docs-release-guide": [
       "path---docs-release-guide-8bbe12a148e850e799cd.js",
@@ -87,9 +87,9 @@
       "path---docs-maven-plugins-9085b4e057ba866a346b.js.map"
     ],
     "app": [
-      "app-8e4fe92275215d02aed7.js",
+      "app-9e3c63238d447ccb91f7.js",
       "build-js-styles.css",
-      "app-8e4fe92275215d02aed7.js.map",
+      "app-9e3c63238d447ccb91f7.js.map",
       "build-js-styles.css.map"
     ],
     "path---docs-keycloak-integration": [
