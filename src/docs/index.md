@@ -32,7 +32,7 @@ Watch recorded screencasts and presentations about Hawtio and read articles writ
 
 Read commonly asked questions about the Hawtio project, including solutions to common problems getting started with Hawtio.
 
-#### [Change Log](https://github.com/hawtio/hawtio/blob/2.x/CHANGES.md)
+#### [Change Log](https://github.com/hawtio/hawtio/blob/master/CHANGES.md)
 
 View the latest release details.
 

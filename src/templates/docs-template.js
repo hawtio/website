@@ -50,7 +50,7 @@ const DocsTemplate = ({ data }) => {
             <NavItem href={withPrefix('/docs/faq/')}>
               FAQ
             </NavItem>
-            <NavItem href='https://github.com/hawtio/hawtio/blob/2.x/CHANGES.md'>
+            <NavItem href='https://github.com/hawtio/hawtio/blob/master/CHANGES.md'>
               Change Log
             </NavItem>
             <NavItem href={withPrefix('/docs/contributing/')}>

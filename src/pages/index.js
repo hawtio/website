@@ -126,7 +126,7 @@ const IndexPage = ({ data }) => {
             </h3>
             <p>
               Hawtio can be{' '}
-              <a href="https://github.com/hawtio/hawtio/tree/2.x/examples/springboot">attached to a Spring Boot application in a snap</a>.
+              <a href="https://github.com/hawtio/hawtio/tree/master/examples/springboot">attached to a Spring Boot application in a snap</a>.
             </p>
           </Col>
           <Col md={4} style={{ padding: '2rem' }}>
