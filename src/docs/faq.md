@@ -41,7 +41,7 @@ Here's how to [disable security](https://github.com/hawtio/hawtio/blob/master/do
 #### Which Java version is required?
 
 - Hawtio 1.5 onwards - requires Java 8.
-- Hawtio 1.4 - requires Java 7 or 8. 
+- Hawtio 1.4 - requires Java 7 or 8.
 - Hawtio 1.3 or older - supports Java 6 and 7.
 
 #### How do I enable Hawtio inside my Java Application / Spring Boot / DropWizard / Micro Service
@@ -64,7 +64,7 @@ If a JVM has no jolokia agent, you can use the **Local** tab of the **Connect** 
 
 For JVMs not running a jolokia agent already, there's a start button (on the right) which will dynamically add the [jolokia JVM agent](http://jolokia.org/agent/jvm.html) into the selected JVM process. You can then click on the Agent URL link to connect into it.
 
-Note that the Local plugin only works when the JVM running Hawtio has the **hawtio-local-jvm-mbean** plugin installed (which depends on the JVM finding the com.sun.tools.attach.VirtualMachine API that jconsole uses and is included in the hawtio-default.war). BTW if you don't see a **Local** tab inside the **Conect** menu in your Hawtio application; check the log of your Hawtio JVM; there might be a warning around com.sun.tools.attach.VirtualMachine not being available on the classpath. Or you could just try using the [exectuable jar](http://hawt.io/getstarted/index.html) to run Hawtio which seems to work on most platforms.
+Note that the Local plugin only works when the JVM running Hawtio has the **hawtio-local-jvm-mbean** plugin installed (which depends on the JVM finding the com.sun.tools.attach.VirtualMachine API that jconsole uses and is included in the hawtio-default.war). BTW if you don't see a **Local** tab inside the **Conect** menu in your Hawtio application; check the log of your Hawtio JVM; there might be a warning around com.sun.tools.attach.VirtualMachine not being available on the classpath. Or you could just try using the [executable jar](http://hawt.io/getstarted/index.html) to run Hawtio which seems to work on most platforms.
 
 Note also that the **Local** tab only works when the process is on the same machine as the JVM running Hawtio. So a safer option is just to make sure there's a jolokia agent running in each JVM you want to manage with Hawtio.
 
@@ -118,7 +118,7 @@ So whether the Hawtio wiki is used for documentation, to link to various Hawtio 
 
 #### How to I install Hawtio as web console for Apache ActiveMQ
 
-You can use Hawtio to remote manage any ActiveMQ brokers without the need to co-install Hawtio together with the ActiveMQ broker. However you can also install Hawtio with the broker if you want. Dejan Bosanac [blogged how to do this](http://sensatic.net/activemq/activemq-and-hawtio.html). 
+You can use Hawtio to remote manage any ActiveMQ brokers without the need to co-install Hawtio together with the ActiveMQ broker. However you can also install Hawtio with the broker if you want. Dejan Bosanac [blogged how to do this](http://sensatic.net/activemq/activemq-and-hawtio.html).
 
 
 ### Problems/General Questions about using Hawtio
@@ -151,12 +151,12 @@ The terminal plugin may have trouble the first time in use, not being able to co
 
 #### Why does the Camel Route Diagram not show counters
 
-If you use Apache ServixeMix / Karaf and you deploy a Camel XML file by copying a xml file to the deploy directory, then the deployer does not run this with proper security. So the Karaf RBAC will deny the Apache Camel plugin to query the Camel routes to gather performance counters. As deploying by using plain XML files is not recommended, then it works by using a deployment unit as a proper OSGi bundle such as a JAR or KAR file.
+If you use Apache ServiceMix / Karaf and you deploy a Camel XML file by copying a xml file to the deploy directory, then the deployer does not run this with proper security. So the Karaf RBAC will deny the Apache Camel plugin to query the Camel routes to gather performance counters. As deploying by using plain XML files is not recommended, then it works by using a deployment unit as a proper OSGi bundle such as a JAR or KAR file.
 
 
 #### The tree keeps refreshing making the UI sluggish
 
-The reason is that there is something running in the JVM that keeps modifying the JMX tree, such as repeativily adding/removing same set of MBeans. For example Apache ActiveMQ does that when a JMS Client has been mis configured or configured without a connection pool. Because of no connection pool, then ActiveMQ JMS client creates a new connection, uses and closes the connection, and repeat that. As a net result of that, the MBean tree keeps being modified, which causes Hawtio to trigger a tree refresh. To resolve this use connection pooling with ActiveMQ - which you should always do. For an example see [issue 1903](https://github.com/hawtio/hawtio/issues/1903) for more details and how to resolve that.
+The reason is that there is something running in the JVM which keeps modifying the JMX tree, such as repeatedly adding / removing the same set of MBeans. For example, Apache ActiveMQ does that when a JMS Client has been misconfigured or configured without a connection pool. When there is no connection pool, the ActiveMQ JMS client repeatedly creates and closes connections. The result is that the MBean tree keeps being modified, which causes Hawtio to trigger a tree refresh. To resolve this issue, use connection pooling with ActiveMQ - which you should always do. For an example see [issue 1903](https://github.com/hawtio/hawtio/issues/1903) for more details.
 
 
 ### Plugin Questions
