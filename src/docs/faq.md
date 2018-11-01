@@ -58,7 +58,7 @@ Now you can use Hawtio (e.g. the Google Chrome Extension or the stand alone Hawt
 
 All that's required for Hawtio to connect to any remote JVM is that a [jolokia agent](http://jolokia.org/agent.html) is attached to the JVM you wish to connect to. This can be done in various ways.
 
-Firstly if you are using [Fuse](http://www.jboss.org/products/fuse) or [Apache ActiveMQ 5.9.x or later](http://activemq.apache.org/) then you already have jolokia enabled by default.
+Firstly if you are using [Red Hat Fuse](https://developers.redhat.com/products/fuse) or [Apache ActiveMQ 5.9.x or later](http://activemq.apache.org/) then you already have jolokia enabled by default.
 
 If a JVM has no jolokia agent, you can use the **Local** tab of the **Connect** menu (in 1.2.x or later of **hawtio-default.war**). The Local tab lists all local Java processes on the same machine (just like JConsole does).
 
