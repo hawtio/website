@@ -17,8 +17,8 @@
       "path---docs-how-plugins-work-3129b364469b288139d0.js.map"
     ],
     "path---docs-get-started": [
-      "path---docs-get-started-ea82a045ea6a607579b3.js",
-      "path---docs-get-started-ea82a045ea6a607579b3.js.map"
+      "path---docs-get-started-7bcc8f4ddebaca062c2f.js",
+      "path---docs-get-started-7bcc8f4ddebaca062c2f.js.map"
     ],
     "path---docs-release-guide": [
       "path---docs-release-guide-8bbe12a148e850e799cd.js",
@@ -41,8 +41,8 @@
       "path---docs-configuration-c082c5f1781fe0cd9c93.js.map"
     ],
     "component---src-layouts-index-js": [
-      "component---src-layouts-index-js-6812d205d44b7f0f2fb5.js",
-      "component---src-layouts-index-js-6812d205d44b7f0f2fb5.js.map"
+      "component---src-layouts-index-js-5d7261c71913c2af2458.js",
+      "component---src-layouts-index-js-5d7261c71913c2af2458.js.map"
     ],
     "path---docs": [
       "path---docs-12cf5e69d6cf5e824208.js",
@@ -87,9 +87,9 @@
       "path---docs-maven-plugins-9085b4e057ba866a346b.js.map"
     ],
     "app": [
-      "app-44156edb462c08d7ff94.js",
+      "app-f5874fff8ce11124524a.js",
       "build-js-styles.css",
-      "app-44156edb462c08d7ff94.js.map",
+      "app-f5874fff8ce11124524a.js.map",
       "build-js-styles.css.map"
     ],
     "path---docs-keycloak-integration": [
