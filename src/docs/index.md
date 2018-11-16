@@ -48,8 +48,6 @@ Read how to get started building Hawtio and work with the code.
 
 #### [How Plugins Work](how-plugins-work/)
 
-#### [How To Make UI Stuff](how-to-make-ui-stuff/)
-
 ## Committers
 
 #### [Coding Conventions](coding-conventions/)

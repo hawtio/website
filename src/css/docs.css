@@ -25,7 +25,12 @@ table {
   font-size: 14px;
 }
 
+th {
+  padding: 8px;
+}
+
 td {
   word-wrap: break-word;
   max-width: 200px;
+  padding: 8px;
 }

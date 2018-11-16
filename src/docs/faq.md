@@ -26,11 +26,11 @@ It's a [pluggable](http://hawt.io/plugins/index.html) management console for Jav
 
 #### How do I install Hawtio?
 
-See the [Getting Started Guide](http://hawt.io/getstarted/index.html) and the [Configuration Guide](http://hawt.io/configuration/index.html)
+See the [Getting Started Guide](http://hawt.io/getstarted/index.html) and the [Configuration Guide](/docs/configuration/)
 
 #### How do I configure Hawtio?
 
-Mostly Hawtio just works. However, please check out the [Configuration Guide](http://hawt.io/configuration/index.html) to see what kinds of things you can configure via system properties, environment variables, web.xml context-params or dependency injection.
+Mostly Hawtio just works. However, please check out the [Configuration Guide](/docs/configuration/) to see what kinds of things you can configure via system properties, environment variables, web.xml context-params or dependency injection.
 
 #### How do I disable security?
 
@@ -169,7 +169,7 @@ See the list of [Hawtio plugins](http://hawt.io/plugins/index.html)
 
 #### What is a plugin?
 
-See [How Plugins Work](http://hawt.io/plugins/howPluginsWork.html)
+See [How Plugins Work](/docs/how-plugins-work/)
 
 
 #### Why does the OSGi tab not appear on GlassFish?
