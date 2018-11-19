@@ -94,10 +94,6 @@ So usually, if you are interested in a particular plugin and its not visible in 
 
 Try have a look at the [change log](http://hawt.io/changelog.html) to see the latest changes in Hawtio!
 
-#### Where can I find more information?
-
-Try have a look at the [articles and demos](http://hawt.io/articles/index.html) to see what other folks are saying about Hawtio.
-
 #### Why does Hawtio log a bunch of 404s to the javascript console at startup?
 
 The Hawtio help registry tries to automatically discover help data for each registered plugin even if plugins haven't specifically registered a help file.

@@ -22,10 +22,6 @@ Read an overview of the plugins available in Hawtio, including server-side and e
 
  Read up on how you can boot up Maven projects and have Hawtio embedded in the running JVM using Maven plugins that Hawtio offers.
 
-#### [Demo & Articles](articles/)
-
-Watch recorded screencasts and presentations about Hawtio and read articles written by Hawtio developers and users.
-
 ## General Docs
 
 #### [FAQ](faq/)

@@ -3,14 +3,17 @@ title: "Configuration"
 ---
 
 - [Configuring Security](#configuring-security)
-    - [Default Security Settings for Karaf containers](#default-security-settings-for-karaf-containers)
-    - [Default Security Settings for web containers](#default-security-settings-for-web-containers)
-        - [Configuring or disabling security in web containers](#configuring-or-disabling-security-in-web-containers)
-        - [Configuring security in Apache Tomcat](#configuring-security-in-apache-tomcat)
-        - [Configuring security in Jetty](#configuring-security-in-jetty)
-    - [Keycloak Integration](#keycloak-integration)
+  - [Default Security Settings for Karaf containers](#default-security-settings-for-karaf-containers)
+    - [Example: Customize the allowed roles](#example-customize-the-allowed-roles)
+  - [Default Security Settings for web containers](#default-security-settings-for-web-containers)
+    - [Configuring or disabling security in web containers](#configuring-or-disabling-security-in-web-containers)
+    - [Configuring security in Apache Tomcat](#configuring-security-in-apache-tomcat)
+    - [Configuring security in Jetty](#configuring-security-in-jetty)
+  - [Keycloak Integration](#keycloak-integration)
 - [Configuration Properties](#configuration-properties)
 - [Web Application configuration](#web-application-configuration)
+  - [OSGi configuration](#osgi-configuration)
+  - [Jolokia configuration](#jolokia-configuration)
 
 
 ## Configuring Security
@@ -410,7 +413,3 @@ To customize Jolokia Servlet configuration, according to the parameters that it 
     -Djolokia.policyLocation=file:///opt/hawtio/my-jolokia-access.xml
 
 **NOTE** The parameter `restrictorClass` is already used in `hawtio-war/WEB-INF/web.xml` to implement role-based access control (RBAC) for Jolokia invocations. If you want to use your own Jolokia restrictor, make sure to extend `io.hawt.web.RBACRestrictor` to implement your own restrictor class. Otherwise, part of Hawtio's RBAC functions will be lost.
-
-## More information
-
-In the [articles](../articles/) collection you may find links to blog posts how to setup authentication with Hawtio in various other containers.

@@ -33,7 +33,6 @@ const Header = ({ siteTitle }) => (
         <NavItem eventKey={2} href={withPrefix('/docs/get-started/')}>Get Started</NavItem>
         <NavItem eventKey={3} href={withPrefix('/docs/')}>Docs</NavItem>
         <NavItem eventKey={4} href={withPrefix('/docs/plugins/')}>Plugins</NavItem>
-        <NavItem eventKey={5} href={withPrefix('/docs/articles/')}>Demos</NavItem>
         <NavItem eventKey={6} href="https://github.com/hawtio/hawtio/releases">Download</NavItem>
         <NavItem eventKey={7} href={withPrefix('/community/')}>Community</NavItem>
       </Nav>
