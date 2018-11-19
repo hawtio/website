@@ -19,7 +19,7 @@ A hawtio plugin is anything that will run inside a browser. We've tried to keep 
 
 From a plugin developer's perspective a plugin is just a set of resources; usually at least one JavaScript file.
 
-For [all the plugins](http://hawt.io/plugins/index.html) we've done so far we've picked [AngularJS](http://angularjs.org/) as the UI framework, which has nice a two-way binding between the HTML markup and the JS data model along with modularisation, web directives and dependency injection.
+For [all the plugins](/docs/plugins) we've done so far we've picked [AngularJS](http://angularjs.org/) as the UI framework, which has nice a two-way binding between the HTML markup and the JS data model along with modularisation, web directives and dependency injection.
 
 We're using TypeScript to generate the JS code to get syntax for modules, classes, interfaces, type inference and static type checking; but folks can use anything that compiles to JS (e.g. vanilla JS or JSLint / Google Closure, CoffeeScript or any of the JVM language -> JS translators like GWT, Kotlin, Ceylon etc)
 

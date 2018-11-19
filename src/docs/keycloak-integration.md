@@ -81,7 +81,7 @@ Assume `$KARAF_HOME` is the root directory of your Karaf/Fuse installation.
 
 ## WildFly or JBoss EAP
 
-Assume `$JBOSS_HOME` is the root directory of your WildFly/JBoss EAP installation and you deployed Hawtio WAR to it as described in [Hawtio Get Started](http://hawt.io/getstarted/index.html).
+Assume `$JBOSS_HOME` is the root directory of your WildFly/JBoss EAP installation and you deployed Hawtio WAR to it as described in [Hawtio Get Started](/docs/get-started).
 
 * Install Keycloak adapter subsystem to your WildFly as described on: http://www.keycloak.org/docs/3.4/securing_apps/index.html#_jboss_adapter
 
@@ -130,7 +130,7 @@ Assume `$JBOSS_HOME` is the root directory of your WildFly/JBoss EAP installatio
 
 ## Jetty
 
-Assume `$JETTY_HOME` is the root directory of your Jetty installation and you deployed Hawtio WAR to Jetty as described in [Hawtio Get Started](http://hawt.io/getstarted/index.html).
+Assume `$JETTY_HOME` is the root directory of your Jetty installation and you deployed Hawtio WAR to Jetty as described in [Hawtio Get Started](/docs/get-started).
 
 * Install Keycloak Jetty adapter into your Jetty server as described on: http://www.keycloak.org/docs/3.4/securing_apps/index.html#_jetty9_adapter
 
