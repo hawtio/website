@@ -11,7 +11,6 @@ title: "Configuration"
     - [Configuring security in Jetty](#configuring-security-in-jetty)
   - [Keycloak Integration](#keycloak-integration)
 - [Configuration Properties](#configuration-properties)
-- [Web Application configuration](#web-application-configuration)
   - [OSGi configuration](#osgi-configuration)
   - [Jolokia configuration](#jolokia-configuration)
 
@@ -367,8 +366,7 @@ Hawtio can now be integrated with [Keycloak](http://www.keycloak.org) for SSO au
 
 The following table contains configuration settings for various Hawtio plugins.
 
-<div class="table-responsive">
-<table class="table table-striped table-condensed table-hover">
+<table class="table">
   <thead>
     <tr>
       <th>System Property</th>
@@ -390,15 +388,6 @@ The following table contains configuration settings for various Hawtio plugins.
     </tr>
   </tbody>
 </table>
-</div>
-
-
-## Web Application configuration
-
-If you are using a web container, the easiest way to change the web app configuration values is:
-
-* Create your own WAR which depends on the `hawtio-default.war` like the [sample project's pom.xml](https://github.com/hawtio/hawtio/blob/master/sample/pom.xml#L17)
-* Create your own [blueprint.properties](https://github.com/hawtio/hawtio/blob/master/sample/src/main/resources/blueprint.properties#L7) file that then can override whatever properties you require
 
 ### OSGi configuration
 

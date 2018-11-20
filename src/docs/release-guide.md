@@ -33,9 +33,9 @@ Update the changelog with links to your milestone which will list all the fixes/
 
 ### Update the new version number:
 
-Now update the new dev version the following files so the new dev build doens't barf
+Now update the new dev version the following files so the new dev build doens't barf:
 
-  * [SpecRunner.html](https://github.com/hawtio/hawtio/blob/master/hawtio-web/src/test/specs/SpecRunner.html#L88)
+  * hawtio-web/src/test/specs/SpecRunner.html
 
 Now update the following files for the new release version:
 

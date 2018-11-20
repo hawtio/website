@@ -1,8 +1,8 @@
 {
   "assetsByChunkName": {
     "component---src-pages-community-js": [
-      "component---src-pages-community-js-23105b4518058bfdeb05.js",
-      "component---src-pages-community-js-23105b4518058bfdeb05.js.map"
+      "component---src-pages-community-js-832169aeea145225b207.js",
+      "component---src-pages-community-js-832169aeea145225b207.js.map"
     ],
     "component---src-templates-docs-template-js": [
       "component---src-templates-docs-template-js-427653ce0c6d6d5dfa5d.js",
@@ -13,12 +13,12 @@
       "component---src-pages-index-js-938c8ba6c73ba0b47b08.js.map"
     ],
     "path---docs-get-started": [
-      "path---docs-get-started-7bcc8f4ddebaca062c2f.js",
-      "path---docs-get-started-7bcc8f4ddebaca062c2f.js.map"
+      "path---docs-get-started-9eb3e829877a54b72e68.js",
+      "path---docs-get-started-9eb3e829877a54b72e68.js.map"
     ],
     "path---docs-release-guide": [
-      "path---docs-release-guide-4624533fb60a402ff5fc.js",
-      "path---docs-release-guide-4624533fb60a402ff5fc.js.map"
+      "path---docs-release-guide-9563c4a5f62ad9874c9f.js",
+      "path---docs-release-guide-9563c4a5f62ad9874c9f.js.map"
     ],
     "path---docs-plugins": [
       "path---docs-plugins-9cf07d405fe570fefb09.js",
@@ -29,8 +29,8 @@
       "path----fb945939f2bb38cd864b.js.map"
     ],
     "path---docs-configuration": [
-      "path---docs-configuration-186508ccc8eb695e173e.js",
-      "path---docs-configuration-186508ccc8eb695e173e.js.map"
+      "path---docs-configuration-532b8a745a649eb202b5.js",
+      "path---docs-configuration-532b8a745a649eb202b5.js.map"
     ],
     "component---src-layouts-index-js": [
       "component---src-layouts-index-js-ace3725bf12beae39ec9.js",
@@ -75,14 +75,14 @@
       "path---docs-maven-plugins-e9a7a0d962353a79e7d5.js.map"
     ],
     "app": [
-      "app-50208caa91bdc78e490c.js",
+      "app-3d29b9c31cf92797ceca.js",
       "build-js-styles.css",
-      "app-50208caa91bdc78e490c.js.map",
+      "app-3d29b9c31cf92797ceca.js.map",
       "build-js-styles.css.map"
     ],
     "path---docs-keycloak-integration": [
-      "path---docs-keycloak-integration-6f5068c6facb68dc5dea.js",
-      "path---docs-keycloak-integration-6f5068c6facb68dc5dea.js.map"
+      "path---docs-keycloak-integration-fe103526ff52d1da6de7.js",
+      "path---docs-keycloak-integration-fe103526ff52d1da6de7.js.map"
     ],
     "path---docs-contributing": [
       "path---docs-contributing-49cd5b782bdb84cac3ec.js",

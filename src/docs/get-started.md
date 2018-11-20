@@ -5,12 +5,13 @@ title: "Get Started"
 Hawtio consists of 2 parts: an AngularJS applicaton and a Java backend, which proxies the communication between the frontend and [Jolokia](https://jolokia.org/) endpoints. The frontend has access to all JMX attributes and operations available in Java applications running locally and remotely.
 
 Ways to run it:
-* as a standalone [executable jar](#running-an-executable-jar)
-* as a [Spring Boot app](#running-a-spring-boot-app)
-* deployed on a [Servlet container](#deploying-on-a-servlet-container)
-* deployed on an [application server](#deploying-on-an-application-server)
-* deployed on [Apache Karaf](#deploying-on-apache-karaf)
-* embedded [in a Java application](#using-hawtio-embedded-in-a-java-application)
+- [Running an executable JAR](#running-an-executable-jar)
+- [Running a Spring Boot app](#running-a-spring-boot-app)
+- [Deploying on a Servlet container](#deploying-on-a-servlet-container)
+- [Deploying on an application server](#deploying-on-an-application-server)
+- [Deploying on Apache Karaf](#deploying-on-apache-karaf)
+    - [If you use an HTTP proxy](#if-you-use-an-http-proxy)
+- [Using Hawtio embedded in a Java application](#using-hawtio-embedded-in-a-java-application)
 
 The out of the box defaults try to do the right thing for most folks but if you want to configure things then please check out the [configuration guide](../configuration/).
 
@@ -29,7 +30,7 @@ Note: If you launch Hawtio with Java 9+, add the specified modules to avoid erro
 
     java --add-modules jdk.attach,java.xml.bind -jar hawtio-app-2.3.0.jar
 
-The console should show you which URL to open, which by default is [http://localhost:8080/hawtio/](http://localhost:8080/hawtio/).
+The console should show you which URL to open, which by default is `http://localhost:8080/hawtio`.
 
 To set a different port number, run:
 
@@ -62,7 +63,7 @@ Now you should be able to run Hawtio in your Spring Boot app as follows:
 
     mvn spring-boot:run
 
-Opening [http://localhost:8080/actuator/hawtio/](http://localhost:8080/actuator/hawtio/) should show the Hawtio console.
+Opening `http://localhost:8080/actuator/hawtio` should show the Hawtio console.
 
 If you'd prefer to not have the `/actuator` base path, then you can customize the Spring Boot management base path with the `management.endpoints.web.base-path` property:
 
@@ -90,7 +91,7 @@ Now you should be able to run Hawtio in your Spring Boot app as follows:
 
     mvn spring-boot:run
 
-Opening [http://localhost:8080/hawtio/](http://localhost:8080/hawtio/) should show the Hawtio console.
+Opening `http://localhost:8080/hawtio` should show the Hawtio console.
 
 There is a working Spring Boot example that shows Hawtio monitoring a sample web application which exposes information about Apache Camel routes, metrics, etc.
 
@@ -125,9 +126,6 @@ To enable security, you'll need to set up configuration like this:
         <property name="hawtio.realm" value="jboss-web-policy" />
         <property name="hawtio.role" value="admin" />
     </system-properties>
-
-You can follow the [steps outlined in this blog](http://www.christianposta.com/blog/?p=403) for a more comprehensive
-look at enabling security in WildFly with Hawtio.
 
 If you experience problems with security, you'll need to disable security in Hawtio. For WildFly, you can set the hawtio.authenticationEnabled system property in standalone/configuration/standalone.xml:
 
@@ -177,10 +175,9 @@ If you are using [Apache Karaf](http://karaf.apache.org/) 4.x:
     feature:repo-add hawtio 2.3.0
     feature:install hawtio
 
-This will install all the features listed above. The Hawtio console can then be viewed at [http://localhost:8181/hawtio/](http://localhost:8181/hawtio/).
+This will install all the features listed above. The Hawtio console can then be viewed at `http://localhost:8181/hawtio`.
 
 Karaf versions prior to 4.x are not supported.
-
 
 ### If you use an HTTP proxy
 
