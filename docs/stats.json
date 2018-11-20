@@ -5,16 +5,12 @@
       "component---src-pages-community-js-23105b4518058bfdeb05.js.map"
     ],
     "component---src-templates-docs-template-js": [
-      "component---src-templates-docs-template-js-21a775722761cd8b1ac0.js",
-      "component---src-templates-docs-template-js-21a775722761cd8b1ac0.js.map"
+      "component---src-templates-docs-template-js-427653ce0c6d6d5dfa5d.js",
+      "component---src-templates-docs-template-js-427653ce0c6d6d5dfa5d.js.map"
     ],
     "component---src-pages-index-js": [
       "component---src-pages-index-js-938c8ba6c73ba0b47b08.js",
       "component---src-pages-index-js-938c8ba6c73ba0b47b08.js.map"
-    ],
-    "path---docs-how-plugins-work": [
-      "path---docs-how-plugins-work-1010aa2f69d0aaa53c89.js",
-      "path---docs-how-plugins-work-1010aa2f69d0aaa53c89.js.map"
     ],
     "path---docs-get-started": [
       "path---docs-get-started-7bcc8f4ddebaca062c2f.js",
@@ -25,8 +21,8 @@
       "path---docs-release-guide-4624533fb60a402ff5fc.js.map"
     ],
     "path---docs-plugins": [
-      "path---docs-plugins-9e2cbc1842e98065a504.js",
-      "path---docs-plugins-9e2cbc1842e98065a504.js.map"
+      "path---docs-plugins-9cf07d405fe570fefb09.js",
+      "path---docs-plugins-9cf07d405fe570fefb09.js.map"
     ],
     "path---": [
       "path----fb945939f2bb38cd864b.js",
@@ -41,8 +37,8 @@
       "component---src-layouts-index-js-ace3725bf12beae39ec9.js.map"
     ],
     "path---docs": [
-      "path---docs-b9cfa048a7da66b67a43.js",
-      "path---docs-b9cfa048a7da66b67a43.js.map"
+      "path---docs-6abcc6249f48967c359d.js",
+      "path---docs-6abcc6249f48967c359d.js.map"
     ],
     "path---index": [
       "path---index-2b094bc7aa56d8f5ddfc.js",
@@ -79,9 +75,9 @@
       "path---docs-maven-plugins-e9a7a0d962353a79e7d5.js.map"
     ],
     "app": [
-      "app-70fce378f4a0e31b0d90.js",
+      "app-50208caa91bdc78e490c.js",
       "build-js-styles.css",
-      "app-70fce378f4a0e31b0d90.js.map",
+      "app-50208caa91bdc78e490c.js.map",
       "build-js-styles.css.map"
     ],
     "path---docs-keycloak-integration": [

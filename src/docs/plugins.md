@@ -2,7 +2,11 @@
 title: "Plugins"
 ---
 
-**Hawtio** is highly modular with lots of plugins (see below). After you have deployed hawtio into a container, as you add and remove new services to your JVM, the hawtio console updates in real time.
+Hawtio is highly modular and includes plugins for different technologies (see below). Hawtio plugins are basically AngularJS modules that include all the Javascript, HTML, CSS, and images required for them to work. They can also use the features provided by the Hawtio core module.
+
+Hawtio uses JMX to discover which MBeans are present and then dynamically updates the navigation bars and tabs based on what it finds. The UI is updated whenever Hawtio reloads the MBean, which it does periodically or a plugin can trigger explicitly.
+
+Relying on JMX for discovery doesn't mean that plugins can only interact with JMX. They can do anything at all that a browser can. e.g., use REST to discover UI capabilities and other plugins.
 
 The following plugins are all included by default in Hawtio:
 

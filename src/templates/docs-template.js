@@ -62,9 +62,6 @@ const DocsTemplate = ({ data }) => {
             <NavItem href='https://github.com/hawtio/hawtio/blob/master/BUILDING.md'>
               Building
             </NavItem>
-            <NavItem href={withPrefix('/docs/how-plugins-work/')}>
-              How Plugins Work
-            </NavItem>
             <NavItem href={withPrefix('/docs/release-guide/')}>
               Release Guide
             </NavItem>

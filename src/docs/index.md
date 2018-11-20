@@ -42,6 +42,4 @@ Read how to get started building Hawtio and work with the code.
 
 #### [Building](https://github.com/hawtio/hawtio/blob/master/BUILDING.md)
 
-#### [How Plugins Work](how-plugins-work/)
-
 #### [Release Guide](release-guide/)

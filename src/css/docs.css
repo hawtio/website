@@ -33,4 +33,5 @@ td {
   word-wrap: break-word;
   max-width: 200px;
   padding: 8px;
+  line-height: 1.4;
 }
