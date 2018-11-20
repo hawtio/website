@@ -65,12 +65,6 @@ const DocsTemplate = ({ data }) => {
             <NavItem href={withPrefix('/docs/how-plugins-work/')}>
               How Plugins Work
             </NavItem>
-          </Nav>
-          <h5>Committers</h5>
-          <Nav stacked>
-            <NavItem href={withPrefix('/docs/coding-conventions/')}>
-              Coding Conventions
-            </NavItem>
             <NavItem href={withPrefix('/docs/release-guide/')}>
               Release Guide
             </NavItem>

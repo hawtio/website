@@ -44,8 +44,4 @@ Read how to get started building Hawtio and work with the code.
 
 #### [How Plugins Work](how-plugins-work/)
 
-## Committers
-
-#### [Coding Conventions](coding-conventions/)
-
 #### [Release Guide](release-guide/)
