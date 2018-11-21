@@ -1,66 +1,46 @@
 ---
-title: "Hawtio Release Guide"
+title: "Release Guide"
 ---
-
-<div class="alert alert-danger">
-<strong>TO BE UPDATED:</strong> This document still refers to old v1 information that needs to be updated
-</div>
 
 The following walks through how we make a release.
 
-* Pop onto [IRC](/community) and let folks know you're about to cut a release
-* Now pull and make sure things build locally fine first :)
+### Prepare for a release
 
-		mvn release:prepare -P release,grunt
+Before releasing a version, update the [changelog](https://github.com/hawtio/hawtio/blob/master/CHANGES.md) with the fixes/enhancements that made it into the release. Also mention any major changes in the changelog.
 
-If the build fails then rollback via
+### Release a Hawtio version
 
-    mvn release:rollback -P release,grunt
+Firstly, pop onto [IRC](/community/index.html) and let folks know you're about to cut a release.
 
-The tag should get auto-defaulted to something like **hawtio-1.2**
+Now pull and make sure things build locally fine first :)
 
-		mvn release:perform -P release,grunt
+    mvn clean install
 
-when the release is done:
+Then use the `bin/release` script to release a new version, for example `2.5.0`:
 
-		git push --tags
+    ./bin/release 2.5.0 2.6-SNAPSHOT
 
-Now go to the [OSS Nonatype Nexus](https://oss.sonatype.org/index.html#stagingRepositories) and Close then Release the staging repo
+When the script is done without any errors, the release tag (e.g. `hawtio-2.5.0`) should be pushed to the GitHub repo. Go to the GitHub [releases](https://github.com/hawtio/hawtio/releases) page and write a new release note with the published tag (`hawtio-2.5.0`).
 
-Now, go into github issues and create a new milestone (if not already created) for the release number that you just released.  Close this milestone.  Now go through each open milestonee and move all closed issues to your new milestone.  Also move issues that are closed but have no milestone to the new milestone.  This will ensure that all fixed issues in the last development period will be correctly associated with the release that the fix was introduced in.
+Finally, tweet the hawt stuff via [@hawtio](https://twitter.com/hawtio)!
 
-Update the changelog with links to your milestone which will list all the fixes/enhancements that made it into the release.  Also mention any major changes in the changelog.
+### Update the web site
 
-### Update the new version number:
+Now go to [hawtio/website](https://github.com/hawtio/website) and update the web site and documentation for the new release version (e.g. `2.4.0` -> `2.5.0`):
 
-Now update the new dev version the following files so the new dev build doens't barf:
+    cd website/
+    grep "2[.]4[.]0" -r src/ -l | xargs sed -i 's/2.4.0/2.5.0/g'
 
-  * hawtio-web/src/test/specs/SpecRunner.html
+Check the batch changes before committing them.
 
-Now update the following files for the new release version:
+    git add src/
+    git commit -m 'docs: upgrade Hawtio version to 2.5.0'
 
-  * **/*.md - *apart* from changes.md!
-  * website/pom.xml
-  * website/src/chrome/extension.xml
-  * chrome-extension/src/resources/manifest.json
+Then publish the web site:
 
-
-### Chrome Extension
-
-One the release has sync'd to [maven central](http://central.maven.org/maven2/io/hawt/hawtio-web/) and the new website is up with the new extension.xml (see above), you'll need to:
-
-* go to the chrome-extension directory
-* check the manifest has the correct new view (see above on version number changes)
-* run
-
-    mvn install
-
-* now go to the [Chrome Web Store](https://chrome.google.com/webstore/developer/dashboard/ua69cc79bd081162fca3bb58f3e36b3b4) and upload the **target/extension.zip** file and hit publish
-
-### Now its beer o'clock!
-
-Now drink a beer! Then another! There, thats better now isn't it!
-
-
-
+    yarn deploy
+    
+    git add docs/
+    git commit -m 'chore: deploy website'
+    git push origin master
 
