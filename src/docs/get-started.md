@@ -2,7 +2,7 @@
 title: "Get Started"
 ---
 
-Hawtio consists of 2 parts: an AngularJS applicaton and a Java backend, which proxies the communication between the frontend and [Jolokia](https://jolokia.org/) endpoints. The frontend has access to all JMX attributes and operations available in Java applications running locally and remotely.
+Hawtio consists of 2 parts: an AngularJS application and a Java backend, which proxies the communication between the frontend and [Jolokia](https://jolokia.org/) endpoints. The frontend has access to all JMX attributes and operations available in Java applications running locally and remotely.
 
 Ways to run it:
 - [Running an executable JAR](#running-an-executable-jar)

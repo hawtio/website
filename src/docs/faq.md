@@ -8,7 +8,7 @@ Hawtio uses the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.
 
 #### What does Hawtio do?
 
-It's a [pluggable](/docs/plugins) management console for Java stuff which supports any kind of JVM, any kind of container (Tomcat, Jetty, Wildfly, Karaf, etc), and any kind of Java technology and middleware.
+It's a [pluggable](/docs/plugins) management console for Java stuff which supports any kind of JVM, any kind of container (Tomcat, Jetty, WildFly, Karaf, etc), and any kind of Java technology and middleware.
 
 #### How do I install Hawtio?
 
