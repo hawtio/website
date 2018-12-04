@@ -1,6 +1,6 @@
 # Hawtio website
 
-http://hawt.io
+https://hawt.io
 
 This website is built with [Gatsby](https://www.gatsbyjs.org). For more info on Gatsby, refer to [the Gatsby documentation](https://www.gatsbyjs.org/docs/).
 
