@@ -10,7 +10,7 @@ If you are interested in making a code contribution and would like to learn more
 
 - [PatternFly](https://www.patternfly.org/)
 - [Angular PatternFly](https://www.patternfly.org/angular-patternfly)
-- [UI Bootstrap](http://angular-ui.github.io/bootstrap)
+- [UI Bootstrap](https://angular-ui.github.io/bootstrap)
 - [AngularJS Styleguide](https://github.com/toddmotto/angularjs-styleguide/tree/master/typescript)
 - [Jolokia](https://jolokia.org)
 - [JMX](https://docs.oracle.com/en/java/javase/11/jmx/java-management-extensions-jmx-user-guide.html)

@@ -44,7 +44,7 @@ const Header = ({ siteTitle }) => (
           <ItemImage src={withPrefix('/images/social/twitter-white.png')} alt="Twitter" />
         </NavItem>
         <NavItem eventKey={3}
-          href="http://stackoverflow.com/questions/tagged/hawtio">
+          href="https://stackoverflow.com/questions/tagged/hawtio">
           <ItemImage src={withPrefix('/images/social/stackoverflow.png')} alt="StackOverflow" />
         </NavItem>
       </Nav>

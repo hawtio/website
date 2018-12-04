@@ -360,7 +360,7 @@ At last enable the JAAS module in Jetty. This is done by adding the following li
 
 ### Keycloak Integration
 
-Hawtio can now be integrated with [Keycloak](http://www.keycloak.org) for SSO authentication. See [Keycloak Integration Guide](../keycloak-integration/).
+Hawtio can now be integrated with [Keycloak](https://www.keycloak.org) for SSO authentication. See [Keycloak Integration Guide](../keycloak-integration/).
 
 ## Configuration Properties
 

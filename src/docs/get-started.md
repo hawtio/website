@@ -2,7 +2,7 @@
 title: "Get Started"
 ---
 
-Hawtio consists of 2 parts: an AngularJS application and a Java backend, which proxies the communication between the frontend and [Jolokia](https://jolokia.org/) endpoints. The frontend has access to all JMX attributes and operations available in Java applications running locally and remotely.
+Hawtio consists of 2 parts: an AngularJS applicaton and a Java backend, which proxies the communication between the frontend and [Jolokia](https://jolokia.org/) endpoints. The frontend has access to all JMX attributes and operations available in Java applications running locally and remotely.
 
 Ways to run it:
 - [Running an executable JAR](#running-an-executable-jar)
@@ -170,7 +170,7 @@ Hawtio provides the following features for Apache Karaf:
 </table>
 </div>
 
-If you are using [Apache Karaf](http://karaf.apache.org/) 4.x:
+If you are using [Apache Karaf](https://karaf.apache.org/) 4.x:
 
     feature:repo-add hawtio 2.3.0
     feature:install hawtio
@@ -183,7 +183,7 @@ Karaf versions prior to 4.x are not supported.
 
 If you are behind an HTTP proxy, you'll need to enable HTTP proxy support in WildFly / Karaf to be able to download Hawtio from the central maven repository.
 
-There are a few [articles about](http://mpashworth.wordpress.com/2012/09/27/installing-apache-karaf-features-behind-a-firewall/) [this](http://stackoverflow.com/questions/9922467/how-to-setup-a-proxy-for-apache-karaf) which may help. Here are the steps:
+There are a few [articles about](https://mpashworth.wordpress.com/2012/09/27/installing-apache-karaf-features-behind-a-firewall/) [this](https://stackoverflow.com/questions/9922467/how-to-setup-a-proxy-for-apache-karaf) which may help. Here are the steps:
 
 Edit the `etc/org.ops4j.pax.url.mvn.cfg` file and make sure the following line is uncommented:
 
@@ -193,7 +193,7 @@ You may also want **org.ops4j.pax.url.mvn.settings** to point to your Maven `set
 
     org.ops4j.pax.url.mvn.settings=C:/Program Files/MyStuff/apache-maven-3.0.5/conf/settings.xml
 
-WildFly / Karaf will then use your [Maven HTTP proxy settings](http://maven.apache.org/guides/mini/guide-proxies.html) from your `~/.m2/settings.xml` to connect to the maven repositories listed in `etc/org.ops4j.pax.url.mvn.cfg` to download artifacts.
+WildFly / Karaf will then use your [Maven HTTP proxy settings](https://maven.apache.org/guides/mini/guide-proxies.html) from your `~/.m2/settings.xml` to connect to the maven repositories listed in `etc/org.ops4j.pax.url.mvn.cfg` to download artifacts.
 
 
 ## Using Hawtio embedded in a Java application

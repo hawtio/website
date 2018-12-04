@@ -4,11 +4,11 @@ title: "FAQ"
 
 #### What is the Hawtio license?
 
-Hawtio uses the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.txt).
+Hawtio uses the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
 #### What does Hawtio do?
 
-It's a [pluggable](/docs/plugins) management console for Java stuff which supports any kind of JVM, any kind of container (Tomcat, Jetty, WildFly, Karaf, etc), and any kind of Java technology and middleware.
+It's a [pluggable](/docs/plugins) management console for Java stuff which supports any kind of JVM, any kind of container (Tomcat, Jetty, Wildfly, Karaf, etc), and any kind of Java technology and middleware.
 
 #### How do I install Hawtio?
 
@@ -43,9 +43,9 @@ Now you can use the standalone Hawtio application to connect to it. This strateg
 
 All that's required for Hawtio to connect to any remote JVM is that a [jolokia agent](https://jolokia.org/agent.html) is attached to the JVM you wish to connect to. There are a few different agents you can use:
 
-- [WAR agent](http://jolokia.org/agent/war.html) if you are using a servlet container
-- [OSGi agent](http://jolokia.org/agent/osgi.html) if you are using OSGi
-- [JVM agent](http://jolokia.org/agent/jvm.html) if you are using a standalone process
+- [WAR agent](https://jolokia.org/agent/war.html) if you are using a servlet container
+- [OSGi agent](https://jolokia.org/agent/osgi.html) if you are using OSGi
+- [JVM agent](https://jolokia.org/agent/jvm.html) if you are using a standalone process
 
 So once you've got a jolokia agent in your JVM you can test it by accessing `http://host:port/jolokia` in a browser to see if you can view the JSON returned for the version information of the jolokia agent.
 

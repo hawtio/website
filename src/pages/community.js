@@ -30,7 +30,7 @@ const CommunityPage = ({ data }) => {
       <p>The project tracks bugs, feature requests, and other issues through the GitHub issue tracking system.</p>
       <p><Button bsStyle="primary" href={issueUrl}>Hawtio issue tracker</Button></p>
       <p>
-        To file new issues or comment on existing issues you need to register for a <a href="http://github.com/">GitHub account</a> which is quick and easy!
+        To file new issues or comment on existing issues you need to register for a <a href="https://github.com/">GitHub account</a> which is quick and easy!
       </p>
 
       <h2>
@@ -48,7 +48,7 @@ const CommunityPage = ({ data }) => {
       </h2>
       <p>We invite you to join us in the <b>#hawtio</b> channel on <b>irc.freenode.net</b> to chat about Hawtio.</p>
       <p>
-        This channel is logged to <a href="http://transcripts.jboss.org/channel/irc.freenode.org/%23hawtio/2013/index.html">transcripts.jboss.org</a> by JBossBot.
+        This channel is logged to <a href="https://transcripts.jboss.org/channel/irc.freenode.org/%23hawtio/2013/index.html">transcripts.jboss.org</a> by JBossBot.
         The JBossBot is also present to expand issue numbers from the issue tracker.
       </p>
 
@@ -59,14 +59,14 @@ const CommunityPage = ({ data }) => {
         We also keep an eye out on Stack Overflow for questions which makes it really easy to find answers to questions
         and commonly found problems. Though if you're running into an issue please use our <a href="https://github.com/hawtio/hawtio/issues">issue tracker</a> instead.
       </p>
-      <p><Button bsStyle="primary" href="http://stackoverflow.com/questions/tagged/hawtio">Stack Overflow</Button></p>
+      <p><Button bsStyle="primary" href="https://stackoverflow.com/questions/tagged/hawtio">Stack Overflow</Button></p>
 
       <h2>
         <TitleImage src={withPrefix('/images/social/octocat.jpg')} /> Source Repository
       </h2>
       <p>
-        All the Hawtio source code is managed using the distributed version system <a href="http://git-scm.com">git</a> and
-        hosted on <a href="https://github.com/hawtio/">GitHub</a>.
+        All the Hawtio source code is managed using the distributed version system <a href="https://git-scm.com">git</a> and
+        hosted on <a href="https://github.com/hawtio/hawtio">GitHub</a>.
       </p>
       <p><Button bsStyle="primary" href={repositoryUrl}>Hawtio @ GitHub</Button></p>
       <p>

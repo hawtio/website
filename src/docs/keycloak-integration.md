@@ -4,7 +4,7 @@ title: "Keycloak Integration Guide"
 
 Hawtio's Keycloak integration is provided through [hawtio-oauth](https://github.com/hawtio/hawtio-oauth).
 
-Those steps assume that you want your Hawtio console to be secured by [Keycloak](http://www.keycloak.org). Integration consists of 2 main steps:
+Those steps assume that you want your Hawtio console to be secured by [Keycloak](https://www.keycloak.org). Integration consists of 2 main steps:
 
 1. Prepare Keycloak server
 2. Deploy Hawtio to your favourite server (Spring Boot, WildFly, Karaf, Jetty, Tomcat, Red Hat Fuse, ...) and configure it to use Keycloak for authentication
@@ -86,13 +86,13 @@ cp examples/keycloak-integration/keycloak-direct-access.json $KARAF_HOME/etc/
 
 Restart Karaf/Fuse.
 
-Go to `http://localhost:8181/hawtio` and login to Keycloak as `admin` or `viewer` to see Hawtio admin console. If you login as `jdoe`, you should receive "forbidden" error in Hawtio.
+Go to `https://localhost:8181/hawtio` and login to Keycloak as `admin` or `viewer` to see Hawtio admin console. If you login as `jdoe`, you should receive "forbidden" error in Hawtio.
 
 ## WildFly or JBoss EAP
 
 Assume `$JBOSS_HOME` is the root directory of your WildFly/JBoss EAP installation and you deployed Hawtio WAR to it as described in [Hawtio Get Started](/docs/get-started).
 
-Install Keycloak adapter subsystem to your WildFly as described on the [Keycloak documentation](http://www.keycloak.org/docs/3.4/securing_apps/index.html#_jboss_adapter).
+Install Keycloak adapter subsystem to your WildFly as described on the [Keycloak documentation](https://www.keycloak.org/docs/3.4/securing_apps/index.html#_jboss_adapter).
 
 Download and copy `keycloak-hawtio.json` and `keycloak-bearer.json` into WildFly. File `keycloak-bearer.json` is currently used for adapters on server (JAAS Login module) side. File `keycloak-hawtio.json` is used on client (Hawtio JS application) side.
 
@@ -148,7 +148,7 @@ Run WildFly on port `8080` and go to `http://localhost:8080/hawtio`. Users are a
 
 Assume `$JETTY_HOME` is the root directory of your Jetty installation and you deployed Hawtio WAR to Jetty as described in [Hawtio Get Started](/docs/get-started).
 
-Install Keycloak Jetty adapter into your Jetty server as described on the [Keycloak documentation](http://www.keycloak.org/docs/3.4/securing_apps/index.html#_jetty9_adapter).
+Install Keycloak Jetty adapter into your Jetty server as described on the [Keycloak documentation](https://www.keycloak.org/docs/3.4/securing_apps/index.html#_jetty9_adapter).
 
 Download and copy `keycloak-hawtio.json` and `keycloak-bearer.json` into Jetty. File `keycloak-bearer.json` is currently used for adapters on server (JAAS Login module) side. File `keycloak-hawtio.json` is used on client (Hawtio JS application) side.
 

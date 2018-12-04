@@ -113,7 +113,7 @@ const IndexPage = ({ data }) => {
             </h3>
             <p>
               Hawtio is baked with <a href="https://getbootstrap.com">Bootstrap</a> and{' '}
-              <a href="http://www.patternfly.org">PatternFly</a>, a UI framework for enterprise web applications.
+              <a href="https://www.patternfly.org">PatternFly</a>, a UI framework for enterprise web applications.
               The stylish UI won't let you get bored!
             </p>
           </Col>

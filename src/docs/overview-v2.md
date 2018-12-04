@@ -6,11 +6,11 @@ title: "Hawtio v2 Overview"
 <strong>TO BE UPDATED:</strong> This document still refers to old information that needs to be updated
 </div>
 
-The main goals for 2.x are to update to a more recent AngularJS version as well as Bootstrap and PatternFly.  We also need to enable folks to re-use parts of the console.  Currently in 1.x there's a few options to customize the existing console:
+The main goals for 2.x are to update to a more recent AngularJS version as well as Bootstrap and Patternfly.  We also need to enable folks to re-use parts of the console.  Currently in 1.x there's a few options to customize the existing console:
 
 * Hide and arrange tabs via the preferences panel in the console itself
 * Add a vendor.js file or load a plugin that customizes the perspective plugin's configuration
-* Build a sliced up Hawtio app.js via [hawtio-custom-app](https://github.com/hawtio/hawtio/tree/master/hawtio-custom-app)
+* Build a sliced up hawtio app.js via [hawtio-custom-app](https://github.com/hawtio/hawtio/tree/master/hawtio-custom-app)
 
 Hawtio 2.x introduces the possibility of packaging up hawtio plugins as bower components.  Some advantages are:
 
@@ -37,27 +37,27 @@ Here's a rundown of the current hawtio 2.x components:
 * [hawtio-utilities](https://github.com/hawtio/hawtio-utilities) - A collection of helper functions used throughout hawtio, most plugins will probably depend on this module
 * [hawtio-ui](https://github.com/hawtio/hawtio-ui) - The UI widgets from hawtio 1.x, including hawtio-simple-table and the editor plugin
 * [hawtio-forms](https://github.com/hawtio/hawtio-forms) - The forms plugin from hawtio 1.x, used to create forms from a simple schema
-* [hawtio-jmx](https://github.com/hawtio/hawtio-jmx) - The JMX and JVM plugins from hawtio 1.x as well as the tree plugin.  Now contains all Jolokia initialization code as well as the Core.Workspace object service from hawtio 1.x.  Will likely be a dependency for any plugin that talks to Jolokia
-* [hawtio-oauth](https://github.com/hawtio/hawtio-oauth) - Provides authentication for OAuth using [OpenShift](http://openshift.github.io/) and [KeyCloak](http://keycloak.jboss.org/)
+* [hawtio-jmx](https://github.com/hawtio/hawtio-jmx) - The JMX and JVM plugins from hawtio 1.x as well as the tree plugin.  Now contains all jolokia initialization code as well as the Core.Workspace object service from hawtio 1.x.  Will likely be a dependency for any plugin that talks to jolokia
+* [hawtio-oauth](https://github.com/hawtio/hawtio-oauth) - Provides authentication for OAuth using [OpenShift](https://openshift.github.io/) and [KeyCloak](https://keycloak.jboss.org/)
 * [hawtio-dashboard](https://github.com/hawtio/hawtio-dashboard) - Provides a dashboard capability; letting any angular pages be composed into a dashboard
 * [hawtio-wiki](https://github.com/hawtio/hawtio-wiki) - Provides a git based wiki
-* [hawtio-kubernetes](https://github.com/hawtio/hawtio-kubernetes) - The plugin for working with [Kubernetes](http://kubernetes.io/)
-* [hawtio-forge](https://github.com/hawtio/hawtio-forge) - The [JBoss Forge](http://forge.jboss.org/) plugin for hawtio so it can view and create projects and execute forge commands
+* [hawtio-kubernetes](https://github.com/hawtio/hawtio-kubernetes) - The plugin for working with [Kubernetes](https://kubernetes.io/)
+* [hawtio-forge](https://github.com/hawtio/hawtio-forge) - The [JBoss Forge](https://forge.jboss.org/) plugin for hawtio so it can view and create projects and execute forge commands
 * [hawtio-integration](https://github.com/hawtio/hawtio-integration) - The plugin for working with Apache Camel and ActiveMQ.
-* [hawtio-java](https://github.com/hawtio/hawtio-java) - hawtio 2.x web console for Java distributed as a WAR and standalone Java JAR artefacts.
+* [hawtio-java](https://github.com/hawtio/hawtio-java) - hawtio 2.x web console for Java distributed as a WAR and standalone Java JAR artefacts. 
 
 
 ### slush generators
 
-* [slush-hawtio-javascript](https://github.com/hawtio/slush-hawtio-javascript) - Generates a starter JavaScript plugin project that depends on hawtio-core and hawtio-core-navigation with some example plugin code.
-* [slush-hawtio-typescript](https://github.com/hawtio/slush-hawtio-typescript) - Generates a starter TypeScript plugin project, depends on hawtio-utilities, hawtio-core and hawtio-core-navigation.
+* [slush-hawtio-javascript](https://github.com/hawtio/slush-hawtio-javascript) - Generates a starter jvascript plugin project that depends on hawtio-core and hawtio-core-navigation with some example plugin code.
+* [slush-hawtio-typescript](https://github.com/hawtio/slush-hawtio-typescript) - Generates a starter typescript plugin project, depends on hawtio-utilities, hawtio-core and hawtio-core-navigation.
 
 
 ## Getting started
 
 ### working with existing projects
 
-Git clone any of the above projects and then cd into the folder.
+Git clone any of the above projects and then cd into the folder. 
 
 Then get npm and bower to install their stuff:
 
@@ -72,7 +72,7 @@ and you should be able to open a web browser to http://localhost:2772 and work o
 
 ### initial setup
 
-To get started, first off make sure you're running a relatively recent version node/npm.  [Go download it](http://nodejs.org/) and re-install/upgrade if you're not sure.  Make sure you update your npm packages with a `sudo npm update -g`.  Then install a few tools:
+To get started, first off make sure you're running a relatively recent version node/npm.  [Go download it](https://nodejs.org/) and re-install/upgrade if you're not sure.  Make sure you update your npm packages with a `sudo npm update -g`.  Then install a few tools:
 
 `npm install -g bower gulp slush slush-hawtio-javascript slush-hawtio-typescript typescript`
 
