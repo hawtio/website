@@ -370,21 +370,30 @@ The following table contains configuration settings for various Hawtio plugins.
   <thead>
     <tr>
       <th>System Property</th>
+      <th>Default</th>
       <th>Description</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>hawtio.sessionTimeout</td>
+      <td></td>
       <td>The maximum time interval, in seconds, that the servlet container will keep this session open between client accesses. If this option is not configured, then Hawtio uses the default session timeout of the servlet container.</td>
     </tr>
     <tr>
       <td>hawtio.activemq.verbose.tree</td>
-      <td>Is default <code>false</code> to filter out verbose ActiveMQ details from the tree in Hawtio. This ensures situations when ActiveMQ will constantly add/remove same set of mbeans for a client connection because the client is not using pooled connections or using XA transactions without caching the consumer. In situations like these ActiveMQ keeps changing the mbeans which would cause the Hawtio web console to trigger an update in the tree, which makes using the web console more sluggish. Therefore this is filtered out by default. This option can be set to <code>true</code> to restore old behavior.</td>
+      <td><code>false</code></td>
+      <td>Whether or not verbose ActiveMQ details are rendered in the tree in Hawtio. This ensures situations when ActiveMQ will constantly add/remove same set of mbeans for a client connection because the client is not using pooled connections or using XA transactions without caching the consumer. In situations like these ActiveMQ keeps changing the mbeans which would cause the Hawtio web console to trigger an update in the tree, which makes using the web console more sluggish. Therefore this is filtered out by default. This option can be set to <code>true</code> to restore old behavior.</td>
     </tr>
     <tr>
       <td>hawtio.proxyWhitelist</td>
-      <td>Comma-separated whitelist for target hosts that the <a href="https://github.com/hawtio/hawtio-jmx">hawtio-jmx</a> Connect plugin can connect to via <code>ProxyServlet</code> (default <code>localhost, 127.0.0.1</code>). All hosts that are not listed in this whitelist are denied to connect for security reasons. This option can be set to <code>*</code> to restore old behavior and whitelist all hosts. Prefixing an element of the list with <code>"r:"</code> allows to define a regexp (example: <code>localhost,r:myservers[0-9]+.mydomain.com</code>)</td>
+      <td><code>localhost, 127.0.0.1</code></td>
+      <td>Comma-separated whitelist for target hosts that the <a href="https://github.com/hawtio/hawtio-jmx">hawtio-jmx</a> Connect plugin can connect to via <code>ProxyServlet</code>. All hosts that are not listed in this whitelist are denied to connect for security reasons. This option can be set to <code>*</code> to restore old behavior and whitelist all hosts. Prefixing an element of the list with <code>"r:"</code> allows to define a regexp (example: <code>localhost,r:myservers[0-9]+.mydomain.com</code>)</td>
+    </tr>
+    <tr>
+      <td>hawtio.localAddressProbing</td>
+      <td><code>true</code></td>
+      <td><b>Hawtio 2.5.0</b> - Whether local address probing for proxy whitelist is enabled or not upon startup. Set this property to <code>false</code> to disable it.</td>
     </tr>
   </tbody>
 </table>
