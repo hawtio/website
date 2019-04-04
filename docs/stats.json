@@ -13,8 +13,8 @@
       "component---src-pages-index-js-11f9e6f21aafe108dd60.js.map"
     ],
     "path---docs-get-started": [
-      "path---docs-get-started-a48032ee8348652dec35.js",
-      "path---docs-get-started-a48032ee8348652dec35.js.map"
+      "path---docs-get-started-03b56725b72d0e4fbe59.js",
+      "path---docs-get-started-03b56725b72d0e4fbe59.js.map"
     ],
     "path---docs-release-guide": [
       "path---docs-release-guide-0673c78cea3a00bc6193.js",
@@ -75,9 +75,9 @@
       "path---docs-maven-plugins-e9a7a0d962353a79e7d5.js.map"
     ],
     "app": [
-      "app-cf938ee795545c0ce05f.js",
+      "app-1f46dd3a8cab55acf83e.js",
       "build-js-styles.css",
-      "app-cf938ee795545c0ce05f.js.map",
+      "app-1f46dd3a8cab55acf83e.js.map",
       "build-js-styles.css.map"
     ],
     "path---docs-keycloak-integration": [
