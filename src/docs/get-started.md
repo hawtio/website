@@ -20,7 +20,7 @@ The out of the box defaults try to do the right thing for most folks but if you 
 
 You can startup Hawtio on your machine using the hawtio-app executable JAR.
 
-<a class="btn btn-large btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-app/2.6.0/hawtio-app-2.5.0.jar">Download hawtio-app-2.5.0.jar</a>
+<a class="btn btn-large btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-app/2.6.0/hawtio-app-2.6.0.jar">Download hawtio-app-2.6.0.jar</a>
 
 Once you have downloaded it, just run this from the command line:
 
@@ -104,7 +104,7 @@ A good MBean for real time values and charts is `java.lang/OperatingSystem`. Try
 
 If you use Tomcat or Jetty, you can deploy the Hawtio WAR file.
 
-<a class="btn btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default/2.6.0/hawtio-default-2.5.0.war">Download hawtio-default.war</a>
+<a class="btn btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default/2.6.0/hawtio-default-2.6.0.war">Download hawtio-default.war</a>
 
 Please read the [configuration guide](../configuration/) to see how to configure the console, in particular security.
 
@@ -113,7 +113,7 @@ Please read the [configuration guide](../configuration/) to see how to configure
 
 If you don't use the WildFly application server, use one of the options from the [Servlet container](#deploying-on-a-servlet-container) section to download Hawtio.
 
-If you do use WildFly, download [hawtio-wildfly-2.6.0.war](https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-wildfly/2.5.0/hawtio-wildfly-2.5.0.war).
+If you do use WildFly, download [hawtio-wildfly-2.6.0.war](https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-wildfly/2.6.0/hawtio-wildfly-2.6.0.war).
 
 To enable security, you'll need to set up configuration like this:
 
