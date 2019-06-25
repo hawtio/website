@@ -20,25 +20,25 @@ The out of the box defaults try to do the right thing for most folks but if you 
 
 You can startup Hawtio on your machine using the hawtio-app executable JAR.
 
-<a class="btn btn-large btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-app/2.6.0/hawtio-app-2.6.0.jar">Download hawtio-app-2.6.0.jar</a>
+<a class="btn btn-large btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-app/2.7.0/hawtio-app-2.7.0.jar">Download hawtio-app-2.7.0.jar</a>
 
 Once you have downloaded it, just run this from the command line:
 
-    java -jar hawtio-app-2.6.0.jar
+    java -jar hawtio-app-2.7.0.jar
 
 Note: If you launch Hawtio with Java 9+, add the specified modules to avoid errors on startup and allow attaching to other Java processes:
 
-    java --add-modules jdk.attach,java.xml.bind -jar hawtio-app-2.6.0.jar
+    java --add-modules jdk.attach,java.xml.bind -jar hawtio-app-2.7.0.jar
 
 The console should show you which URL to open, which by default is `http://localhost:8080/hawtio`.
 
 To set a different port number, run:
 
-    java -jar hawtio-app-2.6.0.jar --port 8090
+    java -jar hawtio-app-2.7.0.jar --port 8090
 
 To see the full list of configuration options, run:
 
-    java -jar hawtio-app-2.6.0.jar --help
+    java -jar hawtio-app-2.7.0.jar --help
 
 
 ## Running a Spring Boot app
@@ -52,7 +52,7 @@ Attaching the Hawtio console to your Spring Boot app is simple.
         <dependency>
           <groupId>io.hawt</groupId>
           <artifactId>hawtio-springboot</artifactId>
-          <version>2.6.0</version>
+          <version>2.7.0</version>
         </dependency>
 
 2. Enable the Hawtio and Jolokia endpoints by adding the following line in `application.properties`:
@@ -80,7 +80,7 @@ You can also customize the path to the Hawtio endpoint by setting the `managemen
         <dependency>
           <groupId>io.hawt</groupId>
           <artifactId>hawtio-springboot-1</artifactId>
-          <version>2.6.0</version>
+          <version>2.7.0</version>
         </dependency>
 
 2. Unlock the Jolokia endpoint by adding the following line in `application.properties`:
@@ -95,7 +95,7 @@ Opening `http://localhost:8080/hawtio` should show the Hawtio console.
 
 There is a working Spring Boot example that shows Hawtio monitoring a sample web application which exposes information about Apache Camel routes, metrics, etc.
 
-<a class="btn btn-large btn-primary" href="https://github.com/hawtio/hawtio/tree/hawtio-2.6.0/examples/springboot">Hawtio Spring Boot example</a>
+<a class="btn btn-large btn-primary" href="https://github.com/hawtio/hawtio/tree/hawtio-2.7.0/examples/springboot">Hawtio Spring Boot example</a>
 
 A good MBean for real time values and charts is `java.lang/OperatingSystem`. Try looking at Camel routes. Notice that as you change selections in the tree the list of tabs available changes dynamically based on the content.
 
@@ -104,7 +104,7 @@ A good MBean for real time values and charts is `java.lang/OperatingSystem`. Try
 
 If you use Tomcat or Jetty, you can deploy the Hawtio WAR file.
 
-<a class="btn btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default/2.6.0/hawtio-default-2.6.0.war">Download hawtio-default.war</a>
+<a class="btn btn-primary" href="https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default/2.7.0/hawtio-default-2.7.0.war">Download hawtio-default.war</a>
 
 Please read the [configuration guide](../configuration/) to see how to configure the console, in particular security.
 
@@ -113,7 +113,7 @@ Please read the [configuration guide](../configuration/) to see how to configure
 
 If you don't use the WildFly application server, use one of the options from the [Servlet container](#deploying-on-a-servlet-container) section to download Hawtio.
 
-If you do use WildFly, download [hawtio-wildfly-2.6.0.war](https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-wildfly/2.6.0/hawtio-wildfly-2.6.0.war).
+If you do use WildFly, download [hawtio-wildfly-2.7.0.war](https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-wildfly/2.7.0/hawtio-wildfly-2.7.0.war).
 
 To enable security, you'll need to set up configuration like this:
 
@@ -172,7 +172,7 @@ Hawtio provides the following features for Apache Karaf:
 
 If you are using [Apache Karaf](https://karaf.apache.org/) 4.x:
 
-    feature:repo-add hawtio 2.6.0
+    feature:repo-add hawtio 2.7.0
     feature:install hawtio
 
 This will install all the features listed above. The Hawtio console can then be viewed at `http://localhost:8181/hawtio`.
