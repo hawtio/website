@@ -42,4 +42,4 @@ Read how to get started building Hawtio and work with the code.
 
 #### [Building](https://github.com/hawtio/hawtio/blob/master/BUILDING.md)
 
-#### [Release Guide](release-guide/)
+#### [Release Guide](https://github.com/hawtio/hawtio/blob/master/RELEASING.md)
