@@ -1,6 +1,4 @@
 import React from 'react'
-import Link from 'gatsby-link'
-
 import redhatLogo from '../../static/images/redhat_logo.png';
 
 const Footer = () => (
@@ -12,7 +10,7 @@ const Footer = () => (
           Code released under <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, v2.0</a>.
         </p>
         <a href="https://www.redhat.com/">
-          <img src={redhatLogo} />
+          <img alt="" src={redhatLogo} />
         </a>
       </div>
     </footer>

@@ -1,19 +1,16 @@
 import React from 'react'
-import Link from 'gatsby-link'
+import { Link, withPrefix } from 'gatsby'
 import {
   Navbar,
   Nav,
   NavItem
 } from 'react-bootstrap';
-
 import logo128px from '../../static/images/logo-128px.png';
-
-import { withPrefix } from 'gatsby-link'
 
 const ItemImage = props =>
   <img src={props.src} alt={props.alt} style={{ height: 20 }} />
 
-const Header = ({ siteTitle }) => (
+const Header = () => (
   <Navbar inverse fixedTop fluid collapseOnSelect style={{
     background: 'black',
     minHeight: 60
