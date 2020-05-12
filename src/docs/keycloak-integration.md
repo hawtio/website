@@ -13,6 +13,7 @@ Those steps assume that you want your Hawtio console to be secured by [Keycloak]
 
 - [Table of contents](#table-of-contents)
 - [Prepare Keycloak server](#prepare-keycloak-server)
+- [Spring Boot](#spring-boot)
 - [Apache Karaf or Red Hat Fuse](#apache-karaf-or-red-hat-fuse)
 - [WildFly or JBoss EAP](#wildfly-or-jboss-eap)
 - [Jetty](#jetty)
@@ -38,6 +39,47 @@ There are also 3 users:
 - `viewer` with password `viewer` and role `viewer`, who is allowed to login into Hawtio
 - `jdoe` with password `password` and no role assigned, who is not allowed to login into Hawtio
 
+## Spring Boot
+
+Firstly, apply [the required configuration](/docs/get-started/#running-a-spring-boot-app) for attaching Hawtio to a Spring Boot app.
+
+Next, add the following dependency to `pom.xml` (replace `x.y.z` with the latest Hawtio release version):
+
+```xml
+<dependency>
+  <groupId>io.hawt</groupId>
+  <artifactId>hawtio-springboot-keycloak</artifactId>
+  <version>x.y.z</version>
+</dependency>
+```
+
+Then add the following lines in `application.properties` (which configures the server-side Keycloak adapter):
+
+```bash
+# Keycloak config
+keycloak.realm=hawtio-demo
+keycloak.resource=hawtio-client
+keycloak.auth-server-url=http://localhost:18080/auth
+keycloak.ssl-required=external
+keycloak.public-client=true
+keycloak.principal-attribute=preferred_username
+```
+
+Finally create `keycloak-hawito.json` under `src/main/resources` in the Spring Boot project (which serves as the client-side Hawtio JS configuration):
+
+```json
+{
+  "realm": "hawtio-demo",
+  "clientId": "hawtio-client",
+  "url": "http://localhost:18080/auth",
+  "ssl-required": "external",
+  "public-client": true,
+  "jaas": false
+}
+```
+
+Build and run the project and it will be integrated with Keycloak. See [springboot-keycloak example](https://github.com/hawtio/hawtio/tree/master/examples/springboot-keycloak) for a working example.
+
 ## Apache Karaf or Red Hat Fuse
 
 Assume `$KARAF_HOME` is the root directory of your Karaf/Fuse installation.
@@ -51,10 +93,10 @@ cd $KARAF_HOME/bin
 
 Replace `./karaf` with `./fuse` if you are on Red Hat Fuse.
 
-Install Hawtio:
+Install Hawtio (replace `x.y.z` with the latest Hawtio release version):
 
 ```bash
-feature:add-repo hawtio 2.10.0
+feature:add-repo hawtio x.y.z
 feature:install hawtio
 ```
 
