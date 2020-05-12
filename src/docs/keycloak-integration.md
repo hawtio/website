@@ -54,7 +54,7 @@ Replace `./karaf` with `./fuse` if you are on Red Hat Fuse.
 Install Hawtio:
 
 ```bash
-feature:add-repo hawtio 2.0-beta-2
+feature:add-repo hawtio 2.10.0
 feature:install hawtio
 ```
 
@@ -76,7 +76,7 @@ hawtio.keycloakClientConfig = file://${karaf.etc}/keycloak-hawtio.json
 hawtio.rolePrincipalClasses=org.keycloak.adapters.jaas.RolePrincipal,org.apache.karaf.jaas.boot.principal.RolePrincipal
 ```
 
-Replace them with `keycloak-hawtio.json`, `keycloak-bearer.json`, and `keycloak-direct-access.json` in this example. File `keycloak-bearer.json` is currently used for adapters on server (JAAS Login module) side. File `keycloak-hawtio.json` is used on client (Hawtio JS application) side. File `keycloak-direct-access.json` is not used but the realm name needs to be updated.
+Replace them with `keycloak-hawtio.json`, `keycloak-bearer.json`, and `keycloak-direct-access.json` in [this example](https://github.com/hawtio/hawtio/tree/master/examples/keycloak-integration). File `keycloak-bearer.json` is currently used for adapters on server (JAAS Login module) side. File `keycloak-hawtio.json` is used on client (Hawtio JS application) side. File `keycloak-direct-access.json` is not used but the realm name needs to be updated.
 
 ```bash
 cp examples/keycloak-integration/keycloak-hawtio.json $KARAF_HOME/etc/
@@ -94,7 +94,7 @@ Assume `$JBOSS_HOME` is the root directory of your WildFly/JBoss EAP installatio
 
 Install Keycloak adapter subsystem to your WildFly as described on the [Keycloak documentation](https://www.keycloak.org/docs/latest/securing_apps/index.html#_jboss_adapter).
 
-Download and copy `keycloak-hawtio.json` and `keycloak-bearer.json` into WildFly. File `keycloak-bearer.json` is currently used for adapters on server (JAAS Login module) side. File `keycloak-hawtio.json` is used on client (Hawtio JS application) side.
+Download and copy `keycloak-hawtio.json` and `keycloak-bearer.json` from [this example](https://github.com/hawtio/hawtio/tree/master/examples/keycloak-integration) into WildFly. File `keycloak-bearer.json` is currently used for adapters on server (JAAS Login module) side. File `keycloak-hawtio.json` is used on client (Hawtio JS application) side.
 
 ```bash
 cp examples/keycloak-integration/keycloak-hawtio.json $JBOSS_HOME/standalone/configuration/
