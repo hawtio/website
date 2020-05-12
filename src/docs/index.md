@@ -20,7 +20,11 @@ Read an overview of the plugins available in Hawtio, including server-side and e
 
 #### [Maven Plugins](maven-plugins/)
 
- Read up on how you can boot up Maven projects and have Hawtio embedded in the running JVM using Maven plugins that Hawtio offers.
+Read up on how you can boot up Maven projects and have Hawtio embedded in the running JVM using Maven plugins that Hawtio offers.
+ 
+#### [Keycloak](keycloak-integration/)
+
+Read up on how you can integrate Hawtio with [Keycloak](https://www.keycloak.org/) on various application containers.
 
 ## General Docs
 

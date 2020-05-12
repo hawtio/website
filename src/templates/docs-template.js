@@ -40,6 +40,9 @@ const DocsTemplate = ({ data }) => {
               <NavItem href={withPrefix('/docs/maven-plugins/')}>
                 Maven Plugins
               </NavItem>
+              <NavItem href={withPrefix('/docs/keycloak-integration/')}>
+                Keycloak
+              </NavItem>
             </Nav>
             <h5>General Docs</h5>
             <Nav stacked>
