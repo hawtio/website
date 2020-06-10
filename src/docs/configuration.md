@@ -3,16 +3,20 @@ title: "Configuration"
 ---
 
 - [Configuring Security](#configuring-security)
-  - [Default Security Settings for Karaf containers](#default-security-settings-for-karaf-containers)
-    - [Example: Customize the allowed roles](#example-customize-the-allowed-roles)
-  - [Default Security Settings for web containers](#default-security-settings-for-web-containers)
-    - [Configuring or disabling security in web containers](#configuring-or-disabling-security-in-web-containers)
-    - [Configuring security in Apache Tomcat](#configuring-security-in-apache-tomcat)
-    - [Configuring security in Jetty](#configuring-security-in-jetty)
-  - [Keycloak Integration](#keycloak-integration)
+    - [Default Security Settings for Karaf containers](#default-security-settings-for-karaf-containers)
+        - [Example: Customize the allowed roles](#example-customize-the-allowed-roles)
+    - [Default Security Settings for web containers](#default-security-settings-for-web-containers)
+        - [Configuring or disabling security in web containers](#configuring-or-disabling-security-in-web-containers)
+        - [Configuring security in Apache Tomcat](#configuring-security-in-apache-tomcat)
+        - [Configuring security in Jetty](#configuring-security-in-jetty)
+    - [Spring Boot](#spring-boot)
+        - [Spring Security](#spring-security)
+        - [Connecting to a remote app with Spring Security](#connecting-to-a-remote-app-with-spring-security)
+        - [Keycloak](#keycloak)
+    - [Keycloak Integration](#keycloak-integration)
 - [Configuration Properties](#configuration-properties)
-  - [OSGi configuration](#osgi-configuration)
-  - [Jolokia configuration](#jolokia-configuration)
+    - [OSGi configuration](#osgi-configuration)
+    - [Jolokia configuration](#jolokia-configuration)
 
 
 ## Configuring Security
@@ -357,6 +361,93 @@ At last enable the JAAS module in Jetty. This is done by adding the following li
     # Enable security via JAAS, and configure it
     --module=jaas
 
+### Spring Boot
+
+Hawtio on Spring Boot can be secured through [Spring Security](https://spring.io/projects/spring-security) or [Keycloak](https://www.keycloak.org).
+
+#### Spring Security
+
+Add the dependency to `org.springframework.boot:spring-boot-starter-security` in `pom.xml`:
+
+```xml
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+```
+
+Spring Security configuration can be done in `src/main/resources/application.properties` as follows:
+
+```java
+spring.security.user.name=hawtio
+spring.security.user.password=hawtio
+spring.security.user.roles=admin,viewer
+```
+
+A security config class is also required to set up how to secure the app with Spring Security:
+
+```java
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .and()
+            .httpBasic()
+            .and()
+            .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+    }
+
+}
+```
+
+See [springboot-security](https://github.com/hawtio/hawtio/tree/master/examples/springboot-security) example for more details.
+
+#### Connecting to a remote app with Spring Security
+
+If you try to connect to a remote Spring Boot app with Spring Security enabled, make sure the Spring Security configuration allows access from the Hawtio console. Most likely, the default CSRF protection prohibits remote access to the Jolokia endpoint and thus causes authentication failures at the Hawtio console.
+
+The easiest solution is to disable CSRF protection for the Jolokia endpoint at the remote app as follows, but be aware that it will expose your app at risk of CSRF attacks.
+
+```java
+import org.springframework.boot.actuate.autoconfigure.jolokia.JolokiaEndpoint;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        ...
+        // Disable CSRF protection for the Jolokia endpoint
+        http.csrf().ignoringRequestMatchers(EndpointRequest.to(JolokiaEndpoint.class));
+    }
+
+}
+```
+
+To secure the Jolokia endpoint even without Spring Security's CSRF protection, you need to provide a `jolokia-access.xml` file under `src/main/resources/` like the following (snippet) so that only trusted nodes can access it:
+
+```xml
+<restrict>
+  [...]
+  <cors>
+    <allow-origin>http*://localhost:*</allow-origin>
+    <allow-origin>http*://127.0.0.1:*</allow-origin>
+    <allow-origin>http*://*.example.com</allow-origin>
+    <allow-origin>http*://*.example.com:*</allow-origin>
+    
+    <strict-checking />
+  </cors>
+</restrict>
+```
+
+#### Keycloak
+
+See [Keycloak Integration Guide](../keycloak-integration/#spring-boot).
 
 ### Keycloak Integration
 
