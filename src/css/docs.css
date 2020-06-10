@@ -35,3 +35,7 @@ td {
   padding: 8px;
   line-height: 1.4;
 }
+
+.nav > li > a:focus, .nav > li > a:hover {
+  background-color: #fff;
+}
