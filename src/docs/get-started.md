@@ -44,7 +44,7 @@ To see the full list of configuration options, run:
 
 Attaching the Hawtio console to your Spring Boot app is simple.
 
-**Spring Boot 2**
+### Set up
 
 1. Add `io.hawt:hawtio-springboot` to the dependencies in `pom.xml`:
 
@@ -72,25 +72,7 @@ You can also customize the path to the Hawtio endpoint by setting the `managemen
 
         management.endpoints.web.path-mapping.hawtio=hawtio/console
 
-**Spring Boot 1**
-
-1. Add `io.hawt:hawtio-springboot-1` to the dependencies in `pom.xml`:
-
-        <dependency>
-          <groupId>io.hawt</groupId>
-          <artifactId>hawtio-springboot-1</artifactId>
-          <version>x.y.z</version>
-        </dependency>
-
-2. Unlock the Jolokia endpoint by adding the following line in `application.properties`:
-
-        endpoints.jolokia.sensitive = false
-
-Now you should be able to run Hawtio in your Spring Boot app as follows:
-
-    mvn spring-boot:run
-
-Opening `http://localhost:8080/hawtio` should show the Hawtio console.
+### Example
 
 There is a working Spring Boot example that shows Hawtio monitoring a sample web application which exposes information about Apache Camel routes, metrics, etc.
 
