@@ -486,6 +486,11 @@ The following table contains configuration settings for various Hawtio plugins.
       <td><code>true</code></td>
       <td><b>Hawtio 2.5.0</b> - Whether local address probing for proxy whitelist is enabled or not upon startup. Set this property to <code>false</code> to disable it.</td>
     </tr>
+    <tr>
+      <td>hawtio.disableProxy</td>
+      <td><code>false</code></td>
+      <td><b>Hawtio 2.10.0</b> - With this property set to <code>true</code>, <code>ProxyServlet</code> (<code>/hawtio/proxy/*</code>) can be disabled. This makes Connect tab unavailable, which means Hawtio can no longer connect to remote JVMs, but sometimes users might want to do so because of security if Connect tab is not used.</td>
+    </tr>
   </tbody>
 </table>
 
