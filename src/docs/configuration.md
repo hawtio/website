@@ -479,12 +479,17 @@ The following table contains configuration settings for various Hawtio plugins.
     <tr>
       <td>hawtio.proxyWhitelist</td>
       <td><code>localhost, 127.0.0.1</code></td>
-      <td>Comma-separated whitelist for target hosts that the <a href="https://github.com/hawtio/hawtio-jmx">hawtio-jmx</a> Connect plugin can connect to via <code>ProxyServlet</code>. All hosts that are not listed in this whitelist are denied to connect for security reasons. This option can be set to <code>*</code> to restore old behavior and whitelist all hosts. Prefixing an element of the list with <code>"r:"</code> allows to define a regexp (example: <code>localhost,r:myservers[0-9]+.mydomain.com</code>)</td>
+      <td><b>Up to Hawtio 2.10.0</b> - Comma-separated allowlist for target hosts that the <a href="https://github.com/hawtio/hawtio-jmx">hawtio-jmx</a> Connect plugin can connect to via <code>ProxyServlet</code>. All hosts that are not listed in this allowlist are denied to connect for security reasons. This option can be set to <code>*</code> to restore old behavior and allowlist all hosts. Prefixing an element of the list with <code>"r:"</code> allows to define a regexp (example: <code>localhost,r:myservers[0-9]+.mydomain.com</code>)</td>
+    </tr>
+    <tr>
+      <td>hawtio.proxyAllowlist</td>
+      <td><code>localhost, 127.0.0.1</code></td>
+      <td><b>Hawtio 2.10.1</b> - Comma-separated allowlist for target hosts that the <a href="https://github.com/hawtio/hawtio-jmx">hawtio-jmx</a> Connect plugin can connect to via <code>ProxyServlet</code>. All hosts that are not listed in this allowlist are denied to connect for security reasons. This option can be set to <code>*</code> to restore old behavior and allowlist all hosts. Prefixing an element of the list with <code>"r:"</code> allows to define a regexp (example: <code>localhost,r:myservers[0-9]+.mydomain.com</code>)</td>
     </tr>
     <tr>
       <td>hawtio.localAddressProbing</td>
       <td><code>true</code></td>
-      <td><b>Hawtio 2.5.0</b> - Whether local address probing for proxy whitelist is enabled or not upon startup. Set this property to <code>false</code> to disable it.</td>
+      <td><b>Hawtio 2.5.0</b> - Whether local address probing for proxy allowlist is enabled or not upon startup. Set this property to <code>false</code> to disable it.</td>
     </tr>
     <tr>
       <td>hawtio.disableProxy</td>

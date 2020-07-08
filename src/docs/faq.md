@@ -51,7 +51,7 @@ So once you've got a jolokia agent in your JVM you can test it by accessing `htt
 
 Assuming you have jolokia working in your JVM, then you can use the *Remote* tab on the *Connect* menu in Hawtio to connect.
 
-**Note**: by default only *localhost* is accepted to connect for security, so you need to configure the *hawtio.proxyWhitelist* system property or the *proxyWhitelist* init parameter on ProxyServlet in hawtio.war's WEB-INF/web.xml to explicitly allow hosts that you are connecting to.
+**Note**: by default only *localhost* is accepted to connect for security, so you need to configure the *hawtio.proxyAllowlist* system property or the *proxyAllowlist* init parameter on ProxyServlet in hawtio.war's WEB-INF/web.xml to explicitly allow hosts that you are connecting to.
 
 After trying the above, if you still have problems connecting to your JVM, please get in touch with the [community](/community) or [raise an issue](https://github.com/hawtio/hawtio/issues).
 
