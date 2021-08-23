@@ -29,8 +29,8 @@ This command will rebuild the website under `docs/`:
 
     yarn deploy
 
-Then commit the changes to `master` branch to publish the website:
+Then commit the changes to `main` branch to publish the website:
 
     git add docs/
     git commit -m 'chore: deploy website'
-    git push origin master
+    git push origin main
