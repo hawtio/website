@@ -27,5 +27,5 @@ jobs:
           yarn install
           yarn deploy
           git add docs/
-          git commit -m 'core: deploy website'
+          git commit -m 'chore: deploy website'
           git push origin main
