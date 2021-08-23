@@ -24,6 +24,7 @@ jobs:
           sudo npm install --global yarn
       - name: Deploy
         run: |
+          yarn install
           yarn deploy
           git add docs/
           git commit -m 'core: deploy website'
