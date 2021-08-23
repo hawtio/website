@@ -65,7 +65,7 @@ keycloak.public-client=true
 keycloak.principal-attribute=preferred_username
 ```
 
-Finally create `keycloak-hawito.json` under `src/main/resources` in the Spring Boot project (which serves as the client-side Hawtio JS configuration):
+Finally create `keycloak-hawtio.json` under `src/main/resources` in the Spring Boot project (which serves as the client-side Hawtio JS configuration):
 
 ```json
 {
