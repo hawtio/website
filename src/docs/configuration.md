@@ -496,6 +496,11 @@ The following table contains configuration settings for various Hawtio plugins.
       <td><code>false</code></td>
       <td><b>Hawtio 2.10.0</b> - With this property set to <code>true</code>, <code>ProxyServlet</code> (<code>/hawtio/proxy/*</code>) can be disabled. This makes Connect tab unavailable, which means Hawtio can no longer connect to remote JVMs, but sometimes users might want to do so because of security if Connect tab is not used.</td>
     </tr>
+    <tr>
+      <td>hawtio.redirect.scheme</td>
+      <td></td>
+      <td><b>Hawtio 2.15.0</b> - The scheme of the redirect URL to login page when authentication is required.</td>
+    </tr>
   </tbody>
 </table>
 
