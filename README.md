@@ -1,5 +1,7 @@
 # Hawtio website
 
+[![deploy](https://github.com/hawtio/website/actions/workflows/deploy.yml/badge.svg)](https://github.com/hawtio/website/actions/workflows/deploy.yml)
+
 https://hawt.io
 
 This website is built with [Gatsby](https://www.gatsbyjs.org). For more info on Gatsby, refer to [the Gatsby documentation](https://www.gatsbyjs.org/docs/).
@@ -23,14 +25,14 @@ Then run this command to develop:
 
 The website will be available at http://localhost:8000/. You can also utilise GraphiQL console at http://localhost:8000/___graphql.
 
-## Publish
+## Deploy
 
-This command will rebuild the website under `docs/`:
+This command will locally build the website under `docs/`:
 
     yarn deploy
 
-Then commit the changes to `main` branch to publish the website:
+## Contribute
 
-    git add docs/
-    git commit -m 'chore: deploy website'
-    git push origin main
+Contributions are always welcome!
+
+If you find anything to fix or improve in our docs, modify source files under `src/` and submit a pull request. Once the pull request is merged it is automatically published by the [GitHub workflow](https://github.com/hawtio/website/actions/workflows/deploy.yml).
