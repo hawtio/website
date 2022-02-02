@@ -82,10 +82,10 @@ const IndexPage = ({ data }) => {
               </h3>
               <p>
                 Hawtio has <Link to="/docs/plugins/">lots of built-in plugins</Link> such as:{' '}
-                <a href="https://github.com/hawtio/hawtio-jmx/tree/master/plugins/jmx">JMX</a>,{' '}
-                <a href="https://github.com/hawtio/hawtio-jmx/tree/master/plugins/jvm">JVM</a>,{' '}
+                <a href="https://github.com/hawtio/hawtio-integration/tree/master/plugins/jmx">JMX</a>,{' '}
+                <a href="https://github.com/hawtio/hawtio-integration/tree/master/plugins/jvm">JVM</a>,{' '}
                 <a href="https://github.com/hawtio/hawtio-integration/tree/master/plugins/osgi">OSGi</a>,{' '}
-                <a href="https://github.com/hawtio/hawtio-log">Logs</a>,{' '}
+                <a href="https://github.com/hawtio/hawtio-integration/tree/master/plugins/logs">Logs</a>,{' '}
                 <a href="https://github.com/hawtio/hawtio-integration/tree/master/plugins/activemq">Apache ActiveMQ</a>,{' '}
                 <a href="https://github.com/hawtio/hawtio-integration/tree/master/plugins/camel">Apache Camel</a>, and{' '}
                 <a href="https://github.com/hawtio/hawtio-integration/tree/master/plugins/spring-boot">Spring Boot</a>.
