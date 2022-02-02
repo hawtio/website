@@ -99,7 +99,8 @@
 </li>
 <li>
 <p>Enable the Hawtio and Jolokia endpoints by adding the following line in <code>application.properties</code>:</p>
-<pre><code>management.endpoints.web.exposure.include=hawtio,jolokia
+<pre><code> management.endpoints.web.exposure.include=hawtio,jolokia
+ spring.jmx.enabled=true 
 </code></pre>
 </li>
 </ol>
