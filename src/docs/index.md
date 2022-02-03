@@ -42,8 +42,4 @@ Read how to get started building Hawtio and work with the code.
 
 ## Developers
 
-#### [Developer Guide](https://github.com/hawtio/hawtio/blob/master/DEVELOPERS.md)
-
-#### [Building](https://github.com/hawtio/hawtio/blob/master/BUILDING.md)
-
 #### [Release Guide](https://github.com/hawtio/hawtio/blob/master/RELEASING.md)
