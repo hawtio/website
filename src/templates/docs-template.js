@@ -52,6 +52,9 @@ const DocsTemplate = ({ data }) => {
               <NavItem href={withPrefix('/docs/online/kubernetes/')}>
                 Kubernetes
               </NavItem>
+              <NavItem href={withPrefix('/docs/online/develop/')}>
+                Development
+              </NavItem>
               <NavItem href={withPrefix('/docs/online/create-user/')}>
                 Creating Users
               </NavItem>
