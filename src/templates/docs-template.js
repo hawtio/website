@@ -44,6 +44,18 @@ const DocsTemplate = ({ data }) => {
                 Keycloak
               </NavItem>
             </Nav>
+            <h5>Hawtio in Containers</h5>
+            <Nav stacked>
+            <NavItem href={withPrefix('/docs/create-user/')}>
+                Creating Users
+              </NavItem>
+              <NavItem href={withPrefix('/docs/generate-certificates/')}>
+              Generating Certificates
+              </NavItem>
+            <NavItem href={withPrefix('/docs/rbac/')}>
+                RBAC
+              </NavItem>
+            </Nav>
             <h5>General Docs</h5>
             <Nav stacked>
               <NavItem href={withPrefix('/docs/faq/')}>
