@@ -44,6 +44,27 @@ const DocsTemplate = ({ data }) => {
                 Keycloak
               </NavItem>
             </Nav>
+            <h5>Kubernetes/OpenShift</h5>
+            <Nav stacked>
+              <NavItem href={withPrefix('/docs/online/openshift/')}>
+                OpenShift
+              </NavItem>
+              <NavItem href={withPrefix('/docs/online/kubernetes/')}>
+                Kubernetes
+              </NavItem>
+              <NavItem href={withPrefix('/docs/online/develop/')}>
+                Development
+              </NavItem>
+              <NavItem href={withPrefix('/docs/online/create-user/')}>
+                Creating Users
+              </NavItem>
+              <NavItem href={withPrefix('/docs/online/generate-certificates/')}>
+                Generating Certificates
+              </NavItem>
+              <NavItem href={withPrefix('/docs/online/rbac/')}>
+                RBAC
+              </NavItem>
+            </Nav>
             <h5>General Docs</h5>
             <Nav stacked>
               <NavItem href={withPrefix('/docs/faq/')}>
@@ -93,3 +114,4 @@ export const query = graphql`
     }
   }
 `
+
