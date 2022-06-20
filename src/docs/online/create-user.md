@@ -53,4 +53,3 @@ $ kubectl -n hawtio get secrets $(kubectl -n hawtio get sa hawtio-user -o jsonpa
 
 Now you can copy the token and paste it to the Token form to log in to Hawtio console.
 
-![Form login](/images/hawtio-form-login.png)

@@ -44,15 +44,21 @@ const DocsTemplate = ({ data }) => {
                 Keycloak
               </NavItem>
             </Nav>
-            <h5>Hawtio in Containers</h5>
+            <h5>Kubernetes/OpenShift</h5>
             <Nav stacked>
-            <NavItem href={withPrefix('/docs/create-user/')}>
+              <NavItem href={withPrefix('/docs/online/openshift/')}>
+                OpenShift
+              </NavItem>
+              <NavItem href={withPrefix('/docs/online/kubernetes/')}>
+                Kubernetes
+              </NavItem>
+              <NavItem href={withPrefix('/docs/online/create-user/')}>
                 Creating Users
               </NavItem>
-              <NavItem href={withPrefix('/docs/generate-certificates/')}>
-              Generating Certificates
+              <NavItem href={withPrefix('/docs/online/generate-certificates/')}>
+                Generating Certificates
               </NavItem>
-            <NavItem href={withPrefix('/docs/rbac/')}>
+              <NavItem href={withPrefix('/docs/online/rbac/')}>
                 RBAC
               </NavItem>
             </Nav>
