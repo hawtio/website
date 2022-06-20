@@ -1,4 +1,5 @@
 # OpenShift
+
 An Hawtio console that eases the discovery and management of _hawtio-enabled_ <sup>[1](#f1)</sup> applications deployed on OpenShift.
 
 ## Preparation
