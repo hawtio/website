@@ -19,7 +19,7 @@ The out of the box defaults try to do the right thing for most folks but if you 
 
 You can startup Hawtio on your machine using the hawtio-app executable JAR.
 
-<a class="btn btn-primary" href="https://github.com/hawtio/hawtio/releases/latest" target="_blank">Download hawtio-app.jar</a>
+<a class="btn btn-primary" href="https://repo1.maven.org/maven2/io/hawt/hawtio-app/3.0-M6/hawtio-app-3.0-M6.jar" target="_blank">Download hawtio-app.jar</a>
 
 Once you have downloaded it, just run this from the command line:
 
