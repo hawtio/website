@@ -18,10 +18,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Set up
-        run: |
-          sudo apt-get install -y git nodejs
-          sudo npm install --global yarn
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - name: Configure git
         run: |
           GIT_USER_NAME="github-actions[bot]"
