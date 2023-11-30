@@ -14,5 +14,8 @@
     "deploy": "echo",
     "develop": "echo"
   },
-  "dependencies": {}
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "yarn@3.7.0"
 }
