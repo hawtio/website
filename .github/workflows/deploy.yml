@@ -3,13 +3,13 @@ name: deploy
 on:
   push:
     branches:
-      - 'main'
+      - 'v2'
     paths:
       - 'src/**'
       - 'static/**'
   workflow_dispatch:
     branches:
-      - 'main'
+      - 'v2'
 
 jobs:
   deploy:
