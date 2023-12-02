@@ -1,0 +1,21 @@
+* xref:index.adoc[]
+** xref:overview-v3.adoc[]
+** xref:get-started.adoc[]
+* Using Hawtio
+** xref:configuration.adoc[]
+** xref:security.adoc[]
+** xref:plugins.adoc[]
+** xref:keycloak.adoc[]
+* Kubernetes/OpenShift
+** xref:online/openshift.adoc[]
+** xref:online/kubernetes.adoc[]
+** xref:online/develop.adoc[]
+** xref:online/create-user.adoc[]
+** xref:online/generate-certificates.adoc[]
+** xref:online/rbac.adoc[]
+* General Docs
+** xref:faq.adoc[]
+** https://github.com/hawtio/hawtio/releases[Releases]
+** xref:contributing.adoc[]
+* Developers
+** https://github.com/hawtio/hawtio/blob/3.x/RELEASING.md[RELEASING]

@@ -1,4 +1,4 @@
-name: deploy
+name: Deploy
 
 on:
   push:
@@ -8,8 +8,6 @@ on:
       - 'src/**'
       - 'static/**'
   workflow_dispatch:
-    branches:
-      - 'main'
 
 jobs:
   deploy:

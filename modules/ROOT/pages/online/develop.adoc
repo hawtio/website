@@ -1,0 +1,77 @@
+= Development
+
+== Tools
+
+You must have the following tools installed:
+
+- http://nodejs.org[Node.js] (v18 or higher)
+- https://yarnpkg.com[Yarn v3+] (classic version 1.x doesn't work)
+
+== Build
+
+[source,console]
+----
+$ yarn install
+----
+
+== Install
+
+:fn-hawtio-enabled: pass:c,q[footnote:hawtio-enabled[Containers with a configured port named `jolokia` and that exposes the https://jolokia.org[Jolokia] API.]]
+
+In order to authenticate and obtain OAuth access tokens for the Hawtio console be authorized to watch for _hawtio-enabled_ {fn-hawtio-enabled} applications deployed in your cluster, you have to create an OAuth client that matches localhost development URLs.
+
+=== Cluster mode
+
+[source,console]
+----
+$ oc create -f oauthclient.yml
+----
+
+See https://docs.openshift.com/container-platform/latest/authentication/configuring-oauth-clients.html#oauth-default-clients_configuring-oauth-clients[OAuth Clients] for more information.
+
+=== Namespace mode
+
+[source,console]
+----
+$ oc create -f serviceaccount.yml
+----
+
+See https://docs.openshift.com/container-platform/latest/authentication/using-service-accounts-as-oauth-client.html[Service Accounts as OAuth Clients] for more information.
+
+== Run
+
+=== Cluster mode
+
+[source,console]
+----
+$ yarn start --master=`oc whoami --show-server` --mode=cluster
+----
+
+=== Namespace mode
+
+[source,console]
+----
+$ yarn start --master=`oc whoami --show-server` --mode=namespace --namespace=`oc project -q`
+----
+
+You can access the console at http://localhost:2772/.
+
+== Disable Jolokia authentication for deployments (dev only)
+
+In order for a local hawtio-online to detect the hawtio-enabled applications, each application container needs to be configured with the following environment variables:
+
+[source,shell]
+----
+AB_JOLOKIA_AUTH_OPENSHIFT=false
+AB_JOLOKIA_PASSWORD_RANDOM=false
+AB_JOLOKIA_OPTS=useSslClientAuthentication=false,protocol=https
+----
+
+The following script lets you apply the above environment variables to all the deployments with a label `provider=fabric8` in a batch:
+
+[source,console]
+----
+$ ./scripts/disable-jolokia-auth.sh
+----
+
+---

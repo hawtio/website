@@ -10,9 +10,16 @@
     "url": "https://github.com/hawtio/website.git"
   },
   "scripts": {
-    "build": "echo",
-    "deploy": "echo",
-    "develop": "echo"
+    "build": "antora antora-playbook.yml",
+    "start": "yarn build && http-server -c-1 build/site",
+    "format": "prettier --write .",
+    "deploy": "echo TODO"
+  },
+  "devDependencies": {
+    "@antora/cli": "3.1",
+    "@antora/site-generator": "3.1",
+    "http-server": "^14.1.1",
+    "prettier": "3.1.0"
   },
   "engines": {
     "node": ">=18"
