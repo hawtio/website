@@ -1,7 +1,5 @@
 site:
   title: Hawtio
-  url: https://hawt.io
-  #start_page: docs::index.adoc
 
 content:
   sources:

@@ -10,16 +10,43 @@
     "url": "https://github.com/hawtio/website.git"
   },
   "scripts": {
-    "build": "antora antora-playbook.yml",
-    "start": "yarn build && http-server -c-1 build/site",
+    "develop": "gatsby develop",
+    "start:gatsby": "gatsby develop",
+    "start:docs": "yarn build:antora && http-server -c-1 build/site",
+    "build": "rm -r public && concurrently \"npm:build:*\" && mv -v build/site/docs public/ && mv -v build/site/_ public",
+    "build:gatsby": "gatsby build",
+    "build:docs": "antora antora-playbook.yml",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "deploy": "echo TODO"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.11.2",
+    "gatsby": "^5.12.4",
+    "gatsby-plugin-typography": "^5.12.0",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.9.1",
+    "react-bootstrap-icons": "^1.10.3",
+    "react-dom": "^18.2.0",
+    "react-twitter-widgets": "^1.11.0",
+    "react-typography": "^0.16.23",
+    "typography": "^0.16.24",
+    "typography-theme-bootstrap": "^0.16.19"
   },
   "devDependencies": {
     "@antora/cli": "3.1",
     "@antora/site-generator": "3.1",
+    "@types/node": "^20.3.3",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@types/typography": "^0.16.7",
+    "concurrently": "^8.2.2",
     "http-server": "^14.1.1",
-    "prettier": "3.1.0"
+    "prettier": "3.1.0",
+    "typescript": "^5.1.6"
   },
   "engines": {
     "node": ">=18"

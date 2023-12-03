@@ -2,6 +2,7 @@ build
 coverage
 dist
 docs
-src
-static
 .yarn
+
+# antra ui partials
+*.hbs
