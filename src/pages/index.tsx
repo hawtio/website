@@ -150,30 +150,32 @@ const IndexPage = () => {
           Get Started Now
         </Button>
       </Jumbotron>
+      <hr />
       <Jumbotron background='#fff' textAlign='center'>
-        <Row>
-          <Col md={12} style={{ textAlign: 'center' }}>
-            <h3>What's New?</h3>
-            <Timeline
-              dataSource={{
-                sourceType: 'profile',
-                screenName: 'hawtio',
-              }}
-              options={{
-                username: 'hawtio',
-                dnt: true,
-                chrome: 'noheader nofooter noborders transparent noscrollbar',
-                width: 700,
-                tweetLimit: 5,
-              }}
-              onLoad={() => console.log('Timeline is loaded!')}
-            />
-          </Col>
-        </Row>
+        <TwitterTimeline />
       </Jumbotron>
     </Layout>
   )
 }
+
+const TwitterTimeline = () => (
+  <>
+    <h3>What's New?</h3>
+    <Timeline
+      //dataSource={{ sourceType: 'profile', screenName: 'hawtio' }}
+      dataSource={{ sourceType: 'url', url: 'https://twitter.com/hawtio' }}
+      options={{
+        dnt: true,
+        //width: 700,
+        height: 800,
+        tweetLimit: 5,
+        chrome: 'noheader nofooter noborders transparent',
+      }}
+      onLoad={() => console.log('Timeline is loaded!')}
+      renderError={_error => 'Failed to load timelines from @hawtio'}
+    />
+  </>
+)
 
 export default IndexPage
 
