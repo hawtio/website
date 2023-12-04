@@ -14,10 +14,9 @@
     "start:website": "gatsby develop",
     "start:docs": "yarn build:docs && http-server -p 8001 -c-1 build/site",
     "build": "concurrently \"npm:build:*\" && mv -v build/site/docs public/ && mv -v build/site/_ public",
-    "build:website": "rm -r public && gatsby build",
-    "build:docs": "rm -r build && antora antora-playbook.yml",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
+    "build:website": "gatsby build",
+    "build:docs": "antora antora-playbook.yml",
+    "clean": "gatsby clean && rm -r build",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "deploy": "echo TODO"
