@@ -68,7 +68,7 @@ const IndexPage = () => {
           <Icon.Wrench style={{ verticalAlign: 'top', marginRight: '0.5rem' }} /> Modular architecture
         </h3>
         <p>
-          Hawtio is a <Link to='/docs/plugins/'>plaggable</Link> Web management console, built with the modern Web
+          Hawtio is a <Link to='/docs/plugins/'>pluggable</Link> Web management console, built with the modern Web
           technologies such as <a href='https://react.dev/'>React</a> and{' '}
           <a href='https://www.patternfly.org/'>PatternFly</a>.
         </p>
@@ -150,7 +150,7 @@ const IndexPage = () => {
           Get Started Now
         </Button>
       </Jumbotron>
-      <Container style={{ marginTop: '50px' }}>
+      <Jumbotron background='#fff' textAlign='center'>
         <Row>
           <Col md={12} style={{ textAlign: 'center' }}>
             <h3>What's New?</h3>
@@ -170,7 +170,7 @@ const IndexPage = () => {
             />
           </Col>
         </Row>
-      </Container>
+      </Jumbotron>
     </Layout>
   )
 }

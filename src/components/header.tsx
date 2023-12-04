@@ -22,7 +22,7 @@ const Header = () => (
       <img src={hawtioLogo} alt='Hawtio' style={{ margin: 0, height: 30 }} />
     </Navbar.Brand>
     <Navbar.Toggle />
-    <Navbar.Collapse className='justify-content-between'>
+    <Navbar.Collapse className='justify-content-end'>
       <Nav>
         <Nav.Link eventKey={1} href={withPrefix('/')}>
           Home
