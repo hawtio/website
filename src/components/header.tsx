@@ -16,7 +16,7 @@ const Header = () => (
     fixed='top'
     expand='lg'
     collapseOnSelect
-    style={{ background: 'black', height: '60px', paddingRight: '15px', paddingLeft: '15px' }}
+    style={{ background: 'black', paddingRight: '10px', paddingLeft: '10px' }}
   >
     <Navbar.Brand href='/'>
       <img src={hawtioLogo} alt='Hawtio' style={{ margin: 0, height: 30 }} />

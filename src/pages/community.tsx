@@ -2,10 +2,11 @@ import { Link, PageProps, graphql, withPrefix } from 'gatsby'
 import React from 'react'
 import { Button, Container } from 'react-bootstrap'
 import Layout from '../components/layout'
+import '../css/community.css'
+import groupsIcon from '../images/groups.png'
+import ircIcon from '../images/irc.png'
 import octocatLogo from '../images/social/octocat.jpg'
 import stackoverflowLogo from '../images/social/stackoverflow.png'
-import ircIcon from '../images/irc.png'
-import groupsIcon from '../images/groups.png'
 
 const TitleImage: React.FC<{ src: string }> = props => (
   <img style={{ verticalAlign: 'middle', maxWidth: 48, maxHeight: 48, marginRight: 10 }} src={props.src} alt='' />
@@ -25,7 +26,7 @@ const CommunityPage: React.FC<
   const { issueUrl, forumUrl, repositoryUrl } = data.site.siteMetadata
   return (
     <Layout>
-      <Container style={{ marginTop: '3rem' }}>
+      <Container style={{ marginTop: '2.5rem' }}>
         <h1>Community</h1>
         <p>
           Welcome to the <b>Hawtio</b> community! We <Link to='/docs/contributing/'>love contributions</Link>!

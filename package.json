@@ -10,12 +10,12 @@
     "url": "https://github.com/hawtio/website.git"
   },
   "scripts": {
-    "develop": "gatsby develop",
-    "start:gatsby": "gatsby develop",
-    "start:docs": "yarn build:antora && http-server -c-1 build/site",
-    "build": "rm -r public && concurrently \"npm:build:*\" && mv -v build/site/docs public/ && mv -v build/site/_ public",
-    "build:gatsby": "gatsby build",
-    "build:docs": "antora antora-playbook.yml",
+    "start": "concurrently \"npm:start:*\"",
+    "start:website": "gatsby develop",
+    "start:docs": "yarn build:docs && http-server -p 8001 -c-1 build/site",
+    "build": "concurrently \"npm:build:*\" && mv -v build/site/docs public/ && mv -v build/site/_ public",
+    "build:website": "rm -r public && gatsby build",
+    "build:docs": "rm -r build && antora antora-playbook.yml",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",

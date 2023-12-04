@@ -6,7 +6,7 @@ import * as Icon from 'react-bootstrap-icons'
 
 const NotFoundPage = () => (
   <Layout>
-    <Container style={{ marginTop: '3rem' }}>
+    <Container style={{ marginTop: '2.5rem' }}>
       <h1>
         <Icon.Robot style={{ verticalAlign: 'top', marginRight: '0.5rem' }} /> Page not found
       </h1>
