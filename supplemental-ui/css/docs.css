@@ -5,3 +5,7 @@ body {
 .navbar-item {
   padding: 0.5rem 0.5rem;
 }
+
+.content .doc {
+  max-width: 100%;
+}
