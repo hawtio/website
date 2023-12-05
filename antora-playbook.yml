@@ -5,6 +5,7 @@ content:
   sources:
     - url: .
       branches: HEAD
+      edit_url: 'https://github.com/hawtio/website/blob/main/{path}'
 
 asciidoc:
   attributes:
