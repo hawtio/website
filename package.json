@@ -13,7 +13,7 @@
     "start": "concurrently \"npm:start:*\"",
     "start:website": "gatsby develop",
     "start:docs": "yarn build:docs && http-server -p 8001 -c-1 build/site",
-    "build": "concurrently \"npm:build:*\" && mv -v build/site/docs public/ && mv -v build/site/_ public",
+    "build": "concurrently \"npm:build:*\" && rm -rf public/docs && rm -rf public/_ && mv -v build/site/docs public/ && mv -v build/site/_ public/",
     "build:website": "gatsby build",
     "build:docs": "antora antora-playbook.yml",
     "clean": "gatsby clean && rm -r build",
