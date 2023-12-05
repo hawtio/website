@@ -1,3 +1,26 @@
 = Hawtio v3
 
-TBD
+Hawtio is a lightweight and modular Web console for managing Java applications.
+
+V3 is a complete reimplementation of Hawtio console UI with https://react.dev/[React] and https://www.patternfly.org[PatternFly v4]. It enables us to keep up with the latest UI technologies and security updates, but more importantly, it aims to remove barriers to contributions from the community sensitive to new technologies.
+
+image::hawtio-console.png[width=80%]
+
+Hawtio v3 is composed of the following projects:
+
+* Hawtio React NPM package
+* Hawtio (Standalone)
+
+== Hawtio React
+
+Repository:: https://github.com/hawtio/hawtio-next
+
+This NPM project is the frontend UI part of the Hawtio console. It is implemented with React and PatternFly, and published to the NPM registry as https://www.npmjs.com/package/@hawtio/react[@hawtio/react].
+
+The xref:plugins.adoc[builtin plugins] are hosted in the project.
+
+== Hawtio (Standalone)
+
+Repository:: https://github.com/hawtio/hawtio
+
+This Java project assembles <<Hawtio React>> with the Java backend to offer https://github.com/hawtio/hawtio/releases[the distributions] you can use as the Hawtio console. The Java backend provides several API endpoints to support authentication and security on Java, and custom MBeans to enable the frontend plugins. It also implements the runtimes support so that the console can be embedded into the supported runtimes such as Quarkus and Spring Boot.
