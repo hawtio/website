@@ -23,4 +23,6 @@ The xref:plugins.adoc[builtin plugins] are hosted in the project.
 
 Repository:: https://github.com/hawtio/hawtio
 
-This Java project assembles <<Hawtio React>> with the Java backend to offer https://github.com/hawtio/hawtio/releases[the distributions] you can use as the Hawtio console. The Java backend provides several API endpoints to support authentication and security on Java, and custom MBeans to enable the frontend plugins. It also implements the runtimes support so that the console can be embedded into the supported runtimes such as Quarkus and Spring Boot.
+This Java project assembles <<Hawtio React>> with the Java backend to offer https://github.com/hawtio/hawtio/releases[the distributions] you can use as the Hawtio console.
+
+The Java backend proxies the communication between the frontend and https://jolokia.org/[Jolokia] endpoints. It provides several API endpoints to support authentication and security on Java, and custom MBeans to enable the frontend plugins. It also implements the runtimes support so that the console can be embedded into the supported runtimes such as Quarkus and Spring Boot.
