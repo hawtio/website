@@ -1,0 +1,3 @@
+= Releasing Hawtio
+
+See https://github.com/hawtio/hawtio/blob/3.x/RELEASING.md[RELEASING].

@@ -1,83 +1,127 @@
 = FAQ
 
-== What is the Hawtio license?
+This page answers some frequently asked questions about Hawtio.
+
+== General
+
+=== What is the Hawtio license?
 
 Hawtio uses the https://www.apache.org/licenses/LICENSE-2.0.txt[Apache 2.0 License].
 
-== What does Hawtio do?
+=== What does Hawtio do?
 
-It's a xref:plugins.adoc[pluggable] management console for Java stuff which supports any kind of JVM, any kind of container (Tomcat, Jetty, WildFly, Karaf, etc), and any kind of Java technology and middleware.
+It's a xref:plugins.adoc[pluggable] management console for Java stuff which supports any kind of JVM, any kind of runtimes (Quarkus, Spring Boot, etc.) and container (Tomcat, Jetty, WildFly, Karaf, etc.), and any kind of Java technology and middleware.
 
-== How do I install Hawtio?
+=== How do I install Hawtio?
 
 See xref:get-started.adoc[] and xref:configuration.adoc[].
 
-== How do I configure Hawtio?
+=== Which Java version is required?
 
-Mostly Hawtio just works. However, please check out xref:configuration.adoc[] to see what kinds of things you can configure via system properties, environment variables, `web.xml` context-params or dependency injection.
+See xref:versions.adoc[].
 
-== How do I disable security?
+=== How do I configure Hawtio?
 
-Hawtio has security enabled by default using the underlying application container's security mechanism. Have a look at the [Configuring Security](/docs/configuration/#configuring-security) section of the Configuration to learn how to disable security.
+Mostly Hawtio just works. However, please check out xref:configuration.adoc[] to see what kinds of things you can configure via system properties.
 
-== Which Java version is required?
+=== How do I disable security?
 
-- Hawtio 2.0 onwards - requires Java 8.
-- Hawtio 1.5 onwards - requires Java 8.
-- Hawtio 1.4 - requires Java 7 or 8.
-- Hawtio 1.3 or older - supports Java 6 and 7.
+Hawtio has security enabled by default using the underlying application container's security mechanism. Have a look at xref:security.adoc[] to learn how to disable security.
 
-== How do I enable Hawtio inside my Java Application / Spring Boot / DropWizard / Micro Service?
+=== How do I enable Hawtio inside my Java Application / Quarkus / Spring Boot / microservice?
 
-The easiest thing to do is add Jolokia as a java agent via a java agent command line:
+The easiest thing to do is add Jolokia as a Java agent via `java` command line with `-javaagent`:
 
 [source,console]
 ----
-java -javaagent:jolokia-agent.jar=host=0.0.0.0 -jar foo.jar
+$ java -javaagent:jolokia-agent.jar=host=0.0.0.0 -jar foo.jar
 ----
 
-Then by default you can connect on http://localhost:8778/jolokia to access the Jolokia REST API.
+Then by default you can connect on http://localhost:8778/jolokia to access the Jolokia API endpoint.
 
 Now you can use the standalone Hawtio application to connect to it. This strategy minimises the effect of Hawtio/Jolokia on your app (e.g. you don't need to mess about with what's inside your application or even change the classpath).
 
-== How do I connect to my remote JVM?
+=== How do I connect to my remote JVM?
 
 All that's required for Hawtio to connect to any remote JVM is that a https://jolokia.org/agent.html[Jolokia agent] is attached to the JVM you wish to connect to. There are a few different agents you can use:
 
+- https://jolokia.org/agent/jvm.html[JVM agent] if you are using a standalone process
 - https://jolokia.org/agent/war.html[WAR agent] if you are using a servlet container
 - https://jolokia.org/agent/osgi.html[OSGi agent] if you are using OSGi
-- https://jolokia.org/agent/jvm.html[JVM agent] if you are using a standalone process
 
-So once you've got a Jolokia agent in your JVM you can test it by accessing `http://host:port/jolokia` in a browser to see if you can view the JSON returned for the version information of the Jolokia agent.
+So once you've got a Jolokia agent in your JVM you can test it by accessing `\http://host:port/jolokia` in a browser to see if you can view the JSON returned for the version information of the Jolokia agent.
 
-Assuming you have Jolokia working in your JVM, then you can use the _Remote_ tab on the _Connect_ menu in Hawtio to connect.
+Assuming you have Jolokia working in your JVM, then you can use the *Remote* tab on the *Connect* plugin in Hawtio to connect.
 
-NOTE: By default only `localhost` is accepted to connect for security, so you need to configure the `hawtio.proxyAllowlist` system property or the `proxyAllowlist` init parameter on `ProxyServlet` in `hawtio.war`'s `WEB-INF/web.xml` to explicitly allow hosts that you are connecting to.
+NOTE: By default, only `localhost` is accepted to connect for security, so you need to configure the `hawtio.proxyAllowlist` system property to explicitly allow hosts that you are connecting to. See xref:configuration.adoc#_configuration_properties[Configuration properties] for more information on the property.
 
 After trying the above, if you still have problems connecting to your JVM, please get in touch with the https://hawt.io/community/[community] or https://github.com/hawtio/hawtio/issues[raise an issue].
 
-== How do I install a plugin?
+=== How do I install a plugin?
 
-Each Hawtio distro has these xref:plugins.adoc[browser based plugins] inside already. Additionally, Hawtio can discover any other external plugins deployed in the same JVM.
+Each Hawtio distro has these xref:plugins.adoc[browser-based plugins] inside already. Additionally, Hawtio can discover any other external plugins deployed in the same JVM.
 
-Then the Hawtio UI updates itself in real time based on what it can find in the server side JVM it connects to. So, for example, if you connect to an empty Tomcat/Jetty you'll just see things like JMX and Runtime.
+The Hawtio UI updates itself in real time based on what it can find in the server side JVM it connects to. So, for example, if you connect to an empty Tomcat/Jetty you'll just see things like JMX and Runtime.
 
-Then if you deploy a WAR which has ActiveMQ or Camel inside it, you should see an ActiveMQ or Camel tab appear as you deploy code which registers mbeans for ActiveMQ or Camel.
+Then if you deploy a WAR which has, for instance, Apache Camel routes inside it, you should see Camel plugin appear as you've deployed code which registers MBeans for Apache Camel.
 
-So usually, if you are interested in a particular plugin and its not visible in the Hawtio UI (after checking your preferences in case you disabled it), usually you just need to deploy or add a server side plugin; which is usually a case of deploying some Java code (e.g. ActiveMQ, Camel, Infinispan etc).
+So usually, if you are interested in a particular plugin and it's not visible in the Hawtio UI, usually you just need to deploy or add a server side plugin; which is usually a case of deploying some Java code (e.g. Apache Camel, Apache ActiveMQ Artemis, Spring Boot, etc.).
 
-== Why does Hawtio log a bunch of 404s to the javascript console at startup?
+Note some plugins, such as Logs plugin and Connect plugin's Discover tab, require the presence of a supporting server side MBean provided by a specific Hawtio dependency jar. See xref:plugins.adoc[] table for the additional information on each plugin's requirement.
 
-The Hawtio help registry tries to automatically discover help data for each registered plugin even if plugins haven't specifically registered a help file.
+If you want to develop a custom plugin, look at these examples:
 
-== Why isn't the Camel plugin visible?
+- https://github.com/hawtio/hawtio-sample-plugin-ts[Sample plugin for Spring Boot]
+- https://github.com/hawtio/hawtio-sample-war-plugin-ts[Sample plugin for a WAR application]
+
+=== Why does Hawtio log a bunch of 404s to the JavaScript console at startup?
+
+Hawtio queries presence of some static resources and availability of endpoints on the server to decide which features should be enabled or disabled at startup time. The Connect plugin also periodically probes registered Jolokia connections for checking their availabilities. In most cases, 404s just mean they are not available by configuration or temporarily.
+
+== Camel plugin
+
+=== Why isn't the Camel plugin visible?
 
 The Camel plugin currently requires that the Camel MBeans are stored using the default domain name which is `org.apache.camel`. So if you configure Camel to use a different name, using the `mbeanObjectDomainName` configuration, then the Camel plugin will not work. See details reported in ticket https://github.com/hawtio/hawtio/issues/1712[#1712].
 
-== Why doesn't the Debug tab appear for my Camel route?
+=== Why doesn't the Debug tab appear for my Camel route?
 
-The Debug tab depends on the JMX MBeans provided by the Camel release you use. It requires at least version 2.12.x or later of your Camel library to be running.
+The Debug tab depends on the JMX MBeans provided by the Camel application you run. Camel debugging is enabled by the https://camel.apache.org/components/3.21.x/others/debug.html[Camel Debug] component. Installing the component is the requirement for the Debug tab in Hawtio.
 
-== Why doesn't the Trace tab appear for my Camel route?
+*Camel Quarkus 3.x*
 
-The Trace tab depends on the JMX MBeans provided by the Camel release you use. It requires either a 2.12.x or later distro of Camel or a Fuse distro of Camel from about 2.8 or later.
+Camel Quarkus by default only enables the debug extension in development mode. If you want to enable debugging with a packaged Quarkus application, you need an extra configuration properties as follows:
+
+[source,java]
+.application.properties
+----
+quarkus.camel.debug.enabled = true
+----
+
+See https://camel.apache.org/camel-quarkus/3.6.x/reference/extensions/debug.html#extensions-debug-additional-camel-quarkus-configuration[Camel Quarkus Reference - Debug - Additional Camel Quarkus configuration] for more information.
+
+=== Why doesn't the Trace tab appear for my Camel route?
+
+The Trace tab depends on the JMX MBeans provided by the Camel application you run. You need to set up specific configuration properties to enable tracing on the Camel side.
+
+For Quarkus, it would look like the following:
+
+[source,java]
+.application.properties
+----
+camel.main.tracing = true
+camel.main.backlogTracing = true
+camel.main.useBreadcrumb = true
+----
+
+For Spring Boot, it would look like the following:
+
+[source,java]
+.application.properties
+----
+camel.springboot.tracing = true
+camel.springboot.backlog-tracing = true
+camel.springboot.use-breadcrumb = true
+----
+
+See https://camel.apache.org/manual/tracer.html[Camel User manual - Tracer] for more information.

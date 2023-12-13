@@ -1,0 +1,22 @@
+= Supported Versions
+
+The tables list the supported versions of Java and related technologies by each version of Hawtio and Hawtio Online.
+
+== Hawtio
+
+.Supported version matrix
+|===
+|Hawtio |Java |Java/Jakarta EE|Quarkus |Spring Boot|Apache Camel
+
+|3.0.x
+|11, 17, 21
+|8
+|2.16.x
+|2.7.x
+|3.21.x
+
+|===
+
+== Hawtio Online
+
+TBD

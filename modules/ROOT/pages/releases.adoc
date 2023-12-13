@@ -1,0 +1,3 @@
+= Releases
+
+See https://github.com/hawtio/hawtio/releases.
