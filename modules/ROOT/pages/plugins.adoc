@@ -8,10 +8,12 @@ Hawtio uses JMX to discover which MBeans are present and then dynamically update
 
 Relying on JMX for discovery doesn't mean that plugins can only interact with JMX. They can do anything at all that a browser can, e.g. use REST to discover UI capabilities and other plugins.
 
+== Built-in plugins
+
 The following plugins are all included by default in Hawtio:
 
 [cols="1,5"]
-.List of builtin plugins
+.List of built-in plugins
 |===
 |Plugin |Description
 

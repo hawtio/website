@@ -277,7 +277,7 @@ You have now enabled authentication for Hawtio. Only users with role `admin` are
 
 Hawtio configuration properties can be passed to Tomcat using `CATALINA_OPTS` environment variable.
 
-By default, Hawtio authentication is enabled. Let's set up `realm` to `*` to make it work with the Tomcat builtin realm:
+By default, Hawtio authentication is enabled. Let's set up `realm` to `*` to make it work with the Tomcat built-in realm:
 
 [source,shell]
 ----

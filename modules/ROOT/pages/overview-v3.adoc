@@ -17,7 +17,7 @@ Repository:: https://github.com/hawtio/hawtio-next
 
 This NPM project is the frontend UI part of the Hawtio console. It is implemented with React and PatternFly, and published to the NPM registry as https://www.npmjs.com/package/@hawtio/react[@hawtio/react].
 
-The xref:plugins.adoc[builtin plugins] are hosted in the project.
+The xref:plugins.adoc[built-in plugins] are hosted in the project.
 
 == Hawtio (Standalone)
 
