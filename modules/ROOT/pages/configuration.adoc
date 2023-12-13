@@ -9,6 +9,7 @@ The following table lists the configuration properties for the Hawtio core syste
 NOTE: For the configuration properties related to security and authentication, refer to xref:security.adoc[].
 
 [cols="2,1,5"]
+.Configuration properties
 |===
 |System property |Default |Description
 
