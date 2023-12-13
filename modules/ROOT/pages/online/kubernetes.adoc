@@ -1,5 +1,7 @@
 = Kubernetes
 
+NOTE: Hawtio Online v2 is not released yet. This documentation still reflects the information on the older Hawtio Online v1.
+
 :fn-hawtio-enabled: pass:c,q[footnote:hawtio-enabled[Containers with a configured port named `jolokia` and that exposes the https://jolokia.org[Jolokia] API.]]
 
 https://github.com/hawtio/hawtio-online[Hawtio Online] is a Hawtio console that eases the discovery and management of _hawtio-enabled_ {fn-hawtio-enabled} applications deployed on Kubernetes.
