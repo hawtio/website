@@ -69,10 +69,7 @@ So usually, if you are interested in a particular plugin and it's not visible in
 
 Note some plugins, such as Logs plugin and Connect plugin's Discover tab, require the presence of a supporting server side MBean provided by a specific Hawtio dependency jar. See xref:plugins.adoc[] table for the additional information on each plugin's requirement.
 
-If you want to develop a custom plugin, look at these examples:
-
-- https://github.com/hawtio/hawtio-sample-plugin-ts[Sample plugin for Spring Boot]
-- https://github.com/hawtio/hawtio-sample-war-plugin-ts[Sample plugin for a WAR application]
+If you want to develop a custom plugin, refer to xref:plugins.adoc#_custom_plugins[Plugins - Custom plugins].
 
 === Why does Hawtio log a bunch of 404s to the JavaScript console at startup?
 

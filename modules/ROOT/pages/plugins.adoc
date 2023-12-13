@@ -50,3 +50,30 @@ a|Shows information about the Spring Boot application.
 
 Requirements:: Requires Spring Boot https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints[Health, Info, Loggers, and HTTP Exchanges endpoints] to be exposed to activate each corresponding tab in the plugin.
 |===
+
+== Custom plugins
+
+You can also extend the Hawtio capabilities by developing a custom plugin.
+
+Typically, plugin development involves TypeScript, React, and PatternFly v4. For now, we have a few examples that demonstrate how you can develop a custom plugin to extend Hawtio.
+
+Sample plugin within the Hawtio project examples::
+https://github.com/hawtio/hawtio/tree/3.x/examples/sample-plugin +
+The simplest form of a Hawtio plugin. It packages itself as a JAR, and then can be used by including it as a dependency in a Java project.
+
+Sample plugin for Spring Boot::
+https://github.com/hawtio/hawtio-sample-plugin-ts +
+This sample demonstrates how to write and use a custom Hawtio plugin in a Spring Boot application.
+
+Sample plugin as a WAR application::
+https://github.com/hawtio/hawtio-sample-war-plugin-ts +
+This sample demonstrates how to write a custom Hawtio plugin as a WAR file, which can be later deployed to an application server such as Jetty, WildFly, and Tomcat.
+
+=== Resources for plugin development
+
+Here is a list of useful references for developing a Hawtio plugin.
+
+- https://www.typescriptlang.org/docs/handbook/intro.html[TypeScript Handbook]
+- https://react.dev/reference/react[React Reference]
+- https://v4-archive.patternfly.org/v4/[PatternFly v4]
+- https://module-federation.io/[Webpack Module Federation]
