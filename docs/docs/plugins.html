@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Plugins :: Hawtio</title>
+    <meta name="generator" content="Antora 3.1.5">
+<link rel='stylesheet' href='../_/css/site.css' />
+<link rel='stylesheet' href='../_/css/docs.css' />
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="..">
+        <img src="../_/img/hawtio_logo.svg" alt="Hawtio" height="40px" />
+      </a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="/">Home</a>
+        <a class="navbar-item" href="/docs/get-started.html">Get Started</a>
+        <a class="navbar-item" href="/docs/">Docs</a>
+        <a class="navbar-item" href="/docs/plugins.html">Plugins</a>
+        <a class="navbar-item" href="https://github.com/hawtio/hawtio/releases">Download</a>
+        <a class="navbar-item" href="/community/">Community</a>
+        <a class="navbar-item" href="https://github.com/hawtio/hawtio">
+          <img src="../_/img/social/github-light-32.png" alt="GitHub" height="20px" />
+        </a>
+        <a class="navbar-item" href="https://twitter.com/hawtio">
+          <img src="../_/img/social/twitter-white.png" alt="Twitter" height="20px" />
+        </a>
+        <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/hawtio">
+          <img src="../_/img/social/stackoverflow.png" alt="StackOverflow" height="20px" />
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Documentation</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="overview-v3.html">Hawtio v3</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="get-started.html">Get Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="versions.html">Supported Versions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Using Hawtio</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="security.html">Security</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="plugins.html">Plugins</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="keycloak.html">Keycloak Integration</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Kubernetes/OpenShift</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/openshift.html">OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/kubernetes.html">Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/develop.html">Development</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/create-user.html">Creating a Hawtio user for Form authentication</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/generate-certificates.html">Generating Certificates Manually</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/rbac.html">RBAC</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">General Docs</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="faq.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="releases.html">Releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="contributing.html">Contributor Guide</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Developers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="releasing.html">Releasing Hawtio</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Documentation</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">Documentation</a>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Documentation</a></li>
+    <li>Using Hawtio</li>
+    <li><a href="plugins.html">Plugins</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/hawtio/website/blob/main/modules/ROOT/pages/plugins.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Plugins</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hawtio is highly modular, and it includes plugins for different technologies out of the box. Hawtio plugins are essentially <a href="https://react.dev/">React</a> components that are self-contained with all the JavaScript, CSS, and images to make them work. They can utilise Hawtio core features such as authentication and event notification through the Plugin API.</p>
+</div>
+<div class="paragraph">
+<p>The only requirement for a plugin is to provide the entrypoint that Hawtio can load it from, which must conform to the specification of <a href="https://module-federation.io/">Webpack Module Federation</a>.</p>
+</div>
+<div class="paragraph">
+<p>Hawtio uses JMX to discover which MBeans are present and then dynamically updates the navigation bars and tabs based on what it finds. The UI is updated whenever Hawtio reloads the MBean, which it does periodically or a plugin can trigger explicitly.</p>
+</div>
+<div class="paragraph">
+<p>Relying on JMX for discovery doesn&#8217;t mean that plugins can only interact with JMX. They can do anything at all that a browser can, e.g. use REST to discover UI capabilities and other plugins.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_built_in_plugins"><a class="anchor" href="#_built_in_plugins"></a>Built-in plugins</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following plugins are all included by default in Hawtio:</p>
+</div>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<caption class="title">Table 1. List of built-in plugins</caption>
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 83.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Plugin</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/camel">Camel</a></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Adds support for <a href="https://camel.apache.org">Apache Camel</a>. Allows you to browse Camel contexts, routes, endpoints, etc.; visualise running routes and their metrics; create endpoints; send messages; trace message flows; and profile routes to identify which parts runs fast or slow.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Requirements</dt>
+<dd>
+<p>A Camel application needs to be running in the JVM. The Camel application needs to include <a href="https://camel.apache.org/manual/jmx.html">Camel Management</a> component to enable JMX. The Source tab requires <a href="https://camel.apache.org/components/3.21.x/others/java-xml-jaxb-dsl.html">Camel XML DSL</a> support. The Debug tab requires <a href="https://camel.apache.org/components/3.21.x/others/debug.html">Camel Debug</a> component. The Trace tab requires enabling of <a href="https://camel.apache.org/manual/tracer.html">Camel Tracer</a>.</p>
+</dd>
+</dl>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/connect">Connect</a></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Allows you to connect to local or remote JVMs.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Requirements</dt>
+<dd>
+<p>The Discover tab requires <code>io.hawt:hawtio-local-jvm-mbean</code> to the dependencies.</p>
+</dd>
+</dl>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Diagnostics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allows you to control the Java Flight Recorder, see class histogram and access to JVM flags.<br>
+<strong>Not yet ported to v3.</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/jmx">JMX</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provides the core <a href="https://www.oracle.com/java/technologies/javase/javamanagement.html">JMX</a> support for interacting with MBeans, viewing real time attributes, charting, and invoking operations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/logs">Logs</a></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Provides support for viewing the logs inside the JVM.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Requirements</dt>
+<dd>
+<p>Requires <code>io.hawt:hawtio-log</code> and a logging framework-specific implementation for <code>hawtio-log</code> to the dependencies. Currently, only <code>io.hawt:hawtio-log-logback</code> is provided.</p>
+</dd>
+</dl>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/quartz">Quartz</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allows you to view the status of <a href="https://www.quartz-scheduler.org/">Quartz</a> schedulers and configure them. Also allows you to configure and fire jobs and triggers from the console. If you use <a href="https://camel.apache.org/components/3.21.x/quartz-component.html">Camel Quartz</a> component with your Camel application, this plugin will be automatically enabled.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/runtime">Runtime</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provides general overview of the Java process including threads, system properties, and key metrics.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/springboot">Spring Boot</a></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Shows information about the Spring Boot application.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Requirements</dt>
+<dd>
+<p>Requires Spring Boot <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints">Health, Info, Loggers, and HTTP Exchanges endpoints</a> to be exposed to activate each corresponding tab in the plugin.</p>
+</dd>
+</dl>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_custom_plugins"><a class="anchor" href="#_custom_plugins"></a>Custom plugins</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can also extend the Hawtio capabilities by developing a custom plugin.</p>
+</div>
+<div class="paragraph">
+<p>Typically, plugin development involves TypeScript, React, and PatternFly v4. For now, we have a few examples that demonstrate how you can develop a custom plugin to extend Hawtio.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Sample plugin within the Hawtio project examples</dt>
+<dd>
+<p><a href="https://github.com/hawtio/hawtio/tree/3.x/examples/sample-plugin" class="bare">https://github.com/hawtio/hawtio/tree/3.x/examples/sample-plugin</a><br>
+The simplest form of a Hawtio plugin. It packages itself as a JAR, and then can be used by including it as a dependency in a Java project.</p>
+</dd>
+<dt class="hdlist1">Sample plugin for Spring Boot</dt>
+<dd>
+<p><a href="https://github.com/hawtio/hawtio-sample-plugin-ts" class="bare">https://github.com/hawtio/hawtio-sample-plugin-ts</a><br>
+This sample demonstrates how to write and use a custom Hawtio plugin in a Spring Boot application.</p>
+</dd>
+<dt class="hdlist1">Sample plugin as a WAR application</dt>
+<dd>
+<p><a href="https://github.com/hawtio/hawtio-sample-war-plugin-ts" class="bare">https://github.com/hawtio/hawtio-sample-war-plugin-ts</a><br>
+This sample demonstrates how to write a custom Hawtio plugin as a WAR file, which can be later deployed to an application server such as Jetty, WildFly, and Tomcat.</p>
+</dd>
+</dl>
+</div>
+<div class="sect2">
+<h3 id="_resources_for_plugin_development"><a class="anchor" href="#_resources_for_plugin_development"></a>Resources for plugin development</h3>
+<div class="paragraph">
+<p>Here is a list of useful references for developing a Hawtio plugin.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.typescriptlang.org/docs/handbook/intro.html">TypeScript Handbook</a></p>
+</li>
+<li>
+<p><a href="https://react.dev/reference/react">React Reference</a></p>
+</li>
+<li>
+<p><a href="https://v4-archive.patternfly.org/v4/">PatternFly v4</a></p>
+</li>
+<li>
+<p><a href="https://module-federation.io/">Webpack Module Federation</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

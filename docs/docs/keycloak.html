@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Keycloak Integration :: Hawtio</title>
+    <meta name="generator" content="Antora 3.1.5">
+<link rel='stylesheet' href='../_/css/site.css' />
+<link rel='stylesheet' href='../_/css/docs.css' />
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="..">
+        <img src="../_/img/hawtio_logo.svg" alt="Hawtio" height="40px" />
+      </a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="/">Home</a>
+        <a class="navbar-item" href="/docs/get-started.html">Get Started</a>
+        <a class="navbar-item" href="/docs/">Docs</a>
+        <a class="navbar-item" href="/docs/plugins.html">Plugins</a>
+        <a class="navbar-item" href="https://github.com/hawtio/hawtio/releases">Download</a>
+        <a class="navbar-item" href="/community/">Community</a>
+        <a class="navbar-item" href="https://github.com/hawtio/hawtio">
+          <img src="../_/img/social/github-light-32.png" alt="GitHub" height="20px" />
+        </a>
+        <a class="navbar-item" href="https://twitter.com/hawtio">
+          <img src="../_/img/social/twitter-white.png" alt="Twitter" height="20px" />
+        </a>
+        <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/hawtio">
+          <img src="../_/img/social/stackoverflow.png" alt="StackOverflow" height="20px" />
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Documentation</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="overview-v3.html">Hawtio v3</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="get-started.html">Get Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="versions.html">Supported Versions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Using Hawtio</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="security.html">Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="plugins.html">Plugins</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="keycloak.html">Keycloak Integration</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Kubernetes/OpenShift</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/openshift.html">OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/kubernetes.html">Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/develop.html">Development</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/create-user.html">Creating a Hawtio user for Form authentication</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/generate-certificates.html">Generating Certificates Manually</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/rbac.html">RBAC</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">General Docs</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="faq.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="releases.html">Releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="contributing.html">Contributor Guide</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Developers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="releasing.html">Releasing Hawtio</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Documentation</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">Documentation</a>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Documentation</a></li>
+    <li>Using Hawtio</li>
+    <li><a href="keycloak.html">Keycloak Integration</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/hawtio/website/blob/main/modules/ROOT/pages/keycloak.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Keycloak Integration</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can secure your Hawtio console with <a href="https://www.keycloak.org">Keycloak</a>. To integration Hawtio with Keycloak, you need to:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Prepare Keycloak server</p>
+</li>
+<li>
+<p>Deploy Hawtio to your favourite runtime (Quarkus, Spring Boot, WildFly, Karaf, Jetty, Tomcat, etc.) and configure it to use Keycloak for authentication</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prepare_keycloak_server"><a class="anchor" href="#_prepare_keycloak_server"></a>Prepare Keycloak server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Install and run Keycloak server. The easiest way is to use a <a href="https://quay.io/repository/keycloak/keycloak">Docker image</a>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">docker run -d --name keycloak \
+  -p 18080:8080 \
+  -e KEYCLOAK_ADMIN=admin \
+  -e KEYCLOAK_ADMIN_PASSWORD=admin \
+  quay.io/keycloak/keycloak start-dev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we use port number <code>18080</code> for the Keycloak server to avoid potential conflicts with the ports other applications might use.</p>
+</div>
+<div class="paragraph">
+<p>You can log in to the Keycloak admin console <a href="http://localhost:18080/admin/" class="bare">http://localhost:18080/admin/</a> with user <code>admin</code> / password <code>admin</code>. Import <a href="https://raw.githubusercontent.com/hawtio/hawtio/3.x/examples/keycloak-integration/hawtio-demo-realm.json">hawtio-demo-realm.json</a> into Keycloak. To do so, click <code>Create Realm</code> button and then import <code>hawtio-demo-realm.json</code>. It will create <code>hawtio-demo</code> realm.</p>
+</div>
+<div class="paragraph">
+<p>The <code>hawtio-demo</code> realm has the <code>hawtio-client</code> application installed as a public client, and defines a couple of realm roles such as <code>admin</code> and <code>viewer</code>. The names of these roles are the same as the default Hawtio roles, which are allowed to log in to Hawtio admin console and to JMX.</p>
+</div>
+<div class="paragraph">
+<p>There are also 3 users:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>admin</code></dt>
+<dd>
+<p>User with password <code>admin</code> and role <code>admin</code>, who is allowed to login into Hawtio.</p>
+</dd>
+<dt class="hdlist1"><code>viewer</code></dt>
+<dd>
+<p>User with password <code>viewer</code> and role <code>viewer</code>, who is allowed to login into Hawtio.</p>
+</dd>
+<dt class="hdlist1"><code>jdoe</code></dt>
+<dd>
+<p>User with password <code>password</code> and no role assigned, who is not allowed to login into Hawtio.</p>
+</dd>
+</dl>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Currently, the difference in roles does not affect Hawtio access rights on Quarkus and Spring Boot, as Hawtio RBAC functionality is not yet implemented on those runtimes.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration"><a class="anchor" href="#_configuration"></a>Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hawtio&#8217;s configuration for Keycloak integration consists of two parts: integration with Keycloak in the runtime (server side), and integration with Keycloak in the Hawtio console (client side).</p>
+</div>
+<div class="paragraph">
+<p>The following settings need to be made for each part:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Server side</dt>
+<dd>
+<p>The runtime-specific configuration for the Keycloak adapter</p>
+</dd>
+<dt class="hdlist1">Client side</dt>
+<dd>
+<p>The Hawtio Keycloak configuration <code>keycloak-hawtio.json</code></p>
+</dd>
+</dl>
+</div>
+<div class="sect2">
+<h3 id="_quarkus"><a class="anchor" href="#_quarkus"></a>Quarkus</h3>
+<div class="paragraph">
+<p>Firstly, apply <a href="get-started.html#_running_a_quarkus_app" class="xref page">the required configuration</a> for attaching Hawtio to a Quarkus application.</p>
+</div>
+<div class="paragraph">
+<p>What you need to integrate your Quarkus application with Keycloak is <a href="https://quarkus.io/guides/security-oidc-code-flow-authentication-tutorial">Quarkus OIDC</a> extension. Add the following dependency to <code>pom.xml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+  &lt;artifactId&gt;quarkus-oidc&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_server_side"><a class="anchor" href="#_server_side"></a>Server side</h4>
+<div class="paragraph">
+<p>Then add the following lines to <code>application.properties</code> (which configures the server-side OIDC extension):</p>
+</div>
+<div class="listingblock">
+<div class="title">application.properties</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">quarkus.oidc.auth-server-url = http://localhost:18080/realms/hawtio-demo
+quarkus.oidc.client-id = hawtio-client
+quarkus.oidc.credentials.secret = secret
+quarkus.oidc.application-type = web-app
+quarkus.oidc.token-state-manager.split-tokens = true
+quarkus.http.auth.permission.authenticated.paths = "/*"
+quarkus.http.auth.permission.authenticated.policy = authenticated</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<code>quarkus.oidc.token-state-manager.split-tokens = true</code> is important, as otherwise you might encounter a large size session cookie token issue and fail to integrate with Keycloak.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_client_side"><a class="anchor" href="#_client_side"></a>Client side</h4>
+<div class="paragraph">
+<p>Finally create <code>keycloak-hawtio.json</code> under <code>src/main/resources</code> in the Quarkus application project (which serves as the client-side Hawtio JS configuration):</p>
+</div>
+<div class="listingblock">
+<div class="title">keycloak-hawtio.json</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "realm": "hawtio-demo",
+  "clientId": "hawtio-client",
+  "url": "http://localhost:18080/",
+  "jaas": false
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Build and run the project and it will be integrated with Keycloak.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example"><a class="anchor" href="#_example"></a>Example</h4>
+<div class="paragraph">
+<p>See <a href="https://github.com/hawtio/hawtio/tree/3.x/examples/quarkus-keycloak">quarkus-keycloak example</a> for a working example.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spring_boot"><a class="anchor" href="#_spring_boot"></a>Spring Boot</h3>
+<div class="paragraph">
+<p>Firstly, apply <a href="get-started.html#_running_a_spring_boot_app" class="xref page">the required configuration</a> for attaching Hawtio to a Spring Boot application.</p>
+</div>
+<div class="paragraph">
+<p>What you need to integrate your Spring Boot application with Keycloak is to add the following dependency to <code>pom.xml</code> (replace <code>3.x.y</code> with the latest Hawtio release version):</p>
+</div>
+<div class="listingblock">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;io.hawt&lt;/groupId&gt;
+  &lt;artifactId&gt;hawtio-springboot-keycloak&lt;/artifactId&gt;
+  &lt;version&gt;3.x.y&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_server_side_2"><a class="anchor" href="#_server_side_2"></a>Server side</h4>
+<div class="paragraph">
+<p>Then add the following lines in <code>application.properties</code> (which configures the server-side Keycloak adapter):</p>
+</div>
+<div class="listingblock">
+<div class="title">application.properties</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">keycloak.realm = hawtio-demo
+keycloak.resource = hawtio-client
+keycloak.auth-server-url = http://localhost:18080/
+keycloak.ssl-required = external
+keycloak.public-client = true
+keycloak.principal-attribute = preferred_username</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_client_side_2"><a class="anchor" href="#_client_side_2"></a>Client side</h4>
+<div class="paragraph">
+<p>Finally create <code>keycloak-hawtio.json</code> under <code>src/main/resources</code> in the Spring Boot project (which serves as the client-side Hawtio JS configuration):</p>
+</div>
+<div class="listingblock">
+<div class="title">keycloak-hawtio.json</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "realm": "hawtio-demo",
+  "clientId": "hawtio-client",
+  "url": "http://localhost:18080/",
+  "jaas": false
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Build and run the project and it will be integrated with Keycloak.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h4>
+<div class="paragraph">
+<p>See <a href="https://github.com/hawtio/hawtio/tree/3.x/examples/springboot-keycloak">springboot-keycloak example</a> for a working example.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jetty"><a class="anchor" href="#_jetty"></a>Jetty</h3>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Keycloak adapters are <a href="https://www.keycloak.org/2022/02/adapter-deprecation">deprecated</a>. The instructions in this section are not verified with Hawtio v3. It will be updated.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Assume <code>$JETTY_HOME</code> is the root directory of your Jetty installation and you deployed Hawtio WAR to Jetty as described in <a href="get-started.html" class="xref page">Get Started</a>.</p>
+</div>
+<div class="paragraph">
+<p>Install Keycloak Jetty adapter into your Jetty server as described on the <a href="https://www.keycloak.org/docs/latest/securing_apps/index.html#_jetty9_adapter">Keycloak documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>Download and copy <code>keycloak-hawtio.json</code> and <code>keycloak-bearer.json</code> into Jetty. File <code>keycloak-bearer.json</code> is currently used for adapters on server (JAAS Login module) side. File <code>keycloak-hawtio.json</code> is used on client (Hawtio JS application) side.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cp examples/keycloak-integration/keycloak-hawtio.json $JETTY_HOME/etc/
+cp examples/keycloak-integration/keycloak-bearer.json $JETTY_HOME/etc/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create file <code>$JETTY_HOME/etc/login.conf</code> with the content like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">hawtio {
+    org.keycloak.adapters.jaas.BearerTokenLoginModule required
+        keycloak-config-file="${hawtio.keycloakServerConfig}";
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Export <code>JETTY_HOME</code> in your terminal. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">export JETTY_HOME=/mydir/jetty-distribution-9.x.x</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Export <code>JAVA_OPTIONS</code> and add all necessary system properties similarly like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">export JAVA_OPTIONS="-Dhawtio.authenticationEnabled=true \
+                     -Dhawtio.realm=hawtio \
+                     -Dhawtio.keycloakEnabled=true \
+                     -Dhawtio.roles=admin,manager,viewer \
+                     -Dhawtio.rolePrincipalClasses=org.keycloak.adapters.jaas.RolePrincipal \
+                     -Dhawtio.keycloakClientConfig=$JETTY_HOME/etc/keycloak-hawtio.json \
+                     -Dhawtio.keycloakServerConfig=$JETTY_HOME/etc/keycloak-bearer.json \
+                     -Djava.security.auth.login.config=$JETTY_HOME/etc/login.conf"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run Jetty and go to <code><a href="http://localhost:8080/hawtio" class="bare">http://localhost:8080/hawtio</a></code>. Users are again <code>admin</code> and <code>viewer</code> with access and <code>jdoe</code> without access.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tomcat"><a class="anchor" href="#_tomcat"></a>Tomcat</h3>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Keycloak adapters are <a href="https://www.keycloak.org/2022/02/adapter-deprecation">deprecated</a>. The instructions in this section are not verified with Hawtio v3. It will be updated.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Instructions are quite similar to <a href="#_jetty">Jetty</a>. You would need to setup JAAS realm and set the system properties. Just use Tomcat adapter instead of the Jetty one. Also you may need to add this system property (really empty value):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">-Dhawtio.authenticationContainerDiscoveryClasses=</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is needed, so that Tomcat will use configured JAAS realm with <code>BearerTokenLoginModule</code> instead of <code>tomcat-users.xml</code> file, which Hawtio uses on Tomcat by default.</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

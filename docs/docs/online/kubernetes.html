@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kubernetes :: Hawtio</title>
+    <meta name="generator" content="Antora 3.1.5">
+<link rel='stylesheet' href='../../_/css/site.css' />
+<link rel='stylesheet' href='../../_/css/docs.css' />
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../..">
+        <img src="../../_/img/hawtio_logo.svg" alt="Hawtio" height="40px" />
+      </a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="/">Home</a>
+        <a class="navbar-item" href="/docs/get-started.html">Get Started</a>
+        <a class="navbar-item" href="/docs/">Docs</a>
+        <a class="navbar-item" href="/docs/plugins.html">Plugins</a>
+        <a class="navbar-item" href="https://github.com/hawtio/hawtio/releases">Download</a>
+        <a class="navbar-item" href="/community/">Community</a>
+        <a class="navbar-item" href="https://github.com/hawtio/hawtio">
+          <img src="../../_/img/social/github-light-32.png" alt="GitHub" height="20px" />
+        </a>
+        <a class="navbar-item" href="https://twitter.com/hawtio">
+          <img src="../../_/img/social/twitter-white.png" alt="Twitter" height="20px" />
+        </a>
+        <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/hawtio">
+          <img src="../../_/img/social/stackoverflow.png" alt="StackOverflow" height="20px" />
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Documentation</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../index.html">Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../overview-v3.html">Hawtio v3</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../get-started.html">Get Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../versions.html">Supported Versions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Using Hawtio</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../security.html">Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../plugins.html">Plugins</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../keycloak.html">Keycloak Integration</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Kubernetes/OpenShift</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="openshift.html">OpenShift</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="kubernetes.html">Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="develop.html">Development</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="create-user.html">Creating a Hawtio user for Form authentication</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="generate-certificates.html">Generating Certificates Manually</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rbac.html">RBAC</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">General Docs</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../faq.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../releases.html">Releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing.html">Contributor Guide</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Developers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../releasing.html">Releasing Hawtio</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Documentation</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Documentation</a>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Documentation</a></li>
+    <li>Kubernetes/OpenShift</li>
+    <li><a href="kubernetes.html">Kubernetes</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/hawtio/website/blob/main/modules/ROOT/pages/online/kubernetes.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Kubernetes</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Hawtio Online v2 is not released yet. This documentation still reflects the information on the older Hawtio Online v1.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/hawtio/hawtio-online">Hawtio Online</a> is a Hawtio console that eases the discovery and management of <em>hawtio-enabled</em> <sup class="footnote" id="_footnote_hawtio-enabled">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> applications deployed on Kubernetes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_preparation"><a class="anchor" href="#_preparation"></a>Preparation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Prior to the deployment, depending on the cluster types you need to generate either of the <em>proxying</em> or <em>serving</em> certificates.</p>
+</div>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 83.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Certificate</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Proxying</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to secure the communication between Hawtio Online and the Jolokia agents. A client certificate is generated and mounted into the Hawtio Online pod with a secret, to be used for TLS client authentication.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Serving</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to secure the communication between the client and Hawtio Online.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_proxying_certificates"><a class="anchor" href="#_proxying_certificates"></a>Proxying certificates</h3>
+<div class="paragraph">
+<p>For Kubernetes, proxying certificates are disabled by default and you don&#8217;t need to go through the steps.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This means that client certificate authentication between Hawtio Online and the Jolokia agents is not available by default for Kubernetes, and the Jolokia agents need to disable client certificate authentication so that Hawtio Online can connect to them. You can still use TLS for securing the communication between them.</p>
+</div>
+<div class="paragraph">
+<p>It is possible to use a proxying client certificate for Hawtio Online on Kubernetes; it requires you to generate or provide a custom CA for the certificate and then mount/configure it into the Jolokia agent for its client certificate authentication.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_serving_certificates"><a class="anchor" href="#_serving_certificates"></a>Serving certificates</h3>
+<div class="paragraph">
+<p>For Kubernetes, a serving certificate must be generated manually. Run the following script to generate and set up a certificate for Hawtio Online:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ./scripts/generate-serving.sh [-k tls.key] [-c tls.crt] [SECRET_NAME] [CN]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ yarn gen:serving [-k tls.key] [-c tls.crt] [SECRET_NAME] [CN]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can provide an existing TLS key and certificate by passing parameters <code>-k tls.key</code> and <code>-c tls.crt</code> respectively. Otherwise, a self-signed <code>tls.key</code> and <code>tls.crt</code> will be generated automatically in the working directory and used for creating the serving certificate secret.</p>
+</div>
+<div class="paragraph">
+<p>You can optionally pass <code>SECRET_NAME</code> and <code>CN</code> to customise the secret name and Common Name used in the TLS certificate. The default secret name is <code>hawtio-online-tls-serving</code> and CN is <code>hawtio-online.hawtio.svc</code>.</p>
+</div>
+<div class="paragraph">
+<p>Now you can run the following instructions to deploy the Hawtio Online console on your Kubernetes cluster.</p>
+</div>
+<div class="paragraph">
+<p>You may want to read how to <a href="https://kubernetes.io/docs/reference/kubectl/overview/">get started with the CLI</a> for more information about the <code>kubectl</code> client tool.</p>
+</div>
+<div class="paragraph">
+<p>To deploy the Hawtio Online console on Kubernetes, follow the steps below.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cluster_mode"><a class="anchor" href="#_cluster_mode"></a>Cluster mode</h3>
+<div class="paragraph">
+<p>If you have Yarn installed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ yarn deploy:k8s:cluster</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>otherwise:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ kubectl apply -k deploy/k8s/cluster/</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_namespace_mode"><a class="anchor" href="#_namespace_mode"></a>Namespace mode</h3>
+<div class="paragraph">
+<p>If you have Yarn installed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ yarn deploy:k8s:namespace</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>otherwise:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ kubectl apply -k deploy/k8s/namespace/</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deployment"><a class="anchor" href="#_deployment"></a>Deployment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are two deployment modes you can choose from: <strong>cluster</strong> and <strong>namespace</strong>.</p>
+</div>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 83.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Deployment Mode</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cluster</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Hawtio Online console can discover and connect to <em>hawtio-enabled</em> <sup class="footnoteref">[<a class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> applications deployed across multiple namespaces / projects.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This restricts the Hawtio Online console access to a single namespace / project, and as such acts as a single tenant deployment.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_authentication"><a class="anchor" href="#_authentication"></a>Authentication</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hawtio Online currently supports authentication mode <code>form</code> for Kubernetes, which is configured through <code>HAWTIO_ONLINE_AUTH</code> environment variable on Deployment.</p>
+</div>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 83.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Mode</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">form</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authenticates requests with <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/">bearer tokens</a> through the Hawtio login form.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_creating_user_for_form_authentication"><a class="anchor" href="#_creating_user_for_form_authentication"></a>Creating user for Form authentication</h3>
+<div class="paragraph">
+<p>With the Form authentication mode, any user with a bearer token can be authenticated. See <a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/">Authenticating</a> for different ways to provide users with bearer tokens.</p>
+</div>
+<div class="paragraph">
+<p>Here we illustrate how to create a <code>ServiceAccount</code> as a user to log in to the Hawtio console as an example. See <a href="create-user.html" class="xref page">Creating a Hawtio user for Form authentication</a> for more details.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. Containers with a configured port named <code>jolokia</code> and that exposes the <a href="https://jolokia.org">Jolokia</a> API.
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
