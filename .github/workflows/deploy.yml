@@ -5,21 +5,23 @@ on:
     branches:
       - 'main'
     paths:
+      - 'modules/**'
       - 'src/**'
+      - 'supplemental-ui/**'
       - 'static/**'
   workflow_dispatch:
 
 jobs:
   deploy:
     name: Deploy to GitHub Pages
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Configure git
         run: |
           GIT_USER_NAME="github-actions[bot]"
@@ -29,7 +31,9 @@ jobs:
       - name: Deploy
         run: |
           yarn install
-          yarn deploy
+          yarn build
+          # docs/ is the only other directory than root that GitHub Pages recognises
+          rm -rf docs/ && mv public docs
           git add docs/
           git commit -m 'chore: deploy website'
           git push origin main
