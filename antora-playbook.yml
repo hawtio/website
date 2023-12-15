@@ -13,6 +13,5 @@ asciidoc:
 
 ui:
   bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
-    snapshot: true
+    url: ./ui/antora-ui-default/build/ui-bundle.zip
   supplemental_files: ./supplemental-ui
