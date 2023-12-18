@@ -44,19 +44,19 @@ const IndexPage = () => {
               <Carousel.Item>
                 <img alt='Camel' src={screenshotCamel} />
                 <Carousel.Caption>
-                  <h3 style={{ paddingBottom: '1.5rem' }}>Camel Routes</h3>
+                  <h3 style={{ margin: '0' }}>Camel Routes</h3>
                 </Carousel.Caption>
               </Carousel.Item>
               <Carousel.Item>
                 <img alt='JMX' src={screenshotJmx} />
                 <Carousel.Caption>
-                  <h3 style={{ paddingBottom: '1.5rem' }}>JMX MBeans</h3>
+                  <h3 style={{ margin: '0' }}>JMX MBeans</h3>
                 </Carousel.Caption>
               </Carousel.Item>
               <Carousel.Item>
                 <img alt='Spring Boot' src={screenshotSpringBoot} />
                 <Carousel.Caption>
-                  <h3 style={{ paddingBottom: '1.5rem' }}>Spring Boot</h3>
+                  <h3 style={{ margin: '0' }}>Spring Boot</h3>
                 </Carousel.Caption>
               </Carousel.Item>
             </Carousel>
