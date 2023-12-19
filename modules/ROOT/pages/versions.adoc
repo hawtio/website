@@ -16,8 +16,25 @@ The tables list the supported versions of Java and related technologies by each 
 |2.7.x
 |3.21.x
 
+|4.0.x
+|11, 17, 21
+|9
+|2.x
+|3.x
+|3.x
+|4.x
+
 |===
 
 == Hawtio Online
 
-TBD
+.Supported version matrix
+|===
+|Hawtio Online |Hawtio Operator |Kubernetes |OpenShift
+
+|2.x
+|1.x
+|1.27.x, 1.28.x, 1.29.x
+|4.x
+
+|===
