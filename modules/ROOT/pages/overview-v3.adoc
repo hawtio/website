@@ -6,12 +6,24 @@ V3 is a complete reimplementation of Hawtio console UI with https://react.dev/[R
 
 image::hawtio-console.png[width=80%]
 
+== Plugins
+
+:fn-artemis-plugin: footnote:[Artemis plugin is provided only with the Artemis broker management console. It is developed by the Artemis project.]
+
+One of Hawtio's defining features is its plugin architecture. In addition to the essential JMX functionality, the highly popular https://camel.apache.org/[Apache Camel] and https://activemq.apache.org/components/artemis/[Apache ActiveMQ Artemis] {fn-artemis-plugin} plugins are provided from the outset.
+
+If you don't find a plugin you want to use, you can easily extend the plugin yourself.
+
+See xref:plugins.adoc[] for more information on the available plugins and how you can develop your own plugin.
+
+== The projects
+
 Hawtio v3 is composed of the following projects:
 
 * Hawtio React NPM package
 * Hawtio (Standalone)
 
-== Hawtio React
+=== Hawtio React
 
 Repository:: https://github.com/hawtio/hawtio-next
 
@@ -19,7 +31,7 @@ This NPM project is the frontend UI part of the Hawtio console. It is implemente
 
 The xref:plugins.adoc[built-in plugins] are hosted in the project.
 
-== Hawtio (Standalone)
+=== Hawtio (Standalone)
 
 Repository:: https://github.com/hawtio/hawtio
 
