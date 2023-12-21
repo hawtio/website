@@ -185,6 +185,25 @@
 <img src="_images/hawtio-console.png" alt="hawtio console" width="80%">
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_plugins"><a class="anchor" href="#_plugins"></a>Plugins</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>One of Hawtio&#8217;s defining features is its plugin architecture. In addition to the essential JMX functionality, the highly popular <a href="https://camel.apache.org/">Apache Camel</a> and <a href="https://activemq.apache.org/components/artemis/">Apache ActiveMQ Artemis</a> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> plugins are provided from the outset.</p>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t find a plugin you want to use, you can easily extend the plugin yourself.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="plugins.html" class="xref page">Plugins</a> for more information on the available plugins and how you can develop your own plugin.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_projects"><a class="anchor" href="#_the_projects"></a>The projects</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Hawtio v3 is composed of the following projects:</p>
 </div>
@@ -198,11 +217,8 @@
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_hawtio_react"><a class="anchor" href="#_hawtio_react"></a>Hawtio React</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_hawtio_react"><a class="anchor" href="#_hawtio_react"></a>Hawtio React</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Repository</dt>
@@ -218,10 +234,8 @@
 <p>The <a href="plugins.html" class="xref page">built-in plugins</a> are hosted in the project.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_hawtio_standalone"><a class="anchor" href="#_hawtio_standalone"></a>Hawtio (Standalone)</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_hawtio_standalone"><a class="anchor" href="#_hawtio_standalone"></a>Hawtio (Standalone)</h3>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Repository</dt>
@@ -236,6 +250,13 @@
 <div class="paragraph">
 <p>The Java backend proxies the communication between the frontend and <a href="https://jolokia.org/">Jolokia</a> endpoints. It provides several API endpoints to support authentication and security on Java, and custom MBeans to enable the frontend plugins. It also implements the runtimes support so that the console can be embedded into the supported runtimes such as Quarkus and Spring Boot.</p>
 </div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. Artemis plugin is provided only with the Artemis broker management console. It is developed by the Artemis project.
 </div>
 </div>
 </article>
