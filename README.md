@@ -46,11 +46,13 @@ This command will locally build the website and documentation and merge them to 
 yarn build
 ```
 
-Deployment is yet to be implemented.
+You can check the local build with the following command:
 
 ```console
-yarn deploy
+npx http-server public/
 ```
+
+After you made changes to the docs and confirmed they work locally, you can submit a pull request. Once it's merged, it will be automatically deployed by GitHub Actions.
 
 ## Contribute
 

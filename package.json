@@ -18,7 +18,6 @@
     "build:docs": "antora antora-playbook.yml",
     "watch:build:docs": "bash -c 'while inotifywait -q -e create,modify,delete -r modules/ROOT/pages/; do echo yarn build:docs; yarn build:docs; done'",
     "clean": "gatsby clean && rm -r build",
-    "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "deploy:netlify": "netlify deploy --prod --dir public/ --site hawtio-v3"
   },
