@@ -1,6 +1,7 @@
 = Kubernetes
 
-NOTE: Hawtio Online v2 is not released yet. This documentation still reflects the information on the older Hawtio Online v1.
+IMPORTANT: Hawtio Online v2 has been released. Its container image is available from https://quay.io/repository/hawtio/online[quay.io].
+The following instructions will enable deployment of this version.
 
 :fn-hawtio-enabled: pass:c,q[footnote:hawtio-enabled[Containers with a configured port named `jolokia` and that exposes the https://jolokia.org[Jolokia] API.]]
 
@@ -34,7 +35,7 @@ It is possible to use a proxying client certificate for Hawtio Online on Kuberne
 
 === Serving certificates
 
-For Kubernetes, a serving certificate must be generated manually. Run the following script to generate and set up a certificate for Hawtio Online:
+For Kubernetes, a serving certificate must be generated manually. Run the following https://github.com/hawtio/hawtio-online/blob/main/deploy/script/generate-serving.sh[script] to generate and set up a certificate for Hawtio Online:
 
 [source,console]
 ----

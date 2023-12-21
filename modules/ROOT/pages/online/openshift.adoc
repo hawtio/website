@@ -1,6 +1,7 @@
 = OpenShift
 
-NOTE: Hawtio Online v2 is not released yet. This documentation still reflects the information on the older Hawtio Online v1.
+IMPORTANT: Hawtio Online v2 has been released. Its container image is available from https://quay.io/repository/hawtio/online[quay.io].
+The following instructions will enable deployment of this version.
 
 :fn-hawtio-enabled: pass:c,q[footnote:hawtio-enabled[Containers with a configured port named `jolokia` and that exposes the https://jolokia.org[Jolokia] API.]]
 
@@ -25,7 +26,7 @@ Prior to the deployment, depending on the cluster types you need to generate eit
 
 For OpenShift, a client certificate must be generated using the https://docs.openshift.com/container-platform/latest/security/certificates/service-serving-certificate.html[service signing certificate] authority private key.
 
-Run the following script to generate and set up a client certificate for Hawtio Online:
+Run the following https://github.com/hawtio/hawtio-online/blob/main/deploy/script/generate-proxying.sh[script] to generate and set up a client certificate for Hawtio Online:
 
 [source,console]
 ----
@@ -122,5 +123,5 @@ Hawtio Online currently supports authentication mode `oauth` for OpenShift, whic
 |Mode | Description
 
 |`oauth`
-|Authenticates requests through https://docs.openshift.com/container-platform/4.9/authentication/understanding-authentication.html[OpenShift OAuth server]. It is available only on OpenShift.
+|Authenticates requests through https://docs.openshift.com/container-platform/4.14/authentication/understanding-authentication.html[OpenShift OAuth server]. It is available only on OpenShift.
 |===
