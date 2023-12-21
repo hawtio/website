@@ -2,6 +2,10 @@
 
 This is the documentation for Hawtio v3. The old Hawtio v2 documentation is archived here: https://hawtio-v2.surge.sh/docs/
 
+xref:overview-v3.adoc[]:: If you want to know what Hawtio v3 is, read this first.
+
+xref:versions.adoc[]:: Check this page for the supported version matrix table of dependent technologies and components for each Hawtio version.
+
 == xref:get-started.adoc[]
 
 Read the getting started guide to find out how to download and install Hawtio in your own environment.
@@ -20,13 +24,39 @@ Read an overview of the plugins available in Hawtio, including server-side and e
 
 Read up on how you can integrate Hawtio with https://www.keycloak.org/[Keycloak] on various application containers.
 
+== Using Hawtio on Kubernetes/OpenShift
+
+=== xref:online/openshift.adoc[]
+
+Read this page if you want to deploy Hawtio on OpenShift.
+
+=== xref:online/kubernetes.adoc[]
+
+Read this page if you want to deploy Hawtio on Kubernetes.
+
+=== xref:online/create-user.adoc[]
+
+This page explains how you can create a user when using Hawtio Online with the form-based authentication.
+
+=== xref:online/generate-certificates.adoc[]
+
+This page explains how you can manually generate the required certificates on your own.
+
+=== xref:online/rbac.adoc[]
+
+This page explains how RBAC works in Hawtio Online.
+
+=== xref:online/develop.adoc[]
+
+Read this page if you want to develop Hawtio Online.
+
 == General Docs
 
 === xref:faq.adoc[]
 
 Read commonly asked questions about the Hawtio project, including solutions to common problems getting started with Hawtio.
 
-=== https://github.com/hawtio/hawtio/releases[Releases]
+=== xref:releases.adoc[]
 
 View the latest release details.
 
@@ -36,4 +66,6 @@ Read how to get started building Hawtio and work with the code.
 
 == Developers
 
-=== https://github.com/hawtio/hawtio/blob/3.x/RELEASING.md[RELEASING]
+=== xref:releasing.adoc[]
+
+Link to the doc for how to release Hawtio.

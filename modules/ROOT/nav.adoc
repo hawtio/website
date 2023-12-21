@@ -10,10 +10,10 @@
 * Kubernetes/OpenShift
 ** xref:online/openshift.adoc[]
 ** xref:online/kubernetes.adoc[]
-** xref:online/develop.adoc[]
 ** xref:online/create-user.adoc[]
 ** xref:online/generate-certificates.adoc[]
 ** xref:online/rbac.adoc[]
+** xref:online/develop.adoc[]
 * General Docs
 ** xref:faq.adoc[]
 ** xref:releases.adoc[]
