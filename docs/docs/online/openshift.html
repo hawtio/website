@@ -174,14 +174,15 @@
 <h1 class="page">OpenShift</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock note">
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Hawtio Online v2 is not released yet. This documentation still reflects the information on the older Hawtio Online v1.
+Hawtio Online v2 has been released. Its container image is available from <a href="https://quay.io/repository/hawtio/online">quay.io</a>.
+The following instructions will enable deployment of this version.
 </td>
 </tr>
 </table>
@@ -225,7 +226,7 @@ Hawtio Online v2 is not released yet. This documentation still reflects the info
 <p>For OpenShift, a client certificate must be generated using the <a href="https://docs.openshift.com/container-platform/latest/security/certificates/service-serving-certificate.html">service signing certificate</a> authority private key.</p>
 </div>
 <div class="paragraph">
-<p>Run the following script to generate and set up a client certificate for Hawtio Online:</p>
+<p>Run the following <a href="https://github.com/hawtio/hawtio-online/blob/main/deploy/script/generate-proxying.sh">script</a> to generate and set up a client certificate for Hawtio Online:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -365,7 +366,7 @@ https://hawtio-online-hawtio.192.168.64.12.nip.io (reencrypt) (svc/hawtio-online
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>oauth</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Authenticates requests through <a href="https://docs.openshift.com/container-platform/4.9/authentication/understanding-authentication.html">OpenShift OAuth server</a>. It is available only on OpenShift.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authenticates requests through <a href="https://docs.openshift.com/container-platform/4.14/authentication/understanding-authentication.html">OpenShift OAuth server</a>. It is available only on OpenShift.</p></td>
 </tr>
 </tbody>
 </table>

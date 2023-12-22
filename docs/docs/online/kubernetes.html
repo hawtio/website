@@ -174,14 +174,15 @@
 <h1 class="page">Kubernetes</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock note">
+<div class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Hawtio Online v2 is not released yet. This documentation still reflects the information on the older Hawtio Online v1.
+Hawtio Online v2 has been released. Its container image is available from <a href="https://quay.io/repository/hawtio/online">quay.io</a>.
+The following instructions will enable deployment of this version.
 </td>
 </tr>
 </table>
@@ -245,7 +246,7 @@ Hawtio Online v2 is not released yet. This documentation still reflects the info
 <div class="sect2">
 <h3 id="_serving_certificates"><a class="anchor" href="#_serving_certificates"></a>Serving certificates</h3>
 <div class="paragraph">
-<p>For Kubernetes, a serving certificate must be generated manually. Run the following script to generate and set up a certificate for Hawtio Online:</p>
+<p>For Kubernetes, a serving certificate must be generated manually. Run the following <a href="https://github.com/hawtio/hawtio-online/blob/main/deploy/script/generate-serving.sh">script</a> to generate and set up a certificate for Hawtio Online:</p>
 </div>
 <div class="listingblock">
 <div class="content">
