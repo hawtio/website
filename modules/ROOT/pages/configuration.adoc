@@ -58,7 +58,7 @@ hawtio.disableProxy = true
 
 The Jolokia agent is deployed automatically with `io.hawt.web.JolokiaConfiguredAgentServlet` that extends Jolokia native `org.jolokia.http.AgentServlet` class, defined in `hawtio-war/WEB-INF/web.xml`.
 
-If you want to customize the Jolokia Servlet with the configuration parameters that are defined in the https://jolokia.org/reference/html/agents.html#agent-war-init-params[Jolokia documentation], you can pass them as System properties prefixed with `jolokia.`. For example:
+If you want to customize the Jolokia Servlet with the configuration parameters that are defined in the https://jolokia.org/reference/html/manual/agents.html#agent-war-init-params[Jolokia documentation], you can pass them as System properties prefixed with `jolokia.`. For example:
 
 [source,java]
 ----
@@ -70,7 +70,7 @@ jolokia.policyLocation = file:///opt/hawtio/my-jolokia-access.xml
 :fn-rbac-supported-runtimes: footnote:[https://karaf.apache.org/[Apache Karaf] and https://activemq.apache.org/components/artemis/[Apache ActiveMQ Artemis] provide Hawtio RBAC support.]
 
 
-For some runtimes that support Hawtio RBAC (role-based access control) {fn-rbac-supported-runtimes}, Hawtio provides a custom https://jolokia.org/reference/html/security.html#security-restrictor[Jolokia restrictor] implementation that provides an additional layer of protection over JMX operations based on the ACL (access control list) policy.
+For some runtimes that support Hawtio RBAC (role-based access control) {fn-rbac-supported-runtimes}, Hawtio provides a custom https://jolokia.org/reference/html/manual/security.html#security-restrictor[Jolokia restrictor] implementation that provides an additional layer of protection over JMX operations based on the ACL (access control list) policy.
 
 WARNING: You cannot use Hawtio RBAC with Quarkus and Spring Boot yet. Enabling the RBAC restrictor on those runtimes only imposes additional load without any gains.
 

@@ -51,7 +51,7 @@ $ openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out
 $ oc create secret tls hawtio-online-tls-proxying --cert server.crt --key server.key
 ----
 
-Note that `CN=hawtio-online.hawtio.svc` must be trusted by the Jolokia agents, for which client certification authentication is enabled. See the `clientPrincipal` parameter from the https://jolokia.org/reference/html/agents.html#agent-jvm-config[Jolokia agent configuration options].
+Note that `CN=hawtio-online.hawtio.svc` must be trusted by the Jolokia agents, for which client certification authentication is enabled. See the `clientPrincipal` parameter from the https://jolokia.org/reference/html/manual/agents.html#agent-jvm-config[Jolokia agent configuration options].
 
 == Serving
 
