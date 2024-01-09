@@ -268,7 +268,7 @@ For the configuration properties related to security and authentication, refer t
 <p>The Jolokia agent is deployed automatically with <code>io.hawt.web.JolokiaConfiguredAgentServlet</code> that extends Jolokia native <code>org.jolokia.http.AgentServlet</code> class, defined in <code>hawtio-war/WEB-INF/web.xml</code>.</p>
 </div>
 <div class="paragraph">
-<p>If you want to customize the Jolokia Servlet with the configuration parameters that are defined in the <a href="https://jolokia.org/reference/html/agents.html#agent-war-init-params">Jolokia documentation</a>, you can pass them as System properties prefixed with <code>jolokia.</code>. For example:</p>
+<p>If you want to customize the Jolokia Servlet with the configuration parameters that are defined in the <a href="https://jolokia.org/reference/html/manual/agents.html#agent-war-init-params">Jolokia documentation</a>, you can pass them as System properties prefixed with <code>jolokia.</code>. For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -278,7 +278,7 @@ For the configuration properties related to security and authentication, refer t
 <div class="sect2">
 <h3 id="_rbac_restrictor"><a class="anchor" href="#_rbac_restrictor"></a>RBAC Restrictor</h3>
 <div class="paragraph">
-<p>For some runtimes that support Hawtio RBAC (role-based access control) <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>, Hawtio provides a custom <a href="https://jolokia.org/reference/html/security.html#security-restrictor">Jolokia restrictor</a> implementation that provides an additional layer of protection over JMX operations based on the ACL (access control list) policy.</p>
+<p>For some runtimes that support Hawtio RBAC (role-based access control) <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>, Hawtio provides a custom <a href="https://jolokia.org/reference/html/manual/security.html#security-restrictor">Jolokia restrictor</a> implementation that provides an additional layer of protection over JMX operations based on the ACL (access control list) policy.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
