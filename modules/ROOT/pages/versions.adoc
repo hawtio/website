@@ -4,6 +4,8 @@ The tables list the supported versions of Java and related technologies by each 
 
 == Hawtio
 
+:fn-40x-java11: pass:c,q[footnote:[`hawtio-springboot` requires Java 17+ as the minimum required Java version for Spring Boot 3 is 17.]]
+
 .Supported version matrix
 |===
 |Hawtio |Java |Java/Jakarta EE|Jolokia |Quarkus |Spring Boot|Apache Camel
@@ -17,7 +19,7 @@ The tables list the supported versions of Java and related technologies by each 
 |3.21.x
 
 |4.0.x
-|11, 17, 21
+|11{fn-40x-java11}, 17, 21
 |9
 |2.x
 |3.x
