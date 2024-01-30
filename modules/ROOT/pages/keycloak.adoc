@@ -85,9 +85,12 @@ Finally create `keycloak-hawtio.json` under `src/main/resources` in the Quarkus 
   "realm": "hawtio-demo",
   "clientId": "hawtio-client",
   "url": "http://localhost:18080/",
-  "jaas": false
+  "jaas": false,
+  "pkceMethod": "S256"
 }
 ----
+
+NOTE: Set `pkceMethod` to `S256` depending on _Proof Key for Code Exchange Code Challenge Method_ advanced settings configuration. If PKCE is not enabled, do not set this option.
 
 Build and run the project and it will be integrated with Keycloak.
 
