@@ -326,9 +326,22 @@ quarkus.http.auth.permission.authenticated.policy = authenticated</code></pre>
   "realm": "hawtio-demo",
   "clientId": "hawtio-client",
   "url": "http://localhost:18080/",
-  "jaas": false
+  "jaas": false,
+  "pkceMethod": "S256"
 }</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Set <code>pkceMethod</code> to <code>S256</code> depending on <em>Proof Key for Code Exchange Code Challenge Method</em> advanced settings configuration. If PKCE is not enabled, do not set this option.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Build and run the project and it will be integrated with Keycloak.</p>
