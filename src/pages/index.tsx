@@ -146,7 +146,7 @@ const IndexPage = () => {
         <h3>
           Give it a try? <Icon.RocketTakeoffFill style={{ verticalAlign: 'top', marginLeft: '0.5rem' }} />
         </h3>
-        <Button variant='primary' size='lg' href={withPrefix('/docs/get-started/')} style={{ marginTop: '1.5rem' }}>
+        <Button variant='primary' size='lg' href={withPrefix('/docs/get-started.html')} style={{ marginTop: '1.5rem' }}>
           Get Started Now
         </Button>
       </Jumbotron>
