@@ -238,9 +238,7 @@ EOF</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ kubectl -n hawtio get secrets \
-    $(kubectl -n hawtio get sa hawtio-user -o jsonpath="{.secrets[0].name}") \
-    -o go-template="{{.data.token | base64decode}}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ kubectl -n hawtio create token hawtio-user</code></pre>
 </div>
 </div>
 <div class="paragraph">
