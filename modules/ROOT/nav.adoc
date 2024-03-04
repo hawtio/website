@@ -7,6 +7,7 @@
 ** xref:security.adoc[]
 ** xref:plugins.adoc[]
 ** xref:keycloak.adoc[]
+** xref:oidc.adoc[]
 * Kubernetes/OpenShift
 ** xref:online/openshift.adoc[]
 ** xref:online/kubernetes.adoc[]

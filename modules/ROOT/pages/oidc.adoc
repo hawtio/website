@@ -1,0 +1,236 @@
+= OpenID Connect Integration
+
+Hawtio is already link:keycloak.adoc[supporting Keycloak] as https://openid.net/specs/openid-connect-core-1_0.html#Terminology[OpenID Provider]. However, Keycloak https://www.keycloak.org/2022/02/adapter-deprecation[already announced] that the configuration methods used by Hawtio are deprecated.
+
+Because https://openid.net/specs/openid-connect-core-1_0.html[OpenID Connect Core 1.0] is a widespread specification and standard method for distributed authentication (based on https://datatracker.ietf.org/doc/html/rfc6749[OAuth 2]), Hawtio 4 now supports generic OpenID authentication.
+
+== Building blocks and terminology
+
+To understand how Hawtio uses OpenID Connect and OAuth2, it's worth recalling some fundamental concepts.
+
+There are 3 main _parties_ involved in distributed authentication based on OpenID Connect (which is build on OAuth2):
+
+Resource Server:: The server component hosting protected resource(s), where access is restricted or granted based on _access tokens_. Usually this server is accessed through REST API and doesn't provide user interface on its own.
+
+Client:: The application (typically with user interface) that accesses _resource server_ on behalf of a user (which is treated as _resource owner_). In order to access _resource server_ it is mandatory for the _client_ to obtain an _access token_ first.
++
+In OpenID Connect specification, the _client_ is named _relying party (RP)_.
+
+Authorization Server:: The server that coordinates communication between a _client_ and _resource_ server. The _client_ asks _authorization server_ to authenticate the user (_resource owner_) and if the authentication succeeds, an _access token_ is issued for the _client_ to access _resource server_.
++
+In OpenID Connect specification, the _authorization server_ is named _OpenID Provider (OP)_.
+
+The main goal of OAuth2 and OpenID Connect it to allow applications to access APIs without using user credentials and switch to token exchange.
+
+It is important to know how Hawtio maps to the above roles:
+
+* Hawtio Client application is an OAuth2 _client_. User interacts with Hawtio web application which in turn communicates with Hawtio Server (backend) with https://jolokia.org/[Jolokia agent] running. Before accessing the Jolokia agent, Hawtio needs an OpenID Connect _access token_. To this end, Hawtio Client initiates OpenID Connect authentication process by redirecting user to _Authorization Server_.
+* Hawtio Server application is a JakartaEE application exposing a https://jolokia.org/[Jolokia Agent] API which authorizes user actions based on the content of an _access token_. Using OAuth2 terminology, Hawtio Server is a _Resource Server_.
+
+The below UML diagram present the big picture.
+
+// [plantuml]
+// ....
+// "User (Browser)" -> "Hawtio Client": user accesses Hawtio
+// "Hawtio Client" -> "Authorization Server": starts authentication
+// "Authorization Server" -> "User (Browser)": show login page
+// "User (Browser)" -> "Authorization Server": authenticate
+// "Authorization Server" -> "Hawtio Client": OAuth2 code+token
+// "Hawtio Client" -> "Hawtio Server": access Jolokia with access token
+// ....
+image::oidc-auth.png[]
+
+The most important aspect is: Hawtio Client never deals with user credentials. User authenticates with Authorization Server and Hawtio Client only gets the access token used later to access Hawtio Server (and its Jolokia API).
+
+== Generic OpenID Connect authentication in Hawtio
+
+Hawtio 4 can be used with existing OpenID Connect providers (like Keycloak, Microsoft Entra ID, Auth0, ...) and uses these libraries to fullfill the task:
+
+* https://hc.apache.org/httpcomponents-client-4.5.x/[Apache HTTP Client 4] to implement HTTP communication from Hawtio Server to OpenID Connect provider (e.g., to retrieve information about public keys for token signature validation).
+* https://connect2id.com/products/nimbus-jose-jwt[Nimbus JOSE + JWT] library to manipulate and validate OpenID Connect / OAuth2 access tokens.
+
+These libraries are included in Hawtio Server WAR, which means there's no need to install/deploy _any_ additional libraries (as it is the case with link:keycloak.adoc[Keycloak specific configuration]).
+
+In order to configure Hawtio with external OpenID Connect provider, we need to provide one configuration file and point Hawtio to its location.
+
+The system property that specifies the location of OIDC (OpenID Connect) configuration is `-Dhawtio.oidcConfig`, but in case it's not specified, a default location is checked. The defaults are:
+
+* For Karaf runtime, `${karaf.base}/etc/hawtio-oidc.properties`
+* For Jetty runtime, `${jetty.home}/etc/hawtio-oidc.properties`
+* For Tomcat runtime, `${catalina.home}/conf/hawtio-oidc.properties`
+* For JBoss/EAP/Wildfly runtime, `${jboss.server.config.dir}/hawtio-oidc.properties`
+* For Apache Artemis runtime, `${artemis.instance.etc}/hawtio-oidc.properties`
+* Falls back to `classpath:hawtio-oidc.properties` (for embedded Hawtio usage)
+
+Unlike with link:keycloak.adoc[Keycloak specific configuration], there's only one `*.properties` file needed that is used to configure all the aspects of OpenID Connect configuration. Here's the template:
+
+[source]
+----
+# OpenID Connect configuration requred at client side
+
+# URL of OpenID Connect Provider - the URL after which ".well-known/openid-configuration" can be appended for
+# discovery purposes
+provider = http://localhost:18080/realms/hawtio-demo
+# OpenID client identifier
+client_id = hawtio-client
+# response mode according to https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html
+response_mode = fragment
+# scope to request when performing OpenID authentication. MUST include "openid" and required permissions
+scope = openid email profile
+# redirect URI after OpenID authentication - must also be configured at provider side
+redirect_uri = http://localhost:8080/hawtio
+# challenge method according to https://datatracker.ietf.org/doc/html/rfc7636
+code_challenge_method = S256
+# prompt hint according to https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest
+prompt = login
+
+# additional configuration for the server side
+
+# if true, .well-known/openid-configuration will be fetched at server side. This is required
+# for proper JWT access token validation
+oidc.cacheConfig = true
+
+# time in minutes to cache public keys from jwks_uri
+jwks.cacheTime = 60
+
+# a path for an array of roles found in JWT payload. Property placeholders can be used for parameterized parts
+# of the path (like for Keycloak) - but only for properties from this particular file
+# example for properly configured Entra ID token
+#oidc.rolesPath = roles
+# example for Keycloak with use-resource-role-mappings=true
+#oidc.rolesPath = resource_access.${client_id}.roles
+# example for Keycloak with use-resource-role-mappings=false
+oidc.rolesPath = realm_access.roles
+
+# properties for role mapping. Each property with "roleMapping." prefix is used to map an original role
+# from JWT token (found at ${oidc.rolesPath}) to a role used by the application
+roleMapping.admin = admin
+roleMapping.user = user
+roleMapping.viewer = viewer
+roleMapping.manager = manager
+
+# timeout for connection establishment (milliseconds)
+http.connectionTimeout = 5000
+# timeout for reading from established connection (milliseconds)
+http.readTimeout = 10000
+# HTTP proxy to use when connecting to OpenID Connect provider
+#http.proxyURL = http://127.0.0.1:3128
+
+# TLS configuration (system properties can be used, e.g., "${catalina.home}/conf/hawtio.jks")
+
+#ssl.protocol = TLSv1.3
+#ssl.truststore = src/test/resources/hawtio.jks
+#ssl.truststorePassword = hawtio
+#ssl.keystore = src/test/resources/hawtio.jks
+#ssl.keystorePassword = hawtio
+#ssl.keyAlias = openid connect test provider
+#ssl.keyPassword = hawtio
+----
+
+This file configures several aspects of Hawtio+OpenID Connect:
+
+* OAuth2 - configure the location of Authorization Server, client ID and several OpenID Connect related options
+* JWKS - cache time for public keys obtained from `jwks_uri`, which is the endpoint that exposes public keys used by the Authorization Server.
+* JWT token configuration - information about the _claim_ (a field in JSON Web Token) that contains roles associated with the authenticated user. We also allow to map roles as defined in the Authorization Server to the roles used by the application (Hawtio Server and Jolokia).
+* HTTP configuration - used by HTTP Client at server-side to connect to Authorization Server (to fetch OpenID Connect metadata and exposed public keys).
+
+This example configuration can be adjusted to particular needs, but it also works as-is when used with containerized Keycloak. (See below).
+
+== JAAS role class configuration
+
+OpenID Connect is used at Hawtio server side through JAAS. When Hawtio client obtains the _access token_, it is sent with every Jolokia request using HTTP `Authorization: Bearer <access_token>` header. Each role contained in the JWT token is (possibly after mapping) included as JAAS subject's _role principal_. By default (when not configured explicitly) the class of role principal is `io.hawt.web.auth.oidc.RolePrincipal`. However it is possible to configure another class (the requirement is - it has to contain single String-argument constructor) to be used as principal role class. For example, when used with Apache Artemis, the role should be `org.apache.activemq.artemis.spi.core.security.jaas.RolePrincipal`.
+
+There's a system property that specifies the role class:
+
+----
+-Dhawtio.rolePrincipalClasses=org.apache.activemq.artemis.spi.core.security.jaas.RolePrincipal
+----
+
+== Using Hawtio and OpenID Connect authentication with Keycloak
+
+The simplest way to run Keycloak instance is using a container:
+
+[source,bash]
+----
+podman run -d --name keycloak \
+  -p 18080:8080 \
+  -e KEYCLOAK_ADMIN=admin \
+  -e KEYCLOAK_ADMIN_PASSWORD=admin \
+  quay.io/keycloak/keycloak:latest start-dev
+----
+
+After it's started, browse to http://localhost:18080/admin/master/console/ and create a new realm:
+
+image::keycloak-create-realm.png[]
+
+At realm creation screen, upload https://raw.githubusercontent.com/hawtio/hawtio/4.x/examples/keycloak-integration/hawtio-demo-realm.json[hawtio-demo-realm.json] which defines new `hawtio-demo` realm with pre-configured `hawtio-client` client and 3 users:
+
+* admin/admin with roles `manager`, `admin`, `viewer` and `user`
+* viewer/viewer with roles `viewer` and `user`
+* jdoe/jdoe with just `user` role
+
+=== Investigating JWT token issues
+
+In order to check the content of granted access token, we can use Keycloak interface. Navigate to "Clients", select "hawtio-client" and use "Client scopes" tab with "Evaluate" subtab:
+
+image::keycloak-evaluate.png[]
+
+Then in the "Users" field we can select for example "admin" and click "Generated access token". We can then examine an example token:
+
+[source,json]
+----
+{
+  "exp": 1709552728,
+  "iat": 1709552428,
+  "jti": "0f33971f-c4f7-4a5c-a240-c18ba3f97aa1",
+  "iss": "http://localhost:18080/realms/hawtio-demo",
+  "aud": "account",
+  "sub": "84d156fa-e4cc-4785-91c1-4e0bda4b8ed9",
+  "typ": "Bearer",
+  "azp": "hawtio-client",
+  "session_state": "181a30ac-fce1-4f4f-aaee-110304ccb0e6",
+  "acr": "1",
+  "allowed-origins": [
+    "http://0.0.0.0:8181",
+    "http://localhost:8080",
+    "http://localhost:8181",
+    "http://0.0.0.0:10001",
+    "http://0.0.0.0:8080",
+    "http://localhost:10001",
+    "http://localhost:10000",
+    "http://0.0.0.0:10000"
+  ],
+  "realm_access": {
+    "roles": [
+      "viewer",
+      "manager",
+      "admin",
+      "user"
+    ]
+  },
+  "resource_access": {
+    "account": {
+      "roles": [
+        "manage-account",
+        "manage-account-links",
+        "view-profile"
+      ]
+    }
+  },
+  "scope": "openid profile email",
+  "sid": "181a30ac-fce1-4f4f-aaee-110304ccb0e6",
+  "email_verified": false,
+  "name": "Admin Hawtio",
+  "preferred_username": "admin",
+  "given_name": "Admin",
+  "family_name": "Hawtio",
+  "email": "admin@hawt.io"
+}
+----
+
+Knowing the structure of JWT access token we can check if role _path_ is configured correctly:
+
+----
+# example for Keycloak with use-resource-role-mappings=false
+oidc.rolesPath = realm_access.roles
+----
