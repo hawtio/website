@@ -513,6 +513,313 @@ oidc.rolesPath = realm_access.roles</pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_using_hawtio_and_openid_connect_authentication_with_microsoft_entra_id"><a class="anchor" href="#_using_hawtio_and_openid_connect_authentication_with_microsoft_entra_id"></a>Using Hawtio and OpenID Connect authentication with Microsoft Entra ID</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hawtio 4 has also been tested with <a href="https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id">Microsoft Entra ID</a>.</p>
+</div>
+<div class="paragraph">
+<p>While in theory, everything that should be required to use <em>any</em> OpenID Connect provider is to get access to relevant <a href="https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata">OpenID Provider Metadata</a>, in practice we need some provider-specific configuration.</p>
+</div>
+<div class="paragraph">
+<p><em>Clients</em> are registered in Entra ID using "App registrations" <em>blade</em>. When registering an application, the most important decision is about a <em>platform</em> kind of the Redirect URI:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/entra-create-app.png" alt="entra create app">
+</div>
+</div>
+<div class="paragraph">
+<p>There are 2 options to choose from (we&#8217;re not considering "Public client/native (mobile &amp; desktop)" platform). This UI is presented when configuring Redirect URIs later:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/entra-platforms.png" alt="entra platforms">
+</div>
+</div>
+<div class="paragraph">
+<p>While it&#8217;s not obvious what to choose at first glance, it is enough to state:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Web platform</dt>
+<dd>
+<p>This kind of client is suitable for server-side applications and APIs.</p>
+</dd>
+<dt class="hdlist1">SPA platform</dt>
+<dd>
+<p>SPA applications are running within a browser where it&#8217;s natural to use "Authorization Code Flow" and so-called <em>public client</em>. The reason is that there&#8217;s no good way of storing credentials and secrets in browser application.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Choosing SPA platform gives us this mark in Entra ID UI:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/entra-spa.png" alt="entra spa">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_using_single_spa_client_in_entra_id"><a class="anchor" href="#_using_single_spa_client_in_entra_id"></a>Using single SPA client in Entra ID</h3>
+<div class="paragraph">
+<p>After configuring the SPA client in Entra ID, we can already set relevant options in <code>hawtio-oidc.properties</code>. At "App registrations" blade in Entra ID we can click "Endpoints" tab and be presented with:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/entra-endpoints.png" alt="entra endpoints">
+</div>
+</div>
+<div class="paragraph">
+<p>Tenant IDs are UUIDs specific to the Entra ID / Azure tenant being used.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s the Hawtio configuration where <code>provider</code> is the base URL of your tenant and client_id is "Application (client) ID" from the Overview of App Registration page.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># OpenID Connect configuration requred at client side
+
+# URL of OpenID Connect Provider - the URL after which ".well-known/openid-configuration" can be appended for
+# discovery purposes
+provider = https://login.microsoftonline.com/00000000-1111-2222-3333-444444444444/v2.0
+# OpenID client identifier
+client_id = 55555555-6666-7777-8888-999999999999
+# response mode according to https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html
+response_mode = fragment
+# scope to request when performing OpenID authentication. MUST include "openid" and required permissions
+scope = openid email profile
+# redirect URI after OpenID authentication - must also be configured at provider side
+redirect_uri = http://localhost:8080/hawtio
+# challenge method according to https://datatracker.ietf.org/doc/html/rfc7636
+code_challenge_method = S256
+# prompt hint according to https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest
+prompt = login</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The problem with such configuration (where <code>openid email profile</code> is sent as a <code>scope</code> parameter) is that the assumed scope is in fact <code>email openid profile User.Read</code> and the granted access token is (showing only relevant JWT claims):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "aud": "00000003-0000-0000-c000-000000000000",
+  "iss": "https://sts.windows.net/8fd8ed3d-c739-410f-83ab-ac2228fa6bbf/",
+...
+  "app_displayname": "hawtio",
+...
+  "scp": "email openid profile User.Read",
+...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>aud</code> (<em>audience</em>) claim is <code>00000003-0000-0000-c000-000000000000</code> which is an OAuth2 Client ID of &#8230;&#8203; <a href="https://learn.microsoft.com/en-us/graph/use-the-api">Microsoft Graph API</a>.</p>
+</div>
+<div class="paragraph">
+<p>Not only such access token shouldn&#8217;t be used by Hawtio server (with Jolokia agent), also the signature is created using keys associated with Microsoft Graph API.</p>
+</div>
+<div class="paragraph">
+<p>In order to properly configure Entra ID and ensure that the access tokens generated are <em>consumable</em> by Hawtio Server, we need <em>two app registrations</em> - both for Hawtio Client and Hawtio Server. See the following subchapter.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_using_spa_together_with_web_client_in_entra_id"><a class="anchor" href="#_using_spa_together_with_web_client_in_entra_id"></a>Using SPA together with Web client in Entra ID</h3>
+<div class="paragraph">
+<p>What is recommended is to set up <em>two</em> app registrations in Entra ID:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An SPA client for Hawtio Client application - this is the way to configure an OAuth2 <em>public client</em> with <a href="https://datatracker.ietf.org/doc/html/rfc7636">PKCE</a> enabled.</p>
+</li>
+<li>
+<p>A Web (API) client for Hawtio Server application (in fact, its Jolokia API) - this is the Entra ID which exposes an API represented as <em>scope</em> named (for example) <code>api://hawtio-server/Jolokia.Access</code>, which is then configured in the above Hawtio Client application as permitted API.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Finally, when the <a href="https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth">Authorization Code Flow</a> is initiated one of the requested scopes in the <code>scope</code> parameter is the scope defined for Hawtio Server application (like <code>api://hawtio-server/Jolokia.Access</code>).</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s summarize the configuration required in Entra ID.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create <code>hawtio-server</code> app registration with "Web" Redirect URI</p>
+</li>
+<li>
+<p>In "Expose an API" section, add a scope representing the access scope that may be requested from Hawtio Client:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/entra-scope.png" alt="entra scope">
+</div>
+</div>
+<div class="paragraph">
+<p>This will create a reference&#8217;able <code>api://hawtio-server/Jolokia.Access</code> scope we will use later.</p>
+</div>
+</li>
+<li>
+<p>In "App roles" section for <code>hawtio-server</code> define any roles you want to assign to users within the scope of this client, for example:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/entra-roles.png" alt="entra roles">
+</div>
+</div>
+</li>
+<li>
+<p>In "Enterprise Applications" blade for <code>hawtio-server</code> go to "Users and groups" tab and add user-role assignment. For example:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/entra-user-roles.png" alt="entra user roles">
+</div>
+</div>
+</li>
+<li>
+<p>Create <code>hawtio-client</code> app registration with "SPA" Redirect URI</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/entra-spa-definition.png" alt="entra spa definition">
+</div>
+</div>
+</li>
+<li>
+<p>In "API Permissions" section for <code>hawtio-client</code> app registration, add a <em>delegated permission</em> for <code>hawtio-server</code> exposed API:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/entra-delegated-permission.png" alt="entra delegated permission">
+</div>
+</div>
+<div class="paragraph">
+<p>This should configure a set of delegated permissions similar to:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/entra-permissions.png" alt="entra permissions">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Read more about delegated permissions in <a href="https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/delegate-app-roles">Microsoft Entra ID documentation</a>.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>No User-Role mapping is required for <code>hawtio-client</code> in Enterprise Application blade.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Having the above configured, we can properly set the <code>scope</code> parameter in Hawtio configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># scope to request when performing OpenID authentication. MUST include "openid" and required permissions
+scope = openid email profile api://hawtio-server/Jolokia.Access</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_access_token_configuration"><a class="anchor" href="#_access_token_configuration"></a>Access token configuration</h3>
+<div class="paragraph">
+<p>The final, but very important configuration item is the Token Configuration. For <code>hawtio-server</code> app registration, which is the app that represents Hawtio Server (and is the component that <em>consumes</em> granted access token) we have to ensure that <code>groups</code> claim is added to access token.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s the minimal configuration:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/entra-token-configuration.png" alt="entra token configuration">
+</div>
+</div>
+<div class="paragraph">
+<p><code>groups</code> claim need to include <em>security groups</em> and <em>directory roles</em> and groups needs to be represented by names, not UUIDs:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/entra-token-groups.png" alt="entra token groups">
+</div>
+</div>
+<div class="paragraph">
+<p>For reference, here&#8217;s the relevant JSON snippet of <code>hawtio-server</code> app registration&#8217;s Manifest:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"optionalClaims": {
+  "idToken": [
+    {
+      "name": "groups",
+      "source": null,
+      "essential": false,
+      "additionalProperties": []
+    }
+  ],
+  "accessToken": [
+    {
+      "name": "groups",
+      "source": null,
+      "essential": false,
+      "additionalProperties": [
+        "sam_account_name"
+      ]
+    },
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now the granted access token is no longer specific for Microsft Graph API <em>audience</em>. It is intended for <code>hawtio-server</code> - <code>aud</code> claim is the UUID of <code>hawtio-server</code> app registration and <code>appid</code> claim is the UUID of <code>hawtio-client</code> app registration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "aud": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+  "iss": "https://sts.windows.net/.../",
+  "iat": 1709626257,
+  "nbf": 1709626257,
+  "exp": 1709630939,
+...
+  "appid": "55555555-6666-7777-8888-999999999999",
+...
+  "groups": [
+    ...
+  ],
+...
+  "name": "hawtio-viewer",
+...
+  "roles": [
+    "Hawtio.User"
+  ],
+  "scp": "Jolokia.Access",</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The roles which are then transformed (possibly with mapping) are available at <code>roles</code> claim and this is reflected in the configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># a path for an array of roles found in JWT payload. Property placeholders can be used for parameterized parts
+# of the path (like for Keycloak) - but only for properties from this particular file
+# example for properly configured Entra ID token
+#oidc.rolesPath = roles
+...
+# properties for role mapping. Each property with "roleMapping." prefix is used to map an original role
+# from JWT token (found at ${oidc.rolesPath}) to a role used by the application
+roleMapping.Hawtio.User = user
+...</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
