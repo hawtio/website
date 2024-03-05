@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>OpenID Connect Integration :: Hawtio</title>
+    <meta name="generator" content="Antora 3.1.5">
+<link rel='stylesheet' href='../_/css/site.css' />
+<link rel='stylesheet' href='../_/css/docs.css' />
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="..">
+        <img src="../_/img/hawtio_logo.svg" alt="Hawtio" height="40px" />
+      </a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="/">Home</a>
+        <a class="navbar-item" href="/docs/get-started.html">Get Started</a>
+        <a class="navbar-item" href="/docs/">Docs</a>
+        <a class="navbar-item" href="/docs/plugins.html">Plugins</a>
+        <a class="navbar-item" href="https://github.com/hawtio/hawtio/releases">Download</a>
+        <a class="navbar-item" href="/community/">Community</a>
+        <a class="navbar-item" href="https://github.com/hawtio/hawtio">
+          <img src="../_/img/social/github-light-32.png" alt="GitHub" height="20px" />
+        </a>
+        <a class="navbar-item" href="https://twitter.com/hawtio">
+          <img src="../_/img/social/twitter-white.png" alt="Twitter" height="20px" />
+        </a>
+        <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/hawtio">
+          <img src="../_/img/social/stackoverflow.png" alt="StackOverflow" height="20px" />
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Documentation</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="overview-v3.html">Hawtio v3</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="get-started.html">Get Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="versions.html">Supported Versions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Using Hawtio</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="security.html">Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="plugins.html">Plugins</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="keycloak.html">Keycloak Integration</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="oidc.html">OpenID Connect Integration</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Kubernetes/OpenShift</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/openshift.html">OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/kubernetes.html">Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/create-user.html">Creating a Hawtio user for Form authentication</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/generate-certificates.html">Generating Certificates Manually</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/rbac.html">RBAC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="online/develop.html">Development</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">General Docs</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="faq.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="releases.html">Releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="contributing.html">Contributor Guide</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Developers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="releasing.html">Releasing Hawtio</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Documentation</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">Documentation</a>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Documentation</a></li>
+    <li>Using Hawtio</li>
+    <li><a href="oidc.html">OpenID Connect Integration</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/hawtio/website/blob/main/modules/ROOT/pages/oidc.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">OpenID Connect Integration</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hawtio is already <a href="keycloak.adoc">supporting Keycloak</a> as <a href="https://openid.net/specs/openid-connect-core-1_0.html#Terminology">OpenID Provider</a>. However, Keycloak <a href="https://www.keycloak.org/2022/02/adapter-deprecation">already announced</a> that the configuration methods used by Hawtio are deprecated.</p>
+</div>
+<div class="paragraph">
+<p>Because <a href="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0</a> is a widespread specification and standard method for distributed authentication (based on <a href="https://datatracker.ietf.org/doc/html/rfc6749">OAuth 2</a>), Hawtio 4 now supports generic OpenID authentication.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_building_blocks_and_terminology"><a class="anchor" href="#_building_blocks_and_terminology"></a>Building blocks and terminology</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To understand how Hawtio uses OpenID Connect and OAuth2, it&#8217;s worth recalling some fundamental concepts.</p>
+</div>
+<div class="paragraph">
+<p>There are 3 main <em>parties</em> involved in distributed authentication based on OpenID Connect (which is build on OAuth2):</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resource Server</dt>
+<dd>
+<p>The server component hosting protected resource(s), where access is restricted or granted based on <em>access tokens</em>. Usually this server is accessed through REST API and doesn&#8217;t provide user interface on its own.</p>
+</dd>
+<dt class="hdlist1">Client</dt>
+<dd>
+<p>The application (typically with user interface) that accesses <em>resource server</em> on behalf of a user (which is treated as <em>resource owner</em>). In order to access <em>resource server</em> it is mandatory for the <em>client</em> to obtain an <em>access token</em> first.</p>
+<div class="paragraph">
+<p>In OpenID Connect specification, the <em>client</em> is named <em>relying party (RP)</em>.</p>
+</div>
+</dd>
+<dt class="hdlist1">Authorization Server</dt>
+<dd>
+<p>The server that coordinates communication between a <em>client</em> and <em>resource</em> server. The <em>client</em> asks <em>authorization server</em> to authenticate the user (<em>resource owner</em>) and if the authentication succeeds, an <em>access token</em> is issued for the <em>client</em> to access <em>resource server</em>.</p>
+<div class="paragraph">
+<p>In OpenID Connect specification, the <em>authorization server</em> is named <em>OpenID Provider (OP)</em>.</p>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The main goal of OAuth2 and OpenID Connect it to allow applications to access APIs without using user credentials and switch to token exchange.</p>
+</div>
+<div class="paragraph">
+<p>It is important to know how Hawtio maps to the above roles:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Hawtio Client application is an OAuth2 <em>client</em>. User interacts with Hawtio web application which in turn communicates with Hawtio Server (backend) with <a href="https://jolokia.org/">Jolokia agent</a> running. Before accessing the Jolokia agent, Hawtio needs an OpenID Connect <em>access token</em>. To this end, Hawtio Client initiates OpenID Connect authentication process by redirecting user to <em>Authorization Server</em>.</p>
+</li>
+<li>
+<p>Hawtio Server application is a JakartaEE application exposing a <a href="https://jolokia.org/">Jolokia Agent</a> API which authorizes user actions based on the content of an <em>access token</em>. Using OAuth2 terminology, Hawtio Server is a <em>Resource Server</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The below UML diagram present the big picture.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/oidc-auth.png" alt="oidc auth">
+</div>
+</div>
+<div class="paragraph">
+<p>The most important aspect is: Hawtio Client never deals with user credentials. User authenticates with Authorization Server and Hawtio Client only gets the access token used later to access Hawtio Server (and its Jolokia API).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_generic_openid_connect_authentication_in_hawtio"><a class="anchor" href="#_generic_openid_connect_authentication_in_hawtio"></a>Generic OpenID Connect authentication in Hawtio</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hawtio 4 can be used with existing OpenID Connect providers (like Keycloak, Microsoft Entra ID, Auth0, &#8230;&#8203;) and uses these libraries to fullfill the task:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://hc.apache.org/httpcomponents-client-4.5.x/">Apache HTTP Client 4</a> to implement HTTP communication from Hawtio Server to OpenID Connect provider (e.g., to retrieve information about public keys for token signature validation).</p>
+</li>
+<li>
+<p><a href="https://connect2id.com/products/nimbus-jose-jwt">Nimbus JOSE + JWT</a> library to manipulate and validate OpenID Connect / OAuth2 access tokens.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These libraries are included in Hawtio Server WAR, which means there&#8217;s no need to install/deploy <em>any</em> additional libraries (as it is the case with <a href="keycloak.adoc">Keycloak specific configuration</a>).</p>
+</div>
+<div class="paragraph">
+<p>In order to configure Hawtio with external OpenID Connect provider, we need to provide one configuration file and point Hawtio to its location.</p>
+</div>
+<div class="paragraph">
+<p>The system property that specifies the location of OIDC (OpenID Connect) configuration is <code>-Dhawtio.oidcConfig</code>, but in case it&#8217;s not specified, a default location is checked. The defaults are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For Karaf runtime, <code>${karaf.base}/etc/hawtio-oidc.properties</code></p>
+</li>
+<li>
+<p>For Jetty runtime, <code>${jetty.home}/etc/hawtio-oidc.properties</code></p>
+</li>
+<li>
+<p>For Tomcat runtime, <code>${catalina.home}/conf/hawtio-oidc.properties</code></p>
+</li>
+<li>
+<p>For JBoss/EAP/Wildfly runtime, <code>${jboss.server.config.dir}/hawtio-oidc.properties</code></p>
+</li>
+<li>
+<p>For Apache Artemis runtime, <code>${artemis.instance.etc}/hawtio-oidc.properties</code></p>
+</li>
+<li>
+<p>Falls back to <code>classpath:hawtio-oidc.properties</code> (for embedded Hawtio usage)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Unlike with <a href="keycloak.adoc">Keycloak specific configuration</a>, there&#8217;s only one <code>*.properties</code> file needed that is used to configure all the aspects of OpenID Connect configuration. Here&#8217;s the template:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs"># OpenID Connect configuration requred at client side
+
+# URL of OpenID Connect Provider - the URL after which ".well-known/openid-configuration" can be appended for
+# discovery purposes
+provider = http://localhost:18080/realms/hawtio-demo
+# OpenID client identifier
+client_id = hawtio-client
+# response mode according to https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html
+response_mode = fragment
+# scope to request when performing OpenID authentication. MUST include "openid" and required permissions
+scope = openid email profile
+# redirect URI after OpenID authentication - must also be configured at provider side
+redirect_uri = http://localhost:8080/hawtio
+# challenge method according to https://datatracker.ietf.org/doc/html/rfc7636
+code_challenge_method = S256
+# prompt hint according to https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest
+prompt = login
+
+# additional configuration for the server side
+
+# if true, .well-known/openid-configuration will be fetched at server side. This is required
+# for proper JWT access token validation
+oidc.cacheConfig = true
+
+# time in minutes to cache public keys from jwks_uri
+jwks.cacheTime = 60
+
+# a path for an array of roles found in JWT payload. Property placeholders can be used for parameterized parts
+# of the path (like for Keycloak) - but only for properties from this particular file
+# example for properly configured Entra ID token
+#oidc.rolesPath = roles
+# example for Keycloak with use-resource-role-mappings=true
+#oidc.rolesPath = resource_access.${client_id}.roles
+# example for Keycloak with use-resource-role-mappings=false
+oidc.rolesPath = realm_access.roles
+
+# properties for role mapping. Each property with "roleMapping." prefix is used to map an original role
+# from JWT token (found at ${oidc.rolesPath}) to a role used by the application
+roleMapping.admin = admin
+roleMapping.user = user
+roleMapping.viewer = viewer
+roleMapping.manager = manager
+
+# timeout for connection establishment (milliseconds)
+http.connectionTimeout = 5000
+# timeout for reading from established connection (milliseconds)
+http.readTimeout = 10000
+# HTTP proxy to use when connecting to OpenID Connect provider
+#http.proxyURL = http://127.0.0.1:3128
+
+# TLS configuration (system properties can be used, e.g., "${catalina.home}/conf/hawtio.jks")
+
+#ssl.protocol = TLSv1.3
+#ssl.truststore = src/test/resources/hawtio.jks
+#ssl.truststorePassword = hawtio
+#ssl.keystore = src/test/resources/hawtio.jks
+#ssl.keystorePassword = hawtio
+#ssl.keyAlias = openid connect test provider
+#ssl.keyPassword = hawtio</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This file configures several aspects of Hawtio+OpenID Connect:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OAuth2 - configure the location of Authorization Server, client ID and several OpenID Connect related options</p>
+</li>
+<li>
+<p>JWKS - cache time for public keys obtained from <code>jwks_uri</code>, which is the endpoint that exposes public keys used by the Authorization Server.</p>
+</li>
+<li>
+<p>JWT token configuration - information about the <em>claim</em> (a field in JSON Web Token) that contains roles associated with the authenticated user. We also allow to map roles as defined in the Authorization Server to the roles used by the application (Hawtio Server and Jolokia).</p>
+</li>
+<li>
+<p>HTTP configuration - used by HTTP Client at server-side to connect to Authorization Server (to fetch OpenID Connect metadata and exposed public keys).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This example configuration can be adjusted to particular needs, but it also works as-is when used with containerized Keycloak. (See below).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jaas_role_class_configuration"><a class="anchor" href="#_jaas_role_class_configuration"></a>JAAS role class configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OpenID Connect is used at Hawtio server side through JAAS. When Hawtio client obtains the <em>access token</em>, it is sent with every Jolokia request using HTTP <code>Authorization: Bearer &lt;access_token&gt;</code> header. Each role contained in the JWT token is (possibly after mapping) included as JAAS subject&#8217;s <em>role principal</em>. By default (when not configured explicitly) the class of role principal is <code>io.hawt.web.auth.oidc.RolePrincipal</code>. However it is possible to configure another class (the requirement is - it has to contain single String-argument constructor) to be used as principal role class. For example, when used with Apache Artemis, the role should be <code>org.apache.activemq.artemis.spi.core.security.jaas.RolePrincipal</code>.</p>
+</div>
+<div class="paragraph">
+<p>There&#8217;s a system property that specifies the role class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>-Dhawtio.rolePrincipalClasses=org.apache.activemq.artemis.spi.core.security.jaas.RolePrincipal</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_hawtio_and_openid_connect_authentication_with_keycloak"><a class="anchor" href="#_using_hawtio_and_openid_connect_authentication_with_keycloak"></a>Using Hawtio and OpenID Connect authentication with Keycloak</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The simplest way to run Keycloak instance is using a container:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">podman run -d --name keycloak \
+  -p 18080:8080 \
+  -e KEYCLOAK_ADMIN=admin \
+  -e KEYCLOAK_ADMIN_PASSWORD=admin \
+  quay.io/keycloak/keycloak:latest start-dev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After it&#8217;s started, browse to <a href="http://localhost:18080/admin/master/console/" class="bare">http://localhost:18080/admin/master/console/</a> and create a new realm:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/keycloak-create-realm.png" alt="keycloak create realm">
+</div>
+</div>
+<div class="paragraph">
+<p>At realm creation screen, upload <a href="https://raw.githubusercontent.com/hawtio/hawtio/4.x/examples/keycloak-integration/hawtio-demo-realm.json">hawtio-demo-realm.json</a> which defines new <code>hawtio-demo</code> realm with pre-configured <code>hawtio-client</code> client and 3 users:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>admin/admin with roles <code>manager</code>, <code>admin</code>, <code>viewer</code> and <code>user</code></p>
+</li>
+<li>
+<p>viewer/viewer with roles <code>viewer</code> and <code>user</code></p>
+</li>
+<li>
+<p>jdoe/jdoe with just <code>user</code> role</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_investigating_jwt_token_issues"><a class="anchor" href="#_investigating_jwt_token_issues"></a>Investigating JWT token issues</h3>
+<div class="paragraph">
+<p>In order to check the content of granted access token, we can use Keycloak interface. Navigate to "Clients", select "hawtio-client" and use "Client scopes" tab with "Evaluate" subtab:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/keycloak-evaluate.png" alt="keycloak evaluate">
+</div>
+</div>
+<div class="paragraph">
+<p>Then in the "Users" field we can select for example "admin" and click "Generated access token". We can then examine an example token:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "exp": 1709552728,
+  "iat": 1709552428,
+  "jti": "0f33971f-c4f7-4a5c-a240-c18ba3f97aa1",
+  "iss": "http://localhost:18080/realms/hawtio-demo",
+  "aud": "account",
+  "sub": "84d156fa-e4cc-4785-91c1-4e0bda4b8ed9",
+  "typ": "Bearer",
+  "azp": "hawtio-client",
+  "session_state": "181a30ac-fce1-4f4f-aaee-110304ccb0e6",
+  "acr": "1",
+  "allowed-origins": [
+    "http://0.0.0.0:8181",
+    "http://localhost:8080",
+    "http://localhost:8181",
+    "http://0.0.0.0:10001",
+    "http://0.0.0.0:8080",
+    "http://localhost:10001",
+    "http://localhost:10000",
+    "http://0.0.0.0:10000"
+  ],
+  "realm_access": {
+    "roles": [
+      "viewer",
+      "manager",
+      "admin",
+      "user"
+    ]
+  },
+  "resource_access": {
+    "account": {
+      "roles": [
+        "manage-account",
+        "manage-account-links",
+        "view-profile"
+      ]
+    }
+  },
+  "scope": "openid profile email",
+  "sid": "181a30ac-fce1-4f4f-aaee-110304ccb0e6",
+  "email_verified": false,
+  "name": "Admin Hawtio",
+  "preferred_username": "admin",
+  "given_name": "Admin",
+  "family_name": "Hawtio",
+  "email": "admin@hawt.io"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Knowing the structure of JWT access token we can check if role <em>path</em> is configured correctly:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># example for Keycloak with use-resource-role-mappings=false
+oidc.rolesPath = realm_access.roles</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
