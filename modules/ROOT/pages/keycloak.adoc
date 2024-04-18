@@ -20,7 +20,7 @@ docker run -d --name keycloak \
 
 Here we use port number `18080` for the Keycloak server to avoid potential conflicts with the ports other applications might use.
 
-You can log in to the Keycloak admin console http://localhost:18080/admin/ with user `admin` / password `admin`. Import https://raw.githubusercontent.com/hawtio/hawtio/3.x/examples/keycloak-integration/hawtio-demo-realm.json[hawtio-demo-realm.json] into Keycloak. To do so, click `Create Realm` button and then import `hawtio-demo-realm.json`. It will create `hawtio-demo` realm.
+You can log in to the Keycloak admin console http://localhost:18080/admin/ with user `admin` / password `admin`. Import https://raw.githubusercontent.com/hawtio/hawtio/4.x/examples/keycloak-integration/hawtio-demo-realm.json[hawtio-demo-realm.json] into Keycloak. To do so, click `Create Realm` button and then import `hawtio-demo-realm.json`. It will create `hawtio-demo` realm.
 
 The `hawtio-demo` realm has the `hawtio-client` application installed as a public client, and defines a couple of realm roles such as `admin` and `viewer`. The names of these roles are the same as the default Hawtio roles, which are allowed to log in to Hawtio admin console and to JMX.
 
@@ -96,13 +96,13 @@ Build and run the project and it will be integrated with Keycloak.
 
 ==== Example
 
-See https://github.com/hawtio/hawtio/tree/3.x/examples/quarkus-keycloak[quarkus-keycloak example] for a working example.
+See https://github.com/hawtio/hawtio/tree/4.x/examples/quarkus-keycloak[quarkus-keycloak example] for a working example.
 
 === Spring Boot
 
 Firstly, apply xref:get-started.adoc#_running_a_spring_boot_app[the required configuration] for attaching Hawtio to a Spring Boot application.
 
-What you need to integrate your Spring Boot application with Keycloak is to add the following dependency to `pom.xml` (replace `3.x.y` with the latest Hawtio release version):
+What you need to integrate your Spring Boot application with Keycloak is to add the following dependency to `pom.xml` (replace `4.x.y` with the latest Hawtio release version):
 
 [source,xml]
 .pom.xml
@@ -110,7 +110,7 @@ What you need to integrate your Spring Boot application with Keycloak is to add 
 <dependency>
   <groupId>io.hawt</groupId>
   <artifactId>hawtio-springboot-keycloak</artifactId>
-  <version>3.x.y</version>
+  <version>4.x.y</version>
 </dependency>
 ----
 
@@ -148,7 +148,7 @@ Build and run the project and it will be integrated with Keycloak.
 
 ==== Example
 
-See https://github.com/hawtio/hawtio/tree/3.x/examples/springboot-keycloak[springboot-keycloak example] for a working example.
+See https://github.com/hawtio/hawtio/tree/4.x/examples/springboot-keycloak[springboot-keycloak example] for a working example.
 
 === Jetty
 
@@ -220,7 +220,7 @@ Assume `$JBOSS_HOME` is the root directory of your WildFly/JBoss EAP installatio
 
 Install Keycloak adapter subsystem to your WildFly as described on the https://www.keycloak.org/docs/latest/securing_apps/index.html#_jboss_adapter[Keycloak documentation].
 
-Download and copy `keycloak-hawtio.json` and `keycloak-bearer.json` from https://github.com/hawtio/hawtio/tree/3.x/examples/keycloak-integration[this example] into WildFly. File `keycloak-bearer.json` is currently used for adapters on server (JAAS Login module) side. File `keycloak-hawtio.json` is used on client (Hawtio JS application) side.
+Download and copy `keycloak-hawtio.json` and `keycloak-bearer.json` from https://github.com/hawtio/hawtio/tree/4.x/examples/keycloak-integration[this example] into WildFly. File `keycloak-bearer.json` is currently used for adapters on server (JAAS Login module) side. File `keycloak-hawtio.json` is used on client (Hawtio JS application) side.
 
 [source,console]
 ----

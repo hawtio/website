@@ -83,9 +83,9 @@ The Camel plugin currently requires that the Camel MBeans are stored using the d
 
 === Why doesn't the Debug tab appear for my Camel route?
 
-The Debug tab depends on the JMX MBeans provided by the Camel application you run. Camel debugging is enabled by the https://camel.apache.org/components/3.21.x/others/debug.html[Camel Debug] component. Installing the component is the requirement for the Debug tab in Hawtio.
+The Debug tab depends on the JMX MBeans provided by the Camel application you run. Camel debugging is enabled by the https://camel.apache.org/components/4.4.x/others/debug.html[Camel Debug] component. Installing the component is the requirement for the Debug tab in Hawtio.
 
-*Camel Quarkus 3.x*
+*Camel Quarkus*
 
 Camel Quarkus by default only enables the debug extension in development mode. If you want to enable debugging with a packaged Quarkus application, you need an extra configuration properties as follows:
 
@@ -95,7 +95,7 @@ Camel Quarkus by default only enables the debug extension in development mode. I
 quarkus.camel.debug.enabled = true
 ----
 
-See https://camel.apache.org/camel-quarkus/3.6.x/reference/extensions/debug.html#extensions-debug-additional-camel-quarkus-configuration[Camel Quarkus Reference - Debug - Additional Camel Quarkus configuration] for more information.
+See https://camel.apache.org/camel-quarkus/3.2.x/reference/extensions/debug.html#extensions-debug-additional-camel-quarkus-configuration[Camel Quarkus Reference - Debug - Additional Camel Quarkus configuration] for more information.
 
 === Why doesn't the Trace tab appear for my Camel route?
 

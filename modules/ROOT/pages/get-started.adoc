@@ -71,20 +71,18 @@ Run Hawtio
 
 == Running a Quarkus app
 
-IMPORTANT: The supported Quarkus versions are 2.x for Hawtio v3. The upcoming Hawtio v4 will support Quarkus 3.x.
-
 You can attach the Hawtio console to your Quarkus application in a single step.
 
 === Set up
 
-- Add `io.hawt:hawtio-quarkus` and the supporting Camel Quarkus extensions to the dependencies in `pom.xml`:
+- Add `io.hawt:hawtio-quarkus` and the supporting Camel Quarkus extensions to the dependencies in `pom.xml` (replace `4.x.y` with the latest Hawtio release version):
 +
 [source,xml]
 ----
 <dependency>
   <groupId>io.hawt</groupId>
   <artifactId>hawtio-quarkus</artifactId>
-  <version>3.x.y</version>
+  <version>4.x.y</version>
 </dependency>
 
 <!-- Mandatory for enabling Camel management via JMX / Hawtio -->
@@ -117,20 +115,18 @@ https://github.com/hawtio/hawtio/tree/hawtio-3.0.0-RC1/examples/quarkus[Quarkus 
 
 == Running a Spring Boot app
 
-IMPORTANT: The supported Spring Boot versions are 2.x for Hawtio v3. The upcoming Hawtio v4 will support Spring Boot 3.x.
-
 You can attach the Hawtio console to your Spring Boot application in two steps.
 
 === Set up
 
-1. Add `io.hawt:hawtio-springboot` and the supporting Camel Spring Boot starters to the dependencies in `pom.xml`:
+1. Add `io.hawt:hawtio-springboot` and the supporting Camel Spring Boot starters to the dependencies in `pom.xml` (replace `4.x.y` with the latest Hawtio release version):
 +
 [source,xml]
 ----
 <dependency>
   <groupId>io.hawt</groupId>
   <artifactId>hawtio-springboot</artifactId>
-  <version>3.x.y</version>
+  <version>4.x.y</version>
 </dependency>
 
 <!-- Mandatory for enabling Camel management via JMX / Hawtio -->
@@ -198,14 +194,14 @@ Please read xref:configuration.adoc[] to see how to configure the console, or in
 
 You can also embed Hawtio inside your Java application instead of deploying it on a servlet container or application server.
 
-To embed Hawtio to an application, add `io.hawt:hawtio-embedded` to your `pom.xml`:
+To embed Hawtio to an application, add `io.hawt:hawtio-embedded` to your `pom.xml` (replace `4.x.y` with the latest Hawtio release version):
 
 [source,xml]
 ----
 <dependency>
   <groupId>io.hawt</groupId>
   <artifactId>hawtio-embedded</artifactId>
-  <version>3.x.y</version>
+  <version>4.x.y</version>
 </dependency>
 ----
 

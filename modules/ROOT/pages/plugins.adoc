@@ -64,7 +64,7 @@ You can also extend the Hawtio capabilities by developing a custom plugin.
 Typically, plugin development involves TypeScript, React, and PatternFly v4. For now, we have a few examples that demonstrate how you can develop a custom plugin to extend Hawtio.
 
 Sample plugin within the Hawtio project examples::
-https://github.com/hawtio/hawtio/tree/3.x/examples/sample-plugin +
+https://github.com/hawtio/hawtio/tree/4.x/examples/sample-plugin +
 The simplest form of a Hawtio plugin. It packages itself as a JAR, and then can be used by including it as a dependency in a Java project.
 
 Sample plugin for Spring Boot::
