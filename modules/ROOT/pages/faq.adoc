@@ -97,6 +97,28 @@ quarkus.camel.debug.enabled = true
 
 See https://camel.apache.org/camel-quarkus/3.2.x/reference/extensions/debug.html#extensions-debug-additional-camel-quarkus-configuration[Camel Quarkus Reference - Debug - Additional Camel Quarkus configuration] for more information.
 
+*Camel K*
+
+Camel K uses Camel Quarkus under the hood, so you need to configure the Integration to enable debug mode during build time. You can do it using the CLI: 
+[source,console]
+----
+$ kamel run Integration.java --build-property=quarkus.camel.debug.enabled=true
+----
+
+Or in the Integration CR using the `builder` trait:
+[source,yaml]
+----
+spec:
+...
+  traits:
+    builder:
+      configuration:
+        properties:
+        - quarkus.camel.debug.enabled = true
+...
+----
+
+
 === Why doesn't the Trace tab appear for my Camel route?
 
 The Trace tab depends on the JMX MBeans provided by the Camel application you run. You need to set up specific configuration properties to enable tracing on the Camel side.
