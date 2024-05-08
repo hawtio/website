@@ -336,6 +336,32 @@ By default, only <code>localhost</code> is accepted to connect for security, so 
 <div class="paragraph">
 <p>See <a href="https://camel.apache.org/camel-quarkus/3.2.x/reference/extensions/debug.html#extensions-debug-additional-camel-quarkus-configuration">Camel Quarkus Reference - Debug - Additional Camel Quarkus configuration</a> for more information.</p>
 </div>
+<div class="paragraph">
+<p><strong>Camel K</strong></p>
+</div>
+<div class="paragraph">
+<p>Camel K uses Camel Quarkus under the hood, so you need to configure the Integration to enable debug mode during build time. You can do it using the CLI:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ kamel run Integration.java --build-property=quarkus.camel.debug.enabled=true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or in the Integration CR using the <code>builder</code> trait:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+...
+  traits:
+    builder:
+      configuration:
+        properties:
+        - quarkus.camel.debug.enabled = true
+...</code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_why_doesnt_the_trace_tab_appear_for_my_camel_route"><a class="anchor" href="#_why_doesnt_the_trace_tab_appear_for_my_camel_route"></a>Why doesn&#8217;t the Trace tab appear for my Camel route?</h3>
