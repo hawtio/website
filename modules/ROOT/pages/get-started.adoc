@@ -29,7 +29,7 @@ It installs `hawtio` command. You can launch a Hawtio instance with the followin
 $ hawtio
 ----
 
-The command will automatically open the console at http://0.0.0.0:8080/hawtio/.
+The command will automatically open the console at http://localhost:8080/hawtio/.
 
 To change the port number, run:
 
