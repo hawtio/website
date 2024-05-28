@@ -1,6 +1,6 @@
 = OpenID Connect Integration
 
-Hawtio is already link:keycloak.adoc[supporting Keycloak] as https://openid.net/specs/openid-connect-core-1_0.html#Terminology[OpenID Provider]. However, Keycloak https://www.keycloak.org/2022/02/adapter-deprecation[already announced] that the configuration methods used by Hawtio are deprecated.
+Hawtio is already xref:keycloak.adoc[supporting Keycloak] as https://openid.net/specs/openid-connect-core-1_0.html#Terminology[OpenID Provider]. However, Keycloak https://www.keycloak.org/2022/02/adapter-deprecation[already announced] that the configuration methods used by Hawtio are deprecated.
 
 Because https://openid.net/specs/openid-connect-core-1_0.html[OpenID Connect Core 1.0] is a widespread specification and standard method for distributed authentication (based on https://datatracker.ietf.org/doc/html/rfc6749[OAuth 2]), Hawtio 4 now supports generic OpenID authentication.
 
@@ -49,7 +49,7 @@ Hawtio 4 can be used with existing OpenID Connect providers (like Keycloak, Micr
 * https://hc.apache.org/httpcomponents-client-4.5.x/[Apache HTTP Client 4] to implement HTTP communication from Hawtio Server to OpenID Connect provider (e.g., to retrieve information about public keys for token signature validation).
 * https://connect2id.com/products/nimbus-jose-jwt[Nimbus JOSE + JWT] library to manipulate and validate OpenID Connect / OAuth2 access tokens.
 
-These libraries are included in Hawtio Server WAR, which means there's no need to install/deploy _any_ additional libraries (as it is the case with link:keycloak.adoc[Keycloak specific configuration]).
+These libraries are included in Hawtio Server WAR, which means there's no need to install/deploy _any_ additional libraries (as it is the case with xref:keycloak.adoc[Keycloak specific configuration]).
 
 In order to configure Hawtio with external OpenID Connect provider, we need to provide one configuration file and point Hawtio to its location.
 
@@ -62,7 +62,7 @@ The system property that specifies the location of OIDC (OpenID Connect) configu
 * For Apache Artemis runtime, `${artemis.instance.etc}/hawtio-oidc.properties`
 * Falls back to `classpath:hawtio-oidc.properties` (for embedded Hawtio usage)
 
-Unlike with link:keycloak.adoc[Keycloak specific configuration], there's only one `*.properties` file needed that is used to configure all the aspects of OpenID Connect configuration. Here's the template:
+Unlike with xref:keycloak.adoc[Keycloak specific configuration], there's only one `*.properties` file needed that is used to configure all the aspects of OpenID Connect configuration. Here's the template:
 
 [source]
 ----
