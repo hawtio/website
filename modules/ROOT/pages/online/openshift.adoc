@@ -1,6 +1,6 @@
 = OpenShift
 
-IMPORTANT: Hawtio Online v2 has been released. Its container image is available from https://quay.io/repository/hawtio/online[quay.io].
+IMPORTANT: Hawtio Online v2.1.0 has now been released. Its container image is available from https://quay.io/repository/hawtio/online[quay.io].
 The following instructions will enable deployment of this version.
 
 :fn-hawtio-enabled: pass:c,q[footnote:hawtio-enabled[Containers with a configured port named `jolokia` and that exposes the https://jolokia.org[Jolokia] API.]]
