@@ -33,6 +33,45 @@ $ oc auth can-i get pods/<pod> --as <user>
 no
 ----
 
+==== Creating a Role with the Minimum Permissions
+
+The following creates a role with the minimum permissions required for connecting and
+viewing existing pods. Once created, a user can be bound to it with a
+https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding[role-binding,role=external,window=_blank].
+
+----
+$ cat <<EOF | kubectl create -f -
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: hawtio-viewer
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/proxy
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - localsubjectaccessreviews
+  verbs:
+  - create
+EOF
+----
+
 == ACL
 
 The ACL definition for JMX operations works as follows:
