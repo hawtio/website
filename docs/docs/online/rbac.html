@@ -218,6 +218,48 @@ yes</code></pre>
 no</code></pre>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_creating_a_role_with_the_minimum_permissions"><a class="anchor" href="#_creating_a_role_with_the_minimum_permissions"></a>Creating a Role with the Minimum Permissions</h4>
+<div class="paragraph">
+<p>The following creates a role with the minimum permissions required for connecting and
+viewing existing pods. Once created, a user can be bound to it with a
+<a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding" class="external" target="_blank" rel="noopener">role-binding</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ cat &lt;&lt;EOF | kubectl create -f -
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: hawtio-viewer
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/proxy
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - localsubjectaccessreviews
+  verbs:
+  - create
+EOF</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
