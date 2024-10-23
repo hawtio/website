@@ -23,6 +23,10 @@ The following table lists the Security-related configuration properties for the 
 |`true`
 |Whether or not security is enabled.
 
+|`hawtio.authenticationThrottled`
+|`true`
+|Whether to throttle authentication to protect Hawtio from brute force attacks.
+
 |`hawtio.keycloakClientConfig`
 |`classpath:keycloak.json`
 |Keycloak configuration file used for frontend. It is mandatory if Keycloak integration is enabled.
