@@ -175,11 +175,31 @@
 </aside>
 <article class="doc">
 <h1 class="page">Configuration</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hawtio consists of two main components: the server runtime and client console. The server runtime is the Java backend that runs on the server side, and the client console is the JavaScript frontend that is deployed and runs on the browser.</p>
+</div>
+<div class="paragraph">
+<p>Therefore, two types of configuration are provided for Hawtio:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#_configuration_properties">Configuration properties</a> - The server runtime configuration</p>
+</li>
+<li>
+<p><a href="#_hawtconfig_json">hawtconfig.json</a> - The client console configuration</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_configuration_properties"><a class="anchor" href="#_configuration_properties"></a>Configuration properties</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Hawtio and its plugins can configure their behaviours through System properties.</p>
+<p>The Hawtio server runtime and its plugins can configure their behaviours through System properties.</p>
 </div>
 <div class="paragraph">
 <p>The following table lists the configuration properties for the Hawtio core system and various plugins.</p>
@@ -212,22 +232,22 @@ For the configuration properties related to security and authentication, refer t
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">hawtio.disableProxy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.disableProxy</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">With this property set to <code>true</code>, <code>ProxyServlet</code> (<code>/hawtio/proxy/*</code>) can be disabled. This makes Connect plugin unavailable, which means Hawtio can no longer connect to remote JVMs, but sometimes users might want to do so because of security if Connect plugin is not used.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">hawtio.localAddressProbing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.localAddressProbing</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Whether local address probing for proxy allowlist is enabled or not upon startup. Set this property to <code>false</code> to disable it.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">hawtio.proxyAllowlist</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.proxyAllowlist</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>localhost, 127.0.0.1</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Comma-separated allowlist for target hosts that Connect plugin can connect to via <code>ProxyServlet</code>. All hosts that are not listed in this allowlist are denied to connect for security reasons. This option can be set to <code>*</code> to allow all hosts. Prefixing an element of the list with <code>"r:"</code> allows to define a regexp (example: <code>localhost,r:myserver[0-9]+.mydomain.com</code>)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">hawtio.redirect.scheme</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.redirect.scheme</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The scheme of the redirect URL to login page when authentication is required.</p></td>
 </tr>
@@ -302,6 +322,585 @@ You cannot use Hawtio RBAC with Quarkus and Spring Boot yet. Enabling the RBAC r
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">jolokia.restrictorClass = io.hawt.system.RBACRestrictor</code></pre>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hawtconfig_json"><a class="anchor" href="#_hawtconfig_json"></a>hawtconfig.json</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>hawtconfig.json</code> is the entrypoint JSON file for configuring the frontend console of Hawtio. It can be used to customise the various parts of the console: the branding, styles and basic UI parts such as the login page and about modal, as well as the console-specific behaviours of some of the Hawtio plugins.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example file of <code>hawtconfig.json</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>hawtconfig.json</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "branding": {
+    "appName": "Hawtio Management Console",
+    "showAppName": false,
+    "appLogoUrl": "hawtio-logo.svg",
+    "companyLogoUrl": "hawtio-logo.svg",
+    "css": "",
+    "favicon": "favicon.ico"
+  },
+  "login": {
+    "description": "Login page for Hawtio Management Console.",
+    "links": [
+      { "url": "#terms", "text": "Terms of Use" },
+      { "url": "#help", "text": "Help" },
+      { "url": "#privacy", "text": "Privacy Policy" }
+    ]
+  },
+  "about": {
+    "title": "Hawtio Management Console",
+    "description": "A Hawtio reimplementation based on TypeScript + React.",
+    "imgSrc": "hawtio-logo.svg",
+    "productInfo": [
+      { "name": "ABC", "value": "1.2.3" },
+      { "name": "XYZ", "value": "7.8.9" }
+    ],
+    "copyright": "© Hawtio project"
+  },
+  "disabledRoutes": [
+    "/disabled"
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration_options_in_hawtconfig_json"><a class="anchor" href="#_configuration_options_in_hawtconfig_json"></a>Configuration options in <code>hawtconfig.json</code></h3>
+<div class="paragraph">
+<p>At the top level of <code>hawtconfig.json</code>, the following options are currently provided:</p>
+</div>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<caption class="title">Table 2. Top-level configuration options</caption>
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 71.4286%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>branding</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The branding options for the console.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>login</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The login page configuration.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>about</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The about modal configuration.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>disabledRoutes</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The list of plugins that should be hidden from the console.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>jmx</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The JMX plugin configuration.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>online</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Hawtio Online configuration.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="_branding"><a class="anchor" href="#_branding"></a>Branding</h4>
+<div class="paragraph">
+<p>The <code>branding</code> configuration provides the options to customise the console&#8217;s branding, such as the application name, logos, styles and favicon.</p>
+</div>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<caption class="title">Table 3. Branding configuration options</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 62.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>appName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Hawtio Management Console</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Customise the application name of the console. The name is used in the browser title header and optionally in the header of the console page.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>showAppName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Show the application name in the header of the console page.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>appLogoUrl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>img/hawtio-logo.svg</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the URL to substitute the application logo.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>companyLogoUrl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>img/hawtio-logo.svg</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the URL to substitute the company logo.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>css</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provide the custom CSS to apply to the console.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>favicon</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the URL to substitute the favicon.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Here is how the <code>branding</code> configuration looks in <code>hawtconfig.json</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>hawtconfig.json</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">  "branding": {
+    "appName": "Hawtio Management Console",
+    "showAppName": false,
+    "appLogoUrl": "hawtio-logo.svg",
+    "companyLogoUrl": "hawtio-logo.svg",
+    "css": "",
+    "favicon": "favicon.ico"
+  }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_login"><a class="anchor" href="#_login"></a>Login</h4>
+<div class="paragraph">
+<p>The <code>login</code> configuration provides the options to customise the information displayed in the Hawtio login page.</p>
+</div>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<caption class="title">Table 4. Login configuration options</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 62.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set the text displayed in the login page.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>links</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provide the links at the bottom of the login page. The value should be an array of objects with <code>url</code> and <code>text</code> properties.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Here is how the <code>login</code> configuration looks in <code>hawtconfig.json</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>hawtconfig.json</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">  "login": {
+    "description": "Login page for Hawtio Management Console.",
+    "links": [
+      { "url": "#terms", "text": "Terms of Use" },
+      { "url": "#help", "text": "Help" },
+      { "url": "#privacy", "text": "Privacy Policy" }
+    ]
+  }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_about"><a class="anchor" href="#_about"></a>About</h4>
+<div class="paragraph">
+<p>The <code>about</code> configuration provides the options to customise the information displayed in the Hawtio About modal.</p>
+</div>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<caption class="title">Table 5. About configuration options</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 62.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Hawtio Management Console</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Customise the title of the About modal.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provide the description text to the About modal.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>imgSrc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>img/hawtio-logo.svg</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the URL to substitute the logo image in the About modal.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>productInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provide the information of names and versions about the additional components used in the console. The value should be an array of objects with <code>name</code> and <code>value</code> properties.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>copyright</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set the copyright information in the About modal.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Here is how the <code>about</code> configuration looks in <code>hawtconfig.json</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>hawtconfig.json</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">  "about": {
+    "title": "Hawtio Management Console",
+    "description": "A Hawtio reimplementation based on TypeScript + React.",
+    "imgSrc": "hawtio-logo.svg",
+    "productInfo": [
+      { "name": "ABC", "value": "1.2.3" },
+      { "name": "XYZ", "value": "7.8.9" }
+    ],
+    "copyright": "© Hawtio project"
+  }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_disabled_routes"><a class="anchor" href="#_disabled_routes"></a>Disabled routes</h4>
+<div class="paragraph">
+<p>The <code>disabledRoutes</code> configuration provides the option to hide the plugins from the console.</p>
+</div>
+<div class="paragraph">
+<p>The value of the option should be an array of strings that represent the paths of the plugins that should be hidden.</p>
+</div>
+<div class="paragraph">
+<p>Here is how the <code>disabledRoutes</code> configuration looks in <code>hawtconfig.json</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>hawtconfig.json</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">  "disabledRoutes": [
+    "/disabled"
+  ]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_jmx_plugin"><a class="anchor" href="#_jmx_plugin"></a>JMX plugin</h4>
+<div class="paragraph">
+<p>The <a href="https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/jmx">JMX</a> plugin is customisable via the <code>jmx</code> configuration in <code>hawtconfig.json</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+By default Hawtio loads all MBeans into the workspace via the JMX plugin. Sometimes your custom Hawtio console might want to load only a portion of MBeans to reduce the load on the application. The <code>jmx</code> configuration provides an option to limit the MBeans to be loaded into the workspace.
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<caption class="title">Table 6. JMX plugin configuration options</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 62.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>workspace</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Specify the list of MBean domains and object names that should be loaded to the JMX plugin workspace.
+This option can either disable workspace completely by setting <code>false</code>, or specify an array of MBean paths in the form of:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;domain&gt;/&lt;prop1&gt;=&lt;value1&gt;,&lt;prop2&gt;=&lt;value2&gt;,...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to fine-tune which MBeans to load into workspace.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Disabling workspace should also deactivate all the plugins that depend on MBeans provided by workspace.
+</td>
+</tr>
+</table>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Here is how the <code>jmx</code> configuration looks in <code>hawtconfig.json</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>hawtconfig.json</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">  "jmx": {
+    "workspace": [
+      "hawtio",
+      "java.lang/type=Memory",
+      "org.apache.camel",
+      "no.such.domain"
+    ]
+  }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_hawtio_online"><a class="anchor" href="#_hawtio_online"></a>Hawtio Online</h4>
+<div class="paragraph">
+<p>The frontend aspects of <a href="https://github.com/hawtio/hawtio-online">Hawtio Online</a> can be configured via the <code>online</code> configuration in <code>hawtconfig.json</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<caption class="title">Table 7. Hawtio Online configuration options</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 62.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>projectSelector</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set the selector used to watch for projects.
+It is only applicable when the <code>Hawtio</code> deployment type is equal to <code>cluster</code>.
+By default, all the projects the logged in user has access to are watched.
+The string representation of the selector must be provided, as mandated by the <code>--selector</code>, or <code>-l</code>, options from the <code>kubectl get</code> command.
+See <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/" class="bare">https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>consoleLink</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configure the OpenShift Web console link.
+A link is added to the application menu when the <code>Hawtio</code> deployment is equal to <code>cluster</code>.
+Otherwise, a link is added to the Hawtio project dashboard.
+The value should be an object with the following properties: <code>text</code>, <code>section</code>, and <code>imageRelativePath</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<caption class="title">Table 8. ConsoleLink configuration options</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 62.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>text</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set the text display for the link.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>section</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set the section of the application menu in which the link should appear. It is only applicable when the Hawtio deployment type is equal to <code>cluster</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>imageRelativePath</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set the path, relative to the Hawtio status URL, for the icon used in front of the link in the application menu. It is only applicable when the <code>Hawtio</code> deployment type is equal to <code>cluster</code>. The image should be square and will be shown at 24x24 pixels.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Here is how the <code>online</code> configuration looks in <code>hawtconfig.json</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>hawtconfig.json</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">  "online": {
+    "projectSelector": "myproject",
+    "consoleLink": {
+        "text": "Hawtio Management Console",
+        "section": "Hawtio",
+        "imageRelativePath": "/online/img/favicon.ico"
+    }
+  }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deploying_hawtconfig_json"><a class="anchor" href="#_deploying_hawtconfig_json"></a>Deploying <code>hawtconfig.json</code></h3>
+<div class="sect3">
+<h4 id="_quarkus_2"><a class="anchor" href="#_quarkus_2"></a>Quarkus</h4>
+<div class="paragraph">
+<p>For a Quarkus application, the <code>hawtconfig.json</code> file, as well as the other companion static resources such as CSS files and images, should be placed under <code>META-INF/resources/hawtio</code> in the <code>src/main/resources</code> directory of the project.</p>
+</div>
+<div class="paragraph">
+<p>You can find an example Quarkus project at:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/hawtio/hawtio/tree/4.x/examples/quarkus" class="bare">https://github.com/hawtio/hawtio/tree/4.x/examples/quarkus</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_spring_boot_2"><a class="anchor" href="#_spring_boot_2"></a>Spring Boot</h4>
+<div class="paragraph">
+<p>For a Spring Boot application, the <code>hawtconfig.json</code> file, as well as the other companion static resources such as CSS files and images, should be placed under <code>hawtio-static</code> in the <code>src/main/resources</code> directory of the project.</p>
+</div>
+<div class="paragraph">
+<p>You can find an example Spring Boot project at:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/hawtio/hawtio/tree/4.x/examples/springboot-authentication" class="bare">https://github.com/hawtio/hawtio/tree/4.x/examples/springboot-authentication</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_customising_from_plugins"><a class="anchor" href="#_customising_from_plugins"></a>Customising from plugins</h3>
+<div class="paragraph">
+<p>While plugins cannot directly provide the <code>hawtconfig.json</code> file itself for the console, they can customise the configuration after the file is loaded from the main console application.</p>
+</div>
+<div class="paragraph">
+<p>The <code>@hawtio/react</code> NPM package provides the <code>configManager</code> API. You can use this API in the plugin&#8217;s <code>index.ts</code> to customise the configuration of <code>hawtconfig.json</code> during the loading of the plugin.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example of how you can customise the <code>hawtconfig.json</code> configuration from a plugin:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import { HawtioPlugin, configManager } from '@hawtio/react'
+...
+
+/**
+ * The entry function of your plugin.
+ */
+export const plugin: HawtioPlugin = () =&gt; {
+  ...
+}
+
+// Register the custom plugin version to Hawtio
+// See package.json "replace-version" script for how to replace the version placeholder with a real version
+configManager.addProductInfo('Hawtio Sample Plugin', '__PACKAGE_VERSION_PLACEHOLDER__')
+
+/*
+ * This example also demonstrates how branding and styles can be customised from a WAR plugin.
+ *
+ * The Plugin API `configManager` provides `configure(configurer: (config: Hawtconfig) =&gt; void)` method
+ * and you can customise the `Hawtconfig` by invoking it from the plugin's `index.ts`.
+ */
+configManager.configure(config =&gt; {
+  // Branding &amp; styles
+  config.branding = {
+    appName: 'Hawtio Sample WAR Plugin',
+    showAppName: true,
+    appLogoUrl: '/sample-plugin/branding/Logo-RedHat-A-Reverse-RGB.png',
+    css: '/sample-plugin/branding/app.css',
+    favicon: '/sample-plugin/branding/favicon.ico',
+  }
+  // Login page
+  config.login = {
+    description: 'Login page for Hawtio Sample WAR Plugin application.',
+    links: [
+      { url: '#terms', text: 'Terms of use' },
+      { url: '#help', text: 'Help' },
+      { url: '#privacy', text: 'Privacy policy' },
+    ],
+  }
+  // About modal
+  if (!config.about) {
+    config.about = {}
+  }
+  config.about.title = 'Hawtio Sample WAR Plugin'
+  config.about.description = 'About page for Hawtio Sample WAR Plugin application.'
+  config.about.imgSrc = '/sample-plugin/branding/Logo-RedHat-A-Reverse-RGB.png'
+  if (!config.about.productInfo) {
+    config.about.productInfo = []
+  }
+  config.about.productInfo.push(
+    { name: 'Hawtio Sample Plugin - simple-plugin', value: '1.0.0' },
+    { name: 'Hawtio Sample Plugin - custom-tree', value: '1.0.0' },
+  )
+  // If you want to disable specific plugins, you can specify the paths to disable them.
+  //config.disabledRoutes = ['/simple-plugin']
+})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can find an example WAR plugin project at:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/hawtio/hawtio-sample-war-plugin-ts" class="bare">https://github.com/hawtio/hawtio-sample-war-plugin-ts</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
