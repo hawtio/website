@@ -363,15 +363,18 @@ Set <code>pkceMethod</code> to <code>S256</code> depending on <em>Proof Key for 
 <p>Firstly, apply <a href="get-started.html#_running_a_spring_boot_app" class="xref page">the required configuration</a> for attaching Hawtio to a Spring Boot application.</p>
 </div>
 <div class="paragraph">
-<p>What you need to integrate your Spring Boot application with Keycloak is to add the following dependency to <code>pom.xml</code> (replace <code>4.x.y</code> with the latest Hawtio release version):</p>
+<p>What you need to integrate your Spring Boot application with Keycloak is to add the following Spring Boot dependencies to <code>pom.xml</code>:</p>
 </div>
 <div class="listingblock">
 <div class="title">pom.xml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
-  &lt;groupId&gt;io.hawt&lt;/groupId&gt;
-  &lt;artifactId&gt;hawtio-springboot-keycloak&lt;/artifactId&gt;
-  &lt;version&gt;4.x.y&lt;/version&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-oauth2-client&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
@@ -383,12 +386,14 @@ Set <code>pkceMethod</code> to <code>S256</code> depending on <em>Proof Key for 
 <div class="listingblock">
 <div class="title">application.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">keycloak.realm = hawtio-demo
-keycloak.resource = hawtio-client
-keycloak.auth-server-url = http://localhost:18080/
-keycloak.ssl-required = external
-keycloak.public-client = true
-keycloak.principal-attribute = preferred_username</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">hawtio.authenticationEnabled = true
+hawtio.keycloakEnabled = true
+hawtio.keycloakClientConfig = classpath:keycloak-hawtio.json
+
+spring.security.oauth2.client.provider.keycloak.issuer-uri = http://localhost:18080/realms/hawtio-demo
+spring.security.oauth2.client.registration.keycloak.client-id = hawtio-client
+spring.security.oauth2.client.registration.keycloak.authorization-grant-type = authorization_code
+spring.security.oauth2.client.registration.keycloak.scope = openid</code></pre>
 </div>
 </div>
 </div>
