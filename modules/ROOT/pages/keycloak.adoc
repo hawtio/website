@@ -102,15 +102,18 @@ See https://github.com/hawtio/hawtio/tree/4.x/examples/quarkus-keycloak[quarkus-
 
 Firstly, apply xref:get-started.adoc#_running_a_spring_boot_app[the required configuration] for attaching Hawtio to a Spring Boot application.
 
-What you need to integrate your Spring Boot application with Keycloak is to add the following dependency to `pom.xml` (replace `4.x.y` with the latest Hawtio release version):
+What you need to integrate your Spring Boot application with Keycloak is to add the following Spring Boot dependencies to `pom.xml`:
 
 [source,xml]
 .pom.xml
 ----
 <dependency>
-  <groupId>io.hawt</groupId>
-  <artifactId>hawtio-springboot-keycloak</artifactId>
-  <version>4.x.y</version>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-oauth2-client</artifactId>
 </dependency>
 ----
 
@@ -121,12 +124,15 @@ Then add the following lines in `application.properties` (which configures the s
 [source,java]
 .application.properties
 ----
-keycloak.realm = hawtio-demo
-keycloak.resource = hawtio-client
-keycloak.auth-server-url = http://localhost:18080/
-keycloak.ssl-required = external
-keycloak.public-client = true
-keycloak.principal-attribute = preferred_username
+hawtio.authenticationEnabled = true
+hawtio.keycloakEnabled = true
+hawtio.keycloakClientConfig = classpath:keycloak-hawtio.json
+
+spring.security.oauth2.client.provider.keycloak.issuer-uri = http://localhost:18080/realms/hawtio-demo
+spring.security.oauth2.client.registration.keycloak.client-id = hawtio-client
+spring.security.oauth2.client.registration.keycloak.authorization-grant-type = authorization_code
+spring.security.oauth2.client.registration.keycloak.scope = openid
+
 ----
 
 ==== Client side
