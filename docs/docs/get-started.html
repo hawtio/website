@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Get Started :: Hawtio</title>
-    <meta name="generator" content="Antora 3.1.9">
+    <meta name="generator" content="Antora 3.1.10">
 <link rel='stylesheet' href='../_/css/site.css' />
 <link rel='stylesheet' href='../_/css/docs.css' />
   </head>
@@ -243,10 +243,9 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ hawtio --help
-Usage: hawtio [-hjoV] [-c=&lt;contextPath&gt;] [-d=&lt;plugins&gt;] [-e=&lt;extraClassPath&gt;]
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">Usage: hawtio [-hjoV] [-c=&lt;contextPath&gt;] [-d=&lt;plugins&gt;] [-e=&lt;extraClassPath&gt;]
               [-H=&lt;host&gt;] [-k=&lt;keyStore&gt;] [-l=&lt;warLocation&gt;] [-p=&lt;port&gt;]
-              [-s=&lt;keyStorePass&gt;] [-w=&lt;war&gt;]
+              [-s=&lt;keyStorePass&gt;] [-w=&lt;war&gt;] [-n=&lt;String=Optional&gt;]...
 Run Hawtio
   -c, --context-path=&lt;contextPath&gt;
                       Context path.
@@ -262,12 +261,45 @@ Run Hawtio
                       JKS keyStore with the keys for https.
   -l, --war-location=&lt;warLocation&gt;
                       Directory to search for .war files.
+  -n, --connection=&lt;String=Optional&gt;
+                      List of settings for automated connections.
   -o, --open-url      Open the web console automatic in the web browser.
   -p, --port=&lt;port&gt;   Port number.
   -s, --key-store-pass=&lt;keyStorePass&gt;
                       Password for the JKS keyStore with the keys for https.
   -V, --version       Print Hawtio version
   -w, --war=&lt;war&gt;     War file or directory of the hawtio web application.</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_connecting_directly_to_a_remote_jvm_from_cli"><a class="anchor" href="#_connecting_directly_to_a_remote_jvm_from_cli"></a>Connecting directly to a remote JVM from CLI</h3>
+<div class="paragraph">
+<p>Starting from Hawtio 4.3.0, it is possible to connect to remote Java applications directly from the CLI (<a href="https://github.com/hawtio/hawtio/issues/3731">#3731</a>).
+Passing a remote Jolokia endpoint URL in the form <code>[Name]=[Jolokia URL]</code> to the <code>--connection</code> or <code>-n</code> option will automatically attempt to connect to that endpoint when Hawtio starts.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ hawtio --connection=myconn=http://localhost:8778/jolokia/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you have previously connected to an endpoint URL with a name, the connection information is cached in the browser&#8217;s local storage via the Connect plugin. In that case, you can connect to that endpoint by simply specifying the same connection name without URL.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ hawtio --connection=myconn</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also connect to multiple JVMs at once by providing the <code>--connection</code> options multiple times.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ hawtio --connection=conn1 --connection=conn2 --connection=conn3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, multiple tabs open simultaneously on the browser, each showing the Hawtio console connected to a different connection.</p>
 </div>
 </div>
 </div>
