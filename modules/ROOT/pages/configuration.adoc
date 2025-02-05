@@ -45,7 +45,7 @@ NOTE: For the configuration properties related to security and authentication, r
 
 For Quarkus, all those properties are configurable in `application.properties` or `application.yaml` with the `quarkus.hawtio.` prefix. For example:
 
-[source,java]
+[source,properties]
 .application.properties
 ----
 quarkus.hawtio.disableProxy = true
@@ -55,7 +55,7 @@ quarkus.hawtio.disableProxy = true
 
 For Spring Boot, all those properties are configurable in `application.properties` or `application.yaml` as is. For example:
 
-[source,java]
+[source,properties]
 .application.properties
 ----
 hawtio.disableProxy = true
@@ -63,11 +63,11 @@ hawtio.disableProxy = true
 
 == Configuring Jolokia through System properties
 
-The Jolokia agent is deployed automatically with `io.hawt.web.JolokiaConfiguredAgentServlet` that extends Jolokia native `org.jolokia.http.AgentServlet` class, defined in `hawtio-war/WEB-INF/web.xml`.
+The Jolokia agent is deployed automatically with `io.hawt.web.JolokiaConfiguredAgentServlet` that extends Jolokia native `org.jolokia.server.core.http.AgentServlet` class, defined in `hawtio-war/WEB-INF/web.xml`.
 
 If you want to customize the Jolokia Servlet with the configuration parameters that are defined in the https://jolokia.org/reference/html/manual/agents.html#agent-war-init-params[Jolokia documentation], you can pass them as System properties prefixed with `jolokia.`. For example:
 
-[source,java]
+[source,properties]
 ----
 jolokia.policyLocation = file:///opt/hawtio/my-jolokia-access.xml
 ----
@@ -83,11 +83,12 @@ WARNING: You cannot use Hawtio RBAC with Quarkus and Spring Boot yet. Enabling t
 
 To activate the Hawtio RBAC restrictor, configure the Jolokia parameter `restrictorClass` via System property to use `io.hawt.web.RBACRestrictor` as follows:
 
-[source,java]
+[source,properties]
 ----
 jolokia.restrictorClass = io.hawt.system.RBACRestrictor
 ----
 
+[#_hawtconfig_json]
 == hawtconfig.json
 
 `hawtconfig.json` is the entrypoint JSON file for configuring the frontend console of Hawtio. It can be used to customise the various parts of the console: the branding, styles and basic UI parts such as the login page and about modal, as well as the console-specific behaviours of some of the Hawtio plugins.
