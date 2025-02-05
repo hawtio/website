@@ -211,11 +211,48 @@ A good MBean for real time values and charts is `java.lang/OperatingSystem`. Try
 
 == Deploying on a Servlet container
 
-If you use Tomcat or Jetty, you can deploy the Hawtio WAR file.
+If you use https://tomcat.apache.org/[Apache Tomcat] or https://jetty.org/[Eclipse Jetty], you can deploy the Hawtio WAR file.
 
-https://github.com/hawtio/hawtio/releases/latest[Download hawtio-default.war,window=_blank]
+https://github.com/hawtio/hawtio/releases/latest[Download hawtio-default.war from GitHub,window=_blank]
 
 Please read xref:configuration.adoc[] to see how to configure the console, or in particular for security see xref:security.adoc[].
+
+=== Deploying to Apache Tomcat
+
+Standard https://tomcat.apache.org/[Apache Tomcat] distribution is ready to use unpacking and Hawtio WAR application can simply be copied into `$TOMCAT_HOME/webapps`.
+
+=== Deploying to Eclipse Jetty
+
+Jetty distribution is https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-home/[available in Maven Central] as `org.eclipse.jetty:jetty-home` Maven artifacts.
+
+With Jetty 12, it is not possible to simply start the server after unzipping `jetty-home.zip` archive. The recommended way is to create a _Jetty Base_ directory and start from there after adding necessary _modules_. See https://jetty.org/docs/jetty/12/operations-guide/begin/index.html#quick-setup[Jetty Quick Setup] for details.
+
+After setting up _base_ location, it is enough to simply add `http` and `ee10-deploy` (Jetty 12) or `deploy` (Jetty 11) module - all required modules will be used automatically.
+
+However we recommend to explicitly add the modules on which `ee10-deploy` (or `deploy`) module depends - all template configuration files will then be available in `$JETTY_BASE/start.d/` directory.
+
+Because Hawtio can be configured using System properties, we can make configuration easier by adding Jetty's `jvm` module, so all configuration properties can be stored in `$JETTY_BASE/start.d/jvm.ini`.
+
+==== Jetty XML deployment
+
+It is possible to https://jetty.org/docs/jetty/12/operations-guide/deploy/index.html#context-xml[deploy Jetty XML file instead of actual WAR application], so when there's `hawtio.war` located in your local filesystem, it is possible to drop this file int o `$JETTY_BASE/webapps`:
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "https://jetty.org/configure_10_0.dtd">
+<Configure class="org.eclipse.jetty.ee10.webapp.WebAppContext">
+  <Set name="contextPath">/hawtio</Set>
+  <Set name="war">/data/tmp/hawtio-war-4.2.0.war</Set>
+</Configure>
+----
+
+But there's a trick here. Normally Jetty unpacks this WAR archive to a temporary folder (which may be specified with `-Djava.io.tmpdir` system property). But there's no need for unpacking if there's `hawtio-war-4.2.0` _directory_ next to `hawtio-war-4.2.0.war` achive.
+
+Jetty uses `org.eclipse.jetty.server.SymlinkAllowedResourceAliasChecker` _alias checker_ and if
+_real path_ for the above `/data/tmp/hawtio-war-4.2.0` is different (i.e., the path uses symbolic links), resources from this WAR application won't be loaded and Hawtio application won't work.
+
+NOTE:: This may be a problem when using such XML deployment when `hawtio.war` is located in Maven project, because `maven-war-plugin` usually keeps `hawtio-war-<version>` directory and `hawtio-war-<version>.war` archive in the same `target/` location.
 
 == Using Hawtio embedded in a Java application
 
