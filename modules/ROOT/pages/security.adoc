@@ -62,7 +62,7 @@ Hawtio can be secured with the authentication mechanisms Quarkus provides, as we
 
 if you want to disable Hawtio authentication for Quarkus, add the following configuration to `application.properties`:
 
-[source,java]
+[source,properties]
 .application.properties
 ----
 quarkus.hawtio.authenticationEnabled = false
@@ -89,7 +89,7 @@ To use the properties-based authentication with Hawtio, add the following depend
 
 You can then define users to `application.properties` to enable the authentication. For example, defining a user `hawtio` with password `s3cr3t!` and role `admin` would look like the following:
 
-[source,java]
+[source,properties]
 .application.properties
 ----
 quarkus.security.users.embedded.enabled = true
@@ -112,7 +112,7 @@ In addition to the standard JAAS authentication, Hawtio on Spring Boot can be se
 
 if you want to disable Hawtio authentication for Spring Boot, add the following configuration to `application.properties`:
 
-[source,java]
+[source,properties]
 .application.properties
 ----
 hawtio.authenticationEnabled = false
@@ -132,7 +132,7 @@ To use Spring Security with Hawtio, add `org.springframework.boot:spring-boot-st
 
 Spring Security configuration in `src/main/resources/application.properties` should look something like the following:
 
-[source,java]
+[source,properties]
 ----
 spring.security.user.name = hawtio
 spring.security.user.password = s3cr3t!
@@ -216,43 +216,71 @@ See xref:keycloak.adoc#_spring_boot[Keycloak Integration - Spring Boot].
 
 Hawtio authentication is enabled by default. If you want to disable Hawtio authentication, set the following system property:
 
-[source,java]
+[source,properties]
 ----
 hawtio.authenticationEnabled = false
 ----
 
 === Jetty
 
-To use authentication with Jetty, you first have to set up some users with roles. To do that navigate to the `etc/` folder of your Jetty installation and create the following file `etc/login.properties` and enter something like this:
+Hawtio can integrate with Jetty JAAS mechanisms. However not all https://jetty.org/docs/jetty/12/operations-guide/jaas/index.html#loginmodules[Jetty JAAS modules] work out of the box.
 
-[source,java]
+Jetty JAAS modules work with Jetty security infrastructure and the important thing is that it requires your web application (WAR) to use `<login-config>` configuration.
+
+Hawtio provides customized `org.eclipse.jetty.security.jaas.spi.PropertyFileLoginModule` which is available in `io.hawt.jetty.security.jaas.PropertyFileLoginModule` class. Additionally Hawtio provides ready to use `*.mod` file which can be copied directly to `$JETTY_BASE/modules`. This file describes https://jetty.org/docs/jetty/12/operations-guide/modules/index.html[Jetty module] with references to required Hawtio Jetty library:
+
+[source]
+----
+[description]
+Hawtio JAAS Login Module Configuration for Jetty
+
+[tags]
+security
+hawtio
+
+[depends]
+jaas
+
+[files]
+maven://io.hawt/hawtio-jetty-security/<version>|lib/hawtio-jetty-security-<version>.jar
+
+[lib]
+lib/hawtio-jetty-security-<version>.jar
+----
+
+After adding `$JETTY_BASE/modules/hawtio-jetty-security.mod` file we can add this module (and `jaas` module) using:
+
+[source,shell]
+----
+$ cd $JETTY_BASE
+$ java -jar $JETTY_HOME/start.jar --add-module=jaas,hawtio-jetty-security
+INFO  : jaas            initialized in ${jetty.base}/start.d/jaas.ini
+INFO  : hawtio-jetty-security initialized in ${jetty.base}/start.d/hawtio-jetty-security.ini
+INFO  : copy ~/.m2/repository/io/hawt/hawtio-jetty-security/4.4-SNAPSHOT/hawtio-jetty-security-<version>.jar to ${jetty.base}/lib/hawtio-jetty-security-<version>.jar
+INFO  : Base directory was modified
+----
+
+To use authentication with Jetty, you first have to set up some users with credentials and roles. To do that navigate to `$JETTY_BASE/etc/` folder and create `etc/login.properties` file containing something like this:
+
+[source,properties]
 .etc/login.properties
 ----
-scott=tiger, user
+scott=tiger,user
 admin=CRYPT:adpexzg3FUZAk,admin,user
 ----
 
-You have added two users. The first one named `scott` with the password `tiger`. He has the role `user` assigned to it. The second user `admin` with password `admin` which is obfuscated (see Jetty realms for possible encryption methods). This one has the `admin` and `user` role assigned.
+You have added two users. The first one named `scott` with the password `tiger`. He has the role `user` assigned to it. The second user `admin` with password `admin` which is obfuscated (see https://jetty.org/docs/jetty/12/operations-guide/tools/index.html#password[Password Obfuscation in Jetty documentation] for details). This one has the `admin` and `user` role assigned.
 
-Now create the second file in the same `etc/` directory called `login.conf`. This is the login configuration file.
+Now create the second file in the same `$JETTY_BASE/etc/` directory named `login.conf`. This is the JAAS login configuration file.
 
-[source,java]
+[source]
 .etc/login.conf
 ----
 hawtio {
-  org.eclipse.jetty.jaas.spi.PropertyFileLoginModule required
+  io.hawt.jetty.security.jaas.PropertyFileLoginModule required
   debug="true"
   file="${jetty.base}/etc/login.properties";
 };
-----
-
-CAUTION: Currently the login module `org.eclipse.jetty.jaas.spi.PropertyFileLoginModule` doesn't work with Hawtio. The instructions are kept as-is for illustrative purposes. But to really make it work, use https://eclipse.dev/jetty/documentation/jetty-10/operations-guide/index.html#og-jaas-loginmodules[different login modules] or implement your own `PropertyFileLoginModule`.
-
-Next, enable the JAAS module in Jetty. This is done by the following command:
-
-[source,console]
-----
-$ java -jar $JETTY_HOME/start.jar --add-module=jaas
 ----
 
 At last, you have to change the Hawtio configuration:
@@ -272,8 +300,21 @@ At last, you have to change the Hawtio configuration:
 |`admin`
 
 |`hawtio.rolePrincipalClasses`
-|`org.eclipse.jetty.jaas.JAASRole`
+|`org.eclipse.jetty.security.jaas.JAASRole`
 |===
+
+When Jetty `jvm` module is installed, we can specify Hawtio properties in `$JETTY_BASE/start.d/jvm.ini`:
+
+[source,ini]
+----
+--exec
+-Dhawtio.authenticationEnabled=true
+-Dhawtio.realm=hawtio
+-Dhawtio.roles=admin
+-Dhawtio.rolePrincipalClasses=org.eclipse.jetty.security.jaas.JAASRole
+----
+
+Without `jvm` module the above options should be specified as system properties when running `java -jar $JETTY_HOME/start.jar`.
 
 You have now enabled authentication for Hawtio. Only users with role `admin` are allowed for login.
 
@@ -327,3 +368,7 @@ Then you can configure JAAS in file `TOMCAT_HOME/conf/login.conf` (see <<Jetty>>
 == Keycloak Integration
 
 Hawtio can be integrated with https://www.keycloak.org[Keycloak] for SSO authentication. See xref:keycloak.adoc[].
+
+== OpenID Connect Integration
+
+For generic OIDC authentication see xref:oidc.adoc[].
