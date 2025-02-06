@@ -274,7 +274,7 @@
 <div class="listingblock">
 <div class="title">application.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">quarkus.hawtio.authenticationEnabled = false</code></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">quarkus.hawtio.authenticationEnabled = false</code></pre>
 </div>
 </div>
 <div class="sect2">
@@ -315,7 +315,7 @@ The properties-based authentication is not recommended to use in production. Thi
 <div class="listingblock">
 <div class="title">application.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">quarkus.security.users.embedded.enabled = true
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">quarkus.security.users.embedded.enabled = true
 quarkus.security.users.embedded.plain-text = true
 quarkus.security.users.embedded.users.hawtio = s3cr3t!
 quarkus.security.users.embedded.roles.hawtio = admin</code></pre>
@@ -348,7 +348,7 @@ quarkus.security.users.embedded.roles.hawtio = admin</code></pre>
 <div class="listingblock">
 <div class="title">application.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">hawtio.authenticationEnabled = false</code></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">hawtio.authenticationEnabled = false</code></pre>
 </div>
 </div>
 <div class="sect2">
@@ -369,7 +369,7 @@ quarkus.security.users.embedded.roles.hawtio = admin</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">spring.security.user.name = hawtio
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">spring.security.user.name = hawtio
 spring.security.user.password = s3cr3t!
 spring.security.user.roles = admin,viewer</code></pre>
 </div>
@@ -477,55 +477,76 @@ public class SecurityConfig {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">hawtio.authenticationEnabled = false</code></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">hawtio.authenticationEnabled = false</code></pre>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_jetty"><a class="anchor" href="#_jetty"></a>Jetty</h3>
 <div class="paragraph">
-<p>To use authentication with Jetty, you first have to set up some users with roles. To do that navigate to the <code>etc/</code> folder of your Jetty installation and create the following file <code>etc/login.properties</code> and enter something like this:</p>
+<p>Hawtio can integrate with Jetty JAAS mechanisms. However not all <a href="https://jetty.org/docs/jetty/12/operations-guide/jaas/index.html#loginmodules">Jetty JAAS modules</a> work out of the box.</p>
+</div>
+<div class="paragraph">
+<p>Jetty JAAS modules work with Jetty security infrastructure and the important thing is that it requires your web application (WAR) to use <code>&lt;login-config&gt;</code> configuration.</p>
+</div>
+<div class="paragraph">
+<p>Hawtio provides customized <code>org.eclipse.jetty.security.jaas.spi.PropertyFileLoginModule</code> which is available in <code>io.hawt.jetty.security.jaas.PropertyFileLoginModule</code> class. Additionally Hawtio provides ready to use <code>*.mod</code> file which can be copied directly to <code>$JETTY_BASE/modules</code>. This file describes <a href="https://jetty.org/docs/jetty/12/operations-guide/modules/index.html">Jetty module</a> with references to required Hawtio Jetty library:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">[description]
+Hawtio JAAS Login Module Configuration for Jetty
+
+[tags]
+security
+hawtio
+
+[depends]
+jaas
+
+[files]
+maven://io.hawt/hawtio-jetty-security/&lt;version&gt;|lib/hawtio-jetty-security-&lt;version&gt;.jar
+
+[lib]
+lib/hawtio-jetty-security-&lt;version&gt;.jar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After adding <code>$JETTY_BASE/modules/hawtio-jetty-security.mod</code> file we can add this module (and <code>jaas</code> module) using:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ cd $JETTY_BASE
+$ java -jar $JETTY_HOME/start.jar --add-module=jaas,hawtio-jetty-security
+INFO  : jaas            initialized in ${jetty.base}/start.d/jaas.ini
+INFO  : hawtio-jetty-security initialized in ${jetty.base}/start.d/hawtio-jetty-security.ini
+INFO  : copy ~/.m2/repository/io/hawt/hawtio-jetty-security/4.4-SNAPSHOT/hawtio-jetty-security-&lt;version&gt;.jar to ${jetty.base}/lib/hawtio-jetty-security-&lt;version&gt;.jar
+INFO  : Base directory was modified</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To use authentication with Jetty, you first have to set up some users with credentials and roles. To do that navigate to <code>$JETTY_BASE/etc/</code> folder and create <code>etc/login.properties</code> file containing something like this:</p>
 </div>
 <div class="listingblock">
 <div class="title">etc/login.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">scott=tiger, user
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">scott=tiger,user
 admin=CRYPT:adpexzg3FUZAk,admin,user</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You have added two users. The first one named <code>scott</code> with the password <code>tiger</code>. He has the role <code>user</code> assigned to it. The second user <code>admin</code> with password <code>admin</code> which is obfuscated (see Jetty realms for possible encryption methods). This one has the <code>admin</code> and <code>user</code> role assigned.</p>
+<p>You have added two users. The first one named <code>scott</code> with the password <code>tiger</code>. He has the role <code>user</code> assigned to it. The second user <code>admin</code> with password <code>admin</code> which is obfuscated (see <a href="https://jetty.org/docs/jetty/12/operations-guide/tools/index.html#password">Password Obfuscation in Jetty documentation</a> for details). This one has the <code>admin</code> and <code>user</code> role assigned.</p>
 </div>
 <div class="paragraph">
-<p>Now create the second file in the same <code>etc/</code> directory called <code>login.conf</code>. This is the login configuration file.</p>
+<p>Now create the second file in the same <code>$JETTY_BASE/etc/</code> directory named <code>login.conf</code>. This is the JAAS login configuration file.</p>
 </div>
 <div class="listingblock">
 <div class="title">etc/login.conf</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">hawtio {
-  org.eclipse.jetty.jaas.spi.PropertyFileLoginModule required
+<pre class="highlightjs highlight"><code class="language-none hljs">hawtio {
+  io.hawt.jetty.security.jaas.PropertyFileLoginModule required
   debug="true"
   file="${jetty.base}/etc/login.properties";
 };</code></pre>
-</div>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Currently the login module <code>org.eclipse.jetty.jaas.spi.PropertyFileLoginModule</code> doesn&#8217;t work with Hawtio. The instructions are kept as-is for illustrative purposes. But to really make it work, use <a href="https://eclipse.dev/jetty/documentation/jetty-10/operations-guide/index.html#og-jaas-loginmodules">different login modules</a> or implement your own <code>PropertyFileLoginModule</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Next, enable the JAAS module in Jetty. This is done by the following command:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ java -jar $JETTY_HOME/start.jar --add-module=jaas</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -558,10 +579,25 @@ Currently the login module <code>org.eclipse.jetty.jaas.spi.PropertyFileLoginMod
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.rolePrincipalClasses</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.eclipse.jetty.jaas.JAASRole</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.eclipse.jetty.security.jaas.JAASRole</code></p></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>When Jetty <code>jvm</code> module is installed, we can specify Hawtio properties in <code>$JETTY_BASE/start.d/jvm.ini</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-ini hljs" data-lang="ini">--exec
+-Dhawtio.authenticationEnabled=true
+-Dhawtio.realm=hawtio
+-Dhawtio.roles=admin
+-Dhawtio.rolePrincipalClasses=org.eclipse.jetty.security.jaas.JAASRole</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Without <code>jvm</code> module the above options should be specified as system properties when running <code>java -jar $JETTY_HOME/start.jar</code>.</p>
+</div>
 <div class="paragraph">
 <p>You have now enabled authentication for Hawtio. Only users with role <code>admin</code> are allowed for login.</p>
 </div>
@@ -630,6 +666,14 @@ system properties and pointing to <code>login.conf</code> file with your login m
 <div class="sectionbody">
 <div class="paragraph">
 <p>Hawtio can be integrated with <a href="https://www.keycloak.org">Keycloak</a> for SSO authentication. See <a href="keycloak.html" class="xref page">Keycloak Integration</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_openid_connect_integration"><a class="anchor" href="#_openid_connect_integration"></a>OpenID Connect Integration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For generic OIDC authentication see <a href="oidc.html" class="xref page">OpenID Connect Integration</a>.</p>
 </div>
 </div>
 </div>
