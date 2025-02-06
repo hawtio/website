@@ -266,7 +266,7 @@ For the configuration properties related to security and authentication, refer t
 <div class="listingblock">
 <div class="title">application.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">quarkus.hawtio.disableProxy = true</code></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">quarkus.hawtio.disableProxy = true</code></pre>
 </div>
 </div>
 </div>
@@ -278,7 +278,7 @@ For the configuration properties related to security and authentication, refer t
 <div class="listingblock">
 <div class="title">application.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">hawtio.disableProxy = true</code></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">hawtio.disableProxy = true</code></pre>
 </div>
 </div>
 </div>
@@ -288,14 +288,14 @@ For the configuration properties related to security and authentication, refer t
 <h2 id="_configuring_jolokia_through_system_properties"><a class="anchor" href="#_configuring_jolokia_through_system_properties"></a>Configuring Jolokia through System properties</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Jolokia agent is deployed automatically with <code>io.hawt.web.JolokiaConfiguredAgentServlet</code> that extends Jolokia native <code>org.jolokia.http.AgentServlet</code> class, defined in <code>hawtio-war/WEB-INF/web.xml</code>.</p>
+<p>The Jolokia agent is deployed automatically with <code>io.hawt.web.JolokiaConfiguredAgentServlet</code> that extends Jolokia native <code>org.jolokia.server.core.http.AgentServlet</code> class, defined in <code>hawtio-war/WEB-INF/web.xml</code>.</p>
 </div>
 <div class="paragraph">
 <p>If you want to customize the Jolokia Servlet with the configuration parameters that are defined in the <a href="https://jolokia.org/reference/html/manual/agents.html#agent-war-init-params">Jolokia documentation</a>, you can pass them as System properties prefixed with <code>jolokia.</code>. For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">jolokia.policyLocation = file:///opt/hawtio/my-jolokia-access.xml</code></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">jolokia.policyLocation = file:///opt/hawtio/my-jolokia-access.xml</code></pre>
 </div>
 </div>
 <div class="sect2">
@@ -320,7 +320,7 @@ You cannot use Hawtio RBAC with Quarkus and Spring Boot yet. Enabling the RBAC r
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">jolokia.restrictorClass = io.hawt.system.RBACRestrictor</code></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">jolokia.restrictorClass = io.hawt.system.RBACRestrictor</code></pre>
 </div>
 </div>
 </div>
