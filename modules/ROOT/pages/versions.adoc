@@ -10,6 +10,14 @@ The tables list the supported versions of Java and related technologies by each 
 |===
 |Hawtio |Java |Java/Jakarta EE|Jolokia |Quarkus |Spring Boot|Apache Camel
 
+|4.4.x
+|11{fn-40x-java11}, 17, 21
+|9
+|2.2.x
+|3.20.x
+|3.4.x
+|4.x
+
 |4.3.x
 |11{fn-40x-java11}, 17, 21
 |9
