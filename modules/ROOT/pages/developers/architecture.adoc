@@ -1,0 +1,213 @@
+= Hawtio Architecture
+
+This page presents general information about the Hawtio architecture. We show all the components (client, server, agent connections). For details about plugin development, see xref::developers/applications.adoc[].
+
+== Hawtio React Single Page Application
+
+Repository: https://github.com/hawtio/hawtio-next
+
+There are two main _parts_ of this repository:
+
+* https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio[@hawtio/react] NPM package: a consumable Hawtio package with all Hawtio React components, services and APIs
+* https://github.com/hawtio/hawtio-next/tree/main/app[Hawtio application]: a _sample application_ that uses the above package. A similar application is available in https://github.com/hawtio/hawtio/tree/4.x/console[Hawtio console application] (used in Hawtio WAR and distributed as Java deployable application).
+
+Why the distinction?
+
+`@hawtio/react` package is a pure JavaScript/TypeScript _library_ bundled with https://tsup.egoist.dev/[`tsup`] and distributed as an https://www.npmjs.com/package/@hawtio/react[NPM package].
+
+`app` application is using this package and is bundled as an _application_ using https://webpack.js.org[Webpack].
+
+=== What are the elements of the `@hawtio/react` package?
+
+`@hawtio/react` package is a reusable _library_ that https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export[exports] JavaScript values, functions and classes. We can group these exported elements into two categories:
+
+* React components - should be imported from `.tsx` files and simply used with https://react.dev/learn/writing-markup-with-jsx[JSX] syntax. Most of the components use the https://v5-archive.patternfly.org/[Patternfly V5 library], but there are a few pure React/HTML components
+* JavaScript variables, functions and classes, as well as TypeScript type aliases, interfaces and enumerations. +
+Hawtio services (core services, plugin management, user management, ...) are exported as variables, which are instances of Hawtio classes.
+
+The most important Hawtio React/Patternfly component is `<Hawtio>` which is a full page with headers, sidebars and content areas. The UI, built by `<Hawtio>` component, depends on registered plugins.
+
+Hawtio includes built-in plugins. See available plugins at xref::plugins.adoc[] page. These plugins are _not_ registered by default. When creating an _application_ based on `@hawtio/react` _library_ we can choose whether to register all or selected Hawtio plugins.
+
+=== How to use the `@hawtio/react` package - minimal required setup
+
+In order to _use_ the Hawtio client library, you should create an application similar to the https://github.com/hawtio/hawtio-next/tree/main/app[Hawtio application].
+
+At a minimum we should use these files:
+
+`index.ts`:
+
+[source,javascript]
+----
+import '@hawtio/react/dist/index.css'
+import '@patternfly/react-core/dist/styles/base.css'
+
+import('./bootstrap')
+----
+
+`bootstrap.tsx`:
+
+[source,javascript]
+----
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+
+import { Hawtio } from '@hawtio/react/ui'
+import { hawtio } from '@hawtio/react'
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+
+hawtio.bootstrap().then(() => {
+    root.render(
+      <React.StrictMode>
+        <Hawtio />
+      </React.StrictMode>,
+    )
+})
+----
+
+NOTE:: The separation is required because of the https://webpack.js.org/concepts/module-federation/[Webpack Module Federation] and usage of shared packages. See https://webpack.js.org/concepts/module-federation/#uncaught-error-shared-module-is-not-available-for-eager-consumption[the details here].
+
+This setup is almost pure React code, where two steps are required
+
+* Call `ReactDOM.createRoot` to obtain the _root element_
+* Render `<Hawtio>` React component for this root element
+
+The only difference is that we need to call the `hawtio.bootstrap()` function which initializes internal Hawtio services.
+
+As you can see, rendering the React component is performed after resolving the promise returned from `hawtio.bootstrap()`; this allows synchronization with Hawtio, so components are rendered after full initialization of Hawtio.
+
+To learn more about the stages of Hawtio initialization and how plugins are registered, read the full example below.
+
+=== How to use the `@hawtio/react` package - full setup
+
+Because the Hawtio _application_ should be bundled by Webpack, it is important to be aware of how such application is bundled. Without going into details, Webpack allows the splitting of all reachable JavaScript code into https://webpack.js.org/guides/code-splitting/[chunks]. Ideally, when a Single Page Application (SPA) starts, only necessary JavaScript code is fetched and evaluated, while remaining code is loaded on demand.
+
+JavaScript supports two kinds of _module imports_:
+
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import[static import]: with `import ... from module-name` statement, we effectively include the imported module into the importing module.
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import[dynamic import]: with `import('module-name')`, we can use the module asynchronously - `import()` operator returns a Promise resolved only when the imported code is loaded and evaluated.
+
+While browsers support ESM modules and both of these _import_ versions, Webpack transpiles this code into a more web-optimized version, while keeping the sync/async semantics of `import` and `import()`.
+
+Hawtio _applications_, (using `@hawtio/react` _library_), should carefully choose between static and dynamic imports.
+
+`@hawtio/react` uses Node.js https://nodejs.org/api/packages.html#subpath-exports[subpath exports] for the explicit specification of what can be imported from this package. Here is the relevant `package.json` fragment:
+
+[source,json]
+----
+"exports": {
+  ".": {
+    "types": "./dist/index.d.ts",
+    "require": "./dist/index.js",
+    "default": "./dist/index.js"
+  },
+  "./init": {
+    "types": "./dist/init.d.ts",
+    "require": "./dist/init.js",
+    "default": "./dist/init.js"
+  },
+  "./ui": {
+    "types": "./dist/ui/index.d.ts",
+    "require": "./dist/ui/index.js",
+    "default": "./dist/ui/index.js"
+  },
+  "./dist/index.css": {
+    "default": "./dist/index.css"
+  }
+},
+----
+
+Focusing on JavaScript only, we can import three distinct module locations:
+
+* `"@hawtio/react"`: this is the entry point with packages containing all Hawtio services, but no React (or Patternfly) components
+* `"@hawtio/react/init"`: this is the entry point that contains initialization code and the single `<HawtioInitialization>` React component which does not rely on Patternfly
+* `"@hawtio/react/ui"`: this is the entry point with React/Patternfly components, of which the most important is `<Hawtio>`
+
+How to import these packages?
+
+An _application_ that launches by rendering the `<Hawtio>` component should use the above entry points in the following way:
+
+From `@hawtio/react/init` we can statically import `hawtio`, `configManager` and the `<HawtioInitialization>` component
+to show initialization UI before importing the full package:
+
+[source,typescript]
+----
+import ReactDOM from 'react-dom/client'
+
+import { configManager, hawtio, HawtioInitialization, TaskState } from '@hawtio/react/init'
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+
+root.render(<HawtioInitialization verbose />)
+
+configManager.addProductInfo('Test App', '1.0.0')
+hawtio.addUrl('plugin')
+...
+----
+
+`@hawtio/react` should be imported dynamically, so we can bootstrap it asynchronously:
+
+[source,typescript]
+----
+import('@hawtio/react').then(async m => {
+  // Register all default Hawtio plugins
+  m.registerPlugins()
+
+  m.hawtio.bootstrap().then(() => {
+    // ...
+  })
+})
+----
+
+Finally within `.then` block of the promise returned by `hawtio.bootstrap()` we can dynamically import the UI packages
+of Hawtio and render `<Hawtio>` component:
+[source,typescript]
+----
+m.hawtio.bootstrap().then(() => {
+  import('@hawtio/react/ui').then(m => {
+    root.render(
+      <React.StrictMode>
+        <m.Hawtio />
+      </React.StrictMode>
+    )
+  })
+})
+----
+
+More information about writing Hawtio applications and plugins (including more information about how to register custom or built-in plugins) can be found at xref::developers/applications.adoc[].
+
+== Hawtio Server
+
+Repository: https://github.com/hawtio/hawtio
+
+This repository has been used since the early 1.x release. Previously, the web application was a single Maven module that produced a Java WAR application. The rest of the modules were about integration with Jolokia and implementation of security filters, additional JMX MBeans and other items including the Git facade (for Fabric8).
+
+In Hawtio 4, this is still a very important project, which also includes a WAR application (that uses `@hawtio/react` NPM package), but there are more deployment options. The requirements for implementing with Fabric8 and OSGi have been removed.
+
+When describing xref:#_hawtio_react_single_page_application[], the https://jolokia.org/[Jolokia library] was not mentioned. However, this is a very important part of Hawtio's identity.
+
+Hawtio _server_ is effectively a server-side web application that exposes a Jolokia Agent REST API, which is then used by the Hawtio _client_ JMX plugin.
+
+There are 3 ways to _start_ (or _deploy_) a Hawtio server:
+
+* WAR: can be deployed to any standard Servlet container (Tomcat, Jetty, Wildfly, ...)
+* Spring Boot application: uses https://docs.spring.io/spring-boot/reference/web/servlet.html#web.servlet.embedded-container[Spring Boot managed web server]
+* https://quarkus.io/guides/web[Quarkus web application]: based on https://vertx.io/[Vert.x].
+
+Whatever the deployment method, Hawtio server exposes several endpoints that support Hawtio _client_ applications. These endpoints may be provided by other means (server-side Node.js application, as in https://github.com/hawtio/hawtio-online[Hawtio Online]), so _this_ Hawtio server is optional.
+
+The most important _endpoint_ exposed is the Jolokia endpoint, which gives Hawtio client applications a _view_ into the MBeans available in a JVM MBeans. Remember that many plugins like `camel()` or `jmx()` simply won't work without Jolokia.
+
+== Remote Jolokia agents
+
+Finally, we need to describe a part of the Hawtio eco-system that allows:
+
+* Hawtio clients to access the Jolokia agents available from _different_ JVMs than the one serving the web resources of the Hawtio client
+* Hawtio server to act as a proxy between Hawtio client and remote Jolokia Agent.
+
+Remote Jolokia agents are JVM applications (like Camel JBang applications or Apache Artemis brokers with an enabled Jolokia agent), which do not include embedded Hawtio applications, but may be used through an Hawtio proxy.
+
+Again, knowing the history helps to understand this part of the architecture. When Hawtio was originally created, the Jolokia project had already been well-established, but had never had full UI support - it was purely a REST API exposing MBeans from a running JVM application.
+
+Hawtio, with its usage of Angular and JQuery Ajax, was built to access these Jolokia agents and their REST APIs, enabling the implementation of real brower UIs.

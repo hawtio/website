@@ -1,0 +1,57 @@
+= A bit of history
+
+Hawtio started as the https://github.com/fusesource/fuse-console[Fuse Console] project to provide an UI for Fuse (then moved to JBoss and Red Hat).
+
+Quickly, it was rebranded as https://hawt.io/[Hawtio] and development continued with the same principles.
+
+The fundamental technologies and concepts used were:
+
+* Single Page Application (SPA) model, where all routing happened on the client (browser) side
+* https://jolokia.org[Jolokia] as the https://docs.oracle.com/en/java/javase/17/jmx/jmx-technology-architecture.html[JMX Protocol Adaptor]
+  to expose an MBean view of the running Java/JVM application through web-friendly REST endpoints
+* https://www.typescriptlang.org/[TypeScript] as the implementation language adding type safety to JavaScript
+* https://angularjs.org/[Angular.JS] as the implementation library/framework, based on data binding
+* https://getbootstrap.com/[Bootstrap] as the CSS framework
+
+Initially, all the development was performed in a single https://github.com/hawtio/hawtio[Hawtio Github repository] and a large part of the codebase was implemented in Java for the backend services. TypeScript code resided in a single module and ultimately was packaged as a Java Web Archive (WAR).
+
+Hawtio was consumed as Java Web Application by JBoss Fuse server (based on Karaf/OSGi) and deployment modularity was not a big concern.
+
+In order to visualize more and more features from JBoss Fuse (Fabric8, Camel, ActiveMQ, Zookeeper, Git, Maven, remote containers), more and more Hawtio plugins were created, but these plugins, implemented with TypeScript and Angular.JS were part of what now we call a _monorepo_.
+
+This was all Hawtio 1.x based on Angular.JS 1.x...
+
+== Hawtio 2
+
+Hawtio 2 was an attempt to change the structure of the project without changing the technologies being used.
+The main reason was that more and more client/browser-side JavaScript applications were switching to NPM.
+
+While even Hawtio 1.x included `package.json`, it was never intended to be actually published to and consumed from the https://www.npmjs.com[NPM registry].
+
+We have published several modules/packages to NPM under the https://www.npmjs.com/org/hawtio[@hawtio] organization. These include:
+
+* https://www.npmjs.com/package/@hawtio/utilities[@hawtio/utilities]
+* https://www.npmjs.com/package/@hawtio/ui[@hawtio/ui] - based on Angular.JS 1.x and built with https://gulpjs.com/[Gulp]
+* https://www.npmjs.com/package/@hawtio/core[@hawtio/core]
+* https://www.npmjs.com/package/@hawtio/preferences[@hawtio/preferences]
+* https://www.npmjs.com/package/@hawtio/forms[@hawtio/forms]
+* https://www.npmjs.com/package/@hawtio/oauth[@hawtio/oauth]
+* https://www.npmjs.com/package/@hawtio/jmx[@hawtio/jmx] - for interacting with Jolokia REST endpoints
+* https://www.npmjs.com/package/@hawtio/integration[@hawtio/integration] - the _main_ project packaged as Java WAR application
+
+== Hawtio 3
+
+Hawtio 3 did the opposite of Hawtio 2, relying heavily on packages consumed from NPM as Hawtio 2, but this time it dropped Angular.JS in favor of https://react.dev/[React].
+
+Without going into details about the exact reasons, Hawtio never really succeeded at switching from Angular.JS to _new_ Angular.IO.
+
+https://react.dev/[React] felt more lightweight than Angular.IO and the impression remains.
+
+== Hawtio 4
+
+The only difference between Hawtio 3 and Hawtio 4 is related to the _server side_. In that the entire backend had to move from JavaEE to JakartaEE.
+This required the refactoring from a dependence on Camel 2 to Camel 3.
+
+https://spring.io/blog/2022/05/24/preparing-for-spring-boot-3-0[Spring Boot 3] took the radical approach of moving directly to JDK 17 as the baseline and JakartaEE 9 APIs. The supporting of both `javax.` and `jakarta.` namespaces would have proven too constly in the long term and would not force users to switch at all...
+
+So the development continues...

@@ -20,4 +20,7 @@
 ** xref:releases.adoc[]
 ** xref:contributing.adoc[]
 * Developers
+** xref:developers/history.adoc[]
+** xref:developers/architecture.adoc[]
+** xref:developers/plugins.adoc[]
 ** xref:releasing.adoc[]
