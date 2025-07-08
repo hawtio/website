@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Generating Certificates Manually :: Hawtio</title>
+    <title>A bit of history :: Hawtio</title>
     <meta name="generator" content="Antora 3.1.10">
 <link rel='stylesheet' href='../../_/css/site.css' />
 <link rel='stylesheet' href='../../_/css/docs.css' />
@@ -95,22 +95,22 @@
     <span class="nav-text">Kubernetes/OpenShift</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="openshift.html">OpenShift</a>
+    <a class="nav-link" href="../online/openshift.html">OpenShift</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="kubernetes.html">Kubernetes</a>
+    <a class="nav-link" href="../online/kubernetes.html">Kubernetes</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="create-user.html">Creating a Hawtio user for Form authentication</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="generate-certificates.html">Generating Certificates Manually</a>
+    <a class="nav-link" href="../online/create-user.html">Creating a Hawtio user for Form authentication</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="rbac.html">RBAC</a>
+    <a class="nav-link" href="../online/generate-certificates.html">Generating Certificates Manually</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="develop.html">Development</a>
+    <a class="nav-link" href="../online/rbac.html">RBAC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../online/develop.html">Development</a>
   </li>
 </ul>
   </li>
@@ -133,14 +133,14 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Developers</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../developers/history.html">A bit of history</a>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="history.html">A bit of history</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../developers/architecture.html">Hawtio Architecture</a>
+    <a class="nav-link" href="architecture.html">Hawtio Architecture</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../developers/plugins.html">Developing and using Hawtio plugins</a>
+    <a class="nav-link" href="plugins.html">Developing and using Hawtio plugins</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../releasing.html">Releasing Hawtio</a>
@@ -172,116 +172,132 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Documentation</a></li>
-    <li>Kubernetes/OpenShift</li>
-    <li><a href="generate-certificates.html">Generating Certificates Manually</a></li>
+    <li>Developers</li>
+    <li><a href="history.html">A bit of history</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/hawtio/website/blob/main/modules/ROOT/pages/online/generate-certificates.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/hawtio/website/blob/main/modules/ROOT/pages/developers/history.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Generating Certificates Manually</h1>
+<h1 class="page">A bit of history</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can generate <em>proxying</em> and <em>serving</em> certificates manually.</p>
+<p>Hawtio started as the <a href="https://github.com/fusesource/fuse-console">Fuse Console</a> project to provide an UI for Fuse (then moved to JBoss and Red Hat).</p>
+</div>
+<div class="paragraph">
+<p>Quickly, it was rebranded as <a href="https://hawt.io/">Hawtio</a> and development continued with the same principles.</p>
+</div>
+<div class="paragraph">
+<p>The fundamental technologies and concepts used were:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Single Page Application (SPA) model, where all routing happened on the client (browser) side</p>
+</li>
+<li>
+<p><a href="https://jolokia.org">Jolokia</a> as the <a href="https://docs.oracle.com/en/java/javase/17/jmx/jmx-technology-architecture.html">JMX Protocol Adaptor</a>
+to expose an MBean view of the running Java/JVM application through web-friendly REST endpoints</p>
+</li>
+<li>
+<p><a href="https://www.typescriptlang.org/">TypeScript</a> as the implementation language adding type safety to JavaScript</p>
+</li>
+<li>
+<p><a href="https://angularjs.org/">Angular.JS</a> as the implementation library/framework, based on data binding</p>
+</li>
+<li>
+<p><a href="https://getbootstrap.com/">Bootstrap</a> as the CSS framework</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Initially, all the development was performed in a single <a href="https://github.com/hawtio/hawtio">Hawtio Github repository</a> and a large part of the codebase was implemented in Java for the backend services. TypeScript code resided in a single module and ultimately was packaged as a Java Web Archive (WAR).</p>
+</div>
+<div class="paragraph">
+<p>Hawtio was consumed as Java Web Application by JBoss Fuse server (based on Karaf/OSGi) and deployment modularity was not a big concern.</p>
+</div>
+<div class="paragraph">
+<p>In order to visualize more and more features from JBoss Fuse (Fabric8, Camel, ActiveMQ, Zookeeper, Git, Maven, remote containers), more and more Hawtio plugins were created, but these plugins, implemented with TypeScript and Angular.JS were part of what now we call a <em>monorepo</em>.</p>
+</div>
+<div class="paragraph">
+<p>This was all Hawtio 1.x based on Angular.JS 1.x&#8230;&#8203;</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_proxying"><a class="anchor" href="#_proxying"></a>Proxying</h2>
+<h2 id="_hawtio_2"><a class="anchor" href="#_hawtio_2"></a>Hawtio 2</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For OpenShift, here are the steps to be performed:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>First, retrieve the service signing certificate authority keys, by executing the following commands as a <em>cluster-admin</em> user:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console"># The CA certificate
-$ oc get secrets/signing-key -n openshift-service-ca -o "jsonpath={.data['tls\.crt']}" | base64 --decode &gt; ca.crt
-# The CA private key
-$ oc get secrets/signing-key -n openshift-service-ca -o "jsonpath={.data['tls\.key']}" | base64 --decode &gt; ca.key</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Then, generate the client certificate, as documented in <a href="https://kubernetes.io/docs/tasks/administer-cluster/certificates/">Kubernetes certificates administration</a>, using either <code>easyrsa</code>, <code>openssl</code>, or <code>cfssl</code>, e.g., using <code>openssl</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console"># Generate the private key
-$ openssl genrsa -out server.key 2048
-# Write the CSR config file
-$ cat &lt;&lt;EOT &gt;&gt; csr.conf
-[ req ]
-default_bits = 2048
-prompt = no
-default_md = sha256
-distinguished_name = dn
-
-[ dn ]
-CN = hawtio-online.hawtio.svc
-
-[ v3_ext ]
-authorityKeyIdentifier=keyid,issuer:always
-keyUsage=keyEncipherment,dataEncipherment,digitalSignature
-extendedKeyUsage=serverAuth,clientAuth
-EOT
-# Generate the CSR
-$ openssl req -new -key server.key -out server.csr -config csr.conf
-# Issue the signed certificate
-$ openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 10000 -extensions v3_ext -extfile csr.conf</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Finally, you can create the secret to be mounted in Hawtio Online, from the generated certificate:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ oc create secret tls hawtio-online-tls-proxying --cert server.crt --key server.key</code></pre>
-</div>
-</div>
-</li>
-</ol>
+<p>Hawtio 2 was an attempt to change the structure of the project without changing the technologies being used.
+The main reason was that more and more client/browser-side JavaScript applications were switching to NPM.</p>
 </div>
 <div class="paragraph">
-<p>Note that <code>CN=hawtio-online.hawtio.svc</code> must be trusted by the Jolokia agents, for which client certification authentication is enabled. See the <code>clientPrincipal</code> parameter from the <a href="https://jolokia.org/reference/html/manual/agents.html#agent-jvm-config">Jolokia agent configuration options</a>.</p>
+<p>While even Hawtio 1.x included <code>package.json</code>, it was never intended to be actually published to and consumed from the <a href="https://www.npmjs.com">NPM registry</a>.</p>
+</div>
+<div class="paragraph">
+<p>We have published several modules/packages to NPM under the <a href="https://www.npmjs.com/org/hawtio">@hawtio</a> organization. These include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.npmjs.com/package/@hawtio/utilities">@hawtio/utilities</a></p>
+</li>
+<li>
+<p><a href="https://www.npmjs.com/package/@hawtio/ui">@hawtio/ui</a> - based on Angular.JS 1.x and built with <a href="https://gulpjs.com/">Gulp</a></p>
+</li>
+<li>
+<p><a href="https://www.npmjs.com/package/@hawtio/core">@hawtio/core</a></p>
+</li>
+<li>
+<p><a href="https://www.npmjs.com/package/@hawtio/preferences">@hawtio/preferences</a></p>
+</li>
+<li>
+<p><a href="https://www.npmjs.com/package/@hawtio/forms">@hawtio/forms</a></p>
+</li>
+<li>
+<p><a href="https://www.npmjs.com/package/@hawtio/oauth">@hawtio/oauth</a></p>
+</li>
+<li>
+<p><a href="https://www.npmjs.com/package/@hawtio/jmx">@hawtio/jmx</a> - for interacting with Jolokia REST endpoints</p>
+</li>
+<li>
+<p><a href="https://www.npmjs.com/package/@hawtio/integration">@hawtio/integration</a> - the <em>main</em> project packaged as Java WAR application</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_serving"><a class="anchor" href="#_serving"></a>Serving</h2>
+<h2 id="_hawtio_3"><a class="anchor" href="#_hawtio_3"></a>Hawtio 3</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can follow the steps below to create a secret named <code>hawtio-online-tls-serving</code> with the serving certificate:</p>
+<p>Hawtio 3 did the opposite of Hawtio 2, relying heavily on packages consumed from NPM as Hawtio 2, but this time it dropped Angular.JS in favor of <a href="https://react.dev/">React</a>.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Prepare a TLS certificate and private key for Hawtio Online. For development purposes, you can generate a self-signed certificate with the following commands:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console"># Generate the private key
-$ openssl genrsa -out tls.key 2048
-# Generate the certificate (valid for 365 days)
-$ openssl req -x509 -new -nodes -key tls.key -subj "/CN=hawtio-online.hawtio.svc" -days 365 -out tls.crt</code></pre>
+<div class="paragraph">
+<p>Without going into details about the exact reasons, Hawtio never really succeeded at switching from Angular.JS to <em>new</em> Angular.IO.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://react.dev/">React</a> felt more lightweight than Angular.IO and the impression remains.</p>
 </div>
 </div>
-</li>
-<li>
-<p>Create the secret to be mounted in Hawtio Online from the certificate and private key in the first step:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ kubectl create secret tls hawtio-online-tls-serving --cert tls.crt --key tls.key</code></pre>
 </div>
+<div class="sect1">
+<h2 id="_hawtio_4"><a class="anchor" href="#_hawtio_4"></a>Hawtio 4</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The only difference between Hawtio 3 and Hawtio 4 is related to the <em>server side</em>. In that the entire backend had to move from JavaEE to JakartaEE.
+This required the refactoring from a dependence on Camel 2 to Camel 3.</p>
 </div>
-</li>
-</ol>
+<div class="paragraph">
+<p><a href="https://spring.io/blog/2022/05/24/preparing-for-spring-boot-3-0">Spring Boot 3</a> took the radical approach of moving directly to JDK 17 as the baseline and JakartaEE 9 APIs. The supporting of both <code>javax.</code> and <code>jakarta.</code> namespaces would have proven too constly in the long term and would not force users to switch at all&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>So the development continues&#8230;&#8203;</p>
 </div>
 </div>
 </div>

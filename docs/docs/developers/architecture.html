@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Hawtio Architecture :: Hawtio</title>
+    <meta name="generator" content="Antora 3.1.10">
+<link rel='stylesheet' href='../../_/css/site.css' />
+<link rel='stylesheet' href='../../_/css/docs.css' />
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../..">
+        <img src="../../_/img/hawtio_logo.svg" alt="Hawtio" height="40px" />
+      </a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="/">Home</a>
+        <a class="navbar-item" href="/docs/get-started.html">Get Started</a>
+        <a class="navbar-item" href="/docs/">Docs</a>
+        <a class="navbar-item" href="/docs/plugins.html">Plugins</a>
+        <a class="navbar-item" href="https://github.com/hawtio/hawtio/releases">Download</a>
+        <a class="navbar-item" href="/community/">Community</a>
+        <a class="navbar-item" href="https://github.com/hawtio/hawtio">
+          <img src="../../_/img/social/github-light-32.png" alt="GitHub" height="20px" />
+        </a>
+        <a class="navbar-item" href="https://twitter.com/hawtio">
+          <img src="../../_/img/social/twitter-white.png" alt="Twitter" height="20px" />
+        </a>
+        <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/hawtio">
+          <img src="../../_/img/social/stackoverflow.png" alt="StackOverflow" height="20px" />
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Documentation</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../index.html">Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../overview-v3.html">Hawtio v3</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../get-started.html">Get Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../versions.html">Supported Versions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Using Hawtio</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../security.html">Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../plugins.html">Plugins</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../keycloak.html">Keycloak Integration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../oidc.html">OpenID Connect Integration</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Kubernetes/OpenShift</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../online/openshift.html">OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../online/kubernetes.html">Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../online/create-user.html">Creating a Hawtio user for Form authentication</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../online/generate-certificates.html">Generating Certificates Manually</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../online/rbac.html">RBAC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../online/develop.html">Development</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">General Docs</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../faq.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../releases.html">Releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing.html">Contributor Guide</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Developers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="history.html">A bit of history</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="architecture.html">Hawtio Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="plugins.html">Developing and using Hawtio plugins</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../releasing.html">Releasing Hawtio</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Documentation</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Documentation</a>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Documentation</a></li>
+    <li>Developers</li>
+    <li><a href="architecture.html">Hawtio Architecture</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/hawtio/website/blob/main/modules/ROOT/pages/developers/architecture.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Hawtio Architecture</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page presents general information about the Hawtio architecture. We show all the components (client, server, agent connections). For details about plugin development, see <a href="#:developers/applications.adoc" class="xref unresolved">:developers/applications.adoc</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hawtio_react_single_page_application"><a class="anchor" href="#_hawtio_react_single_page_application"></a>Hawtio React Single Page Application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Repository: <a href="https://github.com/hawtio/hawtio-next" class="bare">https://github.com/hawtio/hawtio-next</a></p>
+</div>
+<div class="paragraph">
+<p>There are two main <em>parts</em> of this repository:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio">@hawtio/react</a> NPM package: a consumable Hawtio package with all Hawtio React components, services and APIs</p>
+</li>
+<li>
+<p><a href="https://github.com/hawtio/hawtio-next/tree/main/app">Hawtio application</a>: a <em>sample application</em> that uses the above package. A similar application is available in <a href="https://github.com/hawtio/hawtio/tree/4.x/console">Hawtio console application</a> (used in Hawtio WAR and distributed as Java deployable application).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Why the distinction?</p>
+</div>
+<div class="paragraph">
+<p><code>@hawtio/react</code> package is a pure JavaScript/TypeScript <em>library</em> bundled with <a href="https://tsup.egoist.dev/"><code>tsup</code></a> and distributed as an <a href="https://www.npmjs.com/package/@hawtio/react">NPM package</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>app</code> application is using this package and is bundled as an <em>application</em> using <a href="https://webpack.js.org">Webpack</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_what_are_the_elements_of_the_hawtioreact_package"><a class="anchor" href="#_what_are_the_elements_of_the_hawtioreact_package"></a>What are the elements of the <code>@hawtio/react</code> package?</h3>
+<div class="paragraph">
+<p><code>@hawtio/react</code> package is a reusable <em>library</em> that <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export">exports</a> JavaScript values, functions and classes. We can group these exported elements into two categories:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>React components - should be imported from <code>.tsx</code> files and simply used with <a href="https://react.dev/learn/writing-markup-with-jsx">JSX</a> syntax. Most of the components use the <a href="https://v5-archive.patternfly.org/">Patternfly V5 library</a>, but there are a few pure React/HTML components</p>
+</li>
+<li>
+<p>JavaScript variables, functions and classes, as well as TypeScript type aliases, interfaces and enumerations.<br>
+Hawtio services (core services, plugin management, user management, &#8230;&#8203;) are exported as variables, which are instances of Hawtio classes.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The most important Hawtio React/Patternfly component is <code>&lt;Hawtio&gt;</code> which is a full page with headers, sidebars and content areas. The UI, built by <code>&lt;Hawtio&gt;</code> component, depends on registered plugins.</p>
+</div>
+<div class="paragraph">
+<p>Hawtio includes built-in plugins. See available plugins at <a href="../plugins.html" class="xref page">Plugins</a> page. These plugins are <em>not</em> registered by default. When creating an <em>application</em> based on <code>@hawtio/react</code> <em>library</em> we can choose whether to register all or selected Hawtio plugins.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_use_the_hawtioreact_package_minimal_required_setup"><a class="anchor" href="#_how_to_use_the_hawtioreact_package_minimal_required_setup"></a>How to use the <code>@hawtio/react</code> package - minimal required setup</h3>
+<div class="paragraph">
+<p>In order to <em>use</em> the Hawtio client library, you should create an application similar to the <a href="https://github.com/hawtio/hawtio-next/tree/main/app">Hawtio application</a>.</p>
+</div>
+<div class="paragraph">
+<p>At a minimum we should use these files:</p>
+</div>
+<div class="paragraph">
+<p><code>index.ts</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import '@hawtio/react/dist/index.css'
+import '@patternfly/react-core/dist/styles/base.css'
+
+import('./bootstrap')</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>bootstrap.tsx</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import React from 'react'
+import ReactDOM from 'react-dom/client'
+
+import { Hawtio } from '@hawtio/react/ui'
+import { hawtio } from '@hawtio/react'
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+
+hawtio.bootstrap().then(() =&gt; {
+    root.render(
+      &lt;React.StrictMode&gt;
+        &lt;Hawtio /&gt;
+      &lt;/React.StrictMode&gt;,
+    )
+})</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">NOTE</dt>
+<dd>
+<p>The separation is required because of the <a href="https://webpack.js.org/concepts/module-federation/">Webpack Module Federation</a> and usage of shared packages. See <a href="https://webpack.js.org/concepts/module-federation/#uncaught-error-shared-module-is-not-available-for-eager-consumption">the details here</a>.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This setup is almost pure React code, where two steps are required</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Call <code>ReactDOM.createRoot</code> to obtain the <em>root element</em></p>
+</li>
+<li>
+<p>Render <code>&lt;Hawtio&gt;</code> React component for this root element</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The only difference is that we need to call the <code>hawtio.bootstrap()</code> function which initializes internal Hawtio services.</p>
+</div>
+<div class="paragraph">
+<p>As you can see, rendering the React component is performed after resolving the promise returned from <code>hawtio.bootstrap()</code>; this allows synchronization with Hawtio, so components are rendered after full initialization of Hawtio.</p>
+</div>
+<div class="paragraph">
+<p>To learn more about the stages of Hawtio initialization and how plugins are registered, read the full example below.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_use_the_hawtioreact_package_full_setup"><a class="anchor" href="#_how_to_use_the_hawtioreact_package_full_setup"></a>How to use the <code>@hawtio/react</code> package - full setup</h3>
+<div class="paragraph">
+<p>Because the Hawtio <em>application</em> should be bundled by Webpack, it is important to be aware of how such application is bundled. Without going into details, Webpack allows the splitting of all reachable JavaScript code into <a href="https://webpack.js.org/guides/code-splitting/">chunks</a>. Ideally, when a Single Page Application (SPA) starts, only necessary JavaScript code is fetched and evaluated, while remaining code is loaded on demand.</p>
+</div>
+<div class="paragraph">
+<p>JavaScript supports two kinds of <em>module imports</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import">static import</a>: with <code>import &#8230;&#8203; from module-name</code> statement, we effectively include the imported module into the importing module.</p>
+</li>
+<li>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import">dynamic import</a>: with <code>import('module-name')</code>, we can use the module asynchronously - <code>import()</code> operator returns a Promise resolved only when the imported code is loaded and evaluated.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>While browsers support ESM modules and both of these <em>import</em> versions, Webpack transpiles this code into a more web-optimized version, while keeping the sync/async semantics of <code>import</code> and <code>import()</code>.</p>
+</div>
+<div class="paragraph">
+<p>Hawtio <em>applications</em>, (using <code>@hawtio/react</code> <em>library</em>), should carefully choose between static and dynamic imports.</p>
+</div>
+<div class="paragraph">
+<p><code>@hawtio/react</code> uses Node.js <a href="https://nodejs.org/api/packages.html#subpath-exports">subpath exports</a> for the explicit specification of what can be imported from this package. Here is the relevant <code>package.json</code> fragment:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"exports": {
+  ".": {
+    "types": "./dist/index.d.ts",
+    "require": "./dist/index.js",
+    "default": "./dist/index.js"
+  },
+  "./init": {
+    "types": "./dist/init.d.ts",
+    "require": "./dist/init.js",
+    "default": "./dist/init.js"
+  },
+  "./ui": {
+    "types": "./dist/ui/index.d.ts",
+    "require": "./dist/ui/index.js",
+    "default": "./dist/ui/index.js"
+  },
+  "./dist/index.css": {
+    "default": "./dist/index.css"
+  }
+},</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Focusing on JavaScript only, we can import three distinct module locations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>"@hawtio/react"</code>: this is the entry point with packages containing all Hawtio services, but no React (or Patternfly) components</p>
+</li>
+<li>
+<p><code>"@hawtio/react/init"</code>: this is the entry point that contains initialization code and the single <code>&lt;HawtioInitialization&gt;</code> React component which does not rely on Patternfly</p>
+</li>
+<li>
+<p><code>"@hawtio/react/ui"</code>: this is the entry point with React/Patternfly components, of which the most important is <code>&lt;Hawtio&gt;</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>How to import these packages?</p>
+</div>
+<div class="paragraph">
+<p>An <em>application</em> that launches by rendering the <code>&lt;Hawtio&gt;</code> component should use the above entry points in the following way:</p>
+</div>
+<div class="paragraph">
+<p>From <code>@hawtio/react/init</code> we can statically import <code>hawtio</code>, <code>configManager</code> and the <code>&lt;HawtioInitialization&gt;</code> component
+to show initialization UI before importing the full package:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import ReactDOM from 'react-dom/client'
+
+import { configManager, hawtio, HawtioInitialization, TaskState } from '@hawtio/react/init'
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+
+root.render(&lt;HawtioInitialization verbose /&gt;)
+
+configManager.addProductInfo('Test App', '1.0.0')
+hawtio.addUrl('plugin')
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>@hawtio/react</code> should be imported dynamically, so we can bootstrap it asynchronously:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">import('@hawtio/react').then(async m =&gt; {
+  // Register all default Hawtio plugins
+  m.registerPlugins()
+
+  m.hawtio.bootstrap().then(() =&gt; {
+    // ...
+  })
+})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally within <code>.then</code> block of the promise returned by <code>hawtio.bootstrap()</code> we can dynamically import the UI packages
+of Hawtio and render <code>&lt;Hawtio&gt;</code> component:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-typescript hljs" data-lang="typescript">m.hawtio.bootstrap().then(() =&gt; {
+  import('@hawtio/react/ui').then(m =&gt; {
+    root.render(
+      &lt;React.StrictMode&gt;
+        &lt;m.Hawtio /&gt;
+      &lt;/React.StrictMode&gt;
+    )
+  })
+})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>More information about writing Hawtio applications and plugins (including more information about how to register custom or built-in plugins) can be found at <a href="#:developers/applications.adoc" class="xref unresolved">:developers/applications.adoc</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hawtio_server"><a class="anchor" href="#_hawtio_server"></a>Hawtio Server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Repository: <a href="https://github.com/hawtio/hawtio" class="bare">https://github.com/hawtio/hawtio</a></p>
+</div>
+<div class="paragraph">
+<p>This repository has been used since the early 1.x release. Previously, the web application was a single Maven module that produced a Java WAR application. The rest of the modules were about integration with Jolokia and implementation of security filters, additional JMX MBeans and other items including the Git facade (for Fabric8).</p>
+</div>
+<div class="paragraph">
+<p>In Hawtio 4, this is still a very important project, which also includes a WAR application (that uses <code>@hawtio/react</code> NPM package), but there are more deployment options. The requirements for implementing with Fabric8 and OSGi have been removed.</p>
+</div>
+<div class="paragraph">
+<p>When describing <a href="#_hawtio_react_single_page_application">Hawtio React Single Page Application</a>, the <a href="https://jolokia.org/">Jolokia library</a> was not mentioned. However, this is a very important part of Hawtio&#8217;s identity.</p>
+</div>
+<div class="paragraph">
+<p>Hawtio <em>server</em> is effectively a server-side web application that exposes a Jolokia Agent REST API, which is then used by the Hawtio <em>client</em> JMX plugin.</p>
+</div>
+<div class="paragraph">
+<p>There are 3 ways to <em>start</em> (or <em>deploy</em>) a Hawtio server:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>WAR: can be deployed to any standard Servlet container (Tomcat, Jetty, Wildfly, &#8230;&#8203;)</p>
+</li>
+<li>
+<p>Spring Boot application: uses <a href="https://docs.spring.io/spring-boot/reference/web/servlet.html#web.servlet.embedded-container">Spring Boot managed web server</a></p>
+</li>
+<li>
+<p><a href="https://quarkus.io/guides/web">Quarkus web application</a>: based on <a href="https://vertx.io/">Vert.x</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Whatever the deployment method, Hawtio server exposes several endpoints that support Hawtio <em>client</em> applications. These endpoints may be provided by other means (server-side Node.js application, as in <a href="https://github.com/hawtio/hawtio-online">Hawtio Online</a>), so <em>this</em> Hawtio server is optional.</p>
+</div>
+<div class="paragraph">
+<p>The most important <em>endpoint</em> exposed is the Jolokia endpoint, which gives Hawtio client applications a <em>view</em> into the MBeans available in a JVM MBeans. Remember that many plugins like <code>camel()</code> or <code>jmx()</code> simply won&#8217;t work without Jolokia.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_remote_jolokia_agents"><a class="anchor" href="#_remote_jolokia_agents"></a>Remote Jolokia agents</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Finally, we need to describe a part of the Hawtio eco-system that allows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Hawtio clients to access the Jolokia agents available from <em>different</em> JVMs than the one serving the web resources of the Hawtio client</p>
+</li>
+<li>
+<p>Hawtio server to act as a proxy between Hawtio client and remote Jolokia Agent.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Remote Jolokia agents are JVM applications (like Camel JBang applications or Apache Artemis brokers with an enabled Jolokia agent), which do not include embedded Hawtio applications, but may be used through an Hawtio proxy.</p>
+</div>
+<div class="paragraph">
+<p>Again, knowing the history helps to understand this part of the architecture. When Hawtio was originally created, the Jolokia project had already been well-established, but had never had full UI support - it was purely a REST API exposing MBeans from a running JVM application.</p>
+</div>
+<div class="paragraph">
+<p>Hawtio, with its usage of Angular and JQuery Ajax, was built to access these Jolokia agents and their REST APIs, enabling the implementation of real brower UIs.</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
