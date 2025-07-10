@@ -1,0 +1,572 @@
+= Developing Hawtio applications
+
+This page is a guide for developers who want to:
+
+* create and publish new Hawtio plugins
+* create own versions of Hawtio application with or without custom plugins
+* understand how Hawtio applications work and how they use Hawtio plugins
+
+We will include https://typedoc.org/[Typedoc] generated documentation for Hawtio API (soon).
+
+As mentioned in xref:developers/architecture.adoc[], the most important element exported from `@hawtio/react` package is the `<Hawtio>` React/Patternfly component that should be rendered using React functions.
+
+However there's much more to it. The following chapters introduce various stages/phases of Hawtio client application.
+
+== Hawtio initialization
+
+Hawtio initialization a process which should involve all the steps necessary before rendering `<Hawtio>` React component.
+
+=== `hawtconfig.json`
+
+When bootstrapping, Hawtio fetches `/hawtconfig.json` file which, when available, customizes some UI elements like title, icons or information in About dialog.
+For more details about this file, see xref::configuration.adoc#_hawtconfig_json[hawtconfig.json] section.
+
+=== Configuration of Hawtio
+
+Without using `hawtconfig.json` file, Hawtio will present default UI with default information, but we can still affect it by using `configManager` API.
+
+For example we can call:
+[source,javascript]
+----
+configManager.addProductInfo("Custom Application", "1.0.0")
+----
+
+to see this information in About dialog.
+
+=== Tracking initialization progress
+
+Before bootstrapping Hawtio (before calling `hawtio.bootstrap()`) we may render one special component exported from `@hawtio/react/init` entry point. This component is called `<HawtioInitialization>`.
+
+Here's sample code:
+[source,javascript]
+----
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+
+import { configManager, HawtioInitialization } from '@hawtio/react/init'
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+root.render(<HawtioInitialization verbose={true} />)
+----
+
+`<HawtioInitialization>` component displays details (or just progress bar) of internal Hawtio initialization process which involves:
+
+* loading registered plugins
+* fetching and applying configuration data (like login configuration, OIDC configuration, branding, session, ...)
+
+In verbose mode, this component shows UI like this:
+
+image::hawtio-initialization.png[]
+
+We can see _initialization items_ with various states:
+
+* started - when a task was started, but there's no result yet
+* finished - when a task successfully completed
+* skipped - when there was a problem finishing the task, but the task is not critical to run
+* error - when a required task failed to complete
+
+The API for registering initialization tasks is used throughout Hawtio itself, but plugins or custom application may explicitly call this function:
+[source,javascript,opts=novalidate]
+----
+import { configManager } from '@hawtio/react/init'
+
+configManager.initItem('Loading UI', TaskState.started, 'config')
+... // later
+configManager.initItem('Loading UI', TaskState.finished, 'config')
+----
+
+The arguments are:
+
+* task name
+* task state - `initItem()` should be called with different states for the same task name to change its status
+* task group - there are two groups supported currently: `config`, `plugins` and `finish` (used internally only)
+
+== Hawtio plugin registration
+
+NOTE: Information about plugin development is available in separate document: xref:developers/plugins.adoc[]. This page
+contains only information about plugin registration.
+
+After initialization, there is a stage where we register built-in and custom plugins. After this stage,
+everything is ready for bootstrapping Hawtio and rendering `<Hawtio>` component.
+
+There are 3 methods of registering Hawtio plugins:
+
+* using `hawtio.addPlugin()`: adds `Plugin` object directly for Hawtio to register
+* using `hawtio.addDeferredPlugin()`: adds a function which returns a Promise resolving to a `Plugin` object asynchronously
+* using `hawtio.addUrl()`: adds a URL (relative or absolute - subject to https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS[CORS] restrictions) from which a JSON array of `HawtioRemote` objects is loaded. These objects represent remote modules which Hawtio can load and evaluate using https://www.npmjs.com/package/@module-federation/utilities[Module Federation utilities].
+
+=== Registration of custom plugins
+
+NOTE: We'll be discussing Hawtio plugins from the point of view of `@hawtio/react` application. Support at server side (discovery, JMX, Java) will be discussed later.
+
+Hawtio _plugin_ is JavaScript/TypeScript code registered in Hawtio using `HawtioCore` API and providing React/Patternfly components integrated with Hawtio UI.
+
+Here's the simplest snippet showing how to register Hawtio plugin:
+
+[source,javascript]
+----
+hawtio.addPlugin({
+  id: 'example1',
+  title: 'Example 1',
+  path: '/example1',
+  component: () => (<span>Example 1</span>),
+  isActive: async () => true
+})
+----
+
+`hawtio.addPlugin()` accepts a JavaScript object of `Plugin` type. The UI part is provided in `component` field which should be a React Function Component object (https://18.react.dev/learn/your-first-component#defining-a-component[a component function]).
+
+We can also register a plugin in a _deferred way_. Assuming we have `<Example>` React component exported from `Example.tsx` module:
+
+[source,javascript]
+----
+import { PageSection, PageSectionVariants, Text, TextContent } from '@patternfly/react-core'
+import React from 'react'
+
+export const Example: React.FunctionComponent = () => (
+  <PageSection variant={PageSectionVariants.light}>
+    <TextContent>
+      <Text component='h1'>Example React component</Text>
+      <Text component='p'>This is an example plugin.</Text>
+    </TextContent>
+  </PageSection>
+)
+----
+
+We could register such plugin in a synchronous way:
+
+[source,javascript]
+----
+import { hawtio } from '@hawtio/react'
+import { Example } from './Example'
+
+hawtio.addPlugin({
+  id: 'example',
+  title: 'Example Plugin',
+  path: '/example',
+  component: Example,
+  isActive: async () => true,
+})
+----
+
+However this could impact UI loading speed, because with static `import` statements we can't leverage code splitting optimization.
+
+For this purpose, Hawtio exposes `hawtio.addDeferredPlugin()` method. WIth the same `<Example>` component exported from `Example.tsx` module, we can register this plugin using the below code:
+
+[source,javascript]
+----
+import { hawtio } from '@hawtio/react'
+
+hawtio.addDeferredPlugin('example1', async () => {
+  return import('./Example').then(m => {
+    return {
+      id: 'example',
+      title: 'Example Plugin',
+      path: '/example',
+      component: m.Example,
+      isActive: async () => true
+    }
+  })
+})
+----
+
+In the second, a bit more complicated version we synchronously call `hawtio.addDeferredPlugin()`, but Hawtio will
+call the passed method in an asynchronous way. `import('./Example')` is a dynamic import operator which returns a Promise which hawtio will await for during bootstrap.
+
+Such code doesn't statically import any Patternfly modules. It does it with `import()` operator and only within `.then()` block after `import()` we return a `Plugin` object.
+
+=== Registration of built-in plugins
+
+The simplest way is to register all Hawtio built-in plugins:
+
+[source,javascript]
+----
+import { registerPlugins } from '@hawtio/react'
+
+registerPlugins()
+----
+
+We can also register selected plugins:
+
+[source,javascript]
+----
+import { camel, jmx, ... } from '@hawtio/react'
+
+camel()
+jmx()
+...
+----
+
+=== Immediate plugins, deferred plugins, asynchronous registration, Module Federation plugins
+
+While this is not a requirement, Hawtio tries to separate initialization and configuration from React/Patternfly components.
+
+This can be accomplished by well designed _asynchronous boundaries_ indicated by `import()` statement. `import()` operator is pure JavaScript feature, but is explicitly handled by JavaScript bundlers like https://webpack.js.org[Webpack].
+
+Hawtio plugins (including built-in plugins) may require some internal Hawtio services to be fully initialized before presenting UI to the user. On the other hand, Hawtio should finish its configuration (mostly based on server endpoints providing JSON data) before displaying UI.
+
+All these assumptions impact the way Hawtio code should be structured. Let's review various ways of _registering_ Hawtio plugins.
+
+==== Static, synchronous plugin registration
+
+Let's assume a directory structure like this:
+
+----
+ src/
+ ├── bootstrap.tsx
+ ├── examples/
+ │   ├── example1/
+ │   │   ├── Example1.tsx
+ │   │   └── index.ts
+ │   └── index.ts
+ ├── index.css
+ └── index.ts
+----
+
+Top level `index.ts` and `bootstrap.tsx` provide a React application entry point. It is not relevant for this chapter, but here's the code for the sake of clarity:
+
+.index.ts
+[source,javascript]
+----
+import './index.css'
+import('./bootstrap')
+----
+
+.bootstrap.tsx
+[source,javascript]
+----
+import { configManager, hawtio, Hawtio, registerPlugins } from '@hawtio/react'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { registerExamples } from './examples'
+
+configManager.addProductInfo('Test App', '1.0.0')
+
+// Register Hawtio plugins
+registerPlugins()
+
+// Register custom plugins
+registerExamples()
+
+// Bootstrap Hawtio
+hawtio.bootstrap()
+
+// Launch React application
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+root.render(
+  <React.StrictMode>
+    <Hawtio />
+  </React.StrictMode>
+)
+----
+
+`registerExamples()` is a function exported from `src/examples/index.ts`. This function is nothing more than an aggregation of selected examples - individual Hawtio plugins.
+
+.examples/index.ts
+[source,javascript]
+----
+import { registerExample1 } from './example1'
+
+export const registerExamples = () => {
+  registerExample1()
+}
+----
+
+Finally `src/examples/example1/index.ts` module registers actual Hawtio plugin exported from `src/examples/example1/Example1.tsx`.
+
+.examples/example1/Example1.tsx
+[source,javascript]
+----
+import { PageSection, PageSectionVariants, Text, TextContent } from '@patternfly/react-core'
+import React from 'react'
+
+export const Example1: React.FunctionComponent = () => (
+  <PageSection variant={PageSectionVariants.light}>
+    <TextContent>
+      <Text component='h1'>Example 1</Text>
+      <Text component='p'>This is an example plugin registered using <code>hawtio.addPlugin()</code>.</Text>
+    </TextContent>
+  </PageSection>
+)
+----
+
+.examples/example1/index.ts
+[source,javascript]
+----
+import { hawtio, type HawtioPlugin } from '@hawtio/react'
+import { Example1 } from './Example1'
+
+export const registerExample1: HawtioPlugin = () => {
+  hawtio.addPlugin({
+    id: 'example1',
+    title: 'Example 1',
+    path: '/example1',
+    component: Example1,
+    isActive: async () => true,
+  })
+}
+----
+
+`examples/example1/index.ts` shows the easiest way to register Hawtio plugin. Synchronous `hawtio.addPlugin()` method is called and `Plugin` object is passed as argument, which refers (using `"component"` field) to React Component function.
+
+There's nothing much to explain here. Everything is happening synchronously and when `addPlugin()` returns, Hawtio knows about our `example1` plugin which uses `<Example1>` React component.
+
+==== Asynchronous plugin registration - wrong approach
+
+To avoid static reliance on Patternfly code (its JavaScript modules) which comes with static `import` statement, we can switch to dynamic `import()` operator.
+But this change isn't enough.
+
+Assuming the same code structure as in <<_static_synchronous_plugin_registration>>, we could rewrite `examples/example1/index.ts` code:
+
+.examples/example1/index.ts
+[source,javascript]
+----
+import { hawtio, type HawtioPlugin } from '@hawtio/react'
+// no static import here: import { Example1 } from './Example1'
+
+export const registerExample1: HawtioPlugin = () => {
+  import("./Example1").then(m => {
+    hawtio.addPlugin({
+      id: 'example1',
+      title: 'Example 1',
+      path: '/example1',
+      component: m.Example1,
+      isActive: async () => true,
+    })
+  })
+}
+----
+
+True - `examples/example1/index.ts` doesn't statically import code that uses Patternfly modules, but the `registerExample1()` function (which should be called in `bootstrap.tsx`) becomes effectively an asynchronous function. There's no way to tell when `hawtio.addPlugin()` will actually be called!
+
+`bootstrap.tsx` that registers plugins and eventually calls `hawtio.bootstrap()` and renders `<Hawtio>` React component can't be sure that `example1` plugin is registered at all.
+
+Different approach is really needed.
+
+==== Asynchronous plugin registration - proper approach
+
+We need synchronous plugin registration method which also allows us to use dynamic `import()` operator to load Patternfly-related code.
+
+Here's a snippet (again with the same code structure) which uses special `addDeferredPlugin()` call.
+
+.examples/example1/index.ts
+[source,javascript]
+----
+import { hawtio, type HawtioPlugin } from '@hawtio/react'
+
+export const registerExample1Deferred: HawtioPlugin = () => {
+  hawtio.addDeferredPlugin('example1', async () => {
+    return import('./Example1').then(m => {
+      return {
+        id: 'example1',
+        title: 'Example 1',
+        path: '/example1',
+        component: m.Example1,
+        isActive: async () => true,
+      }
+    })
+  })
+}
+----
+
+This code is correct with respect to following `hawtio.bootstrap()`:
+
+* while the plugin is _evaluated_ asynchronously after `import()` finishes, Hawtio immediately know that there's `example1` plugin registered
+* `hawtio.bootstrap()` may be called immediately after `registerExample1Deferred()` and `bootstrap()` will internally wait for evaluating the deferred plugin
+
+==== Using plugins with Module Federation
+
+In the most advanced scenario, we can use https://webpack.js.org/concepts/module-federation/[Module Federation] architecture
+to load plugins from remote locations.
+
+There are two main methods of dealing with _federated modules_ described in the following sections. Here's we will only highlight what is the goal of Module Federation and how Hawtio uses it.
+
+Module Federation concept was introduced (if I'm not mistaken) by Webpack. See https://webpack.js.org/concepts/module-federation/[Module Federation].
+
+However there's now a dedicated https://module-federation.io[module-federation.io] page, which presents version 2.0 of the concept.
+
+To track the evolution, we can check https://rspack.rs/guide/features/module-federation[rspack page on Module Federation] and see 3 major versions:
+
+* 1.0: The version implemented by Webpack
+* 1.5: The version enhanced by Rspack
+* 2.0: Official, _standalone_ version with attempted standardization
+
+It's hard to strictly specify which version of Module Federation is used by Hawtio... The applications that use `@hawtio/react` package are built using Webpack and its https://webpack.js.org/plugins/module-federation-plugin/[Module Federation Plugin].
+
+However for dynamic plugin loading, Hawtio uses `@module-federation/utilities` NPM package available in https://github.com/module-federation/core[module-federation/core] Github repository, which advertises itself as `Module Federation 2.0`.
+
+To summarize the concept behind Module Federation we can identify two concepts:
+
+Container, Consumer, Host:: An application that consumes modules exposed from external providers (or remote containers)
+
+Remote Container, Provide, Producer, Remote:: An application that provides (exposes) modules to be consumed by other applications.
+
+The distinction is not strict, because an application that consumes remote modules, may also expose own modules for remote consumption by other applications...
+
+Module Federation in Hawtio may be configured statically in `webpack.config.cjs` file using https://webpack.js.org/plugins/module-federation-plugin/[Module Federation Plugin]. There's also a fully dynamic method for loading remote modules with the help of `@module-federation/utilities` NPM library.
+
+==== Using plugins with Module Federation and static Webpack configuration
+
+_Static_ usage of Module Federation modules involves configuration of `webpack.config.js` file and https://webpack.js.org/plugins/module-federation-plugin/[Module Federation Plugin].
+
+https://github.com/hawtio/hawtio-next/tree/main/app[Hawtio React application] provides fully working example, but let's present the required configuration here. All JSON configuration is part of this object in Webpack configuration file:
+
+[source,json]
+----
+module.exports = (_, args) => {
+  return [
+    {
+      plugins: [
+        new ModuleFederationPlugin({
+          // configuration of Module Federation
+          ...
+        })
+      ]
+    }
+  ]
+}
+----
+
+First, we need a declaration that there is (one or more) available _external provider of remote modules_:
+
+[source,json]
+----
+remotes: {
+  'static-remotes': 'app@http://localhost:3000/hawtio/remoteEntry.js',
+},
+----
+
+This is the _consuming_ part. This declaration should have a related counterpart in actual remote location, which is another `webpack.config.js` for a _remote container of remotely exposed modules_. The configuration of the _remote_ part looks like this:
+
+[source,json]
+----
+name: 'app',
+filename: 'remoteEntry.js',
+exposes: {
+  './remote1': './src/examples/remote1',
+  './remote2': './src/examples/remote2',
+},
+----
+
+NOTE: These two snippets can be added to single `ModuleFederationPlugin` configuration or separate configurations in two different Webpack configurations in single `webpack.config.js` file! We can have a single _container_ acting both as consumer and producer. But we should not get confused by this flexibility...
+
+Now we can explain the elements:
+
+* `app`: this is the name of remote container which will be a part of Webpack module identifier named `webpack/container/entry/app` available in `remoteEntry.js` file.
+* `static-remotes` should be treated not as JavaScript module specifier, but as an identifier of _remote_ container from the point of view of _consuming_ container
+* `remote1` and `remote2` are actual remotely available modules which should be prefixed with `static-remotes` to actually access them.
+
+Webpack does all the loading and our task is to use the above configuration in normal JavaScript code which is bundled with Webpack.
+
+We can use both `import` statement and `import()` operator to load such remote modules:
+
+[source,javascript]
+----
+import { RemotePlugin } from 'static-remotes/remote1'
+
+hawtio.addPlugin({
+  id: 'exampleStaticRemote1',
+  title: 'Remote plugin 1 (static)',
+  path: '/remote1',
+  component: RemotePlugin,
+  isActive: async () => true,
+})
+
+hawtio.addDeferredPlugin('remote2', async () => {
+  return import('static-remotes/remote2').then(m => {
+    // this module exports a function which returns a plugin definition (object),
+    // which we can return as chained promise - Hawtio will eventually await for the definition
+    const plugin: Plugin = m.remotePlugin()
+    return plugin
+  })
+})
+----
+
+These two module identifiers (`static-remotes/remote1` and `static-remotes/remote2`) can be actually resolved only by Webpack. If we try to use pure Node.js code, we'd get an error.
+
+To make life easier, we can tell IDE that these _special_ module locations are actually some real code locations. We can use this `tsconfig.json` configuration:
+
+[source,json]
+----
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "static-remotes/*": ["./examples/*"]
+    },
+...
+----
+
+==== Using plugins with Module Federation and dynamic configuration
+
+Finally we can have fully dynamic configuration where we don't _declare_ in `webpack.config.js` that there are some _remote entry points_ we could use as _remote Module Federation modules_.
+
+In a fully dynamic approach, Hawtio is configured with single registration method:
+
+[source,javascript]
+----
+hawtio.addUrl('plugin')
+----
+
+Relative URL is resolved against `document.baseURI`, so Hawtio loads the JSON data from URL like http://localhost:8080/hawtio/plugin.
+
+For example:
+
+----
+$ curl -s http://localhost:8080/hawtio/plugin | jq .
+[
+  {
+    "url": "http://localhost:8080/hawtio",
+    "scope": "appRemote",
+    "module": "./remote3",
+    "remoteEntryFileName": "remoteExternalEntry.js",
+    "pluginEntry": "registerRemote"
+  },
+  {
+    "url": "http://localhost:8080/hawtio",
+    "scope": "appRemote",
+    "module": "./remote3-deferred",
+    "remoteEntryFileName": "remoteExternalEntry.js",
+    "pluginEntry": "registerRemoteDeferred"
+  }
+]
+----
+
+Each of the returned objects of the above array is an equivalent of this combination:
+
+* an entry from _consumer_ host's `remote`
+* a single entry from _provider_ host's `exposes`
+
+Thus we have 2 _remote Module Federation modules_ and Hawtio will use `@module-federation/utilities` to load and evaluate both.
+
+* `pluginEntry` declares a symbol to be used from the module and treated as a function
+* this function should (for Hawtio purpose) use Hawtio API to register actual Hawtio plugin
+* this function may return a promise, so Hawtio awaits for the registration to finish
+
+So in this _dynamic_ scenario, we don't have to be aware of how the remote module is used. We only have to implement such module and _expose_ it from some external location described as in the above `curl` example.
+
+Here's a sample code that could be used in the remotely exposed Module Federation module:
+
+[source,javascript]
+----
+import { type HawtioAsyncPlugin } from '@hawtio/react'
+
+export const registerRemote: HawtioAsyncPlugin = async () => { <1>
+  return import('@hawtio/react').then(async m => {             <2>
+    return import('./Remote').then(r => {                      <3>
+      m.hawtio.addPlugin({                                     <4>
+        id: 'remote3',
+        title: 'Remote plugin 3 (dynamic, immediate)',
+        path: '/remote3a',
+        component: r.RemotePlugin,
+        isActive: async () => true,
+      })
+    })
+  })                                                           <5>
+}
+----
+<1> `registerRemote` should match the declaration of `pluginEntry` in remote module specification
+<2> We import `@hawtio/react` dynamically and add `.then()` block that can access `@hawtio/react` module in `m` variable
+<3> We import `./Remote` component dynamically and add `.then()` block that can access this component through `r` variable
+<4> We actually register a plugin in Hawtio
+<5> We return a (chained) promise, so Hawtio can await for the result of remote module evaluation

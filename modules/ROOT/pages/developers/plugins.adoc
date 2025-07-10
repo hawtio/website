@@ -1,1 +1,5 @@
-= Developing and using Hawtio plugins
+= Developing Hawtio plugins
+
+This chapter provides information for developers of Hawtio plugins.
+
+For information about different methods of Hawtio plugin _registration_ see xref:developers/applications.adoc[].

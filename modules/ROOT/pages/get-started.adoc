@@ -252,7 +252,7 @@ But there's a trick here. Normally Jetty unpacks this WAR archive to a temporary
 Jetty uses `org.eclipse.jetty.server.SymlinkAllowedResourceAliasChecker` _alias checker_ and if
 _real path_ for the above `/data/tmp/hawtio-war-4.2.0` is different (i.e., the path uses symbolic links), resources from this WAR application won't be loaded and Hawtio application won't work.
 
-NOTE:: This may be a problem when using such XML deployment when `hawtio.war` is located in Maven project, because `maven-war-plugin` usually keeps `hawtio-war-<version>` directory and `hawtio-war-<version>.war` archive in the same `target/` location.
+NOTE: This may be a problem when using such XML deployment when `hawtio.war` is located in Maven project, because `maven-war-plugin` usually keeps `hawtio-war-<version>` directory and `hawtio-war-<version>.war` archive in the same `target/` location.
 
 == Using Hawtio embedded in a Java application
 
