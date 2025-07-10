@@ -66,7 +66,7 @@ hawtio.bootstrap().then(() => {
 })
 ----
 
-NOTE:: The separation is required because of the https://webpack.js.org/concepts/module-federation/[Webpack Module Federation] and usage of shared packages. See https://webpack.js.org/concepts/module-federation/#uncaught-error-shared-module-is-not-available-for-eager-consumption[the details here].
+NOTE: The separation is required because of the https://webpack.js.org/concepts/module-federation/[Webpack Module Federation] and usage of shared packages. See https://webpack.js.org/concepts/module-federation/#uncaught-error-shared-module-is-not-available-for-eager-consumption[the details here].
 
 This setup is almost pure React code, where two steps are required
 
@@ -210,4 +210,4 @@ Remote Jolokia agents are JVM applications (like Camel JBang applications or Apa
 
 Again, knowing the history helps to understand this part of the architecture. When Hawtio was originally created, the Jolokia project had already been well-established, but had never had full UI support - it was purely a REST API exposing MBeans from a running JVM application.
 
-Hawtio, with its usage of Angular and JQuery Ajax, was built to access these Jolokia agents and their REST APIs, enabling the implementation of real brower UIs.
+Hawtio, with its usage of Angular and JQuery Ajax, was built to access these Jolokia agents and their REST APIs, enabling the implementation of real browser UIs.
