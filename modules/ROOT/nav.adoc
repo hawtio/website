@@ -22,5 +22,6 @@
 * Developers
 ** xref:developers/history.adoc[]
 ** xref:developers/architecture.adoc[]
+** xref:developers/applications.adoc[]
 ** xref:developers/plugins.adoc[]
 ** xref:releasing.adoc[]
