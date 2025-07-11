@@ -12,6 +12,8 @@ As mentioned in xref:developers/architecture.adoc[], the most important element 
 
 However there's much more to it. The following chapters introduce various stages/phases of Hawtio client application.
 
+NOTE: This page describes the changes that are part of `@hawtio/react` package in version 1.10.0. This version introduces major changes to how authentication mechanism works and includes additional changes like `<HawtioInitialization>` component and explicit specification of https://nodejs.org/api/packages.html#package-entry-points[`@hawtio/react` package entry points].
+
 == Hawtio initialization
 
 Hawtio initialization a process which should involve all the steps necessary before rendering `<Hawtio>` React component.
