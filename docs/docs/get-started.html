@@ -140,7 +140,7 @@
     <a class="nav-link" href="developers/architecture.html">Hawtio Architecture</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="developers/plugins.html">Developing and using Hawtio plugins</a>
+    <a class="nav-link" href="developers/plugins.html">Developing Hawtio plugins</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="releasing.html">Releasing Hawtio</a>
@@ -517,13 +517,17 @@ management.endpoints.web.exposure.include = hawtio,jolokia</code></pre>
 <p>Jetty uses <code>org.eclipse.jetty.server.SymlinkAllowedResourceAliasChecker</code> <em>alias checker</em> and if
 <em>real path</em> for the above <code>/data/tmp/hawtio-war-4.2.0</code> is different (i.e., the path uses symbolic links), resources from this WAR application won&#8217;t be loaded and Hawtio application won&#8217;t work.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">NOTE</dt>
-<dd>
-<p>This may be a problem when using such XML deployment when <code>hawtio.war</code> is located in Maven project, because <code>maven-war-plugin</code> usually keeps <code>hawtio-war-&lt;version&gt;</code> directory and <code>hawtio-war-&lt;version&gt;.war</code> archive in the same <code>target/</code> location.</p>
-</dd>
-</dl>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This may be a problem when using such XML deployment when <code>hawtio.war</code> is located in Maven project, because <code>maven-war-plugin</code> usually keeps <code>hawtio-war-&lt;version&gt;</code> directory and <code>hawtio-war-&lt;version&gt;.war</code> archive in the same <code>target/</code> location.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

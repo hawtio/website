@@ -140,7 +140,7 @@
     <a class="nav-link" href="architecture.html">Hawtio Architecture</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="plugins.html">Developing and using Hawtio plugins</a>
+    <a class="nav-link" href="plugins.html">Developing Hawtio plugins</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../releasing.html">Releasing Hawtio</a>
@@ -187,7 +187,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This page presents general information about the Hawtio architecture. We show all the components (client, server, agent connections). For details about plugin development, see <a href="#:developers/applications.adoc" class="xref unresolved">:developers/applications.adoc</a>.</p>
+<p>This page presents general information about the Hawtio architecture. We show all the components (client, server, agent connections). For details about plugin development, see <a href="applications.html" class="xref page">Developing Hawtio applications</a>.</p>
 </div>
 </div>
 </div>
@@ -283,13 +283,17 @@ hawtio.bootstrap().then(() =&gt; {
 })</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">NOTE</dt>
-<dd>
-<p>The separation is required because of the <a href="https://webpack.js.org/concepts/module-federation/">Webpack Module Federation</a> and usage of shared packages. See <a href="https://webpack.js.org/concepts/module-federation/#uncaught-error-shared-module-is-not-available-for-eager-consumption">the details here</a>.</p>
-</dd>
-</dl>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The separation is required because of the <a href="https://webpack.js.org/concepts/module-federation/">Webpack Module Federation</a> and usage of shared packages. See <a href="https://webpack.js.org/concepts/module-federation/#uncaught-error-shared-module-is-not-available-for-eager-consumption">the details here</a>.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>This setup is almost pure React code, where two steps are required</p>
@@ -439,7 +443,7 @@ of Hawtio and render <code>&lt;Hawtio&gt;</code> component:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>More information about writing Hawtio applications and plugins (including more information about how to register custom or built-in plugins) can be found at <a href="#:developers/applications.adoc" class="xref unresolved">:developers/applications.adoc</a>.</p>
+<p>More information about writing Hawtio applications and plugins (including more information about how to register custom or built-in plugins) can be found at <a href="applications.html" class="xref page">Developing Hawtio applications</a>.</p>
 </div>
 </div>
 </div>
@@ -509,7 +513,7 @@ of Hawtio and render <code>&lt;Hawtio&gt;</code> component:</p>
 <p>Again, knowing the history helps to understand this part of the architecture. When Hawtio was originally created, the Jolokia project had already been well-established, but had never had full UI support - it was purely a REST API exposing MBeans from a running JVM application.</p>
 </div>
 <div class="paragraph">
-<p>Hawtio, with its usage of Angular and JQuery Ajax, was built to access these Jolokia agents and their REST APIs, enabling the implementation of real brower UIs.</p>
+<p>Hawtio, with its usage of Angular and JQuery Ajax, was built to access these Jolokia agents and their REST APIs, enabling the implementation of real browser UIs.</p>
 </div>
 </div>
 </div>

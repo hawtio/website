@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Developing Hawtio applications :: Hawtio</title>
+    <meta name="generator" content="Antora 3.1.10">
+<link rel='stylesheet' href='../../_/css/site.css' />
+<link rel='stylesheet' href='../../_/css/docs.css' />
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../..">
+        <img src="../../_/img/hawtio_logo.svg" alt="Hawtio" height="40px" />
+      </a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="/">Home</a>
+        <a class="navbar-item" href="/docs/get-started.html">Get Started</a>
+        <a class="navbar-item" href="/docs/">Docs</a>
+        <a class="navbar-item" href="/docs/plugins.html">Plugins</a>
+        <a class="navbar-item" href="https://github.com/hawtio/hawtio/releases">Download</a>
+        <a class="navbar-item" href="/community/">Community</a>
+        <a class="navbar-item" href="https://github.com/hawtio/hawtio">
+          <img src="../../_/img/social/github-light-32.png" alt="GitHub" height="20px" />
+        </a>
+        <a class="navbar-item" href="https://twitter.com/hawtio">
+          <img src="../../_/img/social/twitter-white.png" alt="Twitter" height="20px" />
+        </a>
+        <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/hawtio">
+          <img src="../../_/img/social/stackoverflow.png" alt="StackOverflow" height="20px" />
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Documentation</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../index.html">Overview</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../overview-v3.html">Hawtio v3</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../get-started.html">Get Started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../versions.html">Supported Versions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Using Hawtio</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../security.html">Security</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../plugins.html">Plugins</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../keycloak.html">Keycloak Integration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../oidc.html">OpenID Connect Integration</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Kubernetes/OpenShift</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../online/openshift.html">OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../online/kubernetes.html">Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../online/create-user.html">Creating a Hawtio user for Form authentication</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../online/generate-certificates.html">Generating Certificates Manually</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../online/rbac.html">RBAC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../online/develop.html">Development</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">General Docs</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../faq.html">FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../releases.html">Releases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing.html">Contributor Guide</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Developers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="history.html">A bit of history</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="architecture.html">Hawtio Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="plugins.html">Developing Hawtio plugins</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../releasing.html">Releasing Hawtio</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Documentation</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Documentation</a>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Documentation</a></li>
+    <li><a href="applications.html">Developing Hawtio applications</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/hawtio/website/blob/main/modules/ROOT/pages/developers/applications.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Developing Hawtio applications</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page is a guide for developers who want to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>create and publish new Hawtio plugins</p>
+</li>
+<li>
+<p>create own versions of Hawtio application with or without custom plugins</p>
+</li>
+<li>
+<p>understand how Hawtio applications work and how they use Hawtio plugins</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We will include <a href="https://typedoc.org/">Typedoc</a> generated documentation for Hawtio API (soon).</p>
+</div>
+<div class="paragraph">
+<p>As mentioned in <a href="architecture.html" class="xref page">Hawtio Architecture</a>, the most important element exported from <code>@hawtio/react</code> package is the <code>&lt;Hawtio&gt;</code> React/Patternfly component that should be rendered using React functions.</p>
+</div>
+<div class="paragraph">
+<p>However there&#8217;s much more to it. The following chapters introduce various stages/phases of Hawtio client application.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This page describes the changes that are part of <code>@hawtio/react</code> package in version 1.10.0. This version introduces major changes to how authentication mechanism works and includes additional changes like <code>&lt;HawtioInitialization&gt;</code> component and explicit specification of <a href="https://nodejs.org/api/packages.html#package-entry-points"><code>@hawtio/react</code> package entry points</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hawtio_initialization"><a class="anchor" href="#_hawtio_initialization"></a>Hawtio initialization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hawtio initialization a process which should involve all the steps necessary before rendering <code>&lt;Hawtio&gt;</code> React component.</p>
+</div>
+<div class="sect2">
+<h3 id="_hawtconfig_json"><a class="anchor" href="#_hawtconfig_json"></a><code>hawtconfig.json</code></h3>
+<div class="paragraph">
+<p>When bootstrapping, Hawtio fetches <code>/hawtconfig.json</code> file which, when available, customizes some UI elements like title, icons or information in About dialog.
+For more details about this file, see <a href="../configuration.html#_hawtconfig_json" class="xref page">hawtconfig.json</a> section.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration_of_hawtio"><a class="anchor" href="#_configuration_of_hawtio"></a>Configuration of Hawtio</h3>
+<div class="paragraph">
+<p>Without using <code>hawtconfig.json</code> file, Hawtio will present default UI with default information, but we can still affect it by using <code>configManager</code> API.</p>
+</div>
+<div class="paragraph">
+<p>For example we can call:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">configManager.addProductInfo("Custom Application", "1.0.0")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to see this information in About dialog.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tracking_initialization_progress"><a class="anchor" href="#_tracking_initialization_progress"></a>Tracking initialization progress</h3>
+<div class="paragraph">
+<p>Before bootstrapping Hawtio (before calling <code>hawtio.bootstrap()</code>) we may render one special component exported from <code>@hawtio/react/init</code> entry point. This component is called <code>&lt;HawtioInitialization&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s sample code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import React from 'react'
+import ReactDOM from 'react-dom/client'
+
+import { configManager, HawtioInitialization } from '@hawtio/react/init'
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+root.render(&lt;HawtioInitialization verbose={true} /&gt;)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>&lt;HawtioInitialization&gt;</code> component displays details (or just progress bar) of internal Hawtio initialization process which involves:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>loading registered plugins</p>
+</li>
+<li>
+<p>fetching and applying configuration data (like login configuration, OIDC configuration, branding, session, &#8230;&#8203;)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In verbose mode, this component shows UI like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/hawtio-initialization.png" alt="hawtio initialization">
+</div>
+</div>
+<div class="paragraph">
+<p>We can see <em>initialization items</em> with various states:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>started - when a task was started, but there&#8217;s no result yet</p>
+</li>
+<li>
+<p>finished - when a task successfully completed</p>
+</li>
+<li>
+<p>skipped - when there was a problem finishing the task, but the task is not critical to run</p>
+</li>
+<li>
+<p>error - when a required task failed to complete</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The API for registering initialization tasks is used throughout Hawtio itself, but plugins or custom application may explicitly call this function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import { configManager } from '@hawtio/react/init'
+
+configManager.initItem('Loading UI', TaskState.started, 'config')
+... // later
+configManager.initItem('Loading UI', TaskState.finished, 'config')</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The arguments are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>task name</p>
+</li>
+<li>
+<p>task state - <code>initItem()</code> should be called with different states for the same task name to change its status</p>
+</li>
+<li>
+<p>task group - there are two groups supported currently: <code>config</code>, <code>plugins</code> and <code>finish</code> (used internally only)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hawtio_plugin_registration"><a class="anchor" href="#_hawtio_plugin_registration"></a>Hawtio plugin registration</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Information about plugin development is available in separate document: <a href="plugins.html" class="xref page">Developing Hawtio plugins</a>. This page
+contains only information about plugin registration.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>After initialization, there is a stage where we register built-in and custom plugins. After this stage,
+everything is ready for bootstrapping Hawtio and rendering <code>&lt;Hawtio&gt;</code> component.</p>
+</div>
+<div class="paragraph">
+<p>There are 3 methods of registering Hawtio plugins:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>using <code>hawtio.addPlugin()</code>: adds <code>Plugin</code> object directly for Hawtio to register</p>
+</li>
+<li>
+<p>using <code>hawtio.addDeferredPlugin()</code>: adds a function which returns a Promise resolving to a <code>Plugin</code> object asynchronously</p>
+</li>
+<li>
+<p>using <code>hawtio.addUrl()</code>: adds a URL (relative or absolute - subject to <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS">CORS</a> restrictions) from which a JSON array of <code>HawtioRemote</code> objects is loaded. These objects represent remote modules which Hawtio can load and evaluate using <a href="https://www.npmjs.com/package/@module-federation/utilities">Module Federation utilities</a>.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_registration_of_custom_plugins"><a class="anchor" href="#_registration_of_custom_plugins"></a>Registration of custom plugins</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We&#8217;ll be discussing Hawtio plugins from the point of view of <code>@hawtio/react</code> application. Support at server side (discovery, JMX, Java) will be discussed later.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Hawtio <em>plugin</em> is JavaScript/TypeScript code registered in Hawtio using <code>HawtioCore</code> API and providing React/Patternfly components integrated with Hawtio UI.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s the simplest snippet showing how to register Hawtio plugin:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">hawtio.addPlugin({
+  id: 'example1',
+  title: 'Example 1',
+  path: '/example1',
+  component: () =&gt; (&lt;span&gt;Example 1&lt;/span&gt;),
+  isActive: async () =&gt; true
+})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>hawtio.addPlugin()</code> accepts a JavaScript object of <code>Plugin</code> type. The UI part is provided in <code>component</code> field which should be a React Function Component object (<a href="https://18.react.dev/learn/your-first-component#defining-a-component">a component function</a>).</p>
+</div>
+<div class="paragraph">
+<p>We can also register a plugin in a <em>deferred way</em>. Assuming we have <code>&lt;Example&gt;</code> React component exported from <code>Example.tsx</code> module:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import { PageSection, PageSectionVariants, Text, TextContent } from '@patternfly/react-core'
+import React from 'react'
+
+export const Example: React.FunctionComponent = () =&gt; (
+  &lt;PageSection variant={PageSectionVariants.light}&gt;
+    &lt;TextContent&gt;
+      &lt;Text component='h1'&gt;Example React component&lt;/Text&gt;
+      &lt;Text component='p'&gt;This is an example plugin.&lt;/Text&gt;
+    &lt;/TextContent&gt;
+  &lt;/PageSection&gt;
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We could register such plugin in a synchronous way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import { hawtio } from '@hawtio/react'
+import { Example } from './Example'
+
+hawtio.addPlugin({
+  id: 'example',
+  title: 'Example Plugin',
+  path: '/example',
+  component: Example,
+  isActive: async () =&gt; true,
+})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However this could impact UI loading speed, because with static <code>import</code> statements we can&#8217;t leverage code splitting optimization.</p>
+</div>
+<div class="paragraph">
+<p>For this purpose, Hawtio exposes <code>hawtio.addDeferredPlugin()</code> method. WIth the same <code>&lt;Example&gt;</code> component exported from <code>Example.tsx</code> module, we can register this plugin using the below code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import { hawtio } from '@hawtio/react'
+
+hawtio.addDeferredPlugin('example1', async () =&gt; {
+  return import('./Example').then(m =&gt; {
+    return {
+      id: 'example',
+      title: 'Example Plugin',
+      path: '/example',
+      component: m.Example,
+      isActive: async () =&gt; true
+    }
+  })
+})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the second, a bit more complicated version we synchronously call <code>hawtio.addDeferredPlugin()</code>, but Hawtio will
+call the passed method in an asynchronous way. <code>import('./Example')</code> is a dynamic import operator which returns a Promise which hawtio will await for during bootstrap.</p>
+</div>
+<div class="paragraph">
+<p>Such code doesn&#8217;t statically import any Patternfly modules. It does it with <code>import()</code> operator and only within <code>.then()</code> block after <code>import()</code> we return a <code>Plugin</code> object.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_registration_of_built_in_plugins"><a class="anchor" href="#_registration_of_built_in_plugins"></a>Registration of built-in plugins</h3>
+<div class="paragraph">
+<p>The simplest way is to register all Hawtio built-in plugins:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import { registerPlugins } from '@hawtio/react'
+
+registerPlugins()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can also register selected plugins:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import { camel, jmx, ... } from '@hawtio/react'
+
+camel()
+jmx()
+...</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_immediate_plugins_deferred_plugins_asynchronous_registration_module_federation_plugins"><a class="anchor" href="#_immediate_plugins_deferred_plugins_asynchronous_registration_module_federation_plugins"></a>Immediate plugins, deferred plugins, asynchronous registration, Module Federation plugins</h3>
+<div class="paragraph">
+<p>While this is not a requirement, Hawtio tries to separate initialization and configuration from React/Patternfly components.</p>
+</div>
+<div class="paragraph">
+<p>This can be accomplished by well designed <em>asynchronous boundaries</em> indicated by <code>import()</code> statement. <code>import()</code> operator is pure JavaScript feature, but is explicitly handled by JavaScript bundlers like <a href="https://webpack.js.org">Webpack</a>.</p>
+</div>
+<div class="paragraph">
+<p>Hawtio plugins (including built-in plugins) may require some internal Hawtio services to be fully initialized before presenting UI to the user. On the other hand, Hawtio should finish its configuration (mostly based on server endpoints providing JSON data) before displaying UI.</p>
+</div>
+<div class="paragraph">
+<p>All these assumptions impact the way Hawtio code should be structured. Let&#8217;s review various ways of <em>registering</em> Hawtio plugins.</p>
+</div>
+<div class="sect3">
+<h4 id="_static_synchronous_plugin_registration"><a class="anchor" href="#_static_synchronous_plugin_registration"></a>Static, synchronous plugin registration</h4>
+<div class="paragraph">
+<p>Let&#8217;s assume a directory structure like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre> src/
+ ├── bootstrap.tsx
+ ├── examples/
+ │   ├── example1/
+ │   │   ├── Example1.tsx
+ │   │   └── index.ts
+ │   └── index.ts
+ ├── index.css
+ └── index.ts</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Top level <code>index.ts</code> and <code>bootstrap.tsx</code> provide a React application entry point. It is not relevant for this chapter, but here&#8217;s the code for the sake of clarity:</p>
+</div>
+<div class="listingblock">
+<div class="title">index.ts</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import './index.css'
+import('./bootstrap')</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">bootstrap.tsx</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import { configManager, hawtio, Hawtio, registerPlugins } from '@hawtio/react'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { registerExamples } from './examples'
+
+configManager.addProductInfo('Test App', '1.0.0')
+
+// Register Hawtio plugins
+registerPlugins()
+
+// Register custom plugins
+registerExamples()
+
+// Bootstrap Hawtio
+hawtio.bootstrap()
+
+// Launch React application
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+root.render(
+  &lt;React.StrictMode&gt;
+    &lt;Hawtio /&gt;
+  &lt;/React.StrictMode&gt;
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>registerExamples()</code> is a function exported from <code>src/examples/index.ts</code>. This function is nothing more than an aggregation of selected examples - individual Hawtio plugins.</p>
+</div>
+<div class="listingblock">
+<div class="title">examples/index.ts</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import { registerExample1 } from './example1'
+
+export const registerExamples = () =&gt; {
+  registerExample1()
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally <code>src/examples/example1/index.ts</code> module registers actual Hawtio plugin exported from <code>src/examples/example1/Example1.tsx</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">examples/example1/Example1.tsx</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import { PageSection, PageSectionVariants, Text, TextContent } from '@patternfly/react-core'
+import React from 'react'
+
+export const Example1: React.FunctionComponent = () =&gt; (
+  &lt;PageSection variant={PageSectionVariants.light}&gt;
+    &lt;TextContent&gt;
+      &lt;Text component='h1'&gt;Example 1&lt;/Text&gt;
+      &lt;Text component='p'&gt;This is an example plugin registered using &lt;code&gt;hawtio.addPlugin()&lt;/code&gt;.&lt;/Text&gt;
+    &lt;/TextContent&gt;
+  &lt;/PageSection&gt;
+)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">examples/example1/index.ts</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import { hawtio, type HawtioPlugin } from '@hawtio/react'
+import { Example1 } from './Example1'
+
+export const registerExample1: HawtioPlugin = () =&gt; {
+  hawtio.addPlugin({
+    id: 'example1',
+    title: 'Example 1',
+    path: '/example1',
+    component: Example1,
+    isActive: async () =&gt; true,
+  })
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>examples/example1/index.ts</code> shows the easiest way to register Hawtio plugin. Synchronous <code>hawtio.addPlugin()</code> method is called and <code>Plugin</code> object is passed as argument, which refers (using <code>"component"</code> field) to React Component function.</p>
+</div>
+<div class="paragraph">
+<p>There&#8217;s nothing much to explain here. Everything is happening synchronously and when <code>addPlugin()</code> returns, Hawtio knows about our <code>example1</code> plugin which uses <code>&lt;Example1&gt;</code> React component.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_asynchronous_plugin_registration_wrong_approach"><a class="anchor" href="#_asynchronous_plugin_registration_wrong_approach"></a>Asynchronous plugin registration - wrong approach</h4>
+<div class="paragraph">
+<p>To avoid static reliance on Patternfly code (its JavaScript modules) which comes with static <code>import</code> statement, we can switch to dynamic <code>import()</code> operator.
+But this change isn&#8217;t enough.</p>
+</div>
+<div class="paragraph">
+<p>Assuming the same code structure as in <a href="#_static_synchronous_plugin_registration">Static, synchronous plugin registration</a>, we could rewrite <code>examples/example1/index.ts</code> code:</p>
+</div>
+<div class="listingblock">
+<div class="title">examples/example1/index.ts</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import { hawtio, type HawtioPlugin } from '@hawtio/react'
+// no static import here: import { Example1 } from './Example1'
+
+export const registerExample1: HawtioPlugin = () =&gt; {
+  import("./Example1").then(m =&gt; {
+    hawtio.addPlugin({
+      id: 'example1',
+      title: 'Example 1',
+      path: '/example1',
+      component: m.Example1,
+      isActive: async () =&gt; true,
+    })
+  })
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>True - <code>examples/example1/index.ts</code> doesn&#8217;t statically import code that uses Patternfly modules, but the <code>registerExample1()</code> function (which should be called in <code>bootstrap.tsx</code>) becomes effectively an asynchronous function. There&#8217;s no way to tell when <code>hawtio.addPlugin()</code> will actually be called!</p>
+</div>
+<div class="paragraph">
+<p><code>bootstrap.tsx</code> that registers plugins and eventually calls <code>hawtio.bootstrap()</code> and renders <code>&lt;Hawtio&gt;</code> React component can&#8217;t be sure that <code>example1</code> plugin is registered at all.</p>
+</div>
+<div class="paragraph">
+<p>Different approach is really needed.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_asynchronous_plugin_registration_proper_approach"><a class="anchor" href="#_asynchronous_plugin_registration_proper_approach"></a>Asynchronous plugin registration - proper approach</h4>
+<div class="paragraph">
+<p>We need synchronous plugin registration method which also allows us to use dynamic <code>import()</code> operator to load Patternfly-related code.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s a snippet (again with the same code structure) which uses special <code>addDeferredPlugin()</code> call.</p>
+</div>
+<div class="listingblock">
+<div class="title">examples/example1/index.ts</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import { hawtio, type HawtioPlugin } from '@hawtio/react'
+
+export const registerExample1Deferred: HawtioPlugin = () =&gt; {
+  hawtio.addDeferredPlugin('example1', async () =&gt; {
+    return import('./Example1').then(m =&gt; {
+      return {
+        id: 'example1',
+        title: 'Example 1',
+        path: '/example1',
+        component: m.Example1,
+        isActive: async () =&gt; true,
+      }
+    })
+  })
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This code is correct with respect to following <code>hawtio.bootstrap()</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>while the plugin is <em>evaluated</em> asynchronously after <code>import()</code> finishes, Hawtio immediately know that there&#8217;s <code>example1</code> plugin registered</p>
+</li>
+<li>
+<p><code>hawtio.bootstrap()</code> may be called immediately after <code>registerExample1Deferred()</code> and <code>bootstrap()</code> will internally wait for evaluating the deferred plugin</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_using_plugins_with_module_federation"><a class="anchor" href="#_using_plugins_with_module_federation"></a>Using plugins with Module Federation</h4>
+<div class="paragraph">
+<p>In the most advanced scenario, we can use <a href="https://webpack.js.org/concepts/module-federation/">Module Federation</a> architecture
+to load plugins from remote locations.</p>
+</div>
+<div class="paragraph">
+<p>There are two main methods of dealing with <em>federated modules</em> described in the following sections. Here&#8217;s we will only highlight what is the goal of Module Federation and how Hawtio uses it.</p>
+</div>
+<div class="paragraph">
+<p>Module Federation concept was introduced (if I&#8217;m not mistaken) by Webpack. See <a href="https://webpack.js.org/concepts/module-federation/">Module Federation</a>.</p>
+</div>
+<div class="paragraph">
+<p>However there&#8217;s now a dedicated <a href="https://module-federation.io">module-federation.io</a> page, which presents version 2.0 of the concept.</p>
+</div>
+<div class="paragraph">
+<p>To track the evolution, we can check <a href="https://rspack.rs/guide/features/module-federation">rspack page on Module Federation</a> and see 3 major versions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1.0: The version implemented by Webpack</p>
+</li>
+<li>
+<p>1.5: The version enhanced by Rspack</p>
+</li>
+<li>
+<p>2.0: Official, <em>standalone</em> version with attempted standardization</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It&#8217;s hard to strictly specify which version of Module Federation is used by Hawtio&#8230;&#8203; The applications that use <code>@hawtio/react</code> package are built using Webpack and its <a href="https://webpack.js.org/plugins/module-federation-plugin/">Module Federation Plugin</a>.</p>
+</div>
+<div class="paragraph">
+<p>However for dynamic plugin loading, Hawtio uses <code>@module-federation/utilities</code> NPM package available in <a href="https://github.com/module-federation/core">module-federation/core</a> Github repository, which advertises itself as <code>Module Federation 2.0</code>.</p>
+</div>
+<div class="paragraph">
+<p>To summarize the concept behind Module Federation we can identify two concepts:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Container, Consumer, Host</dt>
+<dd>
+<p>An application that consumes modules exposed from external providers (or remote containers)</p>
+</dd>
+<dt class="hdlist1">Remote Container, Provide, Producer, Remote</dt>
+<dd>
+<p>An application that provides (exposes) modules to be consumed by other applications.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The distinction is not strict, because an application that consumes remote modules, may also expose own modules for remote consumption by other applications&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>Module Federation in Hawtio may be configured statically in <code>webpack.config.cjs</code> file using <a href="https://webpack.js.org/plugins/module-federation-plugin/">Module Federation Plugin</a>. There&#8217;s also a fully dynamic method for loading remote modules with the help of <code>@module-federation/utilities</code> NPM library.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_using_plugins_with_module_federation_and_static_webpack_configuration"><a class="anchor" href="#_using_plugins_with_module_federation_and_static_webpack_configuration"></a>Using plugins with Module Federation and static Webpack configuration</h4>
+<div class="paragraph">
+<p><em>Static</em> usage of Module Federation modules involves configuration of <code>webpack.config.js</code> file and <a href="https://webpack.js.org/plugins/module-federation-plugin/">Module Federation Plugin</a>.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/hawtio/hawtio-next/tree/main/app">Hawtio React application</a> provides fully working example, but let&#8217;s present the required configuration here. All JSON configuration is part of this object in Webpack configuration file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">module.exports = (_, args) =&gt; {
+  return [
+    {
+      plugins: [
+        new ModuleFederationPlugin({
+          // configuration of Module Federation
+          ...
+        })
+      ]
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>First, we need a declaration that there is (one or more) available <em>external provider of remote modules</em>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">remotes: {
+  'static-remotes': 'app@http://localhost:3000/hawtio/remoteEntry.js',
+},</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is the <em>consuming</em> part. This declaration should have a related counterpart in actual remote location, which is another <code>webpack.config.js</code> for a <em>remote container of remotely exposed modules</em>. The configuration of the <em>remote</em> part looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">name: 'app',
+filename: 'remoteEntry.js',
+exposes: {
+  './remote1': './src/examples/remote1',
+  './remote2': './src/examples/remote2',
+},</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+These two snippets can be added to single <code>ModuleFederationPlugin</code> configuration or separate configurations in two different Webpack configurations in single <code>webpack.config.js</code> file! We can have a single <em>container</em> acting both as consumer and producer. But we should not get confused by this flexibility&#8230;&#8203;
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now we can explain the elements:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>app</code>: this is the name of remote container which will be a part of Webpack module identifier named <code>webpack/container/entry/app</code> available in <code>remoteEntry.js</code> file.</p>
+</li>
+<li>
+<p><code>static-remotes</code> should be treated not as JavaScript module specifier, but as an identifier of <em>remote</em> container from the point of view of <em>consuming</em> container</p>
+</li>
+<li>
+<p><code>remote1</code> and <code>remote2</code> are actual remotely available modules which should be prefixed with <code>static-remotes</code> to actually access them.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Webpack does all the loading and our task is to use the above configuration in normal JavaScript code which is bundled with Webpack.</p>
+</div>
+<div class="paragraph">
+<p>We can use both <code>import</code> statement and <code>import()</code> operator to load such remote modules:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import { RemotePlugin } from 'static-remotes/remote1'
+
+hawtio.addPlugin({
+  id: 'exampleStaticRemote1',
+  title: 'Remote plugin 1 (static)',
+  path: '/remote1',
+  component: RemotePlugin,
+  isActive: async () =&gt; true,
+})
+
+hawtio.addDeferredPlugin('remote2', async () =&gt; {
+  return import('static-remotes/remote2').then(m =&gt; {
+    // this module exports a function which returns a plugin definition (object),
+    // which we can return as chained promise - Hawtio will eventually await for the definition
+    const plugin: Plugin = m.remotePlugin()
+    return plugin
+  })
+})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These two module identifiers (<code>static-remotes/remote1</code> and <code>static-remotes/remote2</code>) can be actually resolved only by Webpack. If we try to use pure Node.js code, we&#8217;d get an error.</p>
+</div>
+<div class="paragraph">
+<p>To make life easier, we can tell IDE that these <em>special</em> module locations are actually some real code locations. We can use this <code>tsconfig.json</code> configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "static-remotes/*": ["./examples/*"]
+    },
+...</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_using_plugins_with_module_federation_and_dynamic_configuration"><a class="anchor" href="#_using_plugins_with_module_federation_and_dynamic_configuration"></a>Using plugins with Module Federation and dynamic configuration</h4>
+<div class="paragraph">
+<p>Finally we can have fully dynamic configuration where we don&#8217;t <em>declare</em> in <code>webpack.config.js</code> that there are some <em>remote entry points</em> we could use as <em>remote Module Federation modules</em>.</p>
+</div>
+<div class="paragraph">
+<p>In a fully dynamic approach, Hawtio is configured with single registration method:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">hawtio.addUrl('plugin')</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Relative URL is resolved against <code>document.baseURI</code>, so Hawtio loads the JSON data from URL like <a href="http://localhost:8080/hawtio/plugin" class="bare">http://localhost:8080/hawtio/plugin</a>.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ curl -s http://localhost:8080/hawtio/plugin | jq .
+[
+  {
+    "url": "http://localhost:8080/hawtio",
+    "scope": "appRemote",
+    "module": "./remote3",
+    "remoteEntryFileName": "remoteExternalEntry.js",
+    "pluginEntry": "registerRemote"
+  },
+  {
+    "url": "http://localhost:8080/hawtio",
+    "scope": "appRemote",
+    "module": "./remote3-deferred",
+    "remoteEntryFileName": "remoteExternalEntry.js",
+    "pluginEntry": "registerRemoteDeferred"
+  }
+]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each of the returned objects of the above array is an equivalent of this combination:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>an entry from <em>consumer</em> host&#8217;s <code>remote</code></p>
+</li>
+<li>
+<p>a single entry from <em>provider</em> host&#8217;s <code>exposes</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Thus we have 2 <em>remote Module Federation modules</em> and Hawtio will use <code>@module-federation/utilities</code> to load and evaluate both.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>pluginEntry</code> declares a symbol to be used from the module and treated as a function</p>
+</li>
+<li>
+<p>this function should (for Hawtio purpose) use Hawtio API to register actual Hawtio plugin</p>
+</li>
+<li>
+<p>this function may return a promise, so Hawtio awaits for the registration to finish</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>So in this <em>dynamic</em> scenario, we don&#8217;t have to be aware of how the remote module is used. We only have to implement such module and <em>expose</em> it from some external location described as in the above <code>curl</code> example.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s a sample code that could be used in the remotely exposed Module Federation module:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">import { type HawtioAsyncPlugin } from '@hawtio/react'
+
+export const registerRemote: HawtioAsyncPlugin = async () =&gt; { <i class="conum" data-value="1"></i><b>(1)</b>
+  return import('@hawtio/react').then(async m =&gt; {             <i class="conum" data-value="2"></i><b>(2)</b>
+    return import('./Remote').then(r =&gt; {                      <i class="conum" data-value="3"></i><b>(3)</b>
+      m.hawtio.addPlugin({                                     <i class="conum" data-value="4"></i><b>(4)</b>
+        id: 'remote3',
+        title: 'Remote plugin 3 (dynamic, immediate)',
+        path: '/remote3a',
+        component: r.RemotePlugin,
+        isActive: async () =&gt; true,
+      })
+    })
+  })                                                           <i class="conum" data-value="5"></i><b>(5)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>registerRemote</code> should match the declaration of <code>pluginEntry</code> in remote module specification</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>We import <code>@hawtio/react</code> dynamically and add <code>.then()</code> block that can access <code>@hawtio/react</code> module in <code>m</code> variable</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>We import <code>./Remote</code> component dynamically and add <code>.then()</code> block that can access this component through <code>r</code> variable</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>We actually register a plugin in Hawtio</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>We return a (chained) promise, so Hawtio can await for the result of remote module evaluation</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
