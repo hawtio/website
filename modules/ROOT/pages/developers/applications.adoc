@@ -94,7 +94,7 @@ everything is ready for bootstrapping Hawtio and rendering `<Hawtio>` component.
 There are 3 methods of registering Hawtio plugins:
 
 * using `hawtio.addPlugin()`: adds `Plugin` object directly for Hawtio to register
-* using `hawtio.addDeferredPlugin()`: adds a function which returns a Promise resolving to a `Plugin` object asynchronously
+* using `hawtio.addDeferredPlugin()`: adds a function which returns a Promise resolving to a `Plugin` object or an array of `Plugin` objects asynchronously
 * using `hawtio.addUrl()`: adds a URL (relative or absolute - subject to https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS[CORS] restrictions) from which a JSON array of `HawtioRemote` objects is loaded. These objects represent remote modules which Hawtio can load and evaluate using https://www.npmjs.com/package/@module-federation/utilities[Module Federation utilities].
 
 === Registration of custom plugins
@@ -209,6 +209,7 @@ Hawtio plugins (including built-in plugins) may require some internal Hawtio ser
 
 All these assumptions impact the way Hawtio code should be structured. Let's review various ways of _registering_ Hawtio plugins.
 
+[#_static_synchronous_plugin_registration]
 ==== Static, synchronous plugin registration
 
 Let's assume a directory structure like this:
@@ -371,10 +372,13 @@ export const registerExample1Deferred: HawtioPlugin = () => {
 }
 ----
 
+This code passes an asynchronous function that returns a `Plugin`. We could also return an array of `Plugin` objects
+and Hawtio will register all of them. This is a good way for a plugin (represented by the `registerExample1Deferred` function) to register multiple Hawtio `Plugin` objects.
+
 This code is correct with respect to following `hawtio.bootstrap()`:
 
 * while the plugin is _evaluated_ asynchronously after `import()` finishes, Hawtio immediately know that there's `example1` plugin registered
-* `hawtio.bootstrap()` may be called immediately after `registerExample1Deferred()` and `bootstrap()` will internally wait for evaluating the deferred plugin
+* `hawtio.bootstrap()` may be called immediately after `registerExample1Deferred()` and `bootstrap()` will internally wait for evaluation of the deferred plugins
 
 ==== Using plugins with Module Federation
 
@@ -413,7 +417,7 @@ _Static_ usage of Module Federation modules involves configuration of `webpack.c
 
 https://github.com/hawtio/hawtio-next/tree/main/app[Hawtio React application] provides fully working example, but let's present the required configuration here. All JSON configuration is part of this object in Webpack configuration file:
 
-[source,json]
+[source,javascript]
 ----
 module.exports = (_, args) => {
   return [
@@ -431,7 +435,7 @@ module.exports = (_, args) => {
 
 First, we need a declaration that there is (one or more) available _external provider of remote modules_:
 
-[source,json]
+[source,javascript]
 ----
 remotes: {
   'static-remotes': 'app@http://localhost:3000/hawtio/remoteEntry.js',
@@ -440,7 +444,7 @@ remotes: {
 
 This is the _consuming_ part. This declaration should have a related counterpart in actual remote location, which is another `webpack.config.js` for a _remote container of remotely exposed modules_. The configuration of the _remote_ part looks like this:
 
-[source,json]
+[source,javascript]
 ----
 name: 'app',
 filename: 'remoteEntry.js',
@@ -488,7 +492,7 @@ These two module identifiers (`static-remotes/remote1` and `static-remotes/remot
 
 To make life easier, we can tell IDE that these _special_ module locations are actually some real code locations. We can use this `tsconfig.json` configuration:
 
-[source,json]
+[source,javascript]
 ----
 {
   "compilerOptions": {
