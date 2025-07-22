@@ -377,7 +377,7 @@ everything is ready for bootstrapping Hawtio and rendering <code>&lt;Hawtio&gt;<
 <p>using <code>hawtio.addPlugin()</code>: adds <code>Plugin</code> object directly for Hawtio to register</p>
 </li>
 <li>
-<p>using <code>hawtio.addDeferredPlugin()</code>: adds a function which returns a Promise resolving to a <code>Plugin</code> object asynchronously</p>
+<p>using <code>hawtio.addDeferredPlugin()</code>: adds a function which returns a Promise resolving to a <code>Plugin</code> object or an array of <code>Plugin</code> objects asynchronously</p>
 </li>
 <li>
 <p>using <code>hawtio.addUrl()</code>: adds a URL (relative or absolute - subject to <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS">CORS</a> restrictions) from which a JSON array of <code>HawtioRemote</code> objects is loaded. These objects represent remote modules which Hawtio can load and evaluate using <a href="https://www.npmjs.com/package/@module-federation/utilities">Module Federation utilities</a>.</p>
@@ -702,6 +702,10 @@ export const registerExample1Deferred: HawtioPlugin = () =&gt; {
 </div>
 </div>
 <div class="paragraph">
+<p>This code passes an asynchronous function that returns a <code>Plugin</code>. We could also return an array of <code>Plugin</code> objects
+and Hawtio will register all of them. This is a good way for a plugin (represented by the <code>registerExample1Deferred</code> function) to register multiple Hawtio <code>Plugin</code> objects.</p>
+</div>
+<div class="paragraph">
 <p>This code is correct with respect to following <code>hawtio.bootstrap()</code>:</p>
 </div>
 <div class="ulist">
@@ -710,7 +714,7 @@ export const registerExample1Deferred: HawtioPlugin = () =&gt; {
 <p>while the plugin is <em>evaluated</em> asynchronously after <code>import()</code> finishes, Hawtio immediately know that there&#8217;s <code>example1</code> plugin registered</p>
 </li>
 <li>
-<p><code>hawtio.bootstrap()</code> may be called immediately after <code>registerExample1Deferred()</code> and <code>bootstrap()</code> will internally wait for evaluating the deferred plugin</p>
+<p><code>hawtio.bootstrap()</code> may be called immediately after <code>registerExample1Deferred()</code> and <code>bootstrap()</code> will internally wait for evaluation of the deferred plugins</p>
 </li>
 </ul>
 </div>
@@ -784,7 +788,7 @@ to load plugins from remote locations.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">module.exports = (_, args) =&gt; {
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">module.exports = (_, args) =&gt; {
   return [
     {
       plugins: [
@@ -803,7 +807,7 @@ to load plugins from remote locations.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">remotes: {
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">remotes: {
   'static-remotes': 'app@http://localhost:3000/hawtio/remoteEntry.js',
 },</code></pre>
 </div>
@@ -813,7 +817,7 @@ to load plugins from remote locations.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">name: 'app',
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">name: 'app',
 filename: 'remoteEntry.js',
 exposes: {
   './remote1': './src/examples/remote1',
@@ -885,7 +889,7 @@ hawtio.addDeferredPlugin('remote2', async () =&gt; {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="javascript">{
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
