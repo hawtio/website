@@ -22,7 +22,17 @@ Read up on how to configure and customize Hawtio in various environments.
 === xref:plugins.adoc[]
 
 Read an overview of the plugins available in Hawtio, including server-side and external dynamic plugins.
- 
+
+== Securing Hawtio
+
+=== xref:security.adoc[]
+
+This page covers configuration of the security aspects of Hawtio.
+
+=== xref:oidc.adoc[]
+
+This page shows how Hawtio can be used with https://openid.net/specs/openid-connect-core-1_0.html[OpenID Connect] for authentication and authorization.
+
 === xref:keycloak.adoc[]
 
 Read up on how you can integrate Hawtio with https://www.keycloak.org/[Keycloak] on various application containers.
