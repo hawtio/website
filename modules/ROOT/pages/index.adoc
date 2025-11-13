@@ -1,8 +1,11 @@
 = Overview
 
-This is the documentation for Hawtio v3. The old Hawtio v2 documentation is archived here: https://hawtio-v2.surge.sh/docs/
+This is the documentation for Hawtio v4. The old Hawtio v2 documentation is archived here: https://hawtio-v2.surge.sh/docs/
 
-xref:overview-v3.adoc[]:: If you want to know what Hawtio v3 is, read this first.
+NOTE: Hawtio v3, just like Hawtio v4 uses https://react.dev/[React] as the UI library. The only difference is that it relies on
+earlier JakartaEE API and is discontinued. See xref:developers/history.adoc[] for more details.
+
+xref:overview-v4.adoc[]:: If you want to know what Hawtio v4 is, read this first.
 
 xref:versions.adoc[]:: Check this page for the supported version matrix table of dependent technologies and components for each Hawtio version.
 
@@ -14,7 +17,7 @@ Read the getting started guide to find out how to download and install Hawtio in
 
 === xref:configuration.adoc[]
 
-Read up on how to configure Hawtio in various environments, such as configuring security and where Hawtio stores stuff.
+Read up on how to configure and customize Hawtio in various environments.
 
 === xref:plugins.adoc[]
 
@@ -69,3 +72,15 @@ Read how to get started building Hawtio and work with the code.
 === xref:releasing.adoc[]
 
 Link to the doc for how to release Hawtio.
+
+=== xref:developers/history.adoc[]
+
+Learn more about the evolution of Hawtio.
+
+=== xref:developers/architecture.adoc[]
+
+Read about various components which define what Hawtio is.
+
+=== xref:developers/applications.adoc[]
+
+Read about how to build applications that use Hawtio and how Hawtio can be extended using plugins.
