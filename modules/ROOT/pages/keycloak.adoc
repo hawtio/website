@@ -41,6 +41,7 @@ The following settings need to be made for each part:
 Server side:: The runtime-specific configuration for the Keycloak adapter
 Client side:: The Hawtio Keycloak configuration `keycloak-hawtio.json`
 
+[#_quarkus]
 === Quarkus
 
 Firstly, apply xref:get-started.adoc#_running_a_quarkus_app[the required configuration] for attaching Hawtio to a Quarkus application.
@@ -98,6 +99,7 @@ Build and run the project and it will be integrated with Keycloak.
 
 See https://github.com/hawtio/hawtio/tree/4.x/examples/quarkus-keycloak[quarkus-keycloak example] for a working example.
 
+[#_spring_boot]
 === Spring Boot
 
 Firstly, apply xref:get-started.adoc#_running_a_spring_boot_app[the required configuration] for attaching Hawtio to a Spring Boot application.

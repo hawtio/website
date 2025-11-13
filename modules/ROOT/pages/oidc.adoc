@@ -66,7 +66,7 @@ Unlike with xref:keycloak.adoc[Keycloak specific configuration], there's only on
 
 [source]
 ----
-# OpenID Connect configuration requred at client side
+# OpenID Connect configuration required at client side
 
 # URL of OpenID Connect Provider - the URL after which ".well-known/openid-configuration" can be appended for
 # discovery purposes
@@ -270,7 +270,7 @@ Tenant IDs are UUIDs specific to the Entra ID / Azure tenant being used.
 Here's the Hawtio configuration where `provider` is the base URL of your tenant and client_id is "Application (client) ID" from the Overview of App Registration page.
 
 ----
-# OpenID Connect configuration requred at client side
+# OpenID Connect configuration required at client side
 
 # URL of OpenID Connect Provider - the URL after which ".well-known/openid-configuration" can be appended for
 # discovery purposes

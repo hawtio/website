@@ -1,61 +1,105 @@
 = Security
 
-Hawtio enables authentication out of the box depending on the runtimes/containers it runs with. To use Hawtio with your application, either setting up authentication for the runtime or disabling Hawtio authentication is necessary.
+Hawtio enables authentication out of the box in three supported runtimes/environments:
 
-== Configuration properties
+* <<_quarkus>>
+* <<_spring_boot>>
+* <<_web_containers>>
 
-The following table lists the Security-related configuration properties for the Hawtio core system.
+Because the authentication mechanisms may vary between these environments (for example there's no JAAS support in Hawtio Quarkus) there may be
+a need to provide some configuration. User may also disable the authentication entirely.
+
+[#_generic_configuration_properties]
+== Generic Configuration properties
+
+The following table lists the Security-related configuration properties for the Hawtio core system. These are not specific to any selected
+deployment method, but may have some special _flavors_ in a given environment (like Keycloak configuration).
 
 [cols="2,1,5"]
 .Security-related configuration properties
 |===
 |Name |Default |Description
 
-|`hawtio.authenticationContainerDiscoveryClasses`
-|`io.hawt.web.tomcat.TomcatAuthenticationContainerDiscovery`
-|List of used `AuthenticationContainerDiscovery` implementations separated by comma. By default there is just `TomcatAuthenticationContainerDiscovery`, which is used to authenticate users on Tomcat from `tomcat-users.xml` file. Feel free to remove it if you want to authenticate users on Tomcat from configured JAAS login module or feel free to add more classes of your own.
-
-|`hawtio.authenticationContainerTomcatDigestAlgorithm`
-|`NONE`
-|When using the Tomcat `tomcat-users.xml` file, passwords can be hashed instead of plain text. Use this to specify the digest algorithm; valid values are `NONE`, `MD5`, `SHA`, `SHA-256`, `SHA-384`, `SHA-512`.
-
-|`hawtio.authenticationEnabled`
+a|`hawtio.auth` +
+`hawtio.authenticationEnabled`
 |`true`
-|Whether or not security is enabled.
+|This option may be used to disable authentication if needed.
 
 |`hawtio.authenticationThrottled`
 |`true`
-|Whether to throttle authentication to protect Hawtio from brute force attacks.
-
-|`hawtio.keycloakClientConfig`
-|`classpath:keycloak.json`
-|Keycloak configuration file used for frontend. It is mandatory if Keycloak integration is enabled.
-
-|`hawtio.keycloakEnabled`
-|`false`
-|Whether to enable or disable Keycloak integration.
+|Whether to throttle authentication attempts to protect Hawtio from brute force attacks.
 
 |`hawtio.noCredentials401`
 |`false`
-|Whether to return HTTP status 401 when authentication is enabled, but no credentials has been provided. Returning 401 will cause the browser popup window to prompt for credentials. By default this option is `false`, returning HTTP status 403 instead.
+|Whether to return HTTP status 401 when authentication is enabled, but no credentials have been provided. Returning 401 will cause the browser popup window to prompt for credentials. By default this option is `false`, returning HTTP status 403 instead (and browser will not show the credentials popup window).
 
 |`hawtio.realm`
 |`hawtio`
-|The security realm used to login.
+|The security realm used for the authentication. This is the value sent with `WWW-Authenticate: Basic realm="<realm>"` response header, but also
+it is used as https://docs.oracle.com/en/java/javase/17/docs/api/java.base/javax/security/auth/login/LoginContext.html[_JAAS application configuration entry_] when JAAS authentication is performed.
+
+a|`hawtio.roles` +
+`hawtio.role` (deprecated)
+|`admin,manager,viewer`
+|The user roles expected for the user being authenticated. Multiple roles can be separated by a comma. Set to `*` or an empty value to disable role checking. Hawtio doesn't apply these roles to specific operations (or JMX MBeans / attributes / methods) - however these roles may be used by specific
+environment to implement full Role-Based Access Control (RBAC).
+
+|`hawtio.userPrincipalClasses`
+|A list partially detected from configured JAAS login modules, including `io.hawt.web.auth.UserPrincipal`.
+|Fully qualified class name(s) implementing `java.security.Principal` interface separated by comma. These classes will be known to
+Hawtio and recognized as _user identity principals_ of an authenticated JAAS subject.
 
 |`hawtio.rolePrincipalClasses`
-|
-|Fully qualified principal class name(s). Multiple classes can be separated by a comma.
+|A list partially detected from configured JAAS login modules, including `io.hawt.web.auth.RolePrincipal`.
+|Fully qualified class name(s) implementing `java.security.Principal` interface separated by comma. These classes will be known to
+Hawtio and recognized as _role principals_ of an authenticated JAAS subject.
 
-|`hawtio.roles`
-|`admin,manager,viewer`
-|The user roles required to be able to login to the console. Multiple roles to allow can be separated by a comma. Set to `*` or an empty value to disable role checking when Hawtio authenticates a user.
+|`hawtio.keycloakEnabled`
+|`false`
+a|Whether to enable or disable Keycloak integration. This is a _native_ Keycloak integration which depends on Keycloak libraries
+availability and additional configuration. See more details in the xref:keycloak.adoc[] chapter. +
+Keycloak Identity Provider can also be used with Generic OIDC support (see xref:oidc.adoc[]).
+
+|`hawtio.keycloakClientConfig`
+|`classpath:keycloak.json`
+|Keycloak configuration file used for the frontend. Can be specified as `classpath:` or `file:` URL or as a file location. It is mandatory if Keycloak integration is enabled. See more details in
+the xref:keycloak.adoc[] chapter.
+
+|`hawtio.oidcConfig`
+|`classpath:hawtio-oidc.properties` or a location specific to a target container (like Tomcat or Artemis).
+|A location of OpenID Connection configuration file. This file can be used to configure generic OpenID Connect authentication using
+external Identity Provider like https://www.keycloak.org/[Keycloak] without any additional libraries. Can be specified as `classpath:` or `file:` URL or as a file location. See more details in the xref:oidc.adoc[] chapter.
+
+|`hawtio.authenticationContainerDiscoveryClasses`
+|`io.hawt.web.tomcat.TomcatAuthenticationContainerDiscovery`
+|List of used `io.hawt.web.auth.AuthenticationContainerDiscovery` implementations separated by comma. By default only the built-in `TomcatAuthenticationContainerDiscovery` is used. Tomcat integration allows Hawtio to authenticate users declared in Tomcat's
+`tomcat-users.xml` file. This built-in service may be disabled by specifying other (or none at all) discovery classes.
 
 |`hawtio.tomcatUserFileLocation`
 |`conf/tomcat-users.xml`
-|Specify an alternative location for the `tomcat-users.xml` file, e.g. `/production/userlocation/`.
+|Specify an alternative location for the `tomcat-users.xml` file.
+
+|`hawtio.authenticationContainerTomcatDigestAlgorithm`
+|`NONE`
+|When using the Tomcat `tomcat-users.xml` file, passwords can be specified in hashed form. Use this to specify the digest algorithm; valid values are all algorithms accepted by `java.security.MessageDigest.getInstance(algorithm)`. See more details in https://tomcat.apache.org/tomcat-11.0-doc/config/credentialhandler.html#MessageDigestCredentialHandler[Tomcat Documentation].
 |===
 
+=== RBAC Restrictor
+
+:fn-rbac-supported-runtimes: footnote:[https://karaf.apache.org/[Apache Karaf] and https://activemq.apache.org/components/artemis/[Apache ActiveMQ Artemis] provide Hawtio RBAC support.]
+
+For some runtimes that support Hawtio RBAC (role-based access control) {fn-rbac-supported-runtimes}, Hawtio provides a custom https://jolokia.org/reference/html/manual/security.html#security-restrictor[Jolokia restrictor] implementation that provides an additional layer of protection over JMX operations based on the ACL (access control list) policy.
+
+WARNING: You cannot use Hawtio RBAC with Quarkus and Spring Boot yet. Enabling the RBAC restrictor on those runtimes only imposes additional load without any gains.
+
+To activate the Hawtio RBAC restrictor, configure the Jolokia parameter `restrictorClass` via System property to use `io.hawt.web.RBACRestrictor` as follows:
+
+[source,properties]
+----
+jolokia.restrictorClass = io.hawt.system.RBACRestrictor
+----
+
+[#_quarkus]
 == Quarkus
 
 Hawtio can be secured with the authentication mechanisms Quarkus provides, as well as https://www.keycloak.org[Keycloak].
@@ -67,6 +111,8 @@ if you want to disable Hawtio authentication for Quarkus, add the following conf
 ----
 quarkus.hawtio.authenticationEnabled = false
 ----
+
+NOTE: Authentication in Hawtio deployed with Quarkus does not use JAAS and relies only on injected `io.quarkus.security.identity.IdentityProviderManager` interface.
 
 === Quarkus authentication mechanisms
 
@@ -104,11 +150,19 @@ See https://github.com/hawtio/hawtio/tree/4.x/examples/quarkus[quarkus example] 
 
 === Quarkus with Keycloak
 
-See xref:keycloak.adoc#_quarkus[Keycloak Integration - Quarkus].
+See xref:keycloak.adoc#_quarkus[Keycloak Integration - Quarkus] chapter which uses https://quarkus.io/guides/security-oidc-code-flow-authentication-tutorial[Quarkus OIDC] support at server side and Keycloak specific JavaScript
+library to handle OpenID Connect authentication in the browser.
 
+[#_spring_boot]
 == Spring Boot
 
-In addition to the standard JAAS authentication, Hawtio on Spring Boot can be secured through https://spring.io/projects/spring-security[Spring Security] or https://www.keycloak.org[Keycloak].
+While Hawtio on Quarkus completely replaces JAAS with Quarkus specific authentication mechanisms, Spring Boot and
+https://spring.io/projects/spring-security[Spring Security] integrates with JAAS, so Hawtio can use common mechanism to authenticate users
+with or without Spring Security using JAAS.
+
+The integration is provided by a special https://docs.spring.io/spring-security/reference/api/java/org/springframework/security/authentication/jaas/SecurityContextLoginModule.html[JAAS SecurityContextLoginModule], which effectively _translates_ Spring Security `org.springframework.security.core.Authentication` object into a JAAS `javax.security.auth.Subject` with
+associated list of ``javax.security.auth.Principal``s. +
+This integration is automatically configured by Hawtio when Spring Security configuration is detected.
 
 if you want to disable Hawtio authentication for Spring Boot, add the following configuration to `application.properties`:
 
@@ -210,9 +264,15 @@ To secure the Jolokia endpoint even without Spring Security's CSRF protection, y
 
 === Spring Boot with Keycloak
 
-See xref:keycloak.adoc#_spring_boot[Keycloak Integration - Spring Boot].
+See xref:keycloak.adoc#_spring_boot[Keycloak Integration - Spring Boot] chapter which uses https://docs.spring.io/spring-security/reference/servlet/oauth2/index.html[Spring Security OAuth2 support] at server side and Keycloak specific JavaScript
+library to handle OpenID Connect authentication in the browser.
 
-== Web containers
+[#_web_containers]
+== JakartaEE Web Containers
+
+Hawtio can be deployed to any https://jakarta.ee/specifications/servlet/6.1/jakarta-servlet-spec-6.1[Servlet API] compliant container. The deployment
+artifact is a Web Archive (WAR). Most of the configuration is already provided in Hawtio's `WEB-INF/war.xml`, but this configuration may be
+changed with <<_generic_configuration_properties>>.
 
 Hawtio authentication is enabled by default. If you want to disable Hawtio authentication, set the following system property:
 
@@ -221,13 +281,18 @@ Hawtio authentication is enabled by default. If you want to disable Hawtio authe
 hawtio.authenticationEnabled = false
 ----
 
+The following sections show container specific configuration options. These options are not specified in https://jakarta.ee/specifications/servlet/6.1/jakarta-servlet-spec-6.1[Servlet API].
+
+NOTE: While the standard Servlet API authentication relies on configuring `web.xml` elements like `<login-config>`, Hawtio does not use this declarative
+security configuration. Hawtio uses custom `io.hawt.web.auth.AuthenticationFilter` which can be configured using system properties.
+
 === Jetty
 
-Hawtio can integrate with Jetty JAAS mechanisms. However not all https://jetty.org/docs/jetty/12/operations-guide/jaas/index.html#loginmodules[Jetty JAAS modules] work out of the box.
+Hawtio can integrate with Jetty JAAS mechanisms. However not all https://jetty.org/docs/jetty/12.1/operations-guide/security/jaas-support.html#loginmodules[Jetty JAAS modules] work out of the box.
 
 Jetty JAAS modules work with Jetty security infrastructure and the important thing is that it requires your web application (WAR) to use `<login-config>` configuration.
 
-Hawtio provides customized `org.eclipse.jetty.security.jaas.spi.PropertyFileLoginModule` which is available in `io.hawt.jetty.security.jaas.PropertyFileLoginModule` class. Additionally Hawtio provides ready to use `*.mod` file which can be copied directly to `$JETTY_BASE/modules`. This file describes https://jetty.org/docs/jetty/12/operations-guide/modules/index.html[Jetty module] with references to required Hawtio Jetty library:
+Hawtio provides customized `org.eclipse.jetty.security.jaas.spi.PropertyFileLoginModule` which is available in `io.hawt.jetty.security.jaas.PropertyFileLoginModule` class that lifts the restriction of having a `<login-config>` configuration. Additionally Hawtio provides ready to use `*.mod` file which can be copied directly to `$JETTY_BASE/modules`. This file describes https://jetty.org/docs/jetty/12.1/operations-guide/modules/index.html[Jetty module] with references to required Hawtio Jetty library:
 
 [source]
 ----
@@ -256,7 +321,7 @@ $ cd $JETTY_BASE
 $ java -jar $JETTY_HOME/start.jar --add-module=jaas,hawtio-jetty-security
 INFO  : jaas            initialized in ${jetty.base}/start.d/jaas.ini
 INFO  : hawtio-jetty-security initialized in ${jetty.base}/start.d/hawtio-jetty-security.ini
-INFO  : copy ~/.m2/repository/io/hawt/hawtio-jetty-security/4.4-SNAPSHOT/hawtio-jetty-security-<version>.jar to ${jetty.base}/lib/hawtio-jetty-security-<version>.jar
+INFO  : copy ~/.m2/repository/io/hawt/hawtio-jetty-security/4.6.1/hawtio-jetty-security-<version>.jar to ${jetty.base}/lib/hawtio-jetty-security-<version>.jar
 INFO  : Base directory was modified
 ----
 
@@ -269,7 +334,7 @@ scott=tiger,user
 admin=CRYPT:adpexzg3FUZAk,admin,user
 ----
 
-You have added two users. The first one named `scott` with the password `tiger`. He has the role `user` assigned to it. The second user `admin` with password `admin` which is obfuscated (see https://jetty.org/docs/jetty/12/operations-guide/tools/index.html#password[Password Obfuscation in Jetty documentation] for details). This one has the `admin` and `user` role assigned.
+You have added two users. The first one named `scott` with the password `tiger`. He has the role `user` assigned to it. The second user `admin` with password `admin` which is obfuscated (see https://jetty.org/docs/jetty/12.1/operations-guide/tools/index.html#password[Password Obfuscation in Jetty documentation] for details). This one has the `admin` and `user` role assigned.
 
 Now create the second file in the same `$JETTY_BASE/etc/` directory named `login.conf`. This is the JAAS login configuration file.
 
@@ -299,6 +364,9 @@ At last, you have to change the Hawtio configuration:
 |`hawtio.roles`
 |`admin`
 
+|`hawtio.userPrincipalClasses`
+|`org.eclipse.jetty.security.UserPrincipal`
+
 |`hawtio.rolePrincipalClasses`
 |`org.eclipse.jetty.security.jaas.JAASRole`
 |===
@@ -311,64 +379,182 @@ When Jetty `jvm` module is installed, we can specify Hawtio properties in `$JETT
 -Dhawtio.authenticationEnabled=true
 -Dhawtio.realm=hawtio
 -Dhawtio.roles=admin
+-Dhawtio.userPrincipalClasses=org.eclipse.jetty.security.UserPrincipal
 -Dhawtio.rolePrincipalClasses=org.eclipse.jetty.security.jaas.JAASRole
 ----
 
 Without `jvm` module the above options should be specified as system properties when running `java -jar $JETTY_HOME/start.jar`.
 
-You have now enabled authentication for Hawtio. Only users with role `admin` are allowed for login.
+You have now enabled authentication for Hawtio. Only users with role `admin` are allowed to log in.
 
 === Apache Tomcat
 
-Hawtio configuration properties can be passed to Tomcat using `CATALINA_OPTS` environment variable.
+Hawtio configuration properties can be passed to Tomcat using `CATALINA_OPTS` environment variable. This variable should contain
+system properties recognized by Hawtio.
 
-By default, Hawtio authentication is enabled. Let's set up `realm` to `*` to make it work with the Tomcat built-in realm:
+By default, Hawtio authentication is enabled. You can disable authentication in Tomcat by adding this to `bin/setenv.sh`:
 
 [source,shell]
 ----
-export CATALINA_OPTS=-Dhawtio.realm=*
+CATALINA_OPTS="$CATALINA_OPTS -Dhawtio.authenticationEnabled=false"
 ----
 
-Hawtio will auto-detect that it is running in Tomcat, and use its user data file (`conf/tomcat-users.xml`) for security. For example, to set up a new user named `scott` with password `tiger`, then edit the file `conf/tomcat-users.xml` to include:
+Hawtio will auto-detect that it is running in Tomcat. It will add dynamic JAAS login module that will be used to authenticate users
+declared in Tomcat's `conf/tomcat-users.xml` file. All configuration options related to this file are supported by Hawtio. Additionally,
+when the file is modified, Hawtio will reload the user database.
+
+The simplest content of `conf/tomcat-users.xml` may be:
+[source,xml]
+----
+<?xml version="1.0"?>
+<tomcat-users xmlns="http://tomcat.apache.org/xml" version="1.0">
+  <user username="scott" password="tiger" roles="tomcat"/>
+</tomcat-users>
+----
+
+The above definition includes single `scott` user with `tiger` password assigned with `tomcat` role.
+
+However Hawtio also supports encoded/hashed password (see more details in https://tomcat.apache.org/tomcat-11.0-doc/config/credentialhandler.html[Tomcat documentation on CredentialHandler]). Tomcat itself may be configured like this:
 
 [source,xml]
 ----
-<user username="scott" password="tiger" roles="tomcat"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<Server port="8005" shutdown="SHUTDOWN">
+  ...
+  <GlobalNamingResources>
+    <Resource name="UserDatabase" auth="Container"
+              type="org.apache.catalina.UserDatabase"
+              factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+              pathname="conf/tomcat-users.xml" />
+  </GlobalNamingResources>
+
+  <Service name="Catalina">
+    ...
+    <Engine name="Catalina" defaultHost="localhost">
+      ...
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase">
+          <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="SHA-384" />
+        </Realm>
+      </Realm>
+      ...
+    </Engine>
+  </Service>
+</Server>
 ----
 
-Then you can login to Hawtio with the username `scott` and password `tiger`.
+This tells Tomcat that the passwords are hashed using SHA-384 message digest algorithm. With such configuration, `conf/tomcat-users.xml` may look
+like this:
+
+[source,xml]
+----
+<?xml version="1.0"?>
+<tomcat-users xmlns="http://tomcat.apache.org/xml" version="1.0">
+  <user username="hawtio" password="<salt>$<iteration count>$<digest>" roles="admin,manager,..."/>
+</tomcat-users>
+----
+
+Hawtio supports all password formats specified in the https://tomcat.apache.org/tomcat-11.0-doc/config/credentialhandler.html#MessageDigestCredentialHandler[MessageDigestCredentialHandler documentation].
 
 If you only want users of a special role to be able to login Hawtio, you can set the role name in the `CATALINA_OPTS` environment variable as shown:
 
 [source,shell]
 ----
-export CATALINA_OPTS="-Dhawtio.realm=* -Dhawtio.role=manager"
+CATALINA_OPTS="$CATALINA_OPTS -Dhawtio.roles=Administrator,Operator"
 ----
 
-Now the user must be in the `manager` role to be able to login, which we can set up in the `conf/tomcat-users.xml` file:
+Now the user must be in the `Administrator` or `Operator` role to be able to login, which we can set up in the `conf/tomcat-users.xml` file:
 
 [source,xml]
 ----
 <role rolename="manager"/>
-<user username="scott" password="tiger" roles="tomcat,manager"/>
+<user username="scott" password="tiger" roles="Administrator"/>
 ----
 
-==== Using different login modules
+== Using different JAAS login modules
 
-If you want to use your own login modules instead of `conf/tomcat-users.xml` file, you can do it by removing `TomcatAuthenticationContainerDiscovery` from
-system properties and pointing to `login.conf` file with your login modules configuration, something like:
+When deploying Hawtio in an environment where JAAS authentication is used, we can configure additional JAAS login modules that
+will participate in authentication process.
 
-[source,shell]
+Knowledge of https://docs.oracle.com/en/java/javase/17/security/java-authentication-and-authorization-service-jaas-reference-guide.html[Java Authentication and Authorization Service] is required to properly configure JAAS, as there are important aspects to be aware of when configuring multiple login modules.
+
+Hawtio configures its own login modules (for example `io.hawt.web.tomcat.TomcatUsersLoginModule`) dynamically, but there's also a JDK standard
+way of telling JAAS about the definition of login modules for named _JAAS applications_. +
+We can use the below option to point Hawtio (and JDK itself) to standard JAAS configuration file:
+
+[source]
 ----
-export CATALINA_OPTS="-Dhawtio.authenticationContainerDiscoveryClasses= -Dhawtio.realm=hawtio -Djava.security.auth.login.config=$CATALINA_BASE/conf/login.conf"
+-Djava.security.auth.login.config=/path/to/login.config
 ----
 
-Then you can configure JAAS in file `TOMCAT_HOME/conf/login.conf` (see <<Jetty>> for an example of the file).
+This file is https://docs.oracle.com/en/java/javase/17/security/appendix-b-jaas-login-configuration-file.html#GUID-9713B697-EFED-49A1-9E15-8039AD04458B[structured as documented in JDK] like this:
+
+[source]
+----
+<name used by application to refer to this entry> {
+    <LoginModule> <flag> <LoginModule options>;
+    <optional additional LoginModules, flags and options>;
+};
+<additional applications>
+----
+
+Here's where the concept of Hawtio _realm_ is important. The default _realm_ (when not specified) used by Hawtio is `hawtio`, but it may be changed using:
+
+[source]
+----
+-Dhawtio.realm=myrealm
+----
+
+This _realm_ is directly used by JAAS to find a set of login modules and is interpreted as _name used by application to refer to this entry_.
+
+For example we can have this `login.config` file (selected using `-Djava.security.auth.login.config` property):
+
+[source]
+----
+myrealm {
+    com.sun.security.auth.module.LdapLoginModule REQUIRED
+    userProvider="ldap://localhost:389"
+    authIdentity="uid={USERNAME},ou=users,dc=example,dc=com"
+    useSSL=false
+    debug=true;
+};
+----
+
+Since Hawtio 4.6 we can have multiple login modules declared for `hawtio` realm (or any other realm defined with `-Dhawtio.realm`) in
+JAAS configuration file. Additionally Hawtio will dynamically add detected login modules to this list (for example by default when running in Tomcat,
+`io.hawt.web.tomcat.TomcatUsersLoginModule` will be added without explicitly declaring it in `login.config` file).
+
+With pluggable nature of JAAS, it is possible for one Login Module to perform actual authentication (for example by looking up the user in LDAP server) and other modules to perform role/group lookup and mapping.
+
+== Multiple Login methods
+
+NOTE: This is a new feature introduced in Hawtio 4.6
+
+When authentication is enabled, Hawtio console application (in the browser) detects configured authentication methods. There are two categories
+of authentication variants:
+
+* authentication using username and password credentials
+* authentication using a token issued by Identity Provider (like https://www.keycloak.org[Keycloak]).
+
+When Hawtio is configured with multiple login modules of different categories, new login screen is presented to the user. For example:
+
+image::multi-login.png[]
+
+When there's only one authentication method that accepts username and password, standard login screen is shown.
+
+When there's only the OIDC/Keycloak authentication method, user is no longer automatically redirected to Identity Provider's
+authentication screen, but instead this button is shown:
+
+image::multi-login-oidc.png[]
 
 == Keycloak Integration
 
-Hawtio can be integrated with https://www.keycloak.org[Keycloak] for SSO authentication. See xref:keycloak.adoc[].
+Hawtio can be integrated with https://www.keycloak.org[Keycloak] for SSO authentication. See xref:keycloak.adoc[]. This method uses
+Keycloak specific libraries and configuration files.
+
+WARNING: Starting with Keycloak 25.0.0, Keycloak specific login modules https://github.com/keycloak/keycloak/issues/28789[are no longer available].
+Keycloak can be used with Hawtio using xref:oidc.adoc[].
 
 == OpenID Connect Integration
 
-For generic OIDC authentication see xref:oidc.adoc[].
+For generic OIDC authentication see xref:oidc.adoc[]. This is also a recommended approach to integrate Hawtio with https://www.keycloak.org[Keycloak].

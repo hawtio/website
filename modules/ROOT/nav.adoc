@@ -4,10 +4,11 @@
 ** xref:versions.adoc[]
 * Using Hawtio
 ** xref:configuration.adoc[]
-** xref:security.adoc[]
 ** xref:plugins.adoc[]
-** xref:keycloak.adoc[]
+* Securing Hawtio
+** xref:security.adoc[]
 ** xref:oidc.adoc[]
+** xref:keycloak.adoc[]
 * Kubernetes/OpenShift
 ** xref:online/openshift.adoc[]
 ** xref:online/kubernetes.adoc[]
