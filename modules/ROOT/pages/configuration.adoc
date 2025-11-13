@@ -2,14 +2,17 @@
 
 Hawtio consists of two main components: the server runtime and client console. The server runtime is the Java backend that runs on the server side, and the client console is the JavaScript frontend that is deployed and runs on the browser.
 
+NOTE: More information about the components can be found in xref:developers/architecture.adoc[] chapter.
+
 Therefore, two types of configuration are provided for Hawtio:
 
 1. <<Configuration properties>> - The server runtime configuration
 2. <<_hawtconfig_json,hawtconfig.json>> - The client console configuration
 
+[#_configuration_properties]
 == Configuration properties
 
-The Hawtio server runtime and its plugins can configure their behaviours through System properties.
+The Hawtio server runtime and its plugins can be configured using System properties.
 
 The following table lists the configuration properties for the Hawtio core system and various plugins.
 
@@ -21,24 +24,58 @@ NOTE: For the configuration properties related to security and authentication, r
 |System property |Default |Description
 
 |`hawtio.disableProxy`
-|`false`
+|`false` in SpringBoot and WAR deployments, `true` in Quarkus deployments.
 |With this property set to `true`, `ProxyServlet` (`/hawtio/proxy/*`) can be disabled. This makes Connect plugin unavailable, which means Hawtio can no longer connect to remote JVMs, but sometimes users might want to do so because of security if Connect plugin is not used.
 
 |`hawtio.localAddressProbing`
 |`true`
-|Whether local address probing for proxy allowlist is enabled or not upon startup. Set this property to `false` to disable it.
+|Whether https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/NetworkInterface.html#getNetworkInterfaces()[all local addresses] for proxy allowlist should be allowed. Set this property to `false` to use only `127.0.0.1` and `localhost` addresses.
 
 |`hawtio.proxyAllowlist`
 |`localhost, 127.0.0.1`
-|Comma-separated allowlist for target hosts that Connect plugin can connect to via `ProxyServlet`. All hosts that are not listed in this allowlist are denied to connect for security reasons. This option can be set to `*` to allow all hosts. Prefixing an element of the list with `"r:"` allows to define a regexp (example: `localhost,r:myserver[0-9]+.mydomain.com`)
+|Comma-separated allowlist for target hosts that Connect plugin can connect to via `ProxyServlet`. All hosts that are not listed in this allowlist are forbidden to connect to for security reasons. This option can be set to `*` to allow all hosts. Prefixing an element of the list with `"r:"` allows to define a regexp (example: `localhost,r:myserver[0-9]+.mydomain.com`)
+
+|`hawtio.proxyDisableCertificateValidation`
+|`false`
+a|Whether to disable hostname verifier in HttpClient4 used by `ProxyServlet` when using TLS connections. +
+
+This option can also be specified using `PROXY_DISABLE_CERT_VALIDATION` environment variable.
 
 |`hawtio.redirect.scheme`
 |-
-|The scheme of the redirect URL to login page when authentication is required.
+|The scheme of the redirect URL to login page when authentication is required. When this scheme is not configured, Hawtio sends redirects in the form
+of `/hawtio/login` instead of absolute address with host name and port number.
 
 |`hawtio.sessionTimeout`
 |-
 |The maximum time interval, in seconds, that the servlet container will keep this session open between client accesses. If this option is not configured, then Hawtio uses the default session timeout of the servlet container.
+
+|`hawtio.http.enableCORS`
+|`false`
+|Whether CORS filter is enabled and checks for permitted `Origin` HTTP header values.
+
+|`hawtio.http.accessControlAllowOrigin`
+|`*`
+|When `hawtio.http.enableCORS` option is enabled, Hawtio responds to https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request[CORS pre-flight requests] with CORS headers. This options allows to set the value returned in `Access-Control-Allow-Origin` response header.
+
+|`hawtio.http.allowXFrameSameOrigin`
+|`false`
+a|When set to `true`, Hawtio sends response headers:
+[source,options=nowrap]
+----
+X-Frame-Options: SAMEORIGIN
+Content-Security-Policy: ...; frame-ancestors 'self'
+----
+otherwise (by default) Hawtio sends
+[source,options=nowrap]
+----
+X-Frame-Options: DENY
+Content-Security-Policy: ...; frame-ancestors 'none'
+----
+
+|`hawtio.http.referrerPolicy`
+|`strict-origin`
+|What value Hawtio sends with https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Referrer-Policy[`Referrer-Policy`] response header.
 |===
 
 === Quarkus
@@ -48,7 +85,7 @@ For Quarkus, all those properties are configurable in `application.properties` o
 [source,properties]
 .application.properties
 ----
-quarkus.hawtio.disableProxy = true
+quarkus.hawtio.disableProxy = false
 ----
 
 === Spring Boot
@@ -63,7 +100,7 @@ hawtio.disableProxy = true
 
 == Configuring Jolokia through System properties
 
-The Jolokia agent is deployed automatically with `io.hawt.web.JolokiaConfiguredAgentServlet` that extends Jolokia native `org.jolokia.server.core.http.AgentServlet` class, defined in `hawtio-war/WEB-INF/web.xml`.
+The Jolokia agent is deployed automatically as `org.jolokia.server.core.http.AgentServlet` servlet class, defined in `hawtio-war/WEB-INF/web.xml`.
 
 If you want to customize the Jolokia Servlet with the configuration parameters that are defined in the https://jolokia.org/reference/html/manual/agents.html#agent-war-init-params[Jolokia documentation], you can pass them as System properties prefixed with `jolokia.`. For example:
 
@@ -72,21 +109,8 @@ If you want to customize the Jolokia Servlet with the configuration parameters t
 jolokia.policyLocation = file:///opt/hawtio/my-jolokia-access.xml
 ----
 
-=== RBAC Restrictor
-
-:fn-rbac-supported-runtimes: footnote:[https://karaf.apache.org/[Apache Karaf] and https://activemq.apache.org/components/artemis/[Apache ActiveMQ Artemis] provide Hawtio RBAC support.]
-
-
-For some runtimes that support Hawtio RBAC (role-based access control) {fn-rbac-supported-runtimes}, Hawtio provides a custom https://jolokia.org/reference/html/manual/security.html#security-restrictor[Jolokia restrictor] implementation that provides an additional layer of protection over JMX operations based on the ACL (access control list) policy.
-
-WARNING: You cannot use Hawtio RBAC with Quarkus and Spring Boot yet. Enabling the RBAC restrictor on those runtimes only imposes additional load without any gains.
-
-To activate the Hawtio RBAC restrictor, configure the Jolokia parameter `restrictorClass` via System property to use `io.hawt.web.RBACRestrictor` as follows:
-
-[source,properties]
-----
-jolokia.restrictorClass = io.hawt.system.RBACRestrictor
-----
+Since Jolokia 2.2.0 all Jolokia properties can be specified as `jolokia.` prefixed system properties or `JOLOKIA_` prefixed
+environment variables. See https://jolokia.org/reference/html/manual/agents.html#_configuration[Jolokia Configuration].
 
 [#_hawtconfig_json]
 == hawtconfig.json
