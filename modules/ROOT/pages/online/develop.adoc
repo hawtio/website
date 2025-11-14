@@ -74,4 +74,4 @@ The following script lets you apply the above environment variables to all the d
 $ ./scripts/disable-jolokia-auth.sh
 ----
 
----
+'''

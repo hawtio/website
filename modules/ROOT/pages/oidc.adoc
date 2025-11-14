@@ -1,8 +1,9 @@
 = OpenID Connect Integration
 
-Hawtio is already xref:keycloak.adoc[supporting Keycloak] as https://openid.net/specs/openid-connect-core-1_0.html#Terminology[OpenID Provider]. However, Keycloak https://www.keycloak.org/2022/02/adapter-deprecation[already announced] that the configuration methods used by Hawtio are deprecated.
+For a long time, Hawtio was xref:keycloak.adoc[supporting Keycloak] as https://openid.net/specs/openid-connect-core-1_0.html#Terminology[OpenID Provider]. However, Keycloak https://www.keycloak.org/2022/02/adapter-deprecation[already announced] that these configuration methods used by Hawtio are deprecated.
 
-Because https://openid.net/specs/openid-connect-core-1_0.html[OpenID Connect Core 1.0] is a widespread specification and standard method for distributed authentication (based on https://datatracker.ietf.org/doc/html/rfc6749[OAuth 2]), Hawtio 4 now supports generic OpenID authentication.
+Because https://openid.net/specs/openid-connect-core-1_0.html[OpenID Connect Core 1.0] is a widespread specification and standard method for distributed authentication (based on https://datatracker.ietf.org/doc/html/rfc6749[OAuth 2]), Hawtio 4 supports generic OpenID authentication. +
+This allows integration with any OpenID Connect implementations.
 
 == Building blocks and terminology
 
@@ -20,12 +21,12 @@ Authorization Server:: The server that coordinates communication between a _clie
 +
 In OpenID Connect specification, the _authorization server_ is named _OpenID Provider (OP)_.
 
-The main goal of OAuth2 and OpenID Connect it to allow applications to access APIs without using user credentials and switch to token exchange.
+The main goal of OAuth2 and OpenID Connect specifications is to allow applications to access APIs without using user credentials and switch to token exchange.
 
 It is important to know how Hawtio maps to the above roles:
 
-* Hawtio Client application is an OAuth2 _client_. User interacts with Hawtio web application which in turn communicates with Hawtio Server (backend) with https://jolokia.org/[Jolokia agent] running. Before accessing the Jolokia agent, Hawtio needs an OpenID Connect _access token_. To this end, Hawtio Client initiates OpenID Connect authentication process by redirecting user to _Authorization Server_.
-* Hawtio Server application is a JakartaEE application exposing a https://jolokia.org/[Jolokia Agent] API which authorizes user actions based on the content of an _access token_. Using OAuth2 terminology, Hawtio Server is a _Resource Server_.
+* Hawtio Client application is an OAuth2 _client_. User interacts with Hawtio web application which in turn communicates with Hawtio Server (backend) with a https://jolokia.org/[Jolokia Agent] running. Before accessing the Jolokia Agent, Hawtio needs an OpenID Connect _access token_. To this end, Hawtio Client initiates OpenID Connect authentication process by redirecting user to the _Authorization Server_.
+* Hawtio Server application is a JakartaEE application exposing a https://jolokia.org/[Jolokia Agent] API which authorizes user actions based on the content of an _access token_. Using OAuth2 terminology, Hawtio Server (and the Jolokia Agent it contains) is a _Resource Server_.
 
 The below UML diagram present the big picture.
 
@@ -36,7 +37,7 @@ The below UML diagram present the big picture.
 // "Authorization Server" -> "User (Browser)": show login page
 // "User (Browser)" -> "Authorization Server": authenticate
 // "Authorization Server" -> "Hawtio Client": OAuth2 code+token
-// "Hawtio Client" -> "Hawtio Server": access Jolokia with access token
+// "Hawtio Client" -> "Hawtio Server": access Jolokia Agent with access token
 // ....
 image::oidc-auth.png[]
 
@@ -44,14 +45,14 @@ The most important aspect is: Hawtio Client never deals with user credentials. U
 
 == Generic OpenID Connect authentication in Hawtio
 
-Hawtio 4 can be used with existing OpenID Connect providers (like Keycloak, Microsoft Entra ID, Auth0, ...) and uses these libraries to fullfill the task:
+Hawtio 4 can be used with existing OpenID Connect providers (like Keycloak, Microsoft Entra ID, Auth0, ...) and uses these libraries to fulfill the task:
 
 * https://hc.apache.org/httpcomponents-client-4.5.x/[Apache HTTP Client 4] to implement HTTP communication from Hawtio Server to OpenID Connect provider (e.g., to retrieve information about public keys for token signature validation).
 * https://connect2id.com/products/nimbus-jose-jwt[Nimbus JOSE + JWT] library to manipulate and validate OpenID Connect / OAuth2 access tokens.
 
-These libraries are included in Hawtio Server WAR, which means there's no need to install/deploy _any_ additional libraries (as it is the case with xref:keycloak.adoc[Keycloak specific configuration]).
+These libraries are included in Hawtio Server WAR, which means there's no need to install/deploy _any_ additional libraries (as it is the case with xref:keycloak.adoc[Keycloak legacy support]).
 
-In order to configure Hawtio with external OpenID Connect provider, we need to provide one configuration file and point Hawtio to its location.
+In order to configure Hawtio with an external OpenID Connect provider, we need to provide one configuration file and point Hawtio to its location.
 
 The system property that specifies the location of OIDC (OpenID Connect) configuration is `-Dhawtio.oidcConfig`, but in case it's not specified, a default location is checked. The defaults are:
 
@@ -62,14 +63,18 @@ The system property that specifies the location of OIDC (OpenID Connect) configu
 * For Apache Artemis runtime, `${artemis.instance.etc}/hawtio-oidc.properties`
 * Falls back to `classpath:hawtio-oidc.properties` (for embedded Hawtio usage)
 
-Unlike with xref:keycloak.adoc[Keycloak specific configuration], there's only one `*.properties` file needed that is used to configure all the aspects of OpenID Connect configuration. Here's the template:
+Unlike with xref:keycloak.adoc[Keycloak legacy configuration], there's only one `*.properties` file needed that is used to configure all the aspects of OpenID Connect configuration. Here's the template:
 
 [source]
 ----
 # OpenID Connect configuration required at client side
 
+# Name of the OIDC configuration - used for display purposes when selecting authentication method in the browser
+name = Keycloak@localhost
+
 # URL of OpenID Connect Provider - the URL after which ".well-known/openid-configuration" can be appended for
 # discovery purposes
+# if this property is unavailable, OIDC is not enabled
 provider = http://localhost:18080/realms/hawtio-demo
 # OpenID client identifier
 client_id = hawtio-client
@@ -93,8 +98,13 @@ oidc.cacheConfig = true
 # time in minutes to cache public keys from jwks_uri
 jwks.cacheTime = 60
 
+# a path for a field in JWT payload that should be used as user identifier. Keycloak for example uses
+# preferred_username, but it may be other field. The value will be used as user/identity JAAS Principal
+oidc.userPath = preferred_username
+
 # a path for an array of roles found in JWT payload. Property placeholders can be used for parameterized parts
-# of the path (like for Keycloak) - but only for properties from this particular file
+# of the path (like for Keycloak) - but only for properties from this particular file.
+# The value will be used as role JAAS Principal(s)
 # example for properly configured Entra ID token
 #oidc.rolesPath = roles
 # example for Keycloak with use-resource-role-mappings=true
@@ -129,6 +139,7 @@ http.readTimeout = 10000
 
 This file configures several aspects of Hawtio+OpenID Connect:
 
+* `name` property will be used at multi-authentication Hawtio login page
 * OAuth2 - configure the location of Authorization Server, client ID and several OpenID Connect related options
 * JWKS - cache time for public keys obtained from `jwks_uri`, which is the endpoint that exposes public keys used by the Authorization Server.
 * JWT token configuration - information about the _claim_ (a field in JSON Web Token) that contains roles associated with the authenticated user. We also allow to map roles as defined in the Authorization Server to the roles used by the application (Hawtio Server and Jolokia).
@@ -145,6 +156,16 @@ There's a system property that specifies the role class:
 ----
 -Dhawtio.rolePrincipalClasses=org.apache.activemq.artemis.spi.core.security.jaas.RolePrincipal
 ----
+
+The user identity (indicated by `oidc.userPath` property) is used to find a field (a _claim_) in the JWT token to be interpreted as
+user identifier (as opposed to one of user's roles). With JAAS authentication, this identifier will be added as _user principal_. By default
+the class of user principal is `io.hawt.web.auth.UserPrincipal`, but it can be changed to other class. For example with Artemis:
+
+----
+-Dhawtio.userPrincipalClasses=org.apache.activemq.artemis.spi.core.security.jaas.UserPrincipal
+----
+
+NOTE: Hawtio can analyze configure JAAS login modules and determine the role/user principal classes dynamically.
 
 == Using Hawtio and OpenID Connect authentication with Keycloak
 
@@ -228,9 +249,17 @@ Then in the "Users" field we can select for example "admin" and click "Generated
 }
 ----
 
-Knowing the structure of JWT access token we can check if role _path_ is configured correctly:
+Knowing the structure of JWT access token we can check if role _path_ and user _path_ are configured correctly:
 
 ----
+# a path for a field in JWT payload that should be used as user identifier. Keycloak for example uses
+# preferred_username, but it may be other field. The value will be used as user/identity JAAS Principal
+oidc.userPath = preferred_username
+
+# a path for an array of roles found in JWT payload. Property placeholders can be used for parameterized parts
+# of the path (like for Keycloak) - but only for properties from this particular file.
+# example for Keycloak with use-resource-role-mappings=true
+#oidc.rolesPath = resource_access.${client_id}.roles
 # example for Keycloak with use-resource-role-mappings=false
 oidc.rolesPath = realm_access.roles
 ----
@@ -272,8 +301,12 @@ Here's the Hawtio configuration where `provider` is the base URL of your tenant 
 ----
 # OpenID Connect configuration required at client side
 
+# Name of the OIDC configuration - used for display purposes when selecting authentication method in the browser
+name = Microsoft Entra ID
+
 # URL of OpenID Connect Provider - the URL after which ".well-known/openid-configuration" can be appended for
 # discovery purposes
+# if this property is unavailable, OIDC is not enabled
 provider = https://login.microsoftonline.com/00000000-1111-2222-3333-444444444444/v2.0
 # OpenID client identifier
 client_id = 55555555-6666-7777-8888-999999999999
@@ -326,7 +359,7 @@ Let's summarize the configuration required in Entra ID.
 +
 image::entra-scope.png[]
 +
-This will create a reference'able `api://hawtio-server/Jolokia.Access` scope we will use later.
+This will create a referencable `api://hawtio-server/Jolokia.Access` scope we will use later.
 3. In "App roles" section for `hawtio-server` define any roles you want to assign to users within the scope of this client, for example:
 +
 image::entra-roles.png[]
@@ -394,7 +427,7 @@ For reference, here's the relevant JSON snippet of `hawtio-server` app registrat
 ...
 ----
 
-Now the granted access token is no longer specific for Microsft Graph API _audience_. It is intended for `hawtio-server` - `aud` claim is the UUID of `hawtio-server` app registration and `appid` claim is the UUID of `hawtio-client` app registration:
+Now the granted access token is no longer specific for Microsoft Graph API _audience_. It is intended for `hawtio-server` - `aud` claim is the UUID of `hawtio-server` app registration and `appid` claim is the UUID of `hawtio-client` app registration:
 
 [,json]
 ----

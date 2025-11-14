@@ -91,6 +91,7 @@ otherwise:
 $ kubectl apply -k deploy/k8s/namespace/
 ----
 
+[#_deployment]
 == Deployment
 
 There are two deployment modes you can choose from: **cluster** and **namespace**.
