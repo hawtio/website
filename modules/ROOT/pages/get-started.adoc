@@ -96,6 +96,7 @@ $ hawtio --connection=conn1 --connection=conn2 --connection=conn3
 
 In this case, multiple tabs open simultaneously on the browser, each showing the Hawtio console connected to a different connection.
 
+[#_running_a_quarkus_app]
 == Running a Quarkus app
 
 You can attach the Hawtio console to your Quarkus application in a single step.
@@ -139,7 +140,7 @@ See the following for a working Quarkus application example.
 
 https://github.com/hawtio/hawtio/tree/hawtio-3.0.0-RC1/examples/quarkus[Quarkus example,window=_blank]
 
-
+[#_running_a_spring_boot_app]
 == Running a Spring Boot app
 
 You can attach the Hawtio console to your Spring Boot application in two steps.
@@ -247,7 +248,7 @@ It is possible to https://jetty.org/docs/jetty/12/operations-guide/deploy/index.
 </Configure>
 ----
 
-But there's a trick here. Normally Jetty unpacks this WAR archive to a temporary folder (which may be specified with `-Djava.io.tmpdir` system property). But there's no need for unpacking if there's `hawtio-war-4.2.0` _directory_ next to `hawtio-war-4.2.0.war` achive.
+But there's a trick here. Normally Jetty unpacks this WAR archive to a temporary folder (which may be specified with `-Djava.io.tmpdir` system property). But there's no need for unpacking if there's `hawtio-war-4.2.0` _directory_ next to `hawtio-war-4.2.0.war` archive.
 
 Jetty uses `org.eclipse.jetty.server.SymlinkAllowedResourceAliasChecker` _alias checker_ and if
 _real path_ for the above `/data/tmp/hawtio-war-4.2.0` is different (i.e., the path uses symbolic links), resources from this WAR application won't be loaded and Hawtio application won't work.

@@ -1,5 +1,10 @@
 = Keycloak Integration
 
+This chapter presents the legacy method of integration between Hawtio and https://www.keycloak.org[Keycloak]. This method relies on the
+availability of Keycloak libraries and Keycloak-specific configuration files, as well as client side https://www.npmjs.com/package/keycloak-js[keycloak.js] library.
+
+For generic OpenID Connect integration (which also supports Keycloak server), please refer to xref:oidc.adoc[] chapter.
+
 You can secure your Hawtio console with https://www.keycloak.org[Keycloak]. To integration Hawtio with Keycloak, you need to:
 
 1. Prepare Keycloak server
@@ -40,6 +45,10 @@ The following settings need to be made for each part:
 
 Server side:: The runtime-specific configuration for the Keycloak adapter
 Client side:: The Hawtio Keycloak configuration `keycloak-hawtio.json`
+
+WARNING: Starting with Keycloak 25.0.0, Keycloak specific login modules https://github.com/keycloak/keycloak/issues/28789[are no longer available].
+Keycloak can be used with Hawtio using xref:oidc.adoc[]. We can also use Quarkus or SpringBoot specific support for OAuth2 / OpenID Connect which
+doesn't rely on Keycloak libraries.
 
 [#_quarkus]
 === Quarkus
@@ -87,7 +96,8 @@ Finally create `keycloak-hawtio.json` under `src/main/resources` in the Quarkus 
   "clientId": "hawtio-client",
   "url": "http://localhost:18080/",
   "jaas": false,
-  "pkceMethod": "S256"
+  "pkceMethod": "S256",
+  "logoutUri": "/hawtio/auth/logout"
 }
 ----
 
@@ -148,7 +158,8 @@ Finally create `keycloak-hawtio.json` under `src/main/resources` in the Spring B
   "realm": "hawtio-demo",
   "clientId": "hawtio-client",
   "url": "http://localhost:18080/",
-  "jaas": false
+  "jaas": false,
+  "logoutUri": "/actuator/hawtio/auth/logout"
 }
 ----
 
@@ -158,9 +169,10 @@ Build and run the project and it will be integrated with Keycloak.
 
 See https://github.com/hawtio/hawtio/tree/4.x/examples/springboot-keycloak[springboot-keycloak example] for a working example.
 
+////
 === Jetty
 
-CAUTION: Keycloak adapters are https://www.keycloak.org/2022/02/adapter-deprecation[deprecated]. The instructions in this section are not verified with Hawtio v3. It will be updated.
+CAUTION: Keycloak adapters are https://www.keycloak.org/2022/02/adapter-deprecation[deprecated]. The instructions in this section are not verified with Hawtio v4. It will be updated.
 
 Assume `$JETTY_HOME` is the root directory of your Jetty installation and you deployed Hawtio WAR to Jetty as described in xref:get-started.adoc[].
 
@@ -206,7 +218,9 @@ export JAVA_OPTIONS="-Dhawtio.authenticationEnabled=true \
 ----
 
 Run Jetty and go to `http://localhost:8080/hawtio`. Users are again `admin` and `viewer` with access and `jdoe` without access.
+////
 
+////
 === Tomcat
 
 CAUTION: Keycloak adapters are https://www.keycloak.org/2022/02/adapter-deprecation[deprecated]. The instructions in this section are not verified with Hawtio v3. It will be updated.
@@ -219,6 +233,7 @@ Instructions are quite similar to <<Jetty>>. You would need to setup JAAS realm 
 ----
 
 This is needed, so that Tomcat will use configured JAAS realm with `BearerTokenLoginModule` instead of `tomcat-users.xml` file, which Hawtio uses on Tomcat by default.
+////
 
 ////
 // WildFly authentication is not yet supported.

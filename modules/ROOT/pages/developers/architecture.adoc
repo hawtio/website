@@ -2,6 +2,7 @@
 
 This page presents general information about the Hawtio architecture. We show all the components (client, server, agent connections). For details about plugin development, see xref::developers/applications.adoc[].
 
+[#_hawtio_react_single_page_application]
 == Hawtio React Single Page Application
 
 Repository: https://github.com/hawtio/hawtio-next
