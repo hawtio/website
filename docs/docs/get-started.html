@@ -59,7 +59,7 @@
     <a class="nav-link" href="index.html">Overview</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="overview-v3.html">Hawtio v3</a>
+    <a class="nav-link" href="overview-v4.html">Hawtio v3</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="get-started.html">Get Started</a>
@@ -77,16 +77,22 @@
     <a class="nav-link" href="configuration.html">Configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="plugins.html">Plugins</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Securing Hawtio</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="security.html">Security</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="plugins.html">Plugins</a>
+    <a class="nav-link" href="oidc.html">OpenID Connect Integration</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="keycloak.html">Keycloak Integration</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="oidc.html">OpenID Connect Integration</a>
   </li>
 </ul>
   </li>
@@ -514,7 +520,7 @@ management.endpoints.web.exposure.include = hawtio,jolokia</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>But there&#8217;s a trick here. Normally Jetty unpacks this WAR archive to a temporary folder (which may be specified with <code>-Djava.io.tmpdir</code> system property). But there&#8217;s no need for unpacking if there&#8217;s <code>hawtio-war-4.2.0</code> <em>directory</em> next to <code>hawtio-war-4.2.0.war</code> achive.</p>
+<p>But there&#8217;s a trick here. Normally Jetty unpacks this WAR archive to a temporary folder (which may be specified with <code>-Djava.io.tmpdir</code> system property). But there&#8217;s no need for unpacking if there&#8217;s <code>hawtio-war-4.2.0</code> <em>directory</em> next to <code>hawtio-war-4.2.0.war</code> archive.</p>
 </div>
 <div class="paragraph">
 <p>Jetty uses <code>org.eclipse.jetty.server.SymlinkAllowedResourceAliasChecker</code> <em>alias checker</em> and if

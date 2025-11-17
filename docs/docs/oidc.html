@@ -59,7 +59,7 @@
     <a class="nav-link" href="index.html">Overview</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="overview-v3.html">Hawtio v3</a>
+    <a class="nav-link" href="overview-v4.html">Hawtio v3</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="get-started.html">Get Started</a>
@@ -77,16 +77,22 @@
     <a class="nav-link" href="configuration.html">Configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="security.html">Security</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="plugins.html">Plugins</a>
   </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Securing Hawtio</span>
+<ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="keycloak.html">Keycloak Integration</a>
+    <a class="nav-link" href="security.html">Security</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="oidc.html">OpenID Connect Integration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="keycloak.html">Keycloak Integration</a>
   </li>
 </ul>
   </li>
@@ -175,7 +181,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Documentation</a></li>
-    <li>Using Hawtio</li>
+    <li>Securing Hawtio</li>
     <li><a href="oidc.html">OpenID Connect Integration</a></li>
   </ul>
 </nav>
@@ -190,10 +196,11 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Hawtio is already <a href="keycloak.html" class="xref page">supporting Keycloak</a> as <a href="https://openid.net/specs/openid-connect-core-1_0.html#Terminology">OpenID Provider</a>. However, Keycloak <a href="https://www.keycloak.org/2022/02/adapter-deprecation">already announced</a> that the configuration methods used by Hawtio are deprecated.</p>
+<p>For a long time, Hawtio was <a href="keycloak.html" class="xref page">supporting Keycloak</a> as <a href="https://openid.net/specs/openid-connect-core-1_0.html#Terminology">OpenID Provider</a>. However, Keycloak <a href="https://www.keycloak.org/2022/02/adapter-deprecation">already announced</a> that these configuration methods used by Hawtio are deprecated.</p>
 </div>
 <div class="paragraph">
-<p>Because <a href="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0</a> is a widespread specification and standard method for distributed authentication (based on <a href="https://datatracker.ietf.org/doc/html/rfc6749">OAuth 2</a>), Hawtio 4 now supports generic OpenID authentication.</p>
+<p>Because <a href="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0</a> is a widespread specification and standard method for distributed authentication (based on <a href="https://datatracker.ietf.org/doc/html/rfc6749">OAuth 2</a>), Hawtio 4 supports generic OpenID authentication.<br>
+This allows integration with any OpenID Connect implementations.</p>
 </div>
 </div>
 </div>
@@ -229,7 +236,7 @@
 </dl>
 </div>
 <div class="paragraph">
-<p>The main goal of OAuth2 and OpenID Connect it to allow applications to access APIs without using user credentials and switch to token exchange.</p>
+<p>The main goal of OAuth2 and OpenID Connect specifications is to allow applications to access APIs without using user credentials and switch to token exchange.</p>
 </div>
 <div class="paragraph">
 <p>It is important to know how Hawtio maps to the above roles:</p>
@@ -237,10 +244,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Hawtio Client application is an OAuth2 <em>client</em>. User interacts with Hawtio web application which in turn communicates with Hawtio Server (backend) with <a href="https://jolokia.org/">Jolokia agent</a> running. Before accessing the Jolokia agent, Hawtio needs an OpenID Connect <em>access token</em>. To this end, Hawtio Client initiates OpenID Connect authentication process by redirecting user to <em>Authorization Server</em>.</p>
+<p>Hawtio Client application is an OAuth2 <em>client</em>. User interacts with Hawtio web application which in turn communicates with Hawtio Server (backend) with a <a href="https://jolokia.org/">Jolokia Agent</a> running. Before accessing the Jolokia Agent, Hawtio needs an OpenID Connect <em>access token</em>. To this end, Hawtio Client initiates OpenID Connect authentication process by redirecting user to the <em>Authorization Server</em>.</p>
 </li>
 <li>
-<p>Hawtio Server application is a JakartaEE application exposing a <a href="https://jolokia.org/">Jolokia Agent</a> API which authorizes user actions based on the content of an <em>access token</em>. Using OAuth2 terminology, Hawtio Server is a <em>Resource Server</em>.</p>
+<p>Hawtio Server application is a JakartaEE application exposing a <a href="https://jolokia.org/">Jolokia Agent</a> API which authorizes user actions based on the content of an <em>access token</em>. Using OAuth2 terminology, Hawtio Server (and the Jolokia Agent it contains) is a <em>Resource Server</em>.</p>
 </li>
 </ul>
 </div>
@@ -261,7 +268,7 @@
 <h2 id="_generic_openid_connect_authentication_in_hawtio"><a class="anchor" href="#_generic_openid_connect_authentication_in_hawtio"></a>Generic OpenID Connect authentication in Hawtio</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Hawtio 4 can be used with existing OpenID Connect providers (like Keycloak, Microsoft Entra ID, Auth0, &#8230;&#8203;) and uses these libraries to fullfill the task:</p>
+<p>Hawtio 4 can be used with existing OpenID Connect providers (like Keycloak, Microsoft Entra ID, Auth0, &#8230;&#8203;) and uses these libraries to fulfill the task:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -274,10 +281,10 @@
 </ul>
 </div>
 <div class="paragraph">
-<p>These libraries are included in Hawtio Server WAR, which means there&#8217;s no need to install/deploy <em>any</em> additional libraries (as it is the case with <a href="keycloak.html" class="xref page">Keycloak specific configuration</a>).</p>
+<p>These libraries are included in Hawtio Server WAR, which means there&#8217;s no need to install/deploy <em>any</em> additional libraries (as it is the case with <a href="keycloak.html" class="xref page">Keycloak legacy support</a>).</p>
 </div>
 <div class="paragraph">
-<p>In order to configure Hawtio with external OpenID Connect provider, we need to provide one configuration file and point Hawtio to its location.</p>
+<p>In order to configure Hawtio with an external OpenID Connect provider, we need to provide one configuration file and point Hawtio to its location.</p>
 </div>
 <div class="paragraph">
 <p>The system property that specifies the location of OIDC (OpenID Connect) configuration is <code>-Dhawtio.oidcConfig</code>, but in case it&#8217;s not specified, a default location is checked. The defaults are:</p>
@@ -305,14 +312,18 @@
 </ul>
 </div>
 <div class="paragraph">
-<p>Unlike with <a href="keycloak.html" class="xref page">Keycloak specific configuration</a>, there&#8217;s only one <code>*.properties</code> file needed that is used to configure all the aspects of OpenID Connect configuration. Here&#8217;s the template:</p>
+<p>Unlike with <a href="keycloak.html" class="xref page">Keycloak legacy configuration</a>, there&#8217;s only one <code>*.properties</code> file needed that is used to configure all the aspects of OpenID Connect configuration. Here&#8217;s the template:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs"># OpenID Connect configuration requred at client side
+<pre class="highlightjs highlight"><code class="language-none hljs"># OpenID Connect configuration required at client side
+
+# Name of the OIDC configuration - used for display purposes when selecting authentication method in the browser
+name = Keycloak@localhost
 
 # URL of OpenID Connect Provider - the URL after which ".well-known/openid-configuration" can be appended for
 # discovery purposes
+# if this property is unavailable, OIDC is not enabled
 provider = http://localhost:18080/realms/hawtio-demo
 # OpenID client identifier
 client_id = hawtio-client
@@ -336,8 +347,13 @@ oidc.cacheConfig = true
 # time in minutes to cache public keys from jwks_uri
 jwks.cacheTime = 60
 
+# a path for a field in JWT payload that should be used as user identifier. Keycloak for example uses
+# preferred_username, but it may be other field. The value will be used as user/identity JAAS Principal
+oidc.userPath = preferred_username
+
 # a path for an array of roles found in JWT payload. Property placeholders can be used for parameterized parts
-# of the path (like for Keycloak) - but only for properties from this particular file
+# of the path (like for Keycloak) - but only for properties from this particular file.
+# The value will be used as role JAAS Principal(s)
 # example for properly configured Entra ID token
 #oidc.rolesPath = roles
 # example for Keycloak with use-resource-role-mappings=true
@@ -376,6 +392,9 @@ http.readTimeout = 10000
 <div class="ulist">
 <ul>
 <li>
+<p><code>name</code> property will be used at multi-authentication Hawtio login page</p>
+</li>
+<li>
 <p>OAuth2 - configure the location of Authorization Server, client ID and several OpenID Connect related options</p>
 </li>
 <li>
@@ -407,6 +426,28 @@ http.readTimeout = 10000
 <div class="content">
 <pre>-Dhawtio.rolePrincipalClasses=org.apache.activemq.artemis.spi.core.security.jaas.RolePrincipal</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The user identity (indicated by <code>oidc.userPath</code> property) is used to find a field (a <em>claim</em>) in the JWT token to be interpreted as
+user identifier (as opposed to one of user&#8217;s roles). With JAAS authentication, this identifier will be added as <em>user principal</em>. By default
+the class of user principal is <code>io.hawt.web.auth.UserPrincipal</code>, but it can be changed to other class. For example with Artemis:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>-Dhawtio.userPrincipalClasses=org.apache.activemq.artemis.spi.core.security.jaas.UserPrincipal</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Hawtio can analyze configure JAAS login modules and determine the role/user principal classes dynamically.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -514,11 +555,19 @@ http.readTimeout = 10000
 </div>
 </div>
 <div class="paragraph">
-<p>Knowing the structure of JWT access token we can check if role <em>path</em> is configured correctly:</p>
+<p>Knowing the structure of JWT access token we can check if role <em>path</em> and user <em>path</em> are configured correctly:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre># example for Keycloak with use-resource-role-mappings=false
+<pre># a path for a field in JWT payload that should be used as user identifier. Keycloak for example uses
+# preferred_username, but it may be other field. The value will be used as user/identity JAAS Principal
+oidc.userPath = preferred_username
+
+# a path for an array of roles found in JWT payload. Property placeholders can be used for parameterized parts
+# of the path (like for Keycloak) - but only for properties from this particular file.
+# example for Keycloak with use-resource-role-mappings=true
+#oidc.rolesPath = resource_access.${client_id}.roles
+# example for Keycloak with use-resource-role-mappings=false
 oidc.rolesPath = realm_access.roles</pre>
 </div>
 </div>
@@ -591,10 +640,14 @@ oidc.rolesPath = realm_access.roles</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre># OpenID Connect configuration requred at client side
+<pre># OpenID Connect configuration required at client side
+
+# Name of the OIDC configuration - used for display purposes when selecting authentication method in the browser
+name = Microsoft Entra ID
 
 # URL of OpenID Connect Provider - the URL after which ".well-known/openid-configuration" can be appended for
 # discovery purposes
+# if this property is unavailable, OIDC is not enabled
 provider = https://login.microsoftonline.com/00000000-1111-2222-3333-444444444444/v2.0
 # OpenID client identifier
 client_id = 55555555-6666-7777-8888-999999999999
@@ -670,7 +723,7 @@ prompt = login</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This will create a reference&#8217;able <code>api://hawtio-server/Jolokia.Access</code> scope we will use later.</p>
+<p>This will create a referencable <code>api://hawtio-server/Jolokia.Access</code> scope we will use later.</p>
 </div>
 </li>
 <li>
@@ -788,7 +841,7 @@ scope = openid email profile api://hawtio-server/Jolokia.Access</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Now the granted access token is no longer specific for Microsft Graph API <em>audience</em>. It is intended for <code>hawtio-server</code> - <code>aud</code> claim is the UUID of <code>hawtio-server</code> app registration and <code>appid</code> claim is the UUID of <code>hawtio-client</code> app registration:</p>
+<p>Now the granted access token is no longer specific for Microsoft Graph API <em>audience</em>. It is intended for <code>hawtio-server</code> - <code>aud</code> claim is the UUID of <code>hawtio-server</code> app registration and <code>appid</code> claim is the UUID of <code>hawtio-client</code> app registration:</p>
 </div>
 <div class="listingblock">
 <div class="content">

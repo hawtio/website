@@ -59,7 +59,7 @@
     <a class="nav-link" href="index.html">Overview</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="overview-v3.html">Hawtio v3</a>
+    <a class="nav-link" href="overview-v4.html">Hawtio v3</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="get-started.html">Get Started</a>
@@ -77,16 +77,22 @@
     <a class="nav-link" href="configuration.html">Configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="plugins.html">Plugins</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Securing Hawtio</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="security.html">Security</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="plugins.html">Plugins</a>
+    <a class="nav-link" href="oidc.html">OpenID Connect Integration</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="keycloak.html">Keycloak Integration</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="oidc.html">OpenID Connect Integration</a>
   </li>
 </ul>
   </li>
@@ -192,6 +198,18 @@
 <div class="paragraph">
 <p>Hawtio consists of two main components: the server runtime and client console. The server runtime is the Java backend that runs on the server side, and the client console is the JavaScript frontend that is deployed and runs on the browser.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+More information about the components can be found in <a href="developers/architecture.html" class="xref page">Hawtio Architecture</a> chapter.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Therefore, two types of configuration are provided for Hawtio:</p>
 </div>
@@ -211,7 +229,7 @@
 <h2 id="_configuration_properties"><a class="anchor" href="#_configuration_properties"></a>Configuration properties</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Hawtio server runtime and its plugins can configure their behaviours through System properties.</p>
+<p>The Hawtio server runtime and its plugins can be configured using System properties.</p>
 </div>
 <div class="paragraph">
 <p>The following table lists the configuration properties for the Hawtio core system and various plugins.</p>
@@ -245,28 +263,76 @@ For the configuration properties related to security and authentication, refer t
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.disableProxy</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code> in SpringBoot and WAR deployments, <code>true</code> in Quarkus deployments.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">With this property set to <code>true</code>, <code>ProxyServlet</code> (<code>/hawtio/proxy/*</code>) can be disabled. This makes Connect plugin unavailable, which means Hawtio can no longer connect to remote JVMs, but sometimes users might want to do so because of security if Connect plugin is not used.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.localAddressProbing</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether local address probing for proxy allowlist is enabled or not upon startup. Set this property to <code>false</code> to disable it.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/NetworkInterface.html#getNetworkInterfaces()">all local addresses</a> for proxy allowlist should be allowed. Set this property to <code>false</code> to use only <code>127.0.0.1</code> and <code>localhost</code> addresses.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.proxyAllowlist</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>localhost, 127.0.0.1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Comma-separated allowlist for target hosts that Connect plugin can connect to via <code>ProxyServlet</code>. All hosts that are not listed in this allowlist are denied to connect for security reasons. This option can be set to <code>*</code> to allow all hosts. Prefixing an element of the list with <code>"r:"</code> allows to define a regexp (example: <code>localhost,r:myserver[0-9]+.mydomain.com</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comma-separated allowlist for target hosts that Connect plugin can connect to via <code>ProxyServlet</code>. All hosts that are not listed in this allowlist are forbidden to connect to for security reasons. This option can be set to <code>*</code> to allow all hosts. Prefixing an element of the list with <code>"r:"</code> allows to define a regexp (example: <code>localhost,r:myserver[0-9]+.mydomain.com</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.proxyDisableCertificateValidation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Whether to disable hostname verifier in HttpClient4 used by <code>ProxyServlet</code> when using TLS connections.<br></p>
+</div>
+<div class="paragraph">
+<p>This option can also be specified using <code>PROXY_DISABLE_CERT_VALIDATION</code> environment variable.</p>
+</div></div></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.redirect.scheme</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The scheme of the redirect URL to login page when authentication is required.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The scheme of the redirect URL to login page when authentication is required. When this scheme is not configured, Hawtio sends redirects in the form
+of <code>/hawtio/login</code> instead of absolute address with host name and port number.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.sessionTimeout</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The maximum time interval, in seconds, that the servlet container will keep this session open between client accesses. If this option is not configured, then Hawtio uses the default session timeout of the servlet container.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.http.enableCORS</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether CORS filter is enabled and checks for permitted <code>Origin</code> HTTP header values.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.http.accessControlAllowOrigin</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When <code>hawtio.http.enableCORS</code> option is enabled, Hawtio responds to <a href="https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request">CORS pre-flight requests</a> with CORS headers. This options allows to set the value returned in <code>Access-Control-Allow-Origin</code> response header.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.http.allowXFrameSameOrigin</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>When set to <code>true</code>, Hawtio sends response headers:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">X-Frame-Options: SAMEORIGIN
+Content-Security-Policy: ...; frame-ancestors 'self'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>otherwise (by default) Hawtio sends</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">X-Frame-Options: DENY
+Content-Security-Policy: ...; frame-ancestors 'none'</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hawtio.http.referrerPolicy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>strict-origin</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">What value Hawtio sends with <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Referrer-Policy"><code>Referrer-Policy</code></a> response header.</p></td>
 </tr>
 </tbody>
 </table>
@@ -278,7 +344,7 @@ For the configuration properties related to security and authentication, refer t
 <div class="listingblock">
 <div class="title">application.properties</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">quarkus.hawtio.disableProxy = true</code></pre>
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">quarkus.hawtio.disableProxy = false</code></pre>
 </div>
 </div>
 </div>
@@ -300,7 +366,7 @@ For the configuration properties related to security and authentication, refer t
 <h2 id="_configuring_jolokia_through_system_properties"><a class="anchor" href="#_configuring_jolokia_through_system_properties"></a>Configuring Jolokia through System properties</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Jolokia agent is deployed automatically with <code>io.hawt.web.JolokiaConfiguredAgentServlet</code> that extends Jolokia native <code>org.jolokia.server.core.http.AgentServlet</code> class, defined in <code>hawtio-war/WEB-INF/web.xml</code>.</p>
+<p>The Jolokia agent is deployed automatically as <code>org.jolokia.server.core.http.AgentServlet</code> servlet class, defined in <code>hawtio-war/WEB-INF/web.xml</code>.</p>
 </div>
 <div class="paragraph">
 <p>If you want to customize the Jolokia Servlet with the configuration parameters that are defined in the <a href="https://jolokia.org/reference/html/manual/agents.html#agent-war-init-params">Jolokia documentation</a>, you can pass them as System properties prefixed with <code>jolokia.</code>. For example:</p>
@@ -310,31 +376,9 @@ For the configuration properties related to security and authentication, refer t
 <pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">jolokia.policyLocation = file:///opt/hawtio/my-jolokia-access.xml</code></pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_rbac_restrictor"><a class="anchor" href="#_rbac_restrictor"></a>RBAC Restrictor</h3>
 <div class="paragraph">
-<p>For some runtimes that support Hawtio RBAC (role-based access control) <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>, Hawtio provides a custom <a href="https://jolokia.org/reference/html/manual/security.html#security-restrictor">Jolokia restrictor</a> implementation that provides an additional layer of protection over JMX operations based on the ACL (access control list) policy.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-You cannot use Hawtio RBAC with Quarkus and Spring Boot yet. Enabling the RBAC restrictor on those runtimes only imposes additional load without any gains.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>To activate the Hawtio RBAC restrictor, configure the Jolokia parameter <code>restrictorClass</code> via System property to use <code>io.hawt.web.RBACRestrictor</code> as follows:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">jolokia.restrictorClass = io.hawt.system.RBACRestrictor</code></pre>
-</div>
-</div>
+<p>Since Jolokia 2.2.0 all Jolokia properties can be specified as <code>jolokia.</code> prefixed system properties or <code>JOLOKIA_</code> prefixed
+environment variables. See <a href="https://jolokia.org/reference/html/manual/agents.html#_configuration">Jolokia Configuration</a>.</p>
 </div>
 </div>
 </div>
@@ -915,12 +959,6 @@ configManager.configure(config =&gt; {
 </ul>
 </div>
 </div>
-</div>
-</div>
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. <a href="https://karaf.apache.org/">Apache Karaf</a> and <a href="https://activemq.apache.org/components/artemis/">Apache ActiveMQ Artemis</a> provide Hawtio RBAC support.
 </div>
 </div>
 </article>
