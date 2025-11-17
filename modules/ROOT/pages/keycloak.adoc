@@ -3,6 +3,7 @@
 This chapter presents the legacy method of integration between Hawtio and https://www.keycloak.org[Keycloak]. This method relies on the
 availability of Keycloak libraries and Keycloak-specific configuration files, as well as client side https://www.npmjs.com/package/keycloak-js[keycloak.js] library.
 
+WARNING: Starting with Keycloak 25.0.0, Keycloak specific login modules https://github.com/keycloak/keycloak/issues/28789[are no longer available].
 For generic OpenID Connect integration (which also supports Keycloak server), please refer to xref:oidc.adoc[] chapter.
 
 You can secure your Hawtio console with https://www.keycloak.org[Keycloak]. To integration Hawtio with Keycloak, you need to:
