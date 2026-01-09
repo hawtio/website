@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Development :: Hawtio</title>
+    <title>Camel :: Hawtio</title>
     <meta name="generator" content="Antora 3.1.10">
 <link rel='stylesheet' href='../../_/css/site.css' />
 <link rel='stylesheet' href='../../_/css/docs.css' />
@@ -80,8 +80,8 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../plugins.html">Plugins</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../plugins/camel.html">Camel</a>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="camel.html">Camel</a>
   </li>
 </ul>
   </li>
@@ -107,22 +107,22 @@
     <span class="nav-text">Kubernetes/OpenShift</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="openshift.html">OpenShift</a>
+    <a class="nav-link" href="../online/openshift.html">OpenShift</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="kubernetes.html">Kubernetes</a>
+    <a class="nav-link" href="../online/kubernetes.html">Kubernetes</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="create-user.html">Creating a Hawtio user for Form authentication</a>
+    <a class="nav-link" href="../online/create-user.html">Creating a Hawtio user for Form authentication</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="generate-certificates.html">Generating Certificates Manually</a>
+    <a class="nav-link" href="../online/generate-certificates.html">Generating Certificates Manually</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="rbac.html">RBAC</a>
+    <a class="nav-link" href="../online/rbac.html">RBAC</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="develop.html">Development</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../online/develop.html">Development</a>
   </li>
 </ul>
   </li>
@@ -187,128 +187,124 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Documentation</a></li>
-    <li>Kubernetes/OpenShift</li>
-    <li><a href="develop.html">Development</a></li>
+    <li>Using Hawtio</li>
+    <li><a href="../plugins.html">Plugins</a></li>
+    <li><a href="camel.html">Camel</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/hawtio/website/blob/main/modules/ROOT/pages/online/develop.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/hawtio/website/blob/main/modules/ROOT/pages/plugins/camel.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Development</h1>
-<div class="sect1">
-<h2 id="_tools"><a class="anchor" href="#_tools"></a>Tools</h2>
+<h1 class="page">Camel</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>You must have the following tools installed:</p>
+<p>The Camel plugin adds support for <a href="https://camel.apache.org">Apache Camel</a>. It allows you to browse Camel contexts, routes, endpoints, etc.; visualise running routes and their metrics; create endpoints; send messages; trace message flows; and profile routes to identify which parts runs fast or slow.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_requirements"><a class="anchor" href="#_requirements"></a>Requirements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A Camel application needs to be running in the JVM, which needs to include <a href="https://camel.apache.org/manual/jmx.html">Camel Management</a> component to enable JMX.</p>
+</div>
+<div class="sect2">
+<h3 id="_source"><a class="anchor" href="#_source"></a>Source</h3>
+<div class="paragraph">
+<p>The Source tab requires <a href="https://camel.apache.org/components/3.21.x/others/java-xml-jaxb-dsl.html">Camel XML DSL</a> support.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_debug"><a class="anchor" href="#_debug"></a>Debug</h3>
+<div class="paragraph">
+<p>The Debug tab requires <a href="https://camel.apache.org/components/3.21.x/others/debug.html">Camel Debug</a> component.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_trace"><a class="anchor" href="#_trace"></a>Trace</h3>
+<div class="paragraph">
+<p>The Trace tab requires enabling of <a href="https://camel.apache.org/manual/tracer.html">Camel Tracer</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exchanges"><a class="anchor" href="#_exchanges"></a>Exchanges</h3>
+<div class="paragraph">
+<p>To enable browsing of inflight exchanges in the <strong>Exchanges</strong> tab, the following Camel Main option needs to be enabled:</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>application.properties</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">camel.main.inflight-repository-browse-enabled = true</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_endpoints_inout"><a class="anchor" href="#_endpoints_inout"></a>Endpoints (in/out)</h3>
+<div class="paragraph">
+<p>To activate the <strong>Endpoints (in/out)</strong> tab, either or both of the following Camel Main options need to be enabled:</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>application.properties</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">camel.main.endpoint-runtime-statistics-enabled = true
+camel.main.jmx-management-statistics-level = Extended</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Click the Camel tab in the top navigation bar to view the running Camel Context in the current JVM.
+The selection will not appear on the navigation bar if there is no Camel Context running.</p>
+</div>
+<div class="paragraph">
+<p>The Camel plugin allows you to view all the running Camel applications in the current JVM.
+You can among others see the following details:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="http://nodejs.org">Node.js</a> (v18 or higher)</p>
+<p>Lists of all running Camel applications</p>
 </li>
 <li>
-<p><a href="https://yarnpkg.com">Yarn v3+</a> (classic version 1.x doesn&#8217;t work)</p>
+<p>Detailed information of each Camel Context such as Camel version number, runtime statics</p>
+</li>
+<li>
+<p>Lists of all routes in each Camel applications and their runtime statistics</p>
+</li>
+<li>
+<p>Manage the lifecycle of all Camel applications and their routes, so you can restart / stop / pause / resume, etc.</p>
+</li>
+<li>
+<p>Graphical representation of the running routes along with real time metrics</p>
+</li>
+<li>
+<p>Live tracing and debugging of running routes</p>
+</li>
+<li>
+<p>Profile the running routes with real time runtime statics; detailed specified per processor</p>
+</li>
+<li>
+<p>Browsing and sending messages to Camel endpoint</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_build"><a class="anchor" href="#_build"></a>Build</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ yarn install</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_install"><a class="anchor" href="#_install"></a>Install</h2>
+<h2 id="_source_2"><a class="anchor" href="#_source_2"></a>Source</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to authenticate and obtain OAuth access tokens for the Hawtio console be authorized to watch for <em>hawtio-enabled</em> <sup class="footnote" id="_footnote_hawtio-enabled">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> applications deployed in your cluster, you have to create an OAuth client that matches localhost development URLs.</p>
+<p><a href="https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/camel" class="bare">https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/camel</a></p>
 </div>
-<div class="sect2">
-<h3 id="_cluster_mode"><a class="anchor" href="#_cluster_mode"></a>Cluster mode</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ oc create -f oauthclient.yml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>See <a href="https://docs.openshift.com/container-platform/latest/authentication/configuring-oauth-clients.html#oauth-default-clients_configuring-oauth-clients">OAuth Clients</a> for more information.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_namespace_mode"><a class="anchor" href="#_namespace_mode"></a>Namespace mode</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ oc create -f serviceaccount.yml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>See <a href="https://docs.openshift.com/container-platform/latest/authentication/using-service-accounts-as-oauth-client.html">Service Accounts as OAuth Clients</a> for more information.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_run"><a class="anchor" href="#_run"></a>Run</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_cluster_mode_2"><a class="anchor" href="#_cluster_mode_2"></a>Cluster mode</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ yarn start --master=`oc whoami --show-server` --mode=cluster</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_namespace_mode_2"><a class="anchor" href="#_namespace_mode_2"></a>Namespace mode</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ yarn start --master=`oc whoami --show-server` --mode=namespace --namespace=`oc project -q`</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can access the console at <a href="http://localhost:2772/" class="bare">http://localhost:2772/</a>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_disable_jolokia_authentication_for_deployments_dev_only"><a class="anchor" href="#_disable_jolokia_authentication_for_deployments_dev_only"></a>Disable Jolokia authentication for deployments (dev only)</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In order for a local hawtio-online to detect the hawtio-enabled applications, each application container needs to be configured with the following environment variables:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">AB_JOLOKIA_AUTH_OPENSHIFT=false
-AB_JOLOKIA_PASSWORD_RANDOM=false
-AB_JOLOKIA_OPTS=useSslClientAuthentication=false,protocol=https</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The following script lets you apply the above environment variables to all the deployments with a label <code>provider=fabric8</code> in a batch:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ ./scripts/disable-jolokia-auth.sh</code></pre>
-</div>
-</div>
-<hr>
-</div>
-</div>
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Containers with a configured port named <code>jolokia</code> and that exposes the <a href="https://jolokia.org">Jolokia</a> API.
 </div>
 </div>
 </article>
