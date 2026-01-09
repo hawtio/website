@@ -17,7 +17,7 @@ The following plugins are all included by default in Hawtio:
 |===
 |Plugin |Description
 
-|https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/camel[Camel]
+|xref:plugins/camel.adoc[Camel]
 a|Adds support for https://camel.apache.org[Apache Camel]. Allows you to browse Camel contexts, routes, endpoints, etc.; visualise running routes and their metrics; create endpoints; send messages; trace message flows; and profile routes to identify which parts runs fast or slow.
 
 Requirements:: A Camel application needs to be running in the JVM. The Camel application needs to include https://camel.apache.org/manual/jmx.html[Camel Management] component to enable JMX. The Source tab requires https://camel.apache.org/components/3.21.x/others/java-xml-jaxb-dsl.html[Camel XML DSL] support. The Debug tab requires https://camel.apache.org/components/3.21.x/others/debug.html[Camel Debug] component. The Trace tab requires enabling of https://camel.apache.org/manual/tracer.html[Camel Tracer].

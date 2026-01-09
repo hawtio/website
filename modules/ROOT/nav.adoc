@@ -5,6 +5,7 @@
 * Using Hawtio
 ** xref:configuration.adoc[]
 ** xref:plugins.adoc[]
+*** xref:plugins/camel.adoc[]
 * Securing Hawtio
 ** xref:security.adoc[]
 ** xref:oidc.adoc[]
