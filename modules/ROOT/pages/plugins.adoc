@@ -27,8 +27,8 @@ a|Allows you to connect to local or remote JVMs.
 
 Requirements:: The Discover tab requires `io.hawt:hawtio-local-jvm-mbean` to the dependencies.
 
-|https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/diagnostics[Diagnostics (Tech preview)]
-|The Diagnostics plugin allows you to retrieve information from your Java runtime. Implements the Java Flight Recorder. 
+|https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/diagnostics[JVM Diagnostics (Tech preview)]
+|The JVM Diagnostics plugin allows you to retrieve information from your Java runtime. Implements the Java Flight Recorder. 
 
 |https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/jmx[JMX]
 |Provides the core https://www.oracle.com/java/technologies/javase/javamanagement.html[JMX] support for interacting with MBeans, viewing real time attributes, charting, and invoking operations.
