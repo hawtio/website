@@ -6,7 +6,7 @@ If you are looking to help to with a code contribution, our project uses TypeScr
 
 If you are interested in making a code contribution and would like to learn more about the technologies that we use, check out the list below:
 
-- https://github.com/hawtio/hawtio-next/blob/main/docs/developing.md[Developing Hawtio.next]
+- https://github.com/hawtio/hawtio-react/blob/main/docs/developing.md[Developing Hawtio.next]
 - https://react.dev/[React]
 - https://www.patternfly.org/[PatternFly]
 - https://jolokia.org[Jolokia]

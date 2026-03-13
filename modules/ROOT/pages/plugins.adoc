@@ -22,29 +22,29 @@ a|Adds support for https://camel.apache.org[Apache Camel]. Allows you to browse 
 
 Requirements:: A Camel application needs to be running in the JVM. The Camel application needs to include https://camel.apache.org/manual/jmx.html[Camel Management] component to enable JMX. The Source tab requires https://camel.apache.org/components/3.21.x/others/java-xml-jaxb-dsl.html[Camel XML DSL] support. The Debug tab requires https://camel.apache.org/components/3.21.x/others/debug.html[Camel Debug] component. The Trace tab requires enabling of https://camel.apache.org/manual/tracer.html[Camel Tracer].
 
-|https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/connect[Connect]
+|https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/connect[Connect]
 a|Allows you to connect to local or remote JVMs.
 
 Requirements:: The Discover tab requires `io.hawt:hawtio-local-jvm-mbean` to the dependencies.
 
-|https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/diagnostics[Diagnostics (Tech preview)]
-|The Diagnostics plugin allows you to retrieve information from your Java runtime. Implements the Java Flight Recorder. 
+|https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/jvm-diagnostics[JVM Diagnostics (Tech preview)]
+|The JVM Diagnostics plugin allows you to retrieve information from your Java runtime. Implements the Java Flight Recorder. 
 
-|https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/jmx[JMX]
+|https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/jmx[JMX]
 |Provides the core https://www.oracle.com/java/technologies/javase/javamanagement.html[JMX] support for interacting with MBeans, viewing real time attributes, charting, and invoking operations.
 
-|https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/logs[Logs]
+|https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/logs[Logs]
 a|Provides support for viewing the logs inside the JVM.
 
 Requirements:: Requires `io.hawt:hawtio-log` and a logging framework-specific implementation for `hawtio-log` to the dependencies. Currently, only `io.hawt:hawtio-log-logback` is provided.
 
-|https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/quartz[Quartz]
+|https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/quartz[Quartz]
 |Allows you to view the status of https://www.quartz-scheduler.org/[Quartz] schedulers and configure them. Also allows you to configure and fire jobs and triggers from the console. If you use https://camel.apache.org/components/3.21.x/quartz-component.html[Camel Quartz] component with your Camel application, this plugin will be automatically enabled.
 
-|https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/runtime[Runtime]
+|https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/runtime[Runtime]
 |Provides general overview of the Java process including threads, system properties, and key metrics.
 
-|https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/springboot[Spring Boot]
+|https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/springboot[Spring Boot]
 a|Shows information about the Spring Boot application.
 
 Requirements:: Requires Spring Boot https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints[Health, Info, Loggers, and HTTP Exchanges endpoints] to be exposed to activate each corresponding tab in the plugin.

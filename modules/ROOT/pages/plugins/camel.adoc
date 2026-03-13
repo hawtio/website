@@ -58,4 +58,4 @@ You can among others see the following details:
 
 == Source
 
-https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/camel
+https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/camel

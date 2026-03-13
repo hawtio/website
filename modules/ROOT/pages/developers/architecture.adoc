@@ -5,12 +5,12 @@ This page presents general information about the Hawtio architecture. We show al
 [#_hawtio_react_single_page_application]
 == Hawtio React Single Page Application
 
-Repository: https://github.com/hawtio/hawtio-next
+Repository: https://github.com/hawtio/hawtio-react
 
 There are two main _parts_ of this repository:
 
-* https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio[@hawtio/react] NPM package: a consumable Hawtio package with all Hawtio React components, services and APIs
-* https://github.com/hawtio/hawtio-next/tree/main/app[Hawtio application]: a _sample application_ that uses the above package. A similar application is available in https://github.com/hawtio/hawtio/tree/4.x/console[Hawtio console application] (used in Hawtio WAR and distributed as Java deployable application).
+* https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio[@hawtio/react] NPM package: a consumable Hawtio package with all Hawtio React components, services and APIs
+* https://github.com/hawtio/hawtio-react/tree/main/app[Hawtio application]: a _sample application_ that uses the above package. A similar application is available in https://github.com/hawtio/hawtio/tree/4.x/console[Hawtio console application] (used in Hawtio WAR and distributed as Java deployable application).
 
 Why the distinction?
 
@@ -32,7 +32,7 @@ Hawtio includes built-in plugins. See available plugins at xref::plugins.adoc[] 
 
 === How to use the `@hawtio/react` package - minimal required setup
 
-In order to _use_ the Hawtio client library, you should create an application similar to the https://github.com/hawtio/hawtio-next/tree/main/app[Hawtio application].
+In order to _use_ the Hawtio client library, you should create an application similar to the https://github.com/hawtio/hawtio-react/tree/main/app[Hawtio application].
 
 At a minimum we should use these files:
 

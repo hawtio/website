@@ -1,5 +1,5 @@
 * xref:index.adoc[]
-** xref:overview-v4.adoc[]
+** xref:overview.adoc[]
 ** xref:get-started.adoc[]
 ** xref:versions.adoc[]
 * Using Hawtio

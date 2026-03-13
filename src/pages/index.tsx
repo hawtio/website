@@ -89,13 +89,13 @@ const IndexPage = () => {
         </p>
         <p>
           The plugins include:{' '}
-          <a href='https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/camel'>Apache Camel</a>,{' '}
-          <a href='https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/connect'>Connect</a>,{' '}
-          <a href='https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/jmx'>JMX</a>,{' '}
-          <a href='https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/logs'>Logs</a>,{' '}
-          <a href='https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/activemq'>Runtime</a>,{' '}
-          <a href='https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/quartz'>Quartz</a>, and{' '}
-          <a href='https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/spring-boot'>
+          <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/camel'>Apache Camel</a>,{' '}
+          <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/connect'>Connect</a>,{' '}
+          <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/jmx'>JMX</a>,{' '}
+          <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/logs'>Logs</a>,{' '}
+          <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/activemq'>Runtime</a>,{' '}
+          <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/quartz'>Quartz</a>, and{' '}
+          <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/spring-boot'>
             Spring Boot
           </a>
           .

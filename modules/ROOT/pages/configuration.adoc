@@ -287,7 +287,7 @@ Here is how the `disabledRoutes` configuration looks in `hawtconfig.json`:
 
 ==== JMX plugin
 
-The https://github.com/hawtio/hawtio-next/tree/main/packages/hawtio/src/plugins/jmx[JMX] plugin is customisable via the `jmx` configuration in `hawtconfig.json`.
+The https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/jmx[JMX] plugin is customisable via the `jmx` configuration in `hawtconfig.json`.
 
 TIP: By default Hawtio loads all MBeans into the workspace via the JMX plugin. Sometimes your custom Hawtio console might want to load only a portion of MBeans to reduce the load on the application. The `jmx` configuration provides an option to limit the MBeans to be loaded into the workspace.
 

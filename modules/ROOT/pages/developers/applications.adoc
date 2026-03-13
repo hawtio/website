@@ -415,7 +415,7 @@ Module Federation in Hawtio may be configured statically in `webpack.config.cjs`
 
 _Static_ usage of Module Federation modules involves configuration of `webpack.config.js` file and https://webpack.js.org/plugins/module-federation-plugin/[Module Federation Plugin].
 
-https://github.com/hawtio/hawtio-next/tree/main/app[Hawtio React application] provides fully working example, but let's present the required configuration here. All JSON configuration is part of this object in Webpack configuration file:
+https://github.com/hawtio/hawtio-react/tree/main/app[Hawtio React application] provides fully working example, but let's present the required configuration here. All JSON configuration is part of this object in Webpack configuration file:
 
 [source,javascript]
 ----
