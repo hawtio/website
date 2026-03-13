@@ -311,6 +311,20 @@ This required the refactoring from a dependence on Camel 2 to Camel 3.</p>
 <div class="paragraph">
 <p><a href="https://spring.io/blog/2022/05/24/preparing-for-spring-boot-3-0">Spring Boot 3</a> took the radical approach of moving directly to JDK 17 as the baseline and JakartaEE 9 APIs. The supporting of both <code>javax.</code> and <code>jakarta.</code> namespaces would have proven too costly in the long term and would not force users to switch at all&#8230;&#8203;</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hawtio_5"><a class="anchor" href="#_hawtio_5"></a>Hawtio 5</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hawtio 5 is a major version with the primary objective of upgrading to PatternFly v6.</p>
+</div>
+<div class="paragraph">
+<p>Hawtio relies on two core technology stacks: React and PatternFly. Of these, PatternFly undergoes major upgrades every few years, and Hawtio must keep pace with these upgrades to maintain a modern look and feel.</p>
+</div>
+<div class="paragraph">
+<p>While this UI upgrade does not break the compatibility of Hawtio&#8217;s core functionality, it does introduce breaking changes to custom plugins and the external ecosystem. Because these plugins must migrate to the new PatternFly version, such upgrades are treated as breaking changes under semantic versioning and are therefore delivered as a major version release.</p>
+</div>
 <div class="paragraph">
 <p>So the development continues&#8230;&#8203;</p>
 </div>
