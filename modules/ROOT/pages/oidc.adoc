@@ -184,7 +184,7 @@ After it's started, browse to http://localhost:18080/admin/master/console/ and c
 
 image::keycloak-create-realm.png[]
 
-At realm creation screen, upload https://raw.githubusercontent.com/hawtio/hawtio/4.x/examples/keycloak-integration/hawtio-demo-realm.json[hawtio-demo-realm.json] which defines new `hawtio-demo` realm with pre-configured `hawtio-client` client and 3 users:
+At realm creation screen, upload https://raw.githubusercontent.com/hawtio/hawtio/main/examples/keycloak-integration/hawtio-demo-realm.json[hawtio-demo-realm.json] which defines new `hawtio-demo` realm with pre-configured `hawtio-client` client and 3 users:
 
 * admin/admin with roles `manager`, `admin`, `viewer` and `user`
 * viewer/viewer with roles `viewer` and `user`

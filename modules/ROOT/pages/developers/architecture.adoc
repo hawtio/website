@@ -10,7 +10,7 @@ Repository: https://github.com/hawtio/hawtio-react
 There are two main _parts_ of this repository:
 
 * https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio[@hawtio/react] NPM package: a consumable Hawtio package with all Hawtio React components, services and APIs
-* https://github.com/hawtio/hawtio-react/tree/main/app[Hawtio application]: a _sample application_ that uses the above package. A similar application is available in https://github.com/hawtio/hawtio/tree/4.x/console[Hawtio console application] (used in Hawtio WAR and distributed as Java deployable application).
+* https://github.com/hawtio/hawtio-react/tree/main/app[Hawtio application]: a _sample application_ that uses the above package. A similar application is available in https://github.com/hawtio/hawtio/tree/main/console[Hawtio console application] (used in Hawtio WAR and distributed as Java deployable application).
 
 Why the distinction?
 

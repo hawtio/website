@@ -379,7 +379,7 @@ For a Quarkus application, the `hawtconfig.json` file, as well as the other comp
 
 You can find an example Quarkus project at:
 
-- https://github.com/hawtio/hawtio/tree/4.x/examples/quarkus
+- https://github.com/hawtio/hawtio/tree/main/examples/quarkus
 
 ==== Spring Boot
 
@@ -387,7 +387,7 @@ For a Spring Boot application, the `hawtconfig.json` file, as well as the other 
 
 You can find an example Spring Boot project at:
 
-- https://github.com/hawtio/hawtio/tree/4.x/examples/springboot-authentication
+- https://github.com/hawtio/hawtio/tree/main/examples/springboot-authentication
 
 === Customising from plugins
 

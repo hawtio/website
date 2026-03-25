@@ -103,14 +103,14 @@ You can attach the Hawtio console to your Quarkus application in a single step.
 
 === Set up
 
-- Add `io.hawt:hawtio-quarkus` and the supporting Camel Quarkus extensions to the dependencies in `pom.xml` (replace `4.x.y` with the latest Hawtio release version):
+- Add `io.hawt:hawtio-quarkus` and the supporting Camel Quarkus extensions to the dependencies in `pom.xml` (replace `5.x.y` with the latest Hawtio release version):
 +
 [source,xml]
 ----
 <dependency>
   <groupId>io.hawt</groupId>
   <artifactId>hawtio-quarkus</artifactId>
-  <version>4.x.y</version>
+  <version>5.x.y</version>
 </dependency>
 
 <!-- Mandatory for enabling Camel management via JMX / Hawtio -->
@@ -147,14 +147,14 @@ You can attach the Hawtio console to your Spring Boot application in two steps.
 
 === Set up
 
-1. Add `io.hawt:hawtio-springboot` and the supporting Camel Spring Boot starters to the dependencies in `pom.xml` (replace `4.x.y` with the latest Hawtio release version):
+1. Add `io.hawt:hawtio-springboot` and the supporting Camel Spring Boot starters to the dependencies in `pom.xml` (replace `5.x.y` with the latest Hawtio release version):
 +
 [source,xml]
 ----
 <dependency>
   <groupId>io.hawt</groupId>
   <artifactId>hawtio-springboot</artifactId>
-  <version>4.x.y</version>
+  <version>5.x.y</version>
 </dependency>
 
 <!-- Mandatory for enabling Camel management via JMX / Hawtio -->
@@ -259,14 +259,14 @@ NOTE: This may be a problem when using such XML deployment when `hawtio.war` is 
 
 You can also embed Hawtio inside your Java application instead of deploying it on a servlet container or application server.
 
-To embed Hawtio to an application, add `io.hawt:hawtio-embedded` to your `pom.xml` (replace `4.x.y` with the latest Hawtio release version):
+To embed Hawtio to an application, add `io.hawt:hawtio-embedded` to your `pom.xml` (replace `5.x.y` with the latest Hawtio release version):
 
 [source,xml]
 ----
 <dependency>
   <groupId>io.hawt</groupId>
   <artifactId>hawtio-embedded</artifactId>
-  <version>4.x.y</version>
+  <version>5.x.y</version>
 </dependency>
 ----
 
