@@ -252,7 +252,7 @@ For generic OpenID Connect integration (which also supports Keycloak server), pl
 <p>Here we use port number <code>18080</code> for the Keycloak server to avoid potential conflicts with the ports other applications might use.</p>
 </div>
 <div class="paragraph">
-<p>You can log in to the Keycloak admin console <a href="http://localhost:18080/admin/" class="bare">http://localhost:18080/admin/</a> with user <code>admin</code> / password <code>admin</code>. Import <a href="https://raw.githubusercontent.com/hawtio/hawtio/4.x/examples/keycloak-integration/hawtio-demo-realm.json">hawtio-demo-realm.json</a> into Keycloak. To do so, click <code>Create Realm</code> button and then import <code>hawtio-demo-realm.json</code>. It will create <code>hawtio-demo</code> realm.</p>
+<p>You can log in to the Keycloak admin console <a href="http://localhost:18080/admin/" class="bare">http://localhost:18080/admin/</a> with user <code>admin</code> / password <code>admin</code>. Import <a href="https://raw.githubusercontent.com/hawtio/hawtio/main/examples/keycloak-integration/hawtio-demo-realm.json">hawtio-demo-realm.json</a> into Keycloak. To do so, click <code>Create Realm</code> button and then import <code>hawtio-demo-realm.json</code>. It will create <code>hawtio-demo</code> realm.</p>
 </div>
 <div class="paragraph">
 <p>The <code>hawtio-demo</code> realm has the <code>hawtio-client</code> application installed as a public client, and defines a couple of realm roles such as <code>admin</code> and <code>viewer</code>. The names of these roles are the same as the default Hawtio roles, which are allowed to log in to Hawtio admin console and to JMX.</p>
@@ -409,7 +409,7 @@ Set <code>pkceMethod</code> to <code>S256</code> depending on <em>Proof Key for 
 <div class="sect3">
 <h4 id="_example"><a class="anchor" href="#_example"></a>Example</h4>
 <div class="paragraph">
-<p>See <a href="https://github.com/hawtio/hawtio/tree/4.x/examples/quarkus-keycloak">quarkus-keycloak example</a> for a working example.</p>
+<p>See <a href="https://github.com/hawtio/hawtio/tree/main/examples/quarkus-keycloak">quarkus-keycloak example</a> for a working example.</p>
 </div>
 </div>
 </div>
@@ -477,7 +477,7 @@ spring.security.oauth2.client.registration.keycloak.scope = openid</code></pre>
 <div class="sect3">
 <h4 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h4>
 <div class="paragraph">
-<p>See <a href="https://github.com/hawtio/hawtio/tree/4.x/examples/springboot-keycloak">springboot-keycloak example</a> for a working example.</p>
+<p>See <a href="https://github.com/hawtio/hawtio/tree/main/examples/springboot-keycloak">springboot-keycloak example</a> for a working example.</p>
 </div>
 </div>
 </div>
