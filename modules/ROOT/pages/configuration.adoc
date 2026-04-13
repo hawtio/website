@@ -76,6 +76,14 @@ Content-Security-Policy: ...; frame-ancestors 'none'
 |`hawtio.http.referrerPolicy`
 |`strict-origin`
 |What value Hawtio sends with https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Referrer-Policy[`Referrer-Policy`] response header.
+
+|`hawtio.http.csp.connectSrc`
+|-
+|(Since Hawtio 5.1.0) Source list of custom `connect-src` directive that users can add to the default https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy[`Content-Security-Policy`] response header sent by Hawtio. Specify a comma-separated list of allowed sources to connect if a specific plugin requires access to external resources.
+
+|`hawtio.http.csp.scriptSrc`
+|-
+|(Since Hawtio 5.1.0) Source list of custom `script-src` directive that users can add to the default https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy[`Content-Security-Policy`] response header sent by Hawtio. Specify a comma-separated list of allowed sources for scripting if a specific plugin requires loading external scripts.
 |===
 
 === Quarkus
