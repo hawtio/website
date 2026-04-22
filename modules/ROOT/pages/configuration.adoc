@@ -139,7 +139,7 @@ Here is an example file of `hawtconfig.json`:
     "appName": "Hawtio Management Console",
     "showAppName": false,
     "appLogoUrl": "hawtio-logo.svg",
-    "companyLogoUrl": "hawtio-logo.svg",
+    "appLogoDarkModeUrl": "hawtio-logo-darkmode.svg",
     "css": "",
     "favicon": "favicon.ico"
   },
@@ -155,6 +155,7 @@ Here is an example file of `hawtconfig.json`:
     "title": "Hawtio Management Console",
     "description": "A Hawtio reimplementation based on TypeScript + React.",
     "imgSrc": "hawtio-logo.svg",
+    "imgDarkModeSrc": "hawtio-logo-darkmode.svg",
     "productInfo": [
       { "name": "ABC", "value": "1.2.3" },
       { "name": "XYZ", "value": "7.8.9" }
@@ -196,8 +197,8 @@ The `branding` configuration provides the options to customise the console's bra
 
 |`appName` |`Hawtio Management Console` |Customise the application name of the console. The name is used in the browser title header and optionally in the header of the console page.
 |`showAppName` |`false` |Show the application name in the header of the console page.
-|`appLogoUrl` |`img/hawtio-logo.svg` |Use the URL to substitute the application logo.
-|`companyLogoUrl` |`img/hawtio-logo.svg` |Use the URL to substitute the company logo.
+|`appLogoUrl` |`img/hawtio-logo.svg` |Use the URL to substitute the application logo to be used in light mode.
+|`appLogoDarkModeUrl` |`img/hawtio-logo.svg` |Use the URL to substitute the application logo to be used in dark mode.
 |`css` | |Provide the custom CSS to apply to the console.
 |`favicon` | |Use the URL to substitute the favicon.
 
@@ -212,7 +213,7 @@ Here is how the `branding` configuration looks in `hawtconfig.json`:
     "appName": "Hawtio Management Console",
     "showAppName": false,
     "appLogoUrl": "hawtio-logo.svg",
-    "companyLogoUrl": "hawtio-logo.svg",
+    "appLogoDarkModeUrl": "hawtio-logo-darkmode.svg",
     "css": "",
     "favicon": "favicon.ico"
   }
@@ -258,7 +259,8 @@ The `about` configuration provides the options to customise the information disp
 
 |`title` |`Hawtio Management Console` |Customise the title of the About modal.
 |`description` | |Provide the description text to the About modal.
-|`imgSrc` |`img/hawtio-logo.svg` |Use the URL to substitute the logo image in the About modal.
+|`imgSrc` |`img/hawtio-logo.svg` |Use the URL to substitute the logo image in the About modal to be used in light mode.
+|`imgDarkModeSrc` |`img/hawtio-logo.svg` |Use the URL to substitute the logo image in the About modal to be used in dark mode.
 |`productInfo` | `[]` |Provide the information of names and versions about the additional components used in the console. The value should be an array of objects with `name` and `value` properties.
 |`copyright` | |Set the copyright information in the About modal.
 
@@ -437,6 +439,7 @@ configManager.configure(config => {
     appName: 'Hawtio Sample WAR Plugin',
     showAppName: true,
     appLogoUrl: '/sample-plugin/branding/Logo-RedHat-A-Reverse-RGB.png',
+    appLogoDarkModeUrl: '/sample-plugin/branding/Logo-RedHat-A-DarkMode-RGB.png',
     css: '/sample-plugin/branding/app.css',
     favicon: '/sample-plugin/branding/favicon.ico',
   }
