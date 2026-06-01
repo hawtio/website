@@ -147,13 +147,13 @@ You can attach the Hawtio console to your Spring Boot application in two steps.
 
 === Set up
 
-1. Add `io.hawt:hawtio-springboot` and the supporting Camel Spring Boot starters to the dependencies in `pom.xml` (replace `5.x.y` with the latest Hawtio release version):
+1. Add `io.hawt:hawtio-springboot4` or `io.hawt:hawtio-springboot` and the supporting Camel Spring Boot starters to the dependencies in `pom.xml` (replace `5.x.y` with the latest Hawtio release version):
 +
 [source,xml]
 ----
 <dependency>
   <groupId>io.hawt</groupId>
-  <artifactId>hawtio-springboot</artifactId>
+  <artifactId>hawtio-springboot4</artifactId>
   <version>5.x.y</version>
 </dependency>
 
