@@ -420,7 +420,7 @@ environment variables. See <a href="https://jolokia.org/reference/html/manual/ag
     "appName": "Hawtio Management Console",
     "showAppName": false,
     "appLogoUrl": "hawtio-logo.svg",
-    "companyLogoUrl": "hawtio-logo.svg",
+    "appLogoDarkModeUrl": "hawtio-logo-darkmode.svg",
     "css": "",
     "favicon": "favicon.ico"
   },
@@ -436,6 +436,7 @@ environment variables. See <a href="https://jolokia.org/reference/html/manual/ag
     "title": "Hawtio Management Console",
     "description": "A Hawtio reimplementation based on TypeScript + React.",
     "imgSrc": "hawtio-logo.svg",
+    "imgDarkModeSrc": "hawtio-logo-darkmode.svg",
     "productInfo": [
       { "name": "ABC", "value": "1.2.3" },
       { "name": "XYZ", "value": "7.8.9" }
@@ -525,12 +526,12 @@ environment variables. See <a href="https://jolokia.org/reference/html/manual/ag
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>appLogoUrl</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>img/hawtio-logo.svg</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use the URL to substitute the application logo.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the URL to substitute the application logo to be used in light mode.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>companyLogoUrl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>appLogoDarkModeUrl</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>img/hawtio-logo.svg</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use the URL to substitute the company logo.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the URL to substitute the application logo to be used in dark mode.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>css</code></p></td>
@@ -554,7 +555,7 @@ environment variables. See <a href="https://jolokia.org/reference/html/manual/ag
     "appName": "Hawtio Management Console",
     "showAppName": false,
     "appLogoUrl": "hawtio-logo.svg",
-    "companyLogoUrl": "hawtio-logo.svg",
+    "appLogoDarkModeUrl": "hawtio-logo-darkmode.svg",
     "css": "",
     "favicon": "favicon.ico"
   }</code></pre>
@@ -643,7 +644,12 @@ environment variables. See <a href="https://jolokia.org/reference/html/manual/ag
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>imgSrc</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>img/hawtio-logo.svg</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use the URL to substitute the logo image in the About modal.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the URL to substitute the logo image in the About modal to be used in light mode.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>imgDarkModeSrc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>img/hawtio-logo.svg</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use the URL to substitute the logo image in the About modal to be used in dark mode.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>productInfo</code></p></td>
@@ -938,6 +944,7 @@ configManager.configure(config =&gt; {
     appName: 'Hawtio Sample WAR Plugin',
     showAppName: true,
     appLogoUrl: '/sample-plugin/branding/Logo-RedHat-A-Reverse-RGB.png',
+    appLogoDarkModeUrl: '/sample-plugin/branding/Logo-RedHat-A-DarkMode-RGB.png',
     css: '/sample-plugin/branding/app.css',
     favicon: '/sample-plugin/branding/favicon.ico',
   }
