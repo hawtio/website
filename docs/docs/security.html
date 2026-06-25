@@ -224,7 +224,7 @@ a need to provide some configuration. User may also disable the authentication e
 </div>
 </div>
 <div class="sect1">
-<h2 id="_generic_configuration_properties"><a class="anchor" href="#_generic_configuration_properties"></a>Generic Configuration properties</h2>
+<h2 id="_generic_configuration_properties"><a class="anchor" href="#_generic_configuration_properties"></a>Generic configuration properties</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following table lists the Security-related configuration properties for the Hawtio core system. These are not specific to any selected
@@ -353,6 +353,235 @@ You cannot use Hawtio RBAC with Quarkus and Spring Boot yet. Enabling the RBAC r
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">jolokia.restrictorClass = io.hawt.system.RBACRestrictor</code></pre>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_production_ready_configuration"><a class="anchor" href="#_production_ready_configuration"></a>Production-ready configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When deploying Hawtio in a production environment, it is essential to implement proper security measures to protect against common web vulnerabilities. This section covers critical security configurations for protection from common security attacks.</p>
+</div>
+<div class="sect2">
+<h3 id="_securing_jolokia_cors_configuration"><a class="anchor" href="#_securing_jolokia_cors_configuration"></a>Securing Jolokia CORS configuration</h3>
+<div class="paragraph">
+<p>The most important configuration in a production environment is to set up Jolokia’s CORS restrictions. By default, Jolokia is configured to accept cross-origin access from any host. This means that it may also accept requests sent directly to Jolokia endpoints from external, unrelated websites.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+CSRF (Cross-Site Request Forgery) attacks can trick authenticated users into executing unwanted actions. Hawtio uses Jolokia for JMX operations, and proper CORS configuration is critical for CSRF protection.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_policy_file_jolokia_access_xml"><a class="anchor" href="#_policy_file_jolokia_access_xml"></a>Policy file: <code>jolokia-access.xml</code></h4>
+<div class="paragraph">
+<p>Create or update the <code>jolokia-access.xml</code> file to restrict access to trusted origins only. This file should include strict CORS settings:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;restrict&gt;
+  ...
+  &lt;cors&gt;
+    &lt;!-- Allow access only from trusted origins --&gt;
+    &lt;allow-origin&gt;http*://localhost:*&lt;/allow-origin&gt;
+    &lt;allow-origin&gt;http*://127.0.0.1:*&lt;/allow-origin&gt;
+    &lt;allow-origin&gt;https://*.your-site.com&lt;/allow-origin&gt;
+
+    &lt;!-- Enable strict checking to enforce the proper origin check --&gt;
+    &lt;strict-checking /&gt;
+  &lt;/cors&gt;
+&lt;/restrict&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The <code>&lt;strict-checking /&gt;</code> setting is critical for CSRF protection. Without it, malicious requests to invoke MBean operations may still be executed even with origin restrictions in place.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="title">Advice for the production environment</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Never use wildcard (<code>*</code>) for <code>allow-origin</code> in production environments</p>
+</li>
+<li>
+<p>Specify exact protocols (<code>http</code> or <code>https</code>) and ports when possible</p>
+</li>
+<li>
+<p>Use HTTPS-only origins for confidentiality and integrity</p>
+</li>
+<li>
+<p>Regularly review and update the list of allowed origins</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For details on <code>&lt;cors&gt;</code> element settings, refer to the official Jolokia documentation.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://jolokia.org/reference/html/manual/security.html#_cross_origin_resource_sharing_cors_restrictions">Jolokia Manual - Security - Cross-Origin Resource Sharing (CORS) restrictions</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_applying_the_jolokia_policy"><a class="anchor" href="#_applying_the_jolokia_policy"></a>Applying the Jolokia policy</h4>
+<div class="paragraph">
+<p>By default, Jolokia loads the <code>jolokia-access.xml</code> file located at the root of the application classpath. In Spring Boot or Quarkus applications, place <code>jolokia-access.xml</code> in the project’s <code>src/main/resources</code> directory to apply the policies.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/hawtio/hawtio/tree/main/examples/springboot-security">Spring Boot example</a></p>
+</li>
+<li>
+<p><a href="https://github.com/hawtio/hawtio/tree/main/examples/quarkus">Quarkus example</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you want to load <code>jolokia-access.xml</code> from a location other than the default one, such as an external file, define the <code>jolokia.policyLocation</code> system property:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">jolokia.policyLocation = file:///path/to/jolokia-access.xml</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reviewing_proxy_servlet_settings"><a class="anchor" href="#_reviewing_proxy_servlet_settings"></a>Reviewing Proxy Servlet settings</h3>
+<div class="paragraph">
+<p>When launched from the CLI, Hawtio features a "Connect" function that connects to remote Jolokia endpoints. This functionality is implemented via a proxy servlet running on Hawtio&#8217;s JVM runtime.</p>
+</div>
+<div class="paragraph">
+<p>For security reasons, the proxy servlet only permits connections to local Jolokia endpoints by default. If you want to connect to a remote endpoint, you must explicitly specify the hostname to be allowed via the <code>hawtio.proxyAllowlist</code> system property.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you are using Spring Boot or Quarkus to integrate the Hawtio console directly into your application, the proxy servlet is disabled by default via the <code>hawtio-springboot</code> or <code>hawtio-quarkus</code> components. If you have explicitly enabled the proxy servlet (<code>hawtio.disableProxy = false</code>), you must also review the configuration described here.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_proxy_allowlist"><a class="anchor" href="#_proxy_allowlist"></a>Proxy allowlist</h4>
+<div class="paragraph">
+<p>When you need to connect to remote Jolokia endpoints, configure the allowlist via the <code>hawtio.proxyAllowlist</code> system property. This prevents malicious scripts from being injected through unauthorized remote connections (Cross-Site Scripting, XSS).</p>
+</div>
+<div class="paragraph">
+<p>For example, to allow connections to specific servers:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">hawtio.proxyAllowlist = myserver1, myserver2, myserver3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also use regular expressions for more flexible allowlist patterns by prefixing them with <code>r:</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">hawtio.proxyAllowlist = r:.+[.]example[.]com, r:192[.]168[.]1[.].+</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Always use the most restrictive allowlist possible. Only include hosts that absolutely need to be accessed remotely.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_disabling_proxy"><a class="anchor" href="#_disabling_proxy"></a>Disabling proxy</h4>
+<div class="paragraph">
+<p>If you are absolutely certain that you will not be using the Connect feature for remote connections, the safest option is to disable the proxy servlet.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you are using the Hawtio console with Spring Boot or Quarkus applications, the proxy servlet is already disabled by default.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">hawtio.disableProxy = true</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_production_security_best_practices"><a class="anchor" href="#_production_security_best_practices"></a>Production security best practices</h3>
+<div class="paragraph">
+<p>Beyond CSRF and XSS protection, consider implementing these security measures:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Use HTTPS/TLS</dt>
+<dd>
+<p>Always encrypt data in transit in production environments</p>
+</dd>
+<dt class="hdlist1">Enable authentication</dt>
+<dd>
+<p>Never disable authentication (<code>hawtio.authenticationEnabled = false</code>) in production</p>
+</dd>
+<dt class="hdlist1">Implement RBAC</dt>
+<dd>
+<p>For platforms where Hawtio supports RBAC, configure <a href="online/rbac.html" class="xref page">RBAC</a> for fine-grained access control</p>
+</dd>
+<dt class="hdlist1">Regular updates</dt>
+<dd>
+<p>Keep Hawtio and its dependencies up to date to patch security vulnerabilities</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -557,22 +786,7 @@ public class SecurityConfig {
 </div>
 </div>
 <div class="paragraph">
-<p>To secure the Jolokia endpoint even without Spring Security&#8217;s CSRF protection, you need to provide a <code>jolokia-access.xml</code> file under <code>src/main/resources/</code> like the following (snippet) so that only trusted nodes can access it:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;restrict&gt;
-  ...
-  &lt;cors&gt;
-    &lt;allow-origin&gt;http*://localhost:*&lt;/allow-origin&gt;
-    &lt;allow-origin&gt;http*://127.0.0.1:*&lt;/allow-origin&gt;
-    &lt;allow-origin&gt;http*://*.example.com&lt;/allow-origin&gt;
-    &lt;allow-origin&gt;http*://*.example.com:*&lt;/allow-origin&gt;
-
-    &lt;strict-checking /&gt;
-  &lt;/cors&gt;
-&lt;/restrict&gt;</code></pre>
-</div>
+<p>To secure the Jolokia endpoint even without Spring Security&#8217;s CSRF protection, configure <code>jolokia-access.xml</code> with strict CORS settings. See <a href="#_securing_jolokia_cors_configuration">Securing Jolokia CORS configuration</a> for details.</p>
 </div>
 </div>
 </div>
@@ -591,7 +805,7 @@ library to handle OpenID Connect authentication in the browser.</p>
 <div class="paragraph">
 <p>Hawtio can be deployed to any <a href="https://jakarta.ee/specifications/servlet/6.1/jakarta-servlet-spec-6.1">Servlet API</a> compliant container. The deployment
 artifact is a Web Archive (WAR). Most of the configuration is already provided in Hawtio&#8217;s <code>WEB-INF/war.xml</code>, but this configuration may be
-changed with <a href="#_generic_configuration_properties">Generic Configuration properties</a>.</p>
+changed with <a href="#_generic_configuration_properties">Generic configuration properties</a>.</p>
 </div>
 <div class="paragraph">
 <p>Hawtio authentication is enabled by default. If you want to disable Hawtio authentication, set the following system property:</p>
