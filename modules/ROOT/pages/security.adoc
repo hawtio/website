@@ -10,7 +10,7 @@ Because the authentication mechanisms may vary between these environments (for e
 a need to provide some configuration. User may also disable the authentication entirely.
 
 [#_generic_configuration_properties]
-== Generic Configuration properties
+== Generic configuration properties
 
 The following table lists the Security-related configuration properties for the Hawtio core system. These are not specific to any selected
 deployment method, but may have some special _flavors_ in a given environment (like Keycloak configuration).
@@ -98,6 +98,116 @@ To activate the Hawtio RBAC restrictor, configure the Jolokia parameter `restric
 ----
 jolokia.restrictorClass = io.hawt.system.RBACRestrictor
 ----
+
+== Production-ready configuration
+
+When deploying Hawtio in a production environment, it is essential to implement proper security measures to protect against common web vulnerabilities. This section covers critical security configurations for protection from common security attacks.
+
+=== Securing Jolokia CORS configuration
+
+The most important configuration in a production environment is to set up Jolokia’s CORS restrictions. By default, Jolokia is configured to accept cross-origin access from any host. This means that it may also accept requests sent directly to Jolokia endpoints from external, unrelated websites.
+
+TIP: CSRF (Cross-Site Request Forgery) attacks can trick authenticated users into executing unwanted actions. Hawtio uses Jolokia for JMX operations, and proper CORS configuration is critical for CSRF protection.
+
+==== Policy file: `jolokia-access.xml`
+
+Create or update the `jolokia-access.xml` file to restrict access to trusted origins only. This file should include strict CORS settings:
+
+[source,xml]
+----
+<restrict>
+  ...
+  <cors>
+    <!-- Allow access only from trusted origins -->
+    <allow-origin>http*://localhost:*</allow-origin>
+    <allow-origin>http*://127.0.0.1:*</allow-origin>
+    <allow-origin>https://*.your-site.com</allow-origin>
+
+    <!-- Enable strict checking to enforce the proper origin check -->
+    <strict-checking />
+  </cors>
+</restrict>
+----
+
+IMPORTANT: The `<strict-checking />` setting is critical for CSRF protection. Without it, malicious requests to invoke MBean operations may still be executed even with origin restrictions in place.
+
+[CAUTION]
+.Advice for the production environment
+====
+
+* Never use wildcard (`*`) for `allow-origin` in production environments
+* Specify exact protocols (`http` or `https`) and ports when possible
+* Use HTTPS-only origins for confidentiality and integrity
+* Regularly review and update the list of allowed origins
+====
+
+For details on `<cors>` element settings, refer to the official Jolokia documentation.
+
+- link:https://jolokia.org/reference/html/manual/security.html#_cross_origin_resource_sharing_cors_restrictions[Jolokia Manual - Security - Cross-Origin Resource Sharing (CORS) restrictions]
+
+==== Applying the Jolokia policy
+
+By default, Jolokia loads the `jolokia-access.xml` file located at the root of the application classpath. In Spring Boot or Quarkus applications, place `jolokia-access.xml` in the project’s `src/main/resources` directory to apply the policies.
+
+Examples:
+
+- link:https://github.com/hawtio/hawtio/tree/main/examples/springboot-security[Spring Boot example]
+- link:https://github.com/hawtio/hawtio/tree/main/examples/quarkus[Quarkus example]
+
+If you want to load `jolokia-access.xml` from a location other than the default one, such as an external file, define the `jolokia.policyLocation` system property:
+
+[source,properties]
+----
+jolokia.policyLocation = file:///path/to/jolokia-access.xml
+----
+
+=== Reviewing Proxy Servlet settings
+
+When launched from the CLI, Hawtio features a "Connect" function that connects to remote Jolokia endpoints. This functionality is implemented via a proxy servlet running on Hawtio's JVM runtime.
+
+For security reasons, the proxy servlet only permits connections to local Jolokia endpoints by default. If you want to connect to a remote endpoint, you must explicitly specify the hostname to be allowed via the `hawtio.proxyAllowlist` system property.
+
+NOTE: If you are using Spring Boot or Quarkus to integrate the Hawtio console directly into your application, the proxy servlet is disabled by default via the `hawtio-springboot` or `hawtio-quarkus` components. If you have explicitly enabled the proxy servlet (`hawtio.disableProxy = false`), you must also review the configuration described here.
+
+==== Proxy allowlist
+
+When you need to connect to remote Jolokia endpoints, configure the allowlist via the `hawtio.proxyAllowlist` system property. This prevents malicious scripts from being injected through unauthorized remote connections (Cross-Site Scripting, XSS).
+
+For example, to allow connections to specific servers:
+
+[source,properties]
+----
+hawtio.proxyAllowlist = myserver1, myserver2, myserver3
+----
+
+You can also use regular expressions for more flexible allowlist patterns by prefixing them with `r:`:
+
+[source,properties]
+----
+hawtio.proxyAllowlist = r:.+[.]example[.]com, r:192[.]168[.]1[.].+
+----
+
+IMPORTANT: Always use the most restrictive allowlist possible. Only include hosts that absolutely need to be accessed remotely.
+
+==== Disabling proxy
+
+If you are absolutely certain that you will not be using the Connect feature for remote connections, the safest option is to disable the proxy servlet.
+
+NOTE: If you are using the Hawtio console with Spring Boot or Quarkus applications, the proxy servlet is already disabled by default.
+
+[source,properties]
+----
+hawtio.disableProxy = true
+----
+
+=== Production security best practices
+
+Beyond CSRF and XSS protection, consider implementing these security measures:
+
+Use HTTPS/TLS:: Always encrypt data in transit in production environments
+Enable authentication:: Never disable authentication (`hawtio.authenticationEnabled = false`) in production
+Implement RBAC:: For platforms where Hawtio supports RBAC, configure xref:online/rbac.adoc[RBAC] for fine-grained access control
+Regular updates:: Keep Hawtio and its dependencies up to date to patch security vulnerabilities
 
 [#_quarkus]
 == Quarkus
@@ -245,22 +355,7 @@ public class SecurityConfig {
 }
 ----
 
-To secure the Jolokia endpoint even without Spring Security's CSRF protection, you need to provide a `jolokia-access.xml` file under `src/main/resources/` like the following (snippet) so that only trusted nodes can access it:
-
-[source,xml]
-----
-<restrict>
-  ...
-  <cors>
-    <allow-origin>http*://localhost:*</allow-origin>
-    <allow-origin>http*://127.0.0.1:*</allow-origin>
-    <allow-origin>http*://*.example.com</allow-origin>
-    <allow-origin>http*://*.example.com:*</allow-origin>
-
-    <strict-checking />
-  </cors>
-</restrict>
-----
+To secure the Jolokia endpoint even without Spring Security's CSRF protection, configure `jolokia-access.xml` with strict CORS settings. See xref:security.adoc#_securing_jolokia_cors_configuration[Securing Jolokia CORS configuration] for details.
 
 === Spring Boot with Keycloak
 
