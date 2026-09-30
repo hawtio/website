@@ -160,7 +160,11 @@ Here is an example file of `hawtconfig.json`:
       { "name": "ABC", "value": "1.2.3" },
       { "name": "XYZ", "value": "7.8.9" }
     ],
-    "copyright": "© Hawtio project"
+    "copyright": "© Hawtio project",
+    "issueReporting": {
+      "url": "https://github.com/hawtio/hawtio/issues/new",
+      "label": "Report issue"
+    }
   },
   "disabledRoutes": [
     "/disabled"
@@ -263,6 +267,7 @@ The `about` configuration provides the options to customise the information disp
 |`imgDarkModeSrc` |`img/hawtio-logo.svg` |Use the URL to substitute the logo image in the About modal to be used in dark mode.
 |`productInfo` | `[]` |Provide the information of names and versions about the additional components used in the console. The value should be an array of objects with `name` and `value` properties.
 |`copyright` | |Set the copyright information in the About modal.
+|`issueReporting` | |Configure the issue reporting menu item shown under the Help menu. This is a nested object containing a `url` property for the report target and an optional `label` property to customise the menu item text (e.g. `{"url": "https://github.com/hawtio/hawtio/issues/new", "label": "Report issue"}`).
 
 |===
 
@@ -279,7 +284,11 @@ Here is how the `about` configuration looks in `hawtconfig.json`:
       { "name": "ABC", "value": "1.2.3" },
       { "name": "XYZ", "value": "7.8.9" }
     ],
-    "copyright": "© Hawtio project"
+    "copyright": "© Hawtio project",
+    "issueReporting": {
+      "url": "https://github.com/hawtio/hawtio/issues/new",
+      "label": "Report issue"
+    }
   }
 ----
 
