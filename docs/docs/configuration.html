@@ -441,7 +441,11 @@ environment variables. See <a href="https://jolokia.org/reference/html/manual/ag
       { "name": "ABC", "value": "1.2.3" },
       { "name": "XYZ", "value": "7.8.9" }
     ],
-    "copyright": "© Hawtio project"
+    "copyright": "© Hawtio project",
+    "issueReporting": {
+      "url": "https://github.com/hawtio/hawtio/issues/new",
+      "label": "Report issue"
+    }
   },
   "disabledRoutes": [
     "/disabled"
@@ -661,6 +665,11 @@ environment variables. See <a href="https://jolokia.org/reference/html/manual/ag
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Set the copyright information in the About modal.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>issueReporting</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configure the issue reporting menu item shown under the Help menu. This is a nested object containing a <code>url</code> property for the report target and an optional <code>label</code> property to customise the menu item text (e.g. <code>{"url": "https://github.com/hawtio/hawtio/issues/new", "label": "Report issue"}</code>).</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -677,7 +686,11 @@ environment variables. See <a href="https://jolokia.org/reference/html/manual/ag
       { "name": "ABC", "value": "1.2.3" },
       { "name": "XYZ", "value": "7.8.9" }
     ],
-    "copyright": "© Hawtio project"
+    "copyright": "© Hawtio project",
+    "issueReporting": {
+      "url": "https://github.com/hawtio/hawtio/issues/new",
+      "label": "Report issue"
+    }
   }</code></pre>
 </div>
 </div>
