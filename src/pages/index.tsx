@@ -68,7 +68,7 @@ const IndexPage = () => {
           <Icon.Wrench style={{ verticalAlign: 'top', marginRight: '0.5rem' }} /> Modular architecture
         </h3>
         <p>
-          Hawtio is a <Link to='/docs/plugins/'>pluggable</Link> Web management console, built with the modern Web
+          Hawtio is a <Link to='/docs/plugins.html'>pluggable</Link> Web management console, built with the modern Web
           technologies such as <a href='https://react.dev/'>React</a> and{' '}
           <a href='https://www.patternfly.org/'>PatternFly</a>.
         </p>
@@ -84,7 +84,7 @@ const IndexPage = () => {
           <Icon.Plugin style={{ verticalAlign: 'top', marginRight: '0.5rem' }} /> Plugins
         </h3>
         <p>
-          Hawtio has <Link to='/docs/plugins/'>built-in plugins</Link> already to make it highly useful out of the box
+          Hawtio has <Link to='/docs/plugins.html'>built-in plugins</Link> already to make it highly useful out of the box
           for your JVM application.
         </p>
         <p>
@@ -93,9 +93,9 @@ const IndexPage = () => {
           <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/connect'>Connect</a>,{' '}
           <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/jmx'>JMX</a>,{' '}
           <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/logs'>Logs</a>,{' '}
-          <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/activemq'>Runtime</a>,{' '}
+          <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/runtime'>Runtime</a>,{' '}
           <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/quartz'>Quartz</a>, and{' '}
-          <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/spring-boot'>
+          <a href='https://github.com/hawtio/hawtio-react/tree/main/packages/hawtio/src/plugins/springboot'>
             Spring Boot
           </a>
           .
