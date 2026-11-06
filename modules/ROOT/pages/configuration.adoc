@@ -50,14 +50,6 @@ of `/hawtio/login` instead of absolute address with host name and port number.
 |-
 |The maximum time interval, in seconds, that the servlet container will keep this session open between client accesses. If this option is not configured, then Hawtio uses the default session timeout of the servlet container.
 
-|`hawtio.http.enableCORS`
-|`false`
-|Whether CORS filter is enabled and checks for permitted `Origin` HTTP header values.
-
-|`hawtio.http.accessControlAllowOrigin`
-|`*`
-|When `hawtio.http.enableCORS` option is enabled, Hawtio responds to https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request[CORS pre-flight requests] with CORS headers. This options allows to set the value returned in `Access-Control-Allow-Origin` response header.
-
 |`hawtio.http.allowXFrameSameOrigin`
 |`false`
 a|When set to `true`, Hawtio sends response headers:
