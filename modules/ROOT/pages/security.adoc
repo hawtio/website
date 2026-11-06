@@ -103,49 +103,28 @@ jolokia.restrictorClass = io.hawt.system.RBACRestrictor
 
 When deploying Hawtio in a production environment, it is essential to implement proper security measures to protect against common web vulnerabilities. This section covers critical security configurations for protection from common security attacks.
 
-=== Securing Jolokia CORS configuration
+There are two distinct, but related security aspects that need to be addressed:
 
-The most important configuration in a production environment is to set up Jolokia’s CORS restrictions. By default, Jolokia is configured to accept cross-origin access from any host. This means that it may also accept requests sent directly to Jolokia endpoints from external, unrelated websites.
+* the traditional client-server access protection, where the server authenticates and authorized the incoming request
+* the more sophisticated protection against request that look legitimate at the server side, but are issued without awareness of the client
+
+The authentication and authorization (sometimes referred to as authn/authz) is generally enabled by Hawtio using `hawtio.authenticationEnabled` option and the details are configured in the deployment environment. +
+Spring Boot, Quarkus and WAR deployments have their own configuration (described further down below) and https://docs.oracle.com/en/java/javase/17/security/java-authentication-and-authorization-service-jaas1.html[JAAS] provides the security architecture used by Hawtio (Hawtio has dedicated support in Quarkus where JAAS is not used).
+
+The more important and usually complex aspect is protection against https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/CSRF[CSRF] so a session of an authenticated user can not be _stolen_ by another site which attempts to perform _hidden_ requests to Jolokia.
 
 TIP: CSRF (Cross-Site Request Forgery) attacks can trick authenticated users into executing unwanted actions. Hawtio uses Jolokia for JMX operations, and proper CORS configuration is critical for CSRF protection.
 
-==== Policy file: `jolokia-access.xml`
+Jolokia documentation https://jolokia.org/reference/html/manual/security.html#_cross_origin_resource_sharing_cors_restrictions[explains this security aspect in more details]. For quick summary here's a short summary:
 
-Create or update the `jolokia-access.xml` file to restrict access to trusted origins only. This file should include strict CORS settings:
+* user is properly authenticated and authorized at `pass:[http://example.com/hawtio]` page which usually (but not necessarily) involves a cookie being stored by the browser and associated with this _site_.
+* user is _tricked_ into navigating to a malicious page from different domain (an _origin_ when using web terms) which uses JavaScript and `fetch()` API (or hidden links or forms) to access Jolokia endpoint at `pass:[http://example.com/hawtio]`
+* while there are many protection methods (like `SameSite` cookies) there are situation where the browser may _attach_ the session cookie bound to `pass:[http://example.com/hawtio]` to requests sent by the malicious page. +
+Here's where https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS[CORS] comes into play.
 
-[source,xml]
-----
-<restrict>
-  ...
-  <cors>
-    <!-- Allow access only from trusted origins -->
-    <allow-origin>http*://localhost:*</allow-origin>
-    <allow-origin>http*://127.0.0.1:*</allow-origin>
-    <allow-origin>https://*.your-site.com</allow-origin>
+CORS and other protection mechanism may be configured using Jolokia policy. Hawtio provides additional configuration. The following sections provide more details.
 
-    <!-- Enable strict checking to enforce the proper origin check -->
-    <strict-checking />
-  </cors>
-</restrict>
-----
-
-IMPORTANT: The `<strict-checking />` setting is critical for CSRF protection. Without it, malicious requests to invoke MBean operations may still be executed even with origin restrictions in place.
-
-[CAUTION]
-.Advice for the production environment
-====
-
-* Never use wildcard (`*`) for `allow-origin` in production environments
-* Specify exact protocols (`http` or `https`) and ports when possible
-* Use HTTPS-only origins for confidentiality and integrity
-* Regularly review and update the list of allowed origins
-====
-
-For details on `<cors>` element settings, refer to the official Jolokia documentation.
-
-- link:https://jolokia.org/reference/html/manual/security.html#_cross_origin_resource_sharing_cors_restrictions[Jolokia Manual - Security - Cross-Origin Resource Sharing (CORS) restrictions]
-
-==== Applying the Jolokia policy
+=== Securing Jolokia with Jolokia policy configuration
 
 By default, Jolokia loads the `jolokia-access.xml` file located at the root of the application classpath. In Spring Boot or Quarkus applications, place `jolokia-access.xml` in the project’s `src/main/resources` directory to apply the policies.
 
@@ -159,6 +138,160 @@ If you want to load `jolokia-access.xml` from a location other than the default 
 [source,properties]
 ----
 jolokia.policyLocation = file:///path/to/jolokia-access.xml
+----
+
+=== Securing Jolokia CORS configuration
+
+The most important configuration in a production environment is to set up Jolokia’s CORS restrictions. +
+By default, Hawtio examples configure Jolokia accept cross-origin access from local host. Hawtio WAR distribution can't include a list of allowed origins, because it depends on the name and IP address of the host where Hawtio is deployed.
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS[CORS] may be confusing at first glance, because we have to be aware that this mechanism is _not_ protecting the server. It's about preventing the client (web application) from reading the response if the origin _from which_ the request was sent is not _allowed_. The response is still delivered to the client but JavaScript code (or even web developer tools) can't read it.
+
+This is why Jolokia extends the term "CORS" to provide the missing protection - the request may actually be rejected with HTTP 403 if the Origin is not trusted.
+
+NOTE: Jolokia checks `Origin` HTTP header to perform the check. When using `curl` or other non-browser HTTP client, we can send any value for this header, but there's no way to _forge_ this header in JavaScript code running inside a browser, as this is a https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_request_header[forbidden HTTP header].
+
+==== Jolokia CORS configuration in a Policy file
+
+Create or update the `jolokia-access.xml` file to restrict access to trusted origins only. This file should include strict CORS settings, which include:
+
+* a list of `Origin` header patterns for which Jolokia will return `Access-Control-Allow-Origin` header, allowing the client (which is the Hawtio web application) to read the response
+* `strict-checking` element present which tells Jolokia to use _extended_ CORS - by rejecting requests from disallowed origins with HTTP 403 without processing the request
+
+[source,xml]
+----
+<restrict>
+  ...
+  <cors>
+    <!-- Allow access only from trusted origins -->
+    <!--
+      List of Origin headers for which Jolokia will respond with Access-Control-Allow-Origin when handling
+      CORS preflight requests and resource access requests.
+    -->
+    <allow-origin>http*://localhost:*</allow-origin>
+    <allow-origin>http*://127.0.0.1:*</allow-origin>
+    <allow-origin>https://*.your-site.com</allow-origin>
+
+    <!-- Enable strict checking to enforce the proper origin check -->
+    <!--
+      With strict-checking the <allow-origin> values are used not only for CORS protocol (preflight requests),
+      but also for rejecting requests entirely based on Origin (and here - also Referer) header.
+    -->
+    <strict-checking />
+  </cors>
+</restrict>
+----
+
+IMPORTANT: The `<strict-checking />` setting is critical here. Without it, malicious requests to invoke MBean operations may still be executed even with origin restrictions in place. The attacker won't see the response, but the request may lead to server-side actions being performed.
+
+[CAUTION]
+.Advice for the production environment
+====
+* Never use wildcard (`*`) for `allow-origin` in production environments
+* Specify exact protocols (`http` or `https`) and ports when possible
+* Use HTTPS-only origins for confidentiality and integrity
+* Regularly review and update the list of allowed origins
+====
+
+For details on `<cors>` element settings and explanation of CSRF, refer to the official Jolokia documentation.
+
+- link:https://jolokia.org/reference/html/manual/security.html#_cross_origin_resource_sharing_cors_restrictions[Jolokia Manual - Security - Cross-Origin Resource Sharing (CORS) restrictions]
+
+=== Restricting access by IP addresses
+
+`jolokia-access.xml` file may also be used to restrict access to Jolokia endpoint by providing an _allow list_ if IP addresses and IP address ranges. This may be used to protect against accessing Jolokia from unknown hosts and networks whether or not the access is attempted from a web application or clients like `curl`.
+
+Here's an example showing IP4 and IP6 address and range restrictions:
+
+[source,xml]
+----
+<restrict>
+  ...
+  <remote>
+    <host>127.0.0.1</host>
+    <host>localhost</host>
+    <host>[::1]</host>
+
+    <host>192.168.0.0/16</host>
+    <!-- IP6 addresses can be specified with or without brackets -->
+    <host>[2001:db8::1]</host>
+    <!-- IP6 "subnets" are properly handled by Jolokia (no brackets) -->
+    <host>2001:db8::/32</host>
+  </remote>
+  ...
+</restrict>
+----
+
+The allowed hosts are also checked for UDP Multicast discovery, so include proper addresses or ranges for this Jolokia feature as well.
+
+TIP: https://www.rfc-editor.org/info/rfc3849[RFC 3849] defines `2001:DB8::/32` IP6 addresses as reserved for examples and documentation.
+
+=== Restricting HTTP methods
+
+Jolokia provides https://jolokia.org/reference/html/manual/jolokia_protocol.html#get-requests[support for HTTP GET requests], so it's possible to _quickly_ invoked it with `curl`:
+
+----
+$ curl -s -H'Origin: http://localhost:8080' http://localhost:8080/jolokia/read/java.lang:type=Memory/HeapMemoryUsage | jq .
+{
+  "request": {
+    "mbean": "java.lang:type=Memory",
+    "attribute": "HeapMemoryUsage",
+    "type": "read"
+  },
+  "value": {
+    "init": 536870912,
+    "committed": 536870912,
+    "max": 2147483648,
+    "used": 195662408
+  },
+  "status": 200
+}
+----
+
+Hawtio always uses `POST` requests only to access local or remote Jolokia agents, so it is recommended to reject (with HTTP 405 code) all other methods. It can be done in this fragment of `jolokia-access.xml`:
+
+[source,xml]
+----
+<restrict>
+  ...
+  <http>
+    <method>post</method>
+  </http>
+  ...
+</restrict>
+----
+
+It is still possible to use `POST` requests with `curl`:
+
+----
+$ curl -s -H'Origin: http://localhost:8080' -H'Content-Type: application/json' \
+    -d '{"type":"read","mbean":"java.lang:type=Memory","attribute":"HeapMemoryUsage"}' \
+    http://localhost:8080/jolokia
+----
+
+But it prevents from calling Jolokia without HTTP content (using URL only).
+
+=== Forbidding access to certain MBans
+
+JMX technology was designed from administration and monitoring point of view. This means that _any_ application can register _any_ MBean which exposes _any_ information - including sensitive information.
+
+When some MBeans should not be visible to Hawtio (through Jolokia), Jolokia may _deny_ access to some MBeans (or some of their attributes) using a dedicated fragment of `jolokia-access.xml`. Here's an example:
+
+
+[source,xml]
+----
+<restrict>
+  ...
+  <deny>
+    <mbean>
+      <!-- Exposes user/password of data source, so we forbid this one -->
+      <name>com.mchange.v2.c3p0:type=PooledDataSource,*</name>
+      <attribute>properties</attribute>
+    </mbean>
+    ...
+  </deny>
+  ...
+</restrict>
 ----
 
 === Reviewing Proxy Servlet settings
@@ -199,6 +332,19 @@ NOTE: If you are using the Hawtio console with Spring Boot or Quarkus applicatio
 ----
 hawtio.disableProxy = true
 ----
+
+==== Built-in protection of Hawtio Proxy Servlet
+
+Hawtio ProxyServlet was designed to allow cross-origin communication with remote Jolokia agents.
+
+NOTE: With existing CORS support, remote Jolokia agents actually can be used from Hawtio web application, but the remote connection support in Hawtio is handled through ProxyServlet. +
+Jolokia running in Hawtio _may_ be used by other web applications (other Hawtio instances and non-Hawtio applications) as a remote Jolokia Agent though.
+
+Hawtio ProxyServlet should never be accessed in a cross-origin fashion and should never be used to access non-Jolokia HTTP servers. To this end the following protection is active and can't be disabled:
+
+* only POST requests are handled
+* only requests with `Content-Type: application/json` are handled
+* only the hosts specified in the allow list (see above) can be reached
 
 === Production security best practices
 
