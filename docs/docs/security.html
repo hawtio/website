@@ -363,10 +363,25 @@ You cannot use Hawtio RBAC with Quarkus and Spring Boot yet. Enabling the RBAC r
 <div class="paragraph">
 <p>When deploying Hawtio in a production environment, it is essential to implement proper security measures to protect against common web vulnerabilities. This section covers critical security configurations for protection from common security attacks.</p>
 </div>
-<div class="sect2">
-<h3 id="_securing_jolokia_cors_configuration"><a class="anchor" href="#_securing_jolokia_cors_configuration"></a>Securing Jolokia CORS configuration</h3>
 <div class="paragraph">
-<p>The most important configuration in a production environment is to set up Jolokia’s CORS restrictions. By default, Jolokia is configured to accept cross-origin access from any host. This means that it may also accept requests sent directly to Jolokia endpoints from external, unrelated websites.</p>
+<p>There are two distinct, but related security aspects that need to be addressed:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the traditional client-server access protection, where the server authenticates and authorized the incoming request</p>
+</li>
+<li>
+<p>the more sophisticated protection against request that look legitimate at the server side, but are issued without awareness of the client</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The authentication and authorization (sometimes referred to as authn/authz) is generally enabled by Hawtio using <code>hawtio.authenticationEnabled</code> option and the details are configured in the deployment environment.<br>
+Spring Boot, Quarkus and WAR deployments have their own configuration (described further down below) and <a href="https://docs.oracle.com/en/java/javase/17/security/java-authentication-and-authorization-service-jaas1.html">JAAS</a> provides the security architecture used by Hawtio (Hawtio has dedicated support in Quarkus where JAAS is not used).</p>
+</div>
+<div class="paragraph">
+<p>The more important and usually complex aspect is protection against <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/CSRF">CSRF</a> so a session of an authenticated user can not be <em>stolen</em> by another site which attempts to perform <em>hidden</em> requests to Jolokia.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -380,10 +395,91 @@ CSRF (Cross-Site Request Forgery) attacks can trick authenticated users into exe
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="_policy_file_jolokia_access_xml"><a class="anchor" href="#_policy_file_jolokia_access_xml"></a>Policy file: <code>jolokia-access.xml</code></h4>
 <div class="paragraph">
-<p>Create or update the <code>jolokia-access.xml</code> file to restrict access to trusted origins only. This file should include strict CORS settings:</p>
+<p>Jolokia documentation <a href="https://jolokia.org/reference/html/manual/security.html#_cross_origin_resource_sharing_cors_restrictions">explains this security aspect in more details</a>. For quick summary here&#8217;s a short summary:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>user is properly authenticated and authorized at <code>http://example.com/hawtio</code> page which usually (but not necessarily) involves a cookie being stored by the browser and associated with this <em>site</em>.</p>
+</li>
+<li>
+<p>user is <em>tricked</em> into navigating to a malicious page from different domain (an <em>origin</em> when using web terms) which uses JavaScript and <code>fetch()</code> API (or hidden links or forms) to access Jolokia endpoint at <code>http://example.com/hawtio</code></p>
+</li>
+<li>
+<p>while there are many protection methods (like <code>SameSite</code> cookies) there are situation where the browser may <em>attach</em> the session cookie bound to <code>http://example.com/hawtio</code> to requests sent by the malicious page.<br>
+Here&#8217;s where <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS">CORS</a> comes into play.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>CORS and other protection mechanism may be configured using Jolokia policy. Hawtio provides additional configuration. The following sections provide more details.</p>
+</div>
+<div class="sect2">
+<h3 id="_securing_jolokia_with_jolokia_policy_configuration"><a class="anchor" href="#_securing_jolokia_with_jolokia_policy_configuration"></a>Securing Jolokia with Jolokia policy configuration</h3>
+<div class="paragraph">
+<p>By default, Jolokia loads the <code>jolokia-access.xml</code> file located at the root of the application classpath. In Spring Boot or Quarkus applications, place <code>jolokia-access.xml</code> in the project’s <code>src/main/resources</code> directory to apply the policies.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/hawtio/hawtio/tree/main/examples/springboot-security">Spring Boot example</a></p>
+</li>
+<li>
+<p><a href="https://github.com/hawtio/hawtio/tree/main/examples/quarkus">Quarkus example</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you want to load <code>jolokia-access.xml</code> from a location other than the default one, such as an external file, define the <code>jolokia.policyLocation</code> system property:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">jolokia.policyLocation = file:///path/to/jolokia-access.xml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_securing_jolokia_cors_configuration"><a class="anchor" href="#_securing_jolokia_cors_configuration"></a>Securing Jolokia CORS configuration</h3>
+<div class="paragraph">
+<p>The most important configuration in a production environment is to set up Jolokia’s CORS restrictions.<br>
+By default, Hawtio examples configure Jolokia accept cross-origin access from local host. Hawtio WAR distribution can&#8217;t include a list of allowed origins, because it depends on the name and IP address of the host where Hawtio is deployed.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS">CORS</a> may be confusing at first glance, because we have to be aware that this mechanism is <em>not</em> protecting the server. It&#8217;s about preventing the client (web application) from reading the response if the origin <em>from which</em> the request was sent is not <em>allowed</em>. The response is still delivered to the client but JavaScript code (or even web developer tools) can&#8217;t read it.</p>
+</div>
+<div class="paragraph">
+<p>This is why Jolokia extends the term "CORS" to provide the missing protection - the request may actually be rejected with HTTP 403 if the Origin is not trusted.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Jolokia checks <code>Origin</code> HTTP header to perform the check. When using <code>curl</code> or other non-browser HTTP client, we can send any value for this header, but there&#8217;s no way to <em>forge</em> this header in JavaScript code running inside a browser, as this is a <a href="https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_request_header">forbidden HTTP header</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_jolokia_cors_configuration_in_a_policy_file"><a class="anchor" href="#_jolokia_cors_configuration_in_a_policy_file"></a>Jolokia CORS configuration in a Policy file</h4>
+<div class="paragraph">
+<p>Create or update the <code>jolokia-access.xml</code> file to restrict access to trusted origins only. This file should include strict CORS settings, which include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a list of <code>Origin</code> header patterns for which Jolokia will return <code>Access-Control-Allow-Origin</code> header, allowing the client (which is the Hawtio web application) to read the response</p>
+</li>
+<li>
+<p><code>strict-checking</code> element present which tells Jolokia to use <em>extended</em> CORS - by rejecting requests from disallowed origins with HTTP 403 without processing the request</p>
+</li>
+</ul>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -391,11 +487,19 @@ CSRF (Cross-Site Request Forgery) attacks can trick authenticated users into exe
   ...
   &lt;cors&gt;
     &lt;!-- Allow access only from trusted origins --&gt;
+    &lt;!--
+      List of Origin headers for which Jolokia will respond with Access-Control-Allow-Origin when handling
+      CORS preflight requests and resource access requests.
+    --&gt;
     &lt;allow-origin&gt;http*://localhost:*&lt;/allow-origin&gt;
     &lt;allow-origin&gt;http*://127.0.0.1:*&lt;/allow-origin&gt;
     &lt;allow-origin&gt;https://*.your-site.com&lt;/allow-origin&gt;
 
     &lt;!-- Enable strict checking to enforce the proper origin check --&gt;
+    &lt;!--
+      With strict-checking the &lt;allow-origin&gt; values are used not only for CORS protocol (preflight requests),
+      but also for rejecting requests entirely based on Origin (and here - also Referer) header.
+    --&gt;
     &lt;strict-checking /&gt;
   &lt;/cors&gt;
 &lt;/restrict&gt;</code></pre>
@@ -408,7 +512,7 @@ CSRF (Cross-Site Request Forgery) attacks can trick authenticated users into exe
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-The <code>&lt;strict-checking /&gt;</code> setting is critical for CSRF protection. Without it, malicious requests to invoke MBean operations may still be executed even with origin restrictions in place.
+The <code>&lt;strict-checking /&gt;</code> setting is critical here. Without it, malicious requests to invoke MBean operations may still be executed even with origin restrictions in place. The attacker won&#8217;t see the response, but the request may lead to server-side actions being performed.
 </td>
 </tr>
 </table>
@@ -442,7 +546,7 @@ The <code>&lt;strict-checking /&gt;</code> setting is critical for CSRF protecti
 </table>
 </div>
 <div class="paragraph">
-<p>For details on <code>&lt;cors&gt;</code> element settings, refer to the official Jolokia documentation.</p>
+<p>For details on <code>&lt;cors&gt;</code> element settings and explanation of CSRF, refer to the official Jolokia documentation.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -452,31 +556,124 @@ The <code>&lt;strict-checking /&gt;</code> setting is critical for CSRF protecti
 </ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_applying_the_jolokia_policy"><a class="anchor" href="#_applying_the_jolokia_policy"></a>Applying the Jolokia policy</h4>
+</div>
+<div class="sect2">
+<h3 id="_restricting_access_by_ip_addresses"><a class="anchor" href="#_restricting_access_by_ip_addresses"></a>Restricting access by IP addresses</h3>
 <div class="paragraph">
-<p>By default, Jolokia loads the <code>jolokia-access.xml</code> file located at the root of the application classpath. In Spring Boot or Quarkus applications, place <code>jolokia-access.xml</code> in the project’s <code>src/main/resources</code> directory to apply the policies.</p>
+<p><code>jolokia-access.xml</code> file may also be used to restrict access to Jolokia endpoint by providing an <em>allow list</em> if IP addresses and IP address ranges. This may be used to protect against accessing Jolokia from unknown hosts and networks whether or not the access is attempted from a web application or clients like <code>curl</code>.</p>
 </div>
 <div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/hawtio/hawtio/tree/main/examples/springboot-security">Spring Boot example</a></p>
-</li>
-<li>
-<p><a href="https://github.com/hawtio/hawtio/tree/main/examples/quarkus">Quarkus example</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>If you want to load <code>jolokia-access.xml</code> from a location other than the default one, such as an external file, define the <code>jolokia.policyLocation</code> system property:</p>
+<p>Here&#8217;s an example showing IP4 and IP6 address and range restrictions:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">jolokia.policyLocation = file:///path/to/jolokia-access.xml</code></pre>
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;restrict&gt;
+  ...
+  &lt;remote&gt;
+    &lt;host&gt;127.0.0.1&lt;/host&gt;
+    &lt;host&gt;localhost&lt;/host&gt;
+    &lt;host&gt;[::1]&lt;/host&gt;
+
+    &lt;host&gt;192.168.0.0/16&lt;/host&gt;
+    &lt;!-- IP6 addresses can be specified with or without brackets --&gt;
+    &lt;host&gt;[2001:db8::1]&lt;/host&gt;
+    &lt;!-- IP6 "subnets" are properly handled by Jolokia (no brackets) --&gt;
+    &lt;host&gt;2001:db8::/32&lt;/host&gt;
+  &lt;/remote&gt;
+  ...
+&lt;/restrict&gt;</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The allowed hosts are also checked for UDP Multicast discovery, so include proper addresses or ranges for this Jolokia feature as well.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<a href="https://www.rfc-editor.org/info/rfc3849">RFC 3849</a> defines <code>2001:DB8::/32</code> IP6 addresses as reserved for examples and documentation.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_restricting_http_methods"><a class="anchor" href="#_restricting_http_methods"></a>Restricting HTTP methods</h3>
+<div class="paragraph">
+<p>Jolokia provides <a href="https://jolokia.org/reference/html/manual/jolokia_protocol.html#get-requests">support for HTTP GET requests</a>, so it&#8217;s possible to <em>quickly</em> invoked it with <code>curl</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ curl -s -H'Origin: http://localhost:8080' http://localhost:8080/jolokia/read/java.lang:type=Memory/HeapMemoryUsage | jq .
+{
+  "request": {
+    "mbean": "java.lang:type=Memory",
+    "attribute": "HeapMemoryUsage",
+    "type": "read"
+  },
+  "value": {
+    "init": 536870912,
+    "committed": 536870912,
+    "max": 2147483648,
+    "used": 195662408
+  },
+  "status": 200
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Hawtio always uses <code>POST</code> requests only to access local or remote Jolokia agents, so it is recommended to reject (with HTTP 405 code) all other methods. It can be done in this fragment of <code>jolokia-access.xml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;restrict&gt;
+  ...
+  &lt;http&gt;
+    &lt;method&gt;post&lt;/method&gt;
+  &lt;/http&gt;
+  ...
+&lt;/restrict&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is still possible to use <code>POST</code> requests with <code>curl</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ curl -s -H'Origin: http://localhost:8080' -H'Content-Type: application/json' \
+    -d '{"type":"read","mbean":"java.lang:type=Memory","attribute":"HeapMemoryUsage"}' \
+    http://localhost:8080/jolokia</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>But it prevents from calling Jolokia without HTTP content (using URL only).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_forbidding_access_to_certain_mbans"><a class="anchor" href="#_forbidding_access_to_certain_mbans"></a>Forbidding access to certain MBans</h3>
+<div class="paragraph">
+<p>JMX technology was designed from administration and monitoring point of view. This means that <em>any</em> application can register <em>any</em> MBean which exposes <em>any</em> information - including sensitive information.</p>
+</div>
+<div class="paragraph">
+<p>When some MBeans should not be visible to Hawtio (through Jolokia), Jolokia may <em>deny</em> access to some MBeans (or some of their attributes) using a dedicated fragment of <code>jolokia-access.xml</code>. Here&#8217;s an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;restrict&gt;
+  ...
+  &lt;deny&gt;
+    &lt;mbean&gt;
+      &lt;!-- Exposes user/password of data source, so we forbid this one --&gt;
+      &lt;name&gt;com.mchange.v2.c3p0:type=PooledDataSource,*&lt;/name&gt;
+      &lt;attribute&gt;properties&lt;/attribute&gt;
+    &lt;/mbean&gt;
+    ...
+  &lt;/deny&gt;
+  ...
+&lt;/restrict&gt;</code></pre>
 </div>
 </div>
 </div>
@@ -555,6 +752,41 @@ If you are using the Hawtio console with Spring Boot or Quarkus applications, th
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">hawtio.disableProxy = true</code></pre>
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_built_in_protection_of_hawtio_proxy_servlet"><a class="anchor" href="#_built_in_protection_of_hawtio_proxy_servlet"></a>Built-in protection of Hawtio Proxy Servlet</h4>
+<div class="paragraph">
+<p>Hawtio ProxyServlet was designed to allow cross-origin communication with remote Jolokia agents.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+With existing CORS support, remote Jolokia agents actually can be used from Hawtio web application, but the remote connection support in Hawtio is handled through ProxyServlet.<br>
+Jolokia running in Hawtio <em>may</em> be used by other web applications (other Hawtio instances and non-Hawtio applications) as a remote Jolokia Agent though.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Hawtio ProxyServlet should never be accessed in a cross-origin fashion and should never be used to access non-Jolokia HTTP servers. To this end the following protection is active and can&#8217;t be disabled:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>only POST requests are handled</p>
+</li>
+<li>
+<p>only requests with <code>Content-Type: application/json</code> are handled</p>
+</li>
+<li>
+<p>only the hosts specified in the allow list (see above) can be reached</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
