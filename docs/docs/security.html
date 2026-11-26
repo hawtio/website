@@ -369,10 +369,10 @@ You cannot use Hawtio RBAC with Quarkus and Spring Boot yet. Enabling the RBAC r
 <div class="ulist">
 <ul>
 <li>
-<p>the traditional client-server access protection, where the server authenticates and authorized the incoming request</p>
+<p>the traditional client-server access protection, where the server authenticates and authorizes the incoming request</p>
 </li>
 <li>
-<p>the more sophisticated protection against request that look legitimate at the server side, but are issued without awareness of the client</p>
+<p>the more sophisticated protection against requests that look legitimate at the server side, but are issued without awareness of the client</p>
 </li>
 </ul>
 </div>
@@ -446,7 +446,7 @@ Here&#8217;s where <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Gu
 <h3 id="_securing_jolokia_cors_configuration"><a class="anchor" href="#_securing_jolokia_cors_configuration"></a>Securing Jolokia CORS configuration</h3>
 <div class="paragraph">
 <p>The most important configuration in a production environment is to set up Jolokia’s CORS restrictions.<br>
-By default, Hawtio examples configure Jolokia accept cross-origin access from local host. Hawtio WAR distribution can&#8217;t include a list of allowed origins, because it depends on the name and IP address of the host where Hawtio is deployed.</p>
+By default, Hawtio examples configure Jolokia to accept cross-origin access from local host. Hawtio WAR distribution can&#8217;t include a list of allowed origins, because it depends on the name and IP address of the host where Hawtio is deployed.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS">CORS</a> may be confusing at first glance, because we have to be aware that this mechanism is <em>not</em> protecting the server. It&#8217;s about preventing the client (web application) from reading the response if the origin <em>from which</em> the request was sent is not <em>allowed</em>. The response is still delivered to the client but JavaScript code (or even web developer tools) can&#8217;t read it.</p>
@@ -560,7 +560,7 @@ The <code>&lt;strict-checking /&gt;</code> setting is critical here. Without it,
 <div class="sect2">
 <h3 id="_restricting_access_by_ip_addresses"><a class="anchor" href="#_restricting_access_by_ip_addresses"></a>Restricting access by IP addresses</h3>
 <div class="paragraph">
-<p><code>jolokia-access.xml</code> file may also be used to restrict access to Jolokia endpoint by providing an <em>allow list</em> if IP addresses and IP address ranges. This may be used to protect against accessing Jolokia from unknown hosts and networks whether or not the access is attempted from a web application or clients like <code>curl</code>.</p>
+<p><code>jolokia-access.xml</code> file may also be used to restrict access to Jolokia endpoint by providing an <em>allow list</em> of IP addresses and IP address ranges. This may be used to protect against accessing Jolokia from unknown hosts and networks whether or not the access is attempted from a web application or clients like <code>curl</code>.</p>
 </div>
 <div class="paragraph">
 <p>Here&#8217;s an example showing IP4 and IP6 address and range restrictions:</p>
@@ -603,7 +603,7 @@ The <code>&lt;strict-checking /&gt;</code> setting is critical here. Without it,
 <div class="sect2">
 <h3 id="_restricting_http_methods"><a class="anchor" href="#_restricting_http_methods"></a>Restricting HTTP methods</h3>
 <div class="paragraph">
-<p>Jolokia provides <a href="https://jolokia.org/reference/html/manual/jolokia_protocol.html#get-requests">support for HTTP GET requests</a>, so it&#8217;s possible to <em>quickly</em> invoked it with <code>curl</code>:</p>
+<p>Jolokia provides <a href="https://jolokia.org/reference/html/manual/jolokia_protocol.html#get-requests">support for HTTP GET requests</a>, so it&#8217;s possible to <em>quickly</em> invoke it with <code>curl</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
