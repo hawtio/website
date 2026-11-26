@@ -105,8 +105,8 @@ When deploying Hawtio in a production environment, it is essential to implement 
 
 There are two distinct, but related security aspects that need to be addressed:
 
-* the traditional client-server access protection, where the server authenticates and authorized the incoming request
-* the more sophisticated protection against request that look legitimate at the server side, but are issued without awareness of the client
+* the traditional client-server access protection, where the server authenticates and authorizes the incoming request
+* the more sophisticated protection against requests that look legitimate at the server side, but are issued without awareness of the client
 
 The authentication and authorization (sometimes referred to as authn/authz) is generally enabled by Hawtio using `hawtio.authenticationEnabled` option and the details are configured in the deployment environment. +
 Spring Boot, Quarkus and WAR deployments have their own configuration (described further down below) and https://docs.oracle.com/en/java/javase/17/security/java-authentication-and-authorization-service-jaas1.html[JAAS] provides the security architecture used by Hawtio (Hawtio has dedicated support in Quarkus where JAAS is not used).
@@ -143,7 +143,7 @@ jolokia.policyLocation = file:///path/to/jolokia-access.xml
 === Securing Jolokia CORS configuration
 
 The most important configuration in a production environment is to set up Jolokia’s CORS restrictions. +
-By default, Hawtio examples configure Jolokia accept cross-origin access from local host. Hawtio WAR distribution can't include a list of allowed origins, because it depends on the name and IP address of the host where Hawtio is deployed.
+By default, Hawtio examples configure Jolokia to accept cross-origin access from local host. Hawtio WAR distribution can't include a list of allowed origins, because it depends on the name and IP address of the host where Hawtio is deployed.
 
 https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS[CORS] may be confusing at first glance, because we have to be aware that this mechanism is _not_ protecting the server. It's about preventing the client (web application) from reading the response if the origin _from which_ the request was sent is not _allowed_. The response is still delivered to the client but JavaScript code (or even web developer tools) can't read it.
 
@@ -199,7 +199,7 @@ For details on `<cors>` element settings and explanation of CSRF, refer to the o
 
 === Restricting access by IP addresses
 
-`jolokia-access.xml` file may also be used to restrict access to Jolokia endpoint by providing an _allow list_ if IP addresses and IP address ranges. This may be used to protect against accessing Jolokia from unknown hosts and networks whether or not the access is attempted from a web application or clients like `curl`.
+`jolokia-access.xml` file may also be used to restrict access to Jolokia endpoint by providing an _allow list_ of IP addresses and IP address ranges. This may be used to protect against accessing Jolokia from unknown hosts and networks whether or not the access is attempted from a web application or clients like `curl`.
 
 Here's an example showing IP4 and IP6 address and range restrictions:
 
@@ -228,7 +228,7 @@ TIP: https://www.rfc-editor.org/info/rfc3849[RFC 3849] defines `2001:DB8::/32` I
 
 === Restricting HTTP methods
 
-Jolokia provides https://jolokia.org/reference/html/manual/jolokia_protocol.html#get-requests[support for HTTP GET requests], so it's possible to _quickly_ invoked it with `curl`:
+Jolokia provides https://jolokia.org/reference/html/manual/jolokia_protocol.html#get-requests[support for HTTP GET requests], so it's possible to _quickly_ invoke it with `curl`:
 
 ----
 $ curl -s -H'Origin: http://localhost:8080' http://localhost:8080/jolokia/read/java.lang:type=Memory/HeapMemoryUsage | jq .
