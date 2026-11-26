@@ -131,6 +131,9 @@ http.readTimeout = 10000
 #ssl.protocol = TLSv1.3
 #ssl.truststore = src/test/resources/hawtio.jks
 #ssl.truststorePassword = hawtio
+# whether default truststore (or a truststore configured with -Djavax.net.ssl.trustStore) will be used
+# in addition to th custom truststore
+#ssl.loadSystemCertificates = false
 #ssl.keystore = src/test/resources/hawtio.jks
 #ssl.keystorePassword = hawtio
 #ssl.keyAlias = openid connect test provider
